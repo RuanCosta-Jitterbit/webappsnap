@@ -1,15 +1,17 @@
+// Connects to PMM instance to take screenshots of each dashboard
+
 'use strict';
 
 var fs = require('fs');
-var uf = require('url'); // URL functions
+var uf = require('url');
 const puppeteer = require('puppeteer');
 
 //const url = process.env.URL || 'http://localhost:80/'
 var url = process.env.URL || 'https://pmmdemo.percona.com/';
 url += 'graph/d/';
 const host = uf.parse(url).hostname;
-
-const default_time = 3000; // Default page wait (ms)
+// Default page wait (ms) Needs to be long for remote instances
+const default_time = 15000; 
 // Dashboards
 const db = require('./config.json');
 
@@ -65,17 +67,14 @@ function bbox(elem) { return elem.boundingBox(); }
     });
     const context = await browser.createIncognitoBrowserContext(); // Avoid cookie messages
     const page = await context.newPage();
-    await page.setCacheEnabled(false);
+    await page.setDefaultTimeout(default_time);
 
 
     // Login TODO Difficult for pmmdemo
     {
         const d = db.pmm_home;
         await page.setViewport({ width: size.width * d.x, height: size.height * d.y });
-        await Promise.all([
-            await page.goto(url + d.name, { timeout: 0 } ),
-//            page.waitForSelector(d.wait),
-            page.waitFor(d.time)]);
+        await page.goto(url + d.name);
 
         // pmmdemo automatically logs in. Force log out.
         if (host.match(/pmmdemo/g)) 
@@ -110,7 +109,10 @@ function bbox(elem) { return elem.boundingBox(); }
         const d = db.pmm_home;
         await page.setViewport({ width: size.width * d.x, height: size.height * d.y });
         await page.goto(url + d.name);
-        await Promise.all([page.waitForSelector(d.wait), page.waitFor(d.time)]);
+        await Promise.all([
+            page.waitForSelector(d.wait), 
+            page.waitFor(d.time)
+        ]);
 
         // Date/time range selector
         await page.click('button.navbar-button--tight'); // open
@@ -133,6 +135,26 @@ function bbox(elem) { return elem.boundingBox(); }
             page.waitForSelector(db[d].wait),
             page.waitFor(db[d].time)
         ]);
+
+
+        {
+            // Remove pesky cookie confirmation from pmmdemo.percona.com
+            const cookie_popup = '[aria-label="cookieconsent"]';
+            try {
+                await page.$(cookie_popup, { timeout: 10000, visible: true });
+            } catch {
+                console.log('No cookie popup to remove');
+            } finally {
+                await page.evaluate((sel) => {
+                    var elements = document.querySelectorAll(sel);
+                    for(var i=0; i< elements.length; i++){
+                        elements[i].parentNode.removeChild(elements[i]);
+                    }
+                }, cookie_popup)
+            }
+        }
+
+
         await page.screenshot({path: imgfn(db[d].name), fullPage: true});
     }
 
