@@ -1,0 +1,96 @@
+{
+    "2.8.0" :  {
+        "pmm_home" : {  
+            "element1" : {
+                "name"       : "date",
+                "selector"   : "button.navbar-button--tight"
+            },
+            "element2": {
+                "name"       : "dashboards",
+                "selector"   : ".navbar-page-btn__search"
+            }
+        },
+        "pmm_qan": {
+            "element1"  : {
+                "name"       : "overview",
+                "selector"   : ".pmm-qan__table"
+            },
+            "element2"  : {
+                "name"       : "filter",
+                "selector"   : ".pmm-qan__filter"
+            }
+        }
+    },
+    "2.8.1": {
+        "pmm_qan": {
+            "element1" : {
+                "name"       : "overview",
+                "selector"   : ".ant-table-content"
+            },
+            "element2" : {
+                "name"       : "add_column",
+                "selector"   : ".add-columns-selector > div:nth-child(1)"
+            },
+            "element3" : {
+                "name"       : "pagination",
+                "selector"   : ".ant-pagination"
+            },
+            "element4" : {
+                "name"       : "filter",
+                "selector"   : ".overview-filters"
+            },
+            "element5" : {
+                "name"       : "details_tab",
+                "selector"   : ".details-tabs"
+            }
+        },
+        "pmm_inventory": {
+            "element1" : {
+                "name"       : "wrapper",
+                "selector"   : "#inventory-wrapper"
+            },
+            "element2" : {
+                "name"       : "checkbox",
+                "selector"   : "label.checkbox-container"
+            },
+            "element3" : {
+                "name"       : "button",
+                "selector"   : "#inventory-wrapper > div.css-18m13of > div > div.css-12xi67t > button"
+            }
+        },
+        "pmm_settings" : {
+            "element1" : {
+                "name"       : "open_button",
+                "selector"   : "div.ant-collapse:nth-child(1) > div:nth-child(1) > div:nth-child(1)"
+            },
+            "element2": {
+                "name"       : "close_button",
+                "selector"   : "div.ant-collapse:nth-child(1) > div:nth-child(1)"
+            },
+            "element3": {
+                "name"       : "open_button", 
+                "selector"   : "div.ant-collapse-item:nth-child(2)"
+            },
+            "element4": {
+                "name"       : "close_button", 
+                "selector"   : "div.ant-collapse-item:nth-child(2) > div:nth-child(1)"
+            },
+            "element5" : {
+                "name"       : "open_button",
+                "selector"   : "div.ant-collapse-item:nth-child(3)"
+            },
+            "element6" : {
+                "name"       : "close_button",
+                "selector"   : "div.ant-collapse-item:nth-child(3) > div:nth-child(1)"
+            },
+            "element7" : {
+                "name"       : "open_button",
+                "selector"   : "div.ant-collapse-item:nth-child(4)"
+                },
+            "element8" : {
+                "name"       : "close_button",
+                "selector"   : "div.ant-collapse-item:nth-child(4) > div:nth-child(1)"
+            }
+        }
+    }
+}
