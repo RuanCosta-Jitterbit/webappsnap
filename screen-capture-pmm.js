@@ -1,42 +1,39 @@
 // Connects to PMM instance to take screenshots of each dashboard
-
 'use strict';
-
 var fs = require('fs');
 var uf = require('url');
 const puppeteer = require('puppeteer');
 
-//const url = process.env.URL || 'http://localhost:80/'
+const version = process.env.VERSION || "2.8.0"; // PMM2 version
+// Default viewport size
+const w = process.env.WIDTH || 1920;
+const h = process.env.HEIGHT || 1080;
+const device_scale = process.env.SCALE || 1;
+const size = { width: Number(w), height: Number(h) };
+// Default credentials
+const user = process.env.USER || "admin";
+const pass = process.env.PASS || "admin";
 var url = process.env.URL || 'https://pmmdemo.percona.com/';
 url += 'graph/d/';
 const host = uf.parse(url).hostname;
-// Default page wait (ms) Needs to be long for remote instances
-const default_time = 15000; 
+// Default page wait (ms) Needs to be long for remote instances/slow connections
+const default_time = 20000; 
 // Dashboards
 const db = require('./config.json');
-
-console.log("PMM server: " + host);
+// Selectors are elements for individual snapping
+const selectors = require('./selectors.json');
 
 // Notes
 // 4:3 aspect ratio resolutions: 640×480, 800×600, 960×720, 1024×768, 1280×960, 1400×1050, 1440×1080 , 1600×1200, 1856×1392, 1920×1440, and 2048×1536.
 // 16:10 aspect ratio resolutions: – 1280×800, 1440×900, 1680×1050, 1920×1200 and 2560×1600.
 // 16:9 aspect ratio resolutions: 1024×576, 1152×648, 1280×720, 1366×768, 1600×900, 1920×1080, 2560×1440 and 3840×2160.
 
-// Default viewport size
-const w = process.env.WIDTH || 1920;
-const h = process.env.HEIGHT || 1080;
-const size = { width: Number(w), height: Number(h) };
-
 // Save images in server/resolution subdirs
 var dir = './img/' + host + '/' + size.width + 'x' + size.height + '/';
 if (!fs.existsSync(dir)){fs.mkdirSync(dir, {recursive: true});}
 
-// QAN dashboard - Selectors for small elements TODO
-const selectors = {
-    qan_add_column: '.add-columns-selector > div:nth-child(1)',
-    qan_pagination: '.ant-pagination',
-};
-
+// Bounding box for element NOT USED
+//function bbox(elem) { return elem.boundingBox(); }
 // Pad a number with zeros
 function pad(n, width, z) {
   z = z || '0';
@@ -45,16 +42,23 @@ function pad(n, width, z) {
 }
 // Screenshot filenaming: dir/prefix + dashboard name
 var idx = 1;
+const ext = '.jpg';
 function imgfn(name) {
-    const fn = dir + pad(idx++,2) + '_' + name + '.png';
+    const fn = dir + pad(idx++,2) + '_' + name + ext;
     //Use pad(idx++,2) for sequence number
     console.log('Saving ' + fn);
     return fn;
 }
-// Bounding box for element NOT USED
-function bbox(elem) { return elem.boundingBox(); }
-
-
+// Convenience wrapper: jpg images have quality factor, png don't
+async function snap(p, h, t) { // page, handle, text
+        await p.waitFor(default_time);
+        await p.screenshot({path: imgfn(h.name + t)}, { fullPage: true, quality: 50 });
+}
+// Convenience wrapper: For logging when page is opened and snapped
+async function goto(p, u) { // page, url
+    await console.log('Loading ' + u);
+    await p.goto(u);
+}
 
 
 (async () => {
@@ -62,193 +66,181 @@ function bbox(elem) { return elem.boundingBox(); }
         headless: true,
         ignoreHTTPSErrors: true,
         timeout: 0,
-        defaultViewport: { width: size.width, height: size.height },
-//        args: ['--purge_hint_cache_store']
+        defaultViewport: { 
+            width: size.width, 
+            height: size.height,
+            deviceScaleFactor: 2
+        }
     });
-    const context = await browser.createIncognitoBrowserContext(); // Avoid cookie messages
+    const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     await page.setDefaultTimeout(default_time);
 
-
-    // Login TODO Difficult for pmmdemo
+    // Login
     {
         const d = db.pmm_home;
-        await page.setViewport({ width: size.width * d.x, height: size.height * d.y });
-        await page.goto(url + d.name);
+        await page.setViewport({ 
+            width: size.width * d.x, 
+            height: size.height * d.y, 
+            deviceScaleFactor: device_scale
+        });
+        try {
+            await goto(page, url + d.name);
+        } catch {
+            console.log("Can't connect to " + url);
+            console.log(err);
+            await browser.close(); return;
+        } 
 
-        // pmmdemo automatically logs in. Force log out.
-        if (host.match(/pmmdemo/g)) 
+        // pmmdemo automatically logs in. Force log out to show login screen
+        if (host.match(/pmmdemo/g))
         {
             await page.click('body > grafana-app > sidemenu > div.sidemenu__bottom > div:nth-child(1) > a.sidemenu-link');
-            await page.waitFor(d.time);
+            await page.waitFor(default_time);
+            await snap(page, d, '_login_password');
         }
 
         // Login screen
-        await page.screenshot({path: imgfn(d.name + '_login')}, {fullPage: true});
-        // user name
-        await page.type('div.login-form:nth-child(1) > input:nth-child(1)', 'admin');
-        await page.screenshot({path: imgfn(d.name + '_login_user')}, {fullPage: true});
-        // password
-        await page.type('#inputPassword', 'admin');
-        await page.screenshot({path: imgfn(d.name + '_login_password')}, {fullPage: true});
+        // Fake user/pass for screenshot
+//        await page.type('div.login-form:nth-child(1) > input:nth-child(1)', 'admin');
+//        await page.type('#inputPassword', 'XXXXXXXXXXX');
+
+        // Clear fields (if using fake ones)
+//        await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
+//        await page.$eval('#inputPassword', el => el.value = '');
+
+        // Correct User/Pass
+//        await page.type('div.login-form:nth-child(1) > input:nth-child(1)', user);
+//        await page.type('#inputPassword', pass);
+//        await page.keyboard.press('Enter');
+
+
+        // Avoid 'skip password change' on pmmdemo
+        // if (!host.match(/pmmdemo/g))
+        // {
+        //     await page.click('button.btn')
+        //     await page.waitForSelector('a.btn', {visible: true, timeout: 30000});
+        //     await snap(page, d, '_login_change_password_skip');
+        //     await page.click('a.btn')
+        // }
     }
 
-    // Avoid 'skip password change' on pmmdemo
-    if (!host.match(/pmmdemo/g))
-    {
-        await page.click('button.btn')
-        await page.waitForSelector('a.btn', {visible: true, timeout: 30000});
-        // skip password change
-        await page.screenshot({path: imgfn(d.name + '_login_change_password_skip')}, {fullPage: true});
-        await page.click('a.btn')
-    }
-
-
-    // PMM Home Page - Menus (Dashboard browser, time range selector)
-    {
-        const d = db.pmm_home;
-        await page.setViewport({ width: size.width * d.x, height: size.height * d.y });
-        await page.goto(url + d.name);
-        await Promise.all([
-            page.waitForSelector(d.wait), 
-            page.waitFor(d.time)
-        ]);
-
-        // Date/time range selector
-        await page.click('button.navbar-button--tight'); // open
-        await page.screenshot({path: imgfn(d.name + '_time_range_settings'), fullPage: true});
-        await page.click('button.navbar-button--tight'); // close
-
-        // Dashboard dropdown
-        await page.click('.navbar-page-btn__search');
-        await page.waitFor(5000);
-        await page.screenshot({path: imgfn(d.name + '_dashboard_dropdown'), fullPage: true});
-        // close dropdown
-        await page.keyboard.press('Escape');
-    }
 
     // Snap all listed dashboards using fields in db hash
     for (var d in db) {
-        await Promise.all([
-            page.setViewport({ width: size.width * db[d].x, height: size.height * db[d].y }),
-            page.goto(url + db[d].name),
-            page.waitForSelector(db[d].wait),
-            page.waitFor(db[d].time)
-        ]);
+        
+        await page.setViewport({ 
+            width: size.width * db[d].x,   // Viewport is scaled by factor
+            height: size.height * db[d].y,
+            deviceScaleFactor: device_scale
+        }),
+        await goto(page, url + db[d].name); // Dashboard URL
+        await page.waitFor(db[d].time);          // Extra time for page to load
+        await page.waitForSelector(db[d].wait);  // Element that indicates page is loaded
 
+        // Remove pesky cookie confirmation from pmmdemo.percona.com
+//            const cookie_popup = '[aria-label="cookieconsent"]';
+        const cookie_popup = '[role="dialog"]';
+        try {
+            await page.$(cookie_popup, { 
+                timeout: 5000, 
+                visible: true 
+            });
+            await page.evaluate((sel) => {
+                var elements = document.querySelectorAll(sel);
+                for(var i=0; i< elements.length; i++){
+                    elements[i].parentNode.removeChild(elements[i]);
+                }
+            }, cookie_popup)            
 
-        {
-            // Remove pesky cookie confirmation from pmmdemo.percona.com
-            const cookie_popup = '[aria-label="cookieconsent"]';
-            try {
-                await page.$(cookie_popup, { timeout: 10000, visible: true });
-            } catch {
-                console.log('No cookie popup to remove');
-            } finally {
-                await page.evaluate((sel) => {
-                    var elements = document.querySelectorAll(sel);
-                    for(var i=0; i< elements.length; i++){
-                        elements[i].parentNode.removeChild(elements[i]);
-                    }
-                }, cookie_popup)
-            }
-        }
-
-
-        await page.screenshot({path: imgfn(db[d].name), fullPage: true});
+            await snap(page, db[d], ''); // Don't snap unless popup cleaned
+        } catch {
+            console.log('No cookie popup to remove');
+        } 
     }
 
-    // QAN Panels
+
+    // Elements, panels for selected dashboards
+
+    // QAN - Individual Panels
     {
         const d = db.pmm_qan;
-        await page.goto(url + d.name);
-        await Promise.all([page.waitForSelector(d.wait), page.waitFor(5000)]);
-        // QAN Panels
-        {
-            const element = await page.waitForSelector('.ant-table-content');
-            await element.screenshot({path: imgfn(d.name + '_overview_table')});
-        }
+//        await page.goto(url + d.name);
         // QAN - Select a query to show details
-        {
-            await page.goto(url + d.name + '?query_selected=true');
-            await Promise.all([page.waitForSelector(d.wait), page.waitFor(5000)]);
-        }
-        // filter
-        {
-            const element = await page.waitForSelector('.overview-filters');
-            await element.screenshot({path: imgfn(d.name + '_overview-filters')});
-        }
-        // Select, snap, deselect 'sort' menu TODO Not needed?
-        {
-            const selector = 'th.ant-table-row-cell-last:nth-child(2) > span:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)';
-            await page.click(selector);
-            await page.screenshot({path: imgfn(d.name + '_sort_menu'), fullPage: true});
-            await page.click(selector);
-        }
+        await page.goto(url + d.name + '?query_selected=true');
+        await Promise.all([page.waitForSelector(d.wait), page.waitFor(d.time)]);
+        snap(page, d, '');
 
-        // QAN - Details tab TODO how to select specific query
-        {
-            await page.goto(url + d.name + '?query_selected=true&details_tab=details');
-            await Promise.all([page.waitForSelector('.details-tabs'), page.waitFor(5000)]);
-            const element = await page.$('.details-tabs');
-            await element.screenshot({path: imgfn(d.name + '_details-tabs-details')});
-        }
-        // QAN - Examples tab
-        {
-            await page.goto(url + d.name + '?query_selected=true&details_tab=examples');
-            await Promise.all([page.waitForSelector('.details-tabs'), page.waitFor(5000)]);
-            const element = await page.$('.details-tabs');
-            await element.screenshot({path: imgfn(d.name + '_details-tabs-examples')});
-        }
-        // QAN - Tables tab
-        {
-            await page.goto(url + d.name + '?query_selected=true&details_tab=tables');
-            await Promise.all([page.waitForSelector('.details-tabs'), page.waitFor(5000)]);
-            const element = await page.$('.details-tabs');
-            await element.screenshot({path: imgfn(d.name + '_details-tabs-tables')});
-        }
     }
+
+    //     // QAN - Details tab TODO how to select specific query
+    //     {
+    //         await page.goto(url + d.name + '?query_selected=true&details_tab=details');
+    //         await Promise.all([page.waitForSelector('.details-tabs'), page.waitFor(5000)]);
+    //         const element = await page.$('.details-tabs');
+    //         await snap(page, d, '_details-tabs-details');
+    //     }
+    //     // QAN - Examples tab
+    //     {
+    //         await page.goto(url + d.name + '?query_selected=true&details_tab=examples');
+    //         await Promise.all([page.waitForSelector('.details-tabs'), page.waitFor(5000)]);
+    //         const element = await page.$('.details-tabs');
+    //         await snap(page, d, '_details-tabs-examples');
+    //     }
+    //     // QAN - Tables tab
+    //     {
+    //         await page.goto(url + d.name + '?query_selected=true&details_tab=tables');
+    //         await Promise.all([page.waitForSelector('.details-tabs'), page.waitFor(5000)]);
+    //         const element = await page.$('.details-tabs');
+    //         await snap(page, d, '_details-tabs-tables');
+    //     }
+    // }
+
+
 
     // PMM Inventory - Select & delete operation steps
-    {
-        const d = db.pmm_inventory;
+    // {
+    //     const d = db.pmm_inventory;
+    //     await page.goto(url + d.name);
+    //     await Promise.all([page.waitForSelector('#inventory-wrapper'), page.waitFor(5000)]);
+    //     await page.$('#inventory-wrapper');
+    //     await snap(page, d, '');
 
-        await page.goto(url + d.name);
-        await Promise.all([page.waitForSelector('#inventory-wrapper'), page.waitFor(5000)]);
-        await page.$('#inventory-wrapper');
-        await page.screenshot({path: imgfn(d.name)});
+    //     await page.click('label.checkbox-container')
+    //     await snap(page, d, '');
 
-        await page.click('label.checkbox-container')
-        await page.screenshot({path: imgfn(d.name)});
-
-        await page.click('#inventory-wrapper > div.css-18m13of > div > div.css-12xi67t > button');
-        await page.screenshot({path: imgfn(d.name), fullPage: true});
-    }
+    //     await page.click('#inventory-wrapper > div.css-18m13of > div > div.css-12xi67t > button');
+    //     await snap(page, d, '');
+    // }
 
     // PMM Settings - open/close each section
-    {
-        const d = db.pmm_settings;
-        const settings_1 = {
-            close: 'div.ant-collapse:nth-child(1) > div:nth-child(1) > div:nth-child(1)',
-            open: 'div.ant-collapse:nth-child(1) > div:nth-child(1)'
-        };
-        const settings_2 = {
-            open: 'div.ant-collapse-item:nth-child(2)',
-            close: 'div.ant-collapse-item:nth-child(2) > div:nth-child(1)'
-        };
-        const settings_3 = {
-            open: 'div.ant-collapse-item:nth-child(3)',
-            close: 'div.ant-collapse-item:nth-child(3) > div:nth-child(1)'
-        };
-        const settings_4 = {
-            open: 'div.ant-collapse-item:nth-child(4)',
-            close: 'div.ant-collapse-item:nth-child(4) > div:nth-child(1)'
-        };
+    // {
+    //     const d = db.pmm_settings;
+    //     const settings_1 = {
+    //         close: 'div.ant-collapse:nth-child(1) > div:nth-child(1) > div:nth-child(1)',
+    //         open: 'div.ant-collapse:nth-child(1) > div:nth-child(1)'
+    //     };
+    //     const settings_2 = {
+    //         open: 'div.ant-collapse-item:nth-child(2)',
+    //         close: 'div.ant-collapse-item:nth-child(2) > div:nth-child(1)'
+    //     };
+    //     const settings_3 = {
+    //         open: 'div.ant-collapse-item:nth-child(3)',
+    //         close: 'div.ant-collapse-item:nth-child(3) > div:nth-child(1)'
+    //     };
+    //     const settings_4 = {
+    //         open: 'div.ant-collapse-item:nth-child(4)',
+    //         close: 'div.ant-collapse-item:nth-child(4) > div:nth-child(1)'
+    //     };
 
-        // Shrink view
-        await page.setViewport({ width: size.width * d.x, height: size.height * d.y });
-        await page.goto(url + d.name);
-        await Promise.all([page.waitForSelector(d.wait), page.waitFor(5000)]);
+    //     // Shrink view
+    //     await page.setViewport({ 
+    //         width: size.width * d.x, 
+    //         height: size.height * d.y,
+    //         deviceScaleFactor: device_scale
+    //     });
+    //     await page.goto(url + d.name);
+    //     await Promise.all([page.waitForSelector(d.wait), page.waitFor(5000)]);
 
         // Take panel only, crop half width
         // const elem = await page.$('.view');
@@ -261,29 +253,59 @@ function bbox(elem) { return elem.boundingBox(); }
         //             height: box.height }
         // });
 
-        await page.click(settings_1.close); // close Settings
-        await page.click(settings_2.open);  // open SSH Key Details
-        await page.screenshot({path: imgfn(d.name + '_ssh_key_details'), fullPage: true});
+//         await page.click(settings_1.close); // close Settings
+//         await page.click(settings_2.open);  // open SSH Key Details
+// //        await page.screenshot({path: imgfn(d.name + '_ssh_key_details'), fullPage: true});
+//         await snap(page, d, '_ssh_key_details');
 
-        await page.click(settings_2.close);  // close SSH Key Details
-        await page.click(settings_3.open); // open Alertmanager integration
-        await page.screenshot({path: imgfn(d.name + '_alertmanager_integration'), fullPage: true});
-        await page.click(settings_3.close); // close Alertmanager integration
-        await page.click(settings_4.open);  // open Diagnostics
-        await page.screenshot({path: imgfn(d.name + '_diagnostics'), fullPage: true});
-    }
+//         await page.click(settings_2.close);  // close SSH Key Details
+//         await page.click(settings_3.open); // open Alertmanager integration
+// //        await page.screenshot({path: imgfn(d.name + '_alertmanager_integration'), fullPage: true});
+//         await snap(page, d, '_alertmanager_integration');
+
+//         await page.click(settings_3.close); // close Alertmanager integration
+//         await page.click(settings_4.open);  // open Diagnostics
+// //        await page.screenshot({path: imgfn(d.name + '_diagnostics'), fullPage: true});
+//         await snap(page, d, '_diagnostics');
+//     }
 
     // Advanced Data Exploration - Metrics drop-down
-    {
-        const d = db.advanced_data;
-        await page.setViewport({ width: size.width * d.x, height: size.height * d.y });
-        await page.goto(url + d.name);
-        await Promise.all([page.waitForSelector(d.wait), page.waitFor(5000)]);
-        await page.click('.submenu-controls > div:nth-child(1) > div:nth-child(1) > value-select-dropdown:nth-child(2)');
-        await page.screenshot({path: imgfn(d.name + '_metrics'), fullPage: true});
-    }
+//     {
+//         const d = db.advanced_data;
+//         await page.setViewport({ 
+//             width: size.width * d.x, 
+//             height: size.height * d.y, 
+//             deviceScaleFactor: device_scale
+//         });
+//         await page.goto(url + d.name);
+//         await Promise.all([page.waitForSelector(d.wait), page.waitFor(5000)]);
+//         await page.click('.submenu-controls > div:nth-child(1) > div:nth-child(1) > value-select-dropdown:nth-child(2)');
+// //        await page.screenshot({path: imgfn(d.name + '_metrics'), fullPage: true});
+//         await snap(page, d, '_metrics');
+//     }
 
 
+    // PMM Home Page - Menus (Dashboard browser, time range selector)
+//     {
+//         const d = db.pmm_home;
+//         await page.goto(url + d.name);
+//         await page.waitForSelector(d.wait);
+
+//         await page.waitFor(15000); // TEST
+
+//         // Date/time range selector
+//         await page.waitForSelector('button.navbar-button--tight');
+//         await page.click('button.navbar-button--tight'); // click to open
+//         await snap(page, d, '_time_range_settings');
+//         await page.click('button.navbar-button--tight'); // click to close
+
+//         // Dashboard dropdown
+//         await page.click('.navbar-page-btn__search');
+//         await page.waitFor(5000);
+//         await snap(page, d, '_dashboard_dropdown');
+//         // close dropdown TODO Not on pmmdemo yet - easier to reload page
+// //        await page.keyboard.press('Escape');
+//     }
 
 
 
