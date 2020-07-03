@@ -5,12 +5,14 @@ var uf = require('url');
 const puppeteer = require('puppeteer');
 
 const version = process.env.VERSION || "2.8.0"; // PMM2 version
-// Default viewport size
+// IMAGE SIZE/RES
 const w = process.env.WIDTH || 1920;
 const h = process.env.HEIGHT || 1080;
-const device_scale = process.env.SCALE || 1;
+const device_scale = Number(process.env.SCALE) || 1; // 2 for double size, 0.5 for half
 const size = { width: Number(w), height: Number(h) };
-// Default credentials
+const jpg_quality = Number(process.env.QUALITY) || 100; // JPG quality 0-100
+
+// PMM SERVER CREDENTIALS
 const user = process.env.USER || "admin";
 const pass = process.env.PASS || "admin";
 var url = process.env.URL || 'https://pmmdemo.percona.com/';
@@ -23,12 +25,7 @@ const db = require('./config.json');
 // Selectors are elements for individual snapping
 const selectors = require('./selectors.json');
 
-// Notes
-// 4:3 aspect ratio resolutions: 640×480, 800×600, 960×720, 1024×768, 1280×960, 1400×1050, 1440×1080 , 1600×1200, 1856×1392, 1920×1440, and 2048×1536.
-// 16:10 aspect ratio resolutions: – 1280×800, 1440×900, 1680×1050, 1920×1200 and 2560×1600.
-// 16:9 aspect ratio resolutions: 1024×576, 1152×648, 1280×720, 1366×768, 1600×900, 1920×1080, 2560×1440 and 3840×2160.
-
-// Save images in server/resolution subdirs
+// Save images in server/resolution subdirs TODO add configuration
 var dir = './img/' + host + '/' + size.width + 'x' + size.height + '/';
 if (!fs.existsSync(dir)){fs.mkdirSync(dir, {recursive: true});}
 
@@ -43,16 +40,18 @@ function pad(n, width, z) {
 // Screenshot filenaming: dir/prefix + dashboard name
 var idx = 1;
 const ext = '.jpg';
-function imgfn(name) {
-    const fn = dir + pad(idx++,2) + '_' + name + ext;
-    //Use pad(idx++,2) for sequence number
-    console.log('Saving ' + fn);
-    return fn;
-}
+// function imgfn(name) {
+//     const fn = dir + pad(idx++,2) + '_' + name + ext;
+//     //Use pad(idx++,2) for sequence number
+//     console.log('...Saving ' + fn);
+//     return fn;
+// }
 // Convenience wrapper: jpg images have quality factor, png don't
 async function snap(p, h, t) { // page, handle, text
-        await p.waitFor(default_time);
-        await p.screenshot({path: imgfn(h.name + t)}, { fullPage: true, quality: 50 });
+    var fn = dir + pad(idx++,2) + '_' + h.name + t + ext;
+    await p.waitFor(default_time);
+    await p.screenshot({path: fn}, { fullPage: true, quality: jpg_quality });
+    await console.log('...Saved ' + fn);
 }
 // Convenience wrapper: For logging when page is opened and snapped
 async function goto(p, u) { // page, url
@@ -69,7 +68,7 @@ async function goto(p, u) { // page, url
         defaultViewport: { 
             width: size.width, 
             height: size.height,
-            deviceScaleFactor: 2
+            deviceScaleFactor: device_scale
         }
     });
     const context = await browser.createIncognitoBrowserContext();
