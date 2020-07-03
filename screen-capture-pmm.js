@@ -4,59 +4,65 @@ var fs = require('fs');
 var uf = require('url');
 const puppeteer = require('puppeteer');
 
-const version = process.env.VERSION || "2.8.0"; // PMM2 version
-// IMAGE SIZE/RES
+// Dashboards to snap are in config TODO option for this to match URL
+const config = require('./config.json');
+// Selectors are elements for individual snapping TODO
+//const selectors = require('./selectors.json');
+
+// Get values from config
+const db = config.dashboards;         // The dashboards
+const version = config.version;
+const url = config.server + 'graph/d/';
+const host = uf.parse(url).hostname;
+const default_time = config.default_time;
+
+
+
+
+// IMAGE SIZE/RES & LOCATION
 const w = process.env.WIDTH || 1920;
 const h = process.env.HEIGHT || 1080;
+
 const device_scale = Number(process.env.SCALE) || 1; // 2 for double size, 0.5 for half
 const size = { width: Number(w), height: Number(h) };
 const jpg_quality = Number(process.env.QUALITY) || 100; // JPG quality 0-100
+const img_dir = process.env.IMGDIR || './img';
 
 // PMM SERVER CREDENTIALS
 const user = process.env.USER || "admin";
 const pass = process.env.PASS || "admin";
-var url = process.env.URL || 'https://pmmdemo.percona.com/';
-url += 'graph/d/';
-const host = uf.parse(url).hostname;
-// Default page wait (ms) Needs to be long for remote instances/slow connections
-const default_time = 20000; 
-// Dashboards
-const db = require('./config.json');
-// Selectors are elements for individual snapping
-const selectors = require('./selectors.json');
 
 // Save images in server/resolution subdirs TODO add configuration
-var dir = './img/' + host + '/' + size.width + 'x' + size.height + '/';
-if (!fs.existsSync(dir)){fs.mkdirSync(dir, {recursive: true});}
+var dir = img_dir + '/' + host + '/' + size.width + 'x' + size.height + '/' + device_scale + '/';
+if (!fs.existsSync(dir)) { fs.mkdirSync(dir, {recursive: true} ); }
 
-// Bounding box for element NOT USED
-//function bbox(elem) { return elem.boundingBox(); }
 // Pad a number with zeros
 function pad(n, width, z) {
   z = z || '0';
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
 // Screenshot filenaming: dir/prefix + dashboard name
 var idx = 1;
 const ext = '.jpg';
-// function imgfn(name) {
-//     const fn = dir + pad(idx++,2) + '_' + name + ext;
-//     //Use pad(idx++,2) for sequence number
-//     console.log('...Saving ' + fn);
-//     return fn;
-// }
+
 // Convenience wrapper: jpg images have quality factor, png don't
 async function snap(p, h, t) { // page, handle, text
     var fn = dir + pad(idx++,2) + '_' + h.name + t + ext;
-    await p.waitFor(default_time);
-    await p.screenshot({path: fn}, { fullPage: true, quality: jpg_quality });
-    await console.log('...Saved ' + fn);
+    return await Promise.all([
+        p.screenshot({path: fn}, { fullPage: true, quality: jpg_quality }),
+        console.log('...Saved ' + fn)
+    ]);
 }
-// Convenience wrapper: For logging when page is opened and snapped
+
+// Convenience wrapper: For logging, and for standard load wait time
 async function goto(p, u) { // page, url
-    await console.log('Loading ' + u);
-    await p.goto(u);
+    console.log('Loading ' + u);
+    return await Promise.all([    
+        p.goto(u),
+        p.waitFor(default_time)
+    ]);
 }
 
 
@@ -65,8 +71,8 @@ async function goto(p, u) { // page, url
         headless: true,
         ignoreHTTPSErrors: true,
         timeout: 0,
-        defaultViewport: { 
-            width: size.width, 
+        defaultViewport: {
+            width: size.width,
             height: size.height,
             deviceScaleFactor: device_scale
         }
@@ -78,18 +84,19 @@ async function goto(p, u) { // page, url
     // Login
     {
         const d = db.pmm_home;
-        await page.setViewport({ 
-            width: size.width * d.x, 
-            height: size.height * d.y, 
+        await page.setViewport({
+            width: size.width * d.x,
+            height: size.height * d.y,
             deviceScaleFactor: device_scale
         });
+
         try {
             await goto(page, url + d.name);
-        } catch {
+        } catch (err) {
             console.log("Can't connect to " + url);
             console.log(err);
             await browser.close(); return;
-        } 
+        }
 
         // pmmdemo automatically logs in. Force log out to show login screen
         if (host.match(/pmmdemo/g))
@@ -97,25 +104,20 @@ async function goto(p, u) { // page, url
             await page.click('body > grafana-app > sidemenu > div.sidemenu__bottom > div:nth-child(1) > a.sidemenu-link');
             await page.waitFor(default_time);
             await snap(page, d, '_login_password');
+
+            await page.type('div.login-form:nth-child(1) > input:nth-child(1)', user);
+            await page.type('#inputPassword', pass);
+            await page.type('#inputPassword', String.fromCharCode(13)); // Submit login
+            await page.waitFor(default_time);
         }
 
-        // Login screen
-        // Fake user/pass for screenshot
-//        await page.type('div.login-form:nth-child(1) > input:nth-child(1)', 'admin');
-//        await page.type('#inputPassword', 'XXXXXXXXXXX');
+        // TODO handle first-time login and pw change 'skip'
 
-        // Clear fields (if using fake ones)
+        // Clear fields
 //        await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
 //        await page.$eval('#inputPassword', el => el.value = '');
 
-        // Correct User/Pass
-//        await page.type('div.login-form:nth-child(1) > input:nth-child(1)', user);
-//        await page.type('#inputPassword', pass);
-//        await page.keyboard.press('Enter');
-
-
-        // Avoid 'skip password change' on pmmdemo
-        // if (!host.match(/pmmdemo/g))
+        // skip password change
         // {
         //     await page.click('button.btn')
         //     await page.waitForSelector('a.btn', {visible: true, timeout: 30000});
@@ -124,53 +126,60 @@ async function goto(p, u) { // page, url
         // }
     }
 
-
     // Snap all listed dashboards using fields in db hash
     for (var d in db) {
-        
-        await page.setViewport({ 
+        if (!db[d].snap) { continue; } // Skip any with snap=false
+
+        await page.setViewport({
             width: size.width * db[d].x,   // Viewport is scaled by factor
             height: size.height * db[d].y,
-            deviceScaleFactor: device_scale
-        }),
-        await goto(page, url + db[d].name); // Dashboard URL
-        await page.waitFor(db[d].time);          // Extra time for page to load
+            deviceScaleFactor: device_scale // DPI scaling
+        });
+
+        // Build option string for dashboards that need it to show data
+        var option_string = '?';
+        for (var i in db[d].options) {
+            option_string += db[d].options[i] + '&';
+        }
+
+        await goto(page, url + db[d].name + ((option_string.length > 1) ? option_string : '') ); // Dashboard URL
+//        await page.waitFor(db[d].time);          // Extra time for page to load
         await page.waitForSelector(db[d].wait);  // Element that indicates page is loaded
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
 //            const cookie_popup = '[aria-label="cookieconsent"]';
         const cookie_popup = '[role="dialog"]';
         try {
-            await page.$(cookie_popup, { 
-                timeout: 5000, 
-                visible: true 
+            await page.$(cookie_popup, {
+                timeout: 5000,
+                visible: true
             });
             await page.evaluate((sel) => {
                 var elements = document.querySelectorAll(sel);
                 for(var i=0; i< elements.length; i++){
                     elements[i].parentNode.removeChild(elements[i]);
                 }
-            }, cookie_popup)            
+            }, cookie_popup)
 
             await snap(page, db[d], ''); // Don't snap unless popup cleaned
         } catch {
             console.log('No cookie popup to remove');
-        } 
+        }
     }
 
 
     // Elements, panels for selected dashboards
 
     // QAN - Individual Panels
-    {
-        const d = db.pmm_qan;
-//        await page.goto(url + d.name);
-        // QAN - Select a query to show details
-        await page.goto(url + d.name + '?query_selected=true');
-        await Promise.all([page.waitForSelector(d.wait), page.waitFor(d.time)]);
-        snap(page, d, '');
+    // {
+    //     const d = db.pmm_qan;
+    //     await page.goto(url + d.name);
+    //     // QAN - Select a query to show details
+    //     await page.goto(url + d.name + '?query_selected=true');
+    //     await Promise.all([page.waitForSelector(d.wait), page.waitFor(d.time)]);
+    //     snap(page, d, '');
 
-    }
+    // }
 
     //     // QAN - Details tab TODO how to select specific query
     //     {
@@ -233,8 +242,8 @@ async function goto(p, u) { // page, url
     //     };
 
     //     // Shrink view
-    //     await page.setViewport({ 
-    //         width: size.width * d.x, 
+    //     await page.setViewport({
+    //         width: size.width * d.x,
     //         height: size.height * d.y,
     //         deviceScaleFactor: device_scale
     //     });
@@ -271,9 +280,9 @@ async function goto(p, u) { // page, url
     // Advanced Data Exploration - Metrics drop-down
 //     {
 //         const d = db.advanced_data;
-//         await page.setViewport({ 
-//             width: size.width * d.x, 
-//             height: size.height * d.y, 
+//         await page.setViewport({
+//             width: size.width * d.x,
+//             height: size.height * d.y,
 //             deviceScaleFactor: device_scale
 //         });
 //         await page.goto(url + d.name);
