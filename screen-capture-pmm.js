@@ -4,36 +4,33 @@ var fs = require('fs');
 var uf = require('url');
 const puppeteer = require('puppeteer');
 
-// Dashboards to snap are in config TODO option for this to match URL
-const config = require('./config.json');
+// Dashboards to snap are in config file: use first arg to script or default
+// NOTE: Needs to be path not just filename
+const config = require(((process.argv[2].length > 0) ? process.argv[2] : './config.json'));
+
 // Selectors are elements for individual snapping TODO
 //const selectors = require('./selectors.json');
 
 // Get values from config
-const db = config.dashboards;         // The dashboards
+const db = config.dashboards;         // The dashboards as a hash
 const version = config.version;
 const url = config.server + 'graph/d/';
 const host = uf.parse(url).hostname;
 const default_time = config.default_time;
 
-
-
-
 // IMAGE SIZE/RES & LOCATION
-const w = process.env.WIDTH || 1920;
-const h = process.env.HEIGHT || 1080;
-
+const width = process.env.WIDTH || Number(1920);
+const height = process.env.HEIGHT || Number(1080);
 const device_scale = Number(process.env.SCALE) || 1; // 2 for double size, 0.5 for half
-const size = { width: Number(w), height: Number(h) };
 const jpg_quality = Number(process.env.QUALITY) || 100; // JPG quality 0-100
-const img_dir = process.env.IMGDIR || './img';
+const img_dir = process.env.IMGDIR || './images';
 
 // PMM SERVER CREDENTIALS
 const user = process.env.USER || "admin";
 const pass = process.env.PASS || "admin";
 
 // Save images in server/resolution subdirs TODO add configuration
-var dir = img_dir + '/' + host + '/' + size.width + 'x' + size.height + '/' + device_scale + '/';
+var dir = img_dir + '/' + host + '/' + width + 'x' + height + '/' + device_scale + '/';
 if (!fs.existsSync(dir)) { fs.mkdirSync(dir, {recursive: true} ); }
 
 // Pad a number with zeros
@@ -72,8 +69,8 @@ async function goto(p, u) { // page, url
         ignoreHTTPSErrors: true,
         timeout: 0,
         defaultViewport: {
-            width: size.width,
-            height: size.height,
+            width: width,
+            height: height,
             deviceScaleFactor: device_scale
         }
     });
@@ -85,8 +82,8 @@ async function goto(p, u) { // page, url
     {
         const d = db.pmm_home;
         await page.setViewport({
-            width: size.width * d.x,
-            height: size.height * d.y,
+            width: width * d.x,
+            height: height * d.y,
             deviceScaleFactor: device_scale
         });
 
@@ -131,8 +128,8 @@ async function goto(p, u) { // page, url
         if (!db[d].snap) { continue; } // Skip any with snap=false
 
         await page.setViewport({
-            width: size.width * db[d].x,   // Viewport is scaled by factor
-            height: size.height * db[d].y,
+            width: width * db[d].x,   // Viewport is scaled by factor
+            height: height * db[d].y,
             deviceScaleFactor: device_scale // DPI scaling
         });
 
@@ -143,7 +140,6 @@ async function goto(p, u) { // page, url
         }
 
         await goto(page, url + db[d].name + ((option_string.length > 1) ? option_string : '') ); // Dashboard URL
-//        await page.waitFor(db[d].time);          // Extra time for page to load
         await page.waitForSelector(db[d].wait);  // Element that indicates page is loaded
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
@@ -168,7 +164,7 @@ async function goto(p, u) { // page, url
     }
 
 
-    // Elements, panels for selected dashboards
+    // Elements, panels for selected dashboards TODO will use selectors info
 
     // QAN - Individual Panels
     // {
@@ -243,8 +239,8 @@ async function goto(p, u) { // page, url
 
     //     // Shrink view
     //     await page.setViewport({
-    //         width: size.width * d.x,
-    //         height: size.height * d.y,
+    //         width: width * d.x,
+    //         height: height * d.y,
     //         deviceScaleFactor: device_scale
     //     });
     //     await page.goto(url + d.name);
@@ -281,8 +277,8 @@ async function goto(p, u) { // page, url
 //     {
 //         const d = db.advanced_data;
 //         await page.setViewport({
-//             width: size.width * d.x,
-//             height: size.height * d.y,
+//             width: width * d.x,
+//             height: height * d.y,
 //             deviceScaleFactor: device_scale
 //         });
 //         await page.goto(url + d.name);
