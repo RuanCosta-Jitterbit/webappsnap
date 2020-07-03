@@ -19,15 +19,15 @@ const host = uf.parse(url).hostname;
 const default_time = config.default_time;
 
 // IMAGE SIZE/RES & LOCATION
-const width = process.env.WIDTH || Number(1920);
-const height = process.env.HEIGHT || Number(1080);
-const device_scale = Number(process.env.SCALE) || 1; // 2 for double size, 0.5 for half
-const jpg_quality = Number(process.env.QUALITY) || 100; // JPG quality 0-100
-const img_dir = process.env.IMGDIR || './images';
+const width = Number(process.env.SNAP_WIDTH) || Number(1920);
+const height = Number(process.env.SNAP_HEIGHT) || Number(1080);
+const device_scale = Number(process.env.SNAP_SCALE) || 1; // 2 for double size, 0.5 for half
+const jpg_quality = Number(process.env.SNAP_QUALITY) || 100; // JPG quality 0-100
+const img_dir = process.env.SNAP_IMGDIR || './images';
 
 // PMM SERVER CREDENTIALS
-const user = process.env.USER || "admin";
-const pass = process.env.PASS || "admin";
+const user = process.env.SNAP_USER || "admin";
+const pass = process.env.SNAP_PASS || "admin";
 
 // Save images in server/resolution subdirs TODO add configuration
 var dir = img_dir + '/' + host + '/' + width + 'x' + height + '/' + device_scale + '/';
@@ -106,21 +106,37 @@ async function goto(p, u) { // page, url
             await page.type('#inputPassword', pass);
             await page.type('#inputPassword', String.fromCharCode(13)); // Submit login
             await page.waitFor(default_time);
+        } else {
+            // clear user/pass fields
+            await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
+            await page.$eval('#inputPassword', el => el.value = '');
+
+            // enter them
+            await page.type('div.login-form:nth-child(1) > input:nth-child(1)', user);
+            await page.type('#inputPassword', pass);
+            await page.waitFor(default_time);
+
+            await snap(page, d, '_login_password_TEST');
+
+            await page.type('#inputPassword', String.fromCharCode(13)); // Submit login
+            await page.waitFor(default_time);
+
+            await snap(page, d, '_login_password_TEST'); // Skip page
+
+//            await page.click('button.btn')
+ //           await page.waitFor(default_time);
+
+   //         const skip_button = '[aria-label="Skip change password button"]';
+
+            const skip_button = 'a.btn';
+            await page.waitForSelector(skip_button, {visible: true, timeout: 30000});
+
+//            await snap(page, d, '_login_change_password_skip');
+            await page.click(skip_button)
+
+            await page.waitFor(default_time);
+//            await snap(page, d, '_login_password_TEST');
         }
-
-        // TODO handle first-time login and pw change 'skip'
-
-        // Clear fields
-//        await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
-//        await page.$eval('#inputPassword', el => el.value = '');
-
-        // skip password change
-        // {
-        //     await page.click('button.btn')
-        //     await page.waitForSelector('a.btn', {visible: true, timeout: 30000});
-        //     await snap(page, d, '_login_change_password_skip');
-        //     await page.click('a.btn')
-        // }
     }
 
     // Snap all listed dashboards using fields in db hash
