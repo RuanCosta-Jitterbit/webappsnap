@@ -15,6 +15,7 @@ const img_dir     = process.env.SNAP_IMGDIR || defaults.img_dir;
 const jpg_quality = Number(process.env.SNAP_JPG_QUALITY) || defaults.jpg_quality; // Only jpg uses quality factor
 const user        = process.env.SNAP_USER || defaults.user;
 const pass        = process.env.SNAP_PASS || defaults.pass;
+const img_pfx     = process.env.SNAP_IMG_PFX || defaults.img_pfx;
 const img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 const img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 const img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
@@ -46,13 +47,27 @@ function mkdir() {
     }
 }
 
-// Convenience wrapper for screenshots
-async function snap(p, h, t) { // page, handle, text
-    var fn = dir + pad(idx++,2) + '_' + h.name + t + img_ext;
-    return await Promise.all([
-        p.screenshot({path: fn}, { fullPage: true, quality: defaults.jpg_quality }),
-        console.log('...Saved ' + fn)
-    ]);
+// Convenience wrapper for screenshots, and where the image filename is built
+async function snap(p, d, t="") { // page, dashboard, text
+    var filename = 
+        dir +                            // Directory (see above)
+        img_pfx +                        // Prefix
+        pad(idx++,2) + '_' +             // Sequence number and separator
+        d.path.split("/").reverse()[0] + // Add the last bit of path
+        t +                              // optional text
+        img_ext;                         // Image extension (.png/.jpg)
+    process.stdout.write("Saving " + filename + " ... ");
+
+    try 
+    {
+        await p.screenshot({path: filename}, { 
+            fullPage: true, 
+            quality: defaults.jpg_quality 
+        });
+        process.stdout.write("Done\n");
+    } catch (err) {
+        process.stdout.write("Failed: " + err);
+    }
 }
 
 // Zero-pad filename increment integer
@@ -62,7 +77,7 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
   return n.length >= w ? n : new Array(w - n.length + 1).join(z) + n;
 }
 
-// Convenience wrapper: For logging, and for standard load wait time
+// Convenience wrapper for loading pages with logging and standard load wait time
 async function goto(p, u) { // page, url
     console.log('Loading ' + u);
     return await Promise.all([    
@@ -70,6 +85,8 @@ async function goto(p, u) { // page, url
         p.waitFor(config.default_time)
     ]);
 }
+
+// EXPORTS
 
 // Data structures
 module.exports.config = config;
