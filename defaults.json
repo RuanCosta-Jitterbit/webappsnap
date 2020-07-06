@@ -1,11 +1,15 @@
 {
     "config_file" : "./config.json",
     "jpg_quality" : 100,
+    "img_pfx"     : "pmm_",
     "img_ext"     : ".jpg",
     "img_dir"     : "./images",
     "user"        : "admin",
     "pass"        : "admin",
     "img_width"   : 1920,
     "img_height"  : 1080,
-    "img_scale"   : 1
+    "img_scale"   : 1,
+    "login_user_elem" : "div.login-form:nth-child(1) > input:nth-child(1)",
+    "login_pass_elem" : "#inputPassword",
+    "login_skip_elem" : "a.btn"
 }
