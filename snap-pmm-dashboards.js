@@ -22,9 +22,10 @@ util.mkdir();
     console.log("Image file type: " + util.img_ext);
     if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + util.jpg_quality); }
     console.log("Default wait time: " + util.config.default_time);
+    if (!util.headless) { console.log("HEADLESS MODE OFF"); }
 
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: util.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
         defaultViewport: {
@@ -33,8 +34,9 @@ util.mkdir();
             deviceScaleFactor: util.img_scale
         }
     });
-    const context = await browser.createIncognitoBrowserContext();
-    const page = await context.newPage();
+//    const context = await browser.createIncognitoBrowserContext();
+//    const page = await context.newPage();
+    const page = await browser.newPage();
     await page.setDefaultTimeout(util.config.default_time);
 
     // Negotiate and snap login page
@@ -98,10 +100,6 @@ util.mkdir();
         }
 
     }
-//        await util.snap(page, d); // TEST
-
-// await browser.close(); return;//TEST
-
 
 
     // Snap all listed dashboards using fields in dashboards hash
@@ -125,7 +123,7 @@ util.mkdir();
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
 //            const cookie_popup = '[aria-label="cookieconsent"]';
-        const cookie_popup = '[role="dialog"]';
+        const cookie_popup = util.defaults.cookie_popup_elem;
         try {
             await page.$(cookie_popup, {
                 timeout: 5000,

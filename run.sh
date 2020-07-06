@@ -39,6 +39,9 @@ SNAP_IMGDIR=$(date +%Y%m%d)
 # Server config file (default ./config.json)
 SNAP_CONFIG_FILE="./config-pmmdemo.json"
 
+# Headless mode (default: true)
+# SNAP_HEADLESS=false
+
 time node snap-pmm-dashboards.js
 
 # TODO use imagemagick to create gif slide show
