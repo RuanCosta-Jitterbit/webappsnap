@@ -4,7 +4,7 @@
 set -a
 
 # PMM Server credentials (default admin/admin)
-# SNAP_USER=admin
+SNAP_USER=admin
 # TIP: Set in working env for security
 # SNAP_PASS=
 
@@ -21,6 +21,9 @@ SNAP_IMG_HEIGHT=1600
 # Factor by which to scale snap
 # Use in conjunction with quality to reduce filesize for large viewports
 SNAP_IMG_SCALE=0.5
+
+# Image filename prefix (default: pmm_
+# SNAP_IMG_PFX=
 
 # Image filetype .jpg or .png (default jpg)
 # SNAP_IMG_EXT=".png"
