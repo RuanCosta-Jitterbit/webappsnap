@@ -1,0 +1,11 @@
+{
+    "config_file" : "./config.json",
+    "jpg_quality" : 100,
+    "img_ext"     : ".jpg",
+    "img_dir"     : "./images",
+    "user"        : "admin",
+    "pass"        : "admin",
+    "img_width"   : 1920,
+    "img_height"  : 1080,
+    "img_scale"   : 1
+}
