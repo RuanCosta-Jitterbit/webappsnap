@@ -1,6 +1,6 @@
 {
     "name"         : "localhost",
-    "server"       : "http://localhost:80/",
+    "server"       : "http://localhost:80/graph/d/",
     "version"      : "2.8.0",
     "default_time" : 15000,
     "dashboards" : {

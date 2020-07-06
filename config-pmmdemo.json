@@ -1,6 +1,6 @@
 {
     "name"         : "pmmdemo",
-    "server"       : "https://pmmdemo.percona.com/",
+    "server"       : "https://pmmdemo.percona.com/graph/d/",
     "version"      : "2.8.0",
     "default_time" : 15000,
     "dashboards" : {
