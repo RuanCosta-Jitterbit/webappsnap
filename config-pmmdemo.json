@@ -4,8 +4,8 @@
     "version"      : "2.8.0",
     "default_time" : 15000,
     "dashboards" : {
-        "pmm_login"                     : { "snap" : false, "path": "login",                             "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 12000 },
-        "pmm_home":                       { "snap" : true,  "path": "d/pmm-home",                        "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 12000 },
+        "login"                         : { "snap" : false, "path": "login",                             "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 12000 },
+        "home":                           { "snap" : true,  "path": "d/pmm-home",                        "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 12000 },
         "advanced_data":                  { "snap" : true,  "path": "d/1oz9QMHmk",                       "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 12000 },
         "prometheus":                     { "snap" : true,  "path": "d/prometheus",                      "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 20000 },
         "prometheus_status":              { "snap" : true,  "path": "d/prometheus-status",               "x": 1.0, "y": 1.0,   "wait": ".main-view", "time": 12000 },
