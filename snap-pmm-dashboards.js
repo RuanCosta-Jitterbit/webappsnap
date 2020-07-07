@@ -14,14 +14,14 @@ const img_ext = util.img_ext;   // Image file extension
 util.mkdir();
 
 (async () => {
-    console.log("PMM Server Dashboard Screen Capture");
+    console.log("Screen capturing " + util.config.name);
     console.log("Configuration: " + util.config_file);
-    console.log("Server base URL: " + util.config.server);
-    console.log("Snapping viewport: " + util.img_width + "x" + util.img_height);
+    console.log("URL: " + util.config.server);
+    console.log("Viewport: " + util.img_width + "x" + util.img_height);
     console.log("Image scaling factor: " + util.img_scale);
     console.log("Image file type: " + util.img_ext);
     if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + util.jpg_quality); }
-    console.log("Default wait time: " + util.config.default_time);
+    console.log("Default page wait time: " + util.config.default_time);
     if (!util.headless) { console.log("HEADLESS MODE OFF"); }
 
     const browser = await puppeteer.launch({
@@ -39,72 +39,17 @@ util.mkdir();
     const page = await browser.newPage();
     await page.setDefaultTimeout(util.config.default_time);
 
-    // Negotiate and snap login page
-    {
-        const dashboard = dashboards.pmm_login;
-        const dashboard_name = dashboard.toString();
-        const url = util.config.server + dashboard.path;
-
-        await page.setViewport({
-            width: util.img_width * dashboard.x,
-            height: util.img_height * dashboard.y,
-            deviceScaleFactor: util.img_scale
-        });
-
-        try {
-            await util.goto(page, url);
-        } catch (err) {
-            console.log("Can't connect to " + url);
-            console.log(err);
-            await browser.close(); return;
-        }
-
-        await util.snap(page, dashboard); // Login page
-
-        // Login
-        await page.type(util.defaults.login_user_elem, util.user);
-        await page.type(util.defaults.login_pass_elem, util.pass);
-
-        await page.type(util.defaults.login_pass_elem, String.fromCharCode(13)); // Submit login with 'Enter'
-        // TODO intercept and report 'invalid username or password' dialog
-
-        await page.waitFor(util.config.default_time);
-    
-
-            // // clear user/pass fields
-            // await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
-            // await page.$eval('#inputPassword', el => el.value = '');
-
-            // // enter them
-            // await page.type('div.login-form:nth-child(1) > input:nth-child(1)', util.user);
-            // await page.type('#inputPassword', );
-
-//            await page.waitFor(util.config.default_time);
-
-//        await util.snap(page, dashboard); // TEST
-
-//            await page.type('#inputPassword', String.fromCharCode(13)); // Submit login
- //           await page.waitFor(util.config.default_time);
-
-//            await util.snap(page, d, '_login_password_TEST'); // Skip page
-
-        try 
-        {
-            const skip_button = util.defaults.login_skip_elem;
-            await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
-            
-            await page.click(skip_button);
-            await page.waitFor(util.config.default_time);
-        } catch (err) {
-            console.log("Didn't find password change skip button");
-        }
-
+    try {
+        await util.login(page)
+    } catch (err) {
+        console.log("Can't login: " + err);
+        await browser.close();
+        return;
     }
 
-
-    // Snap all listed dashboards using fields in dashboards hash
+    // Snap all dashboards with 'snap=true'
     for (var d in dashboards) {
-        if (!dashboards[d].snap) { continue; } // Skip any with snap=false
+        if (!dashboards[d].snap) { continue; }
 
         await page.setViewport({
             width: util.img_width * dashboards[d].x,   // Viewport scaled by factor
@@ -118,7 +63,7 @@ util.mkdir();
             option_string += dashboards[d].options[i] + '&';
         }
 
-        await util.goto(page, util.config.server + dashboards[d].path + ((option_string.length > 1) ? option_string : '') ); // Dashboard full URL
+        await util.load(page, util.config.server + dashboards[d].path + ((option_string.length > 1) ? option_string : '') ); // Dashboard full URL
         await page.waitForSelector(dashboards[d].wait);  // Element that indicates page is loaded
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
