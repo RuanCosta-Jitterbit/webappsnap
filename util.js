@@ -78,24 +78,73 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
 }
 
 // Convenience wrapper for loading pages with logging and standard load wait time
-async function goto(p, u) { // page, url
-    console.log('Loading ' + u);
-    return await Promise.all([    
-        p.goto(u),
-        p.waitFor(config.default_time)
-    ]);
+async function load(p, u) { // page, url
+    try {
+        console.log('Loading ' + u);
+        await Promise.all([    
+            p.goto(u),
+            p.waitFor(config.default_time)
+        ]);
+    } catch (err) {
+        console.log("Can't load " + u + " - " + err);
+    }
 }
 
-// EXPORTS
+// Handle PMM login page
+async function login(page)
+{
+    const dashboard = config.dashboards.login;
+    const dashboard_name = dashboard.toString();
+    const url = config.server + dashboard.path;
 
-// Data structures
-module.exports.config = config;
-module.exports.defaults = defaults;
+    await page.setViewport({
+        width: img_width * dashboard.x,
+        height: img_height * dashboard.y,
+        deviceScaleFactor: img_scale
+    });
+
+    await load(page, url);
+    await snap(page, dashboard); // Login page
+
+    // username and password
+    await page.type(defaults.login_user_elem, user);
+    await page.type(defaults.login_pass_elem, pass);
+
+    // Submit login with 'Enter'
+    await page.type(defaults.login_pass_elem, String.fromCharCode(13)); 
+    // TODO intercept and report 'invalid username or password' dialog
+    await page.waitFor(config.default_time); // Wait for login
+
+// How to clear user/pass fields
+// await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
+// await page.$eval('#inputPassword', el => el.value = '');
+
+    try 
+    {
+        const skip_button = defaults.login_skip_elem;
+        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
+            
+        await page.click(skip_button);
+        await page.waitFor(config.default_time);
+    } catch (err) {
+        console.log("Didn't find password change skip button");
+    }
+}
+
+
+
+
+// EXPORTS
 
 // functions
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
-module.exports.goto = goto;
+module.exports.load = load;
+module.exports.login = login;
+
+// Data structures
+module.exports.config = config;
+module.exports.defaults = defaults;
 
 // Values
 module.exports.config_file = config_file;
