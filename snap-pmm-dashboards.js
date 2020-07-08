@@ -28,44 +28,40 @@ util.mkdir();
         headless: util.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
-//        slowMo: 100,
         defaultViewport: {
             width: util.img_width,
             height: util.img_height,
             deviceScaleFactor: util.img_scale
         }
     });
-//    const context = await browser.createIncognitoBrowserContext();
-//    const page = await context.newPage();
     const page = await browser.newPage();
     await page.setDefaultTimeout(util.config.wait);
 
-    // try {
-    //     await util.login(page)
-    // } catch (err) {
-    //     console.log("Can't login: " + err);
-    // }
+    // Attempt login if allowed
+    if (util.config.login) {
+        await util.load(page, util.config.server + 'login');
+        await util.snap(page, 'login');
+        try {
+            await util.login(page, 'login')
+        } catch (err) {
+            console.error("Can't login: " + err);
+        }
+    }
 
-    // Snap all dashboards
+    // all dashboards
     for (var d in dashboards) {
 
-        // await page.setViewport({
-        //     width: util.img_width,
-        //     height: util.img_height,
-        //     deviceScaleFactor: util.img_scale // DPI scaling
-        // });
-
-        // Build and append option string if present
+        // Build URL; append option string if present
         var option_string = '?';
         for (var i in dashboards[d].options) {
             option_string += dashboards[d].options[i] + '&';
         }
-
-        await util.load(page, dashboards[d], util.config.server + dashboards[d].path + ((option_string.length > 1) ? option_string : '') ); // Dashboard full URL
-        //        await page.waitForSelector(dashboards[d].wait);  // Element that indicates page is loaded TODO move to load()
-
-
-        
+        await util.load(page, 
+                        util.config.server + 
+                        util.config.stem +
+                        dashboards[d].uid + 
+                        ((option_string.length > 1) ? option_string : '') );
+         
         // Remove pesky cookie confirmation from pmmdemo.percona.com
         const cookie_popup = util.defaults.cookie_popup_elem;
         try {
@@ -81,17 +77,7 @@ util.mkdir();
             }, cookie_popup);            
         } catch(err) { console.log("No cookie popup to remove: " + err); } 
 
-
-        if (dashboards[d].desc.match(/login/)) {
-            await util.snap(page, dashboards[d]); // Snap before logging in
-            try {
-                await util.login(page, dashboards[d])
-            } catch (err) {
-                console.log("Can't login: " + err);
-            }
-        } else {
-            await util.snap(page, dashboards[d]);
-        }
+        await util.snap(page, dashboards[d].title);
     }
     await browser.close();
 })();

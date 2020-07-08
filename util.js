@@ -39,7 +39,7 @@ function mkdir() {
             fs.mkdirSync(dir, {recursive: true} );             
         } 
         catch (err) {
-            console.log("Failed to create image save directory " + dir);
+            console.error("Failed to create image save directory " + dir);
             return;
         }
     } else {
@@ -48,13 +48,12 @@ function mkdir() {
 }
 
 // Convenience wrapper for screenshots, and where the image filename is built
-async function snap(p, d, t="") { // page, dashboard, text
+async function snap(p, title="") { // page, dashboard, text
     var filename = 
         dir +                            // Directory (see above)
         img_pfx +                        // Prefix
         pad(idx++,2) + '_' +             // Sequence number and separator
-        d.desc +                         // Description
-        t +                              // optional text
+        title.replace(/[ \\\/]/g, "_") + // Title (replace spaces and forward/back slashes)
         img_ext;                         // Image extension (.png/.jpg)
     process.stdout.write("Saving " + filename + " ... ");
 
@@ -66,7 +65,7 @@ async function snap(p, d, t="") { // page, dashboard, text
         });
         process.stdout.write("Done\n");
     } catch (err) {
-        process.stdout.write("Failed: " + err);
+        process.stderr.write("Failed: " + err);
     }
 }
 
@@ -78,7 +77,7 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
 }
 
 // Convenience wrapper for loading pages with logging and standard load wait time
-async function load(p, d, u) { // page, dashboard, url
+async function load(p, u) { // page, url
     try {
         console.log("Loading " + u + " - " + "Waiting " + config.wait/1000 + " seconds");
         await Promise.all([    
@@ -86,31 +85,20 @@ async function load(p, d, u) { // page, dashboard, url
             p.waitFor(config.wait)
         ]);
     } catch (err) {
-        console.log("Can't load " + u + " - " + err);
+        console.error("Can't load " + u + " - " + err);
     }
+    // TODO handle net::ERR_INTERNET_DISCONNECTED
 }
 
 // Handle PMM login page
 async function login(page, dashboard)
 {
-    const url = config.server + dashboard.path;
-
-    // await page.setViewport({
-    //     width: img_width,
-    //     height: img_height,
-    //     deviceScaleFactor: img_scale
-    // });
-
-//    await load(page, dashboard, url);
-//    await snap(page, dashboard); // Login page
+    const url = config.server + dashboard.uid;
 
     // Type in username and password and press Enter
     await page.type(defaults.login_user_elem, user);
     await page.type(defaults.login_pass_elem, pass);
     await page.keyboard.press('Enter');
-
-    //await page.waitForSelector('button.btn', { visible: true, timeout: 1000 });
-//    await page.click('.btn');
 
     await page.waitFor(config.wait); // Wait for login
 
@@ -130,9 +118,6 @@ async function login(page, dashboard)
         await console.log("Didn't find password change skip button");
     }
 }
-
-
-
 
 // EXPORTS
 
