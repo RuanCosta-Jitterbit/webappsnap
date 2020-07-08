@@ -21,13 +21,14 @@ util.mkdir();
     console.log("Image scaling factor: " + util.img_scale);
     console.log("Image file type: " + util.img_ext);
     if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + util.jpg_quality); }
-    console.log("Default page wait time: " + util.config.default_time);
+    console.log("Default page wait time: " + util.config.default_time/1000 + " seconds");
     if (!util.headless) { console.log("HEADLESS MODE OFF"); }
 
     const browser = await puppeteer.launch({
         headless: util.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
+        slowMo: 100,
         defaultViewport: {
             width: util.img_width,
             height: util.img_height,
@@ -43,13 +44,10 @@ util.mkdir();
         await util.login(page)
     } catch (err) {
         console.log("Can't login: " + err);
-        await browser.close();
-        return;
     }
 
-    // Snap all dashboards with 'snap=true'
+    // Snap all dashboards
     for (var d in dashboards) {
-        if (!dashboards[d].snap) { continue; }
 
         await page.setViewport({
             width: util.img_width * dashboards[d].x,   // Viewport scaled by factor
@@ -57,14 +55,14 @@ util.mkdir();
             deviceScaleFactor: util.img_scale // DPI scaling
         });
 
-        // Build option string for dashboards that need it to show data
+        // Build and append option string if present
         var option_string = '?';
         for (var i in dashboards[d].options) {
             option_string += dashboards[d].options[i] + '&';
         }
 
-        await util.load(page, util.config.server + dashboards[d].path + ((option_string.length > 1) ? option_string : '') ); // Dashboard full URL
-        await page.waitForSelector(dashboards[d].wait);  // Element that indicates page is loaded
+        await util.load(page, dashboards[d], util.config.server + dashboards[d].path + ((option_string.length > 1) ? option_string : '') ); // Dashboard full URL
+        await page.waitForSelector(dashboards[d].wait);  // Element that indicates page is loaded TODO move to load()
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
 //            const cookie_popup = '[aria-label="cookieconsent"]';
