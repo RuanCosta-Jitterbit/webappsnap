@@ -9,7 +9,7 @@ set -a
 # SNAP_PASS=
 
 # Server config file
-# SNAP_CONFIG_FILE="./config-local.json"
+# SNAP_CONFIG_FILE="./cfg/config-local.json"
 
 # Snap viewport
 # SNAP_IMG_WIDTH=2560
@@ -31,7 +31,7 @@ set -a
 # Root for images
 # Images saved in ./IMGDIR/WIDTHxHEIGHT/SCALE/
 # TEST use today's date as base image dir
-SNAP_IMGDIR=$(date +%Y%m%d)
+SNAP_IMGDIR="images/$(date +%Y%m%d)"
 
 # Headless mode
 # SNAP_HEADLESS=false
