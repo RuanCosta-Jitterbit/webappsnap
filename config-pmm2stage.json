@@ -1,0 +1,226 @@
+{
+  "name": "pmm2stage",
+  "server": "https://pmm2stage.percona.com/graph/",
+  "version": "2.5.0",
+  "wait": 20000,
+  "dashboards": [
+    {
+      "desc": "login",
+      "path": "login"
+    },
+    {
+      "desc": "pmm-home",
+      "path": "d/pmm-home"
+    },
+    {
+      "desc": "1oz9QMHmk",
+      "path": "d/1oz9QMHmk"
+    },
+    {
+      "desc": "prometheus",
+      "path": "d/prometheus"
+    },
+    {
+      "desc": "prometheus-status",
+      "path": "d/prometheus-status"
+    },
+    {
+      "desc": "prometheus-overview",
+      "path": "d/prometheus-overview"
+    },
+    {
+      "desc": "mongodb-cluster-summary",
+      "path": "d/mongodb-cluster-summary"
+    },
+    {
+      "desc": "mongodb-inmemory",
+      "path": "d/mongodb-inmemory"
+    },
+    {
+      "desc": "mongodb-instance-summary",
+      "path": "d/mongodb-instance-summary"
+    },
+    {
+      "desc": "mongodb-instance-compare",
+      "path": "d/mongodb-instance-compare"
+    },
+    {
+      "desc": "mongodb-instance-overview",
+      "path": "d/mongodb-instance-overview"
+    },
+    {
+      "desc": "mongodb-mmapv1",
+      "path": "d/mongodb-mmapv1"
+    },
+    {
+      "desc": "mongodb-replicaset-summary",
+      "path": "d/mongodb-replicaset-summary"
+    },
+    {
+      "desc": "mongodb-rocksdb",
+      "path": "d/mongodb-rocksdb"
+    },
+    {
+      "desc": "mongodb-wiredtiger",
+      "path": "d/mongodb-wiredtiger"
+    },
+    {
+      "desc": "mysql-amazonaurora",
+      "path": "d/mysql-amazonaurora"
+    },
+    {
+      "desc": "mysql-commandhandler-compare",
+      "path": "d/mysql-commandhandler-compare"
+    },
+    {
+      "desc": "mysql-innodb-compression",
+      "path": "d/mysql-innodb-compression"
+    },
+    {
+      "desc": "mysql-innodb",
+      "path": "d/mysql-innodb"
+    },
+    {
+      "desc": "mysql-instance-summary",
+      "path": "d/mysql-instance-summary",
+      "options": [
+        "var-service_name=rds-mysql57"
+      ]
+    },
+    {
+      "desc": "mysql-instance-compare",
+      "path": "d/mysql-instance-compare",
+      "options": [
+        "var-service_name=pxc57-3-mysql"
+      ]
+    },
+    {
+      "desc": "mysql-instance-overview",
+      "path": "d/mysql-instance-overview"
+    },
+    {
+      "desc": "mysql-myisamaria",
+      "path": "d/mysql-myisamaria"
+    },
+    {
+      "desc": "mysql-myrocks",
+      "path": "d/mysql-myrocks"
+    },
+    {
+      "desc": "mysql-performance-schema",
+      "path": "d/mysql-performance-schema"
+    },
+    {
+      "desc": "mysql-queryresponsetime",
+      "path": "d/mysql-queryresponsetime"
+    },
+    {
+      "desc": "mysql-replicaset-summary",
+      "path": "d/mysql-replicaset-summary"
+    },
+    {
+      "desc": "mysql-table",
+      "path": "d/mysql-table"
+    },
+    {
+      "desc": "mysql-tokudb",
+      "path": "d/mysql-tokudb"
+    },
+    {
+      "desc": "mysql-user",
+      "path": "d/mysql-user"
+    },
+    {
+      "desc": "mysql-waitevents-analysis",
+      "path": "d/mysql-waitevents-analysis"
+    },
+    {
+      "desc": "proxysql-instance-summary",
+      "path": "d/proxysql-instance-summary"
+    },
+    {
+      "desc": "pxc-cluster-summary",
+      "path": "d/pxc-cluster-summary"
+    },
+    {
+      "desc": "pxc-node-summary",
+      "path": "d/pxc-node-summary"
+    },
+    {
+      "desc": "pxc-nodes-compare",
+      "path": "d/pxc-nodes-compare"
+    },
+    {
+      "desc": "node-cpu",
+      "path": "d/node-cpu"
+    },
+    {
+      "desc": "node-disk",
+      "path": "d/node-disk"
+    },
+    {
+      "desc": "node-memory",
+      "path": "d/node-memory"
+    },
+    {
+      "desc": "node-network",
+      "path": "d/node-network"
+    },
+    {
+      "desc": "node-instance-summary",
+      "path": "d/node-instance-summary"
+    },
+    {
+      "desc": "node-temp",
+      "path": "d/node-temp"
+    },
+    {
+      "desc": "node-instance-compare",
+      "path": "d/node-instance-compare"
+    },
+    {
+      "desc": "node-instance-overview",
+      "path": "d/node-instance-overview"
+    },
+    {
+      "desc": "node-memory-numa",
+      "path": "d/node-memory-numa"
+    },
+    {
+      "desc": "node-cpu-process",
+      "path": "d/node-cpu-process"
+    },
+    {
+      "desc": "postgresql-instance-summary",
+      "path": "d/postgresql-instance-summary"
+    },
+    {
+      "desc": "postgresql-instance-compare",
+      "path": "d/postgresql-instance-compare"
+    },
+    {
+      "desc": "postgresql-instance-overview",
+      "path": "d/postgresql-instance-overview"
+    },
+    {
+      "desc": "pmm-add-instance",
+      "path": "d/pmm-add-instance"
+    },
+    {
+      "desc": "pmm-qan",
+      "path": "d/pmm-qan"
+    },
+    {
+      "desc": "pmm-checks",
+      "path": "d/pmm-checks"
+    },
+    {
+      "desc": "pmm-inventory",
+      "path": "d/pmm-inventory"
+    },
+    {
+      "desc": "pmm-settings",
+      "path": "d/pmm-settings"
+    }
+  ]
+}
