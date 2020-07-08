@@ -53,7 +53,7 @@ async function snap(p, d, t="") { // page, dashboard, text
         dir +                            // Directory (see above)
         img_pfx +                        // Prefix
         pad(idx++,2) + '_' +             // Sequence number and separator
-        d.path.split("/").reverse()[0] + // Add the last bit of path
+        d.desc +                         // Description
         t +                              // optional text
         img_ext;                         // Image extension (.png/.jpg)
     process.stdout.write("Saving " + filename + " ... ");
@@ -78,12 +78,12 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
 }
 
 // Convenience wrapper for loading pages with logging and standard load wait time
-async function load(p, u) { // page, url
+async function load(p, d, u) { // page, dashboard, url
     try {
-        console.log('Loading ' + u);
+        console.log("Loading " + u + " - " + "Waiting " + d.time/1000 + " seconds");
         await Promise.all([    
             p.goto(u),
-            p.waitFor(config.default_time)
+            p.waitFor(defaults.default_time)
         ]);
     } catch (err) {
         console.log("Can't load " + u + " - " + err);
@@ -103,17 +103,20 @@ async function login(page)
         deviceScaleFactor: img_scale
     });
 
-    await load(page, url);
+    await load(page, dashboard, url);
     await snap(page, dashboard); // Login page
 
-    // username and password
+    // Type in username and password and press Enter
     await page.type(defaults.login_user_elem, user);
     await page.type(defaults.login_pass_elem, pass);
+    await page.keyboard.press('Enter');
 
-    // Submit login with 'Enter'
-    await page.type(defaults.login_pass_elem, String.fromCharCode(13)); 
-    // TODO intercept and report 'invalid username or password' dialog
+    //await page.waitForSelector('button.btn', { visible: true, timeout: 1000 });
+//    await page.click('.btn');
+
     await page.waitFor(config.default_time); // Wait for login
+
+    // TODO intercept and report 'invalid username or password' dialog
 
 // How to clear user/pass fields
 // await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
@@ -122,12 +125,11 @@ async function login(page)
     try 
     {
         const skip_button = defaults.login_skip_elem;
-        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
-            
+        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });            
         await page.click(skip_button);
         await page.waitFor(config.default_time);
     } catch (err) {
-        console.log("Didn't find password change skip button");
+        await console.log("Didn't find password change skip button");
     }
 }
 
