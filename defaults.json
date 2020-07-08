@@ -1,5 +1,5 @@
 {
-    "config_file"       : "./config.json",
+    "config_file"       : "./config-local.json",
     "jpg_quality"       : 100,
     "img_pfx"           : "pmm_",
     "img_ext"           : ".jpg",
