@@ -1,8 +1,8 @@
 {
-    "name"         : "localhost",
-    "server"       : "http://localhost:80/graph/",
-    "version"      : "2.8.1",
-    "default_time" : 15000,
+    "name"    : "localhost",
+    "server"  : "http://localhost:80/graph/",
+    "version" : "2.8.1",
+    "wait"    : 15000,
     "dashboards" : [
         { "desc": "login",                           "path": "login",                             },
         { "desc": "pmm-home",                        "path": "d/pmm-home",                        },
@@ -23,8 +23,8 @@
         { "desc": "mysql-commandhandler-compare",    "path": "d/mysql-commandhandler-compare",    },
         { "desc": "mysql-innodb-compression",        "path": "d/mysql-innodb-compression",        },
         { "desc": "mysql-innodb",                    "path": "d/mysql-innodb",                    },
-        { "desc": "mysql-instance-summary",          "path": "d/mysql-instance-summary",          "options" : ["var-service_name=rds-mysql57"], },
-        { "desc": "mysql-instance-compare",          "path": "d/mysql-instance-compare",          "options" : ["var-service_name=pxc57-3-mysql"], },
+        { "desc": "mysql-instance-summary",          "path": "d/mysql-instance-summary",          },
+        { "desc": "mysql-instance-compare",          "path": "d/mysql-instance-compare",          },
         { "desc": "mysql-instance-overview",         "path": "d/mysql-instance-overview",         },
         { "desc": "mysql-myisamaria",                "path": "d/mysql-myisamaria",                },
         { "desc": "mysql-myrocks",                   "path": "d/mysql-myrocks",                   },

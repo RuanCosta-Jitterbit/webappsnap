@@ -1,8 +1,8 @@
 {
-    "name"         : "pmmdemo",
-    "server"       : "https://pmmdemo.percona.com/graph/",
-    "version"      : "2.8.0",
-    "default_time" : 15000,
+    "name"    : "pmmdemo",
+    "server"  : "https://pmmdemo.percona.com/graph/",
+    "version" : "2.8.0",
+    "wait"    : 15000,
     "dashboards" : {
         "login"                         : { "desc": "login",                           "path": "login",                             },
         "home":                           { "desc": "pmm-home",                        "path": "d/pmm-home",                        },

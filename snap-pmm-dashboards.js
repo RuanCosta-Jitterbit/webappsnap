@@ -21,14 +21,14 @@ util.mkdir();
     console.log("Image scaling factor: " + util.img_scale);
     console.log("Image file type: " + util.img_ext);
     if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + util.jpg_quality); }
-    console.log("Default page wait time: " + util.config.default_time/1000 + " seconds");
+    console.log("Default page wait time: " + util.config.wait/1000 + " seconds");
     if (!util.headless) { console.log("HEADLESS MODE OFF"); }
 
     const browser = await puppeteer.launch({
         headless: util.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
-        slowMo: 100,
+//        slowMo: 100,
         defaultViewport: {
             width: util.img_width,
             height: util.img_height,
@@ -38,22 +38,22 @@ util.mkdir();
 //    const context = await browser.createIncognitoBrowserContext();
 //    const page = await context.newPage();
     const page = await browser.newPage();
-    await page.setDefaultTimeout(util.config.default_time);
+    await page.setDefaultTimeout(util.config.wait);
 
-    try {
-        await util.login(page)
-    } catch (err) {
-        console.log("Can't login: " + err);
-    }
+    // try {
+    //     await util.login(page)
+    // } catch (err) {
+    //     console.log("Can't login: " + err);
+    // }
 
     // Snap all dashboards
     for (var d in dashboards) {
 
-        await page.setViewport({
-            width: util.img_width * dashboards[d].x,   // Viewport scaled by factor
-            height: util.img_height * dashboards[d].y,
-            deviceScaleFactor: util.img_scale // DPI scaling
-        });
+        // await page.setViewport({
+        //     width: util.img_width,
+        //     height: util.img_height,
+        //     deviceScaleFactor: util.img_scale // DPI scaling
+        // });
 
         // Build and append option string if present
         var option_string = '?';
@@ -62,10 +62,11 @@ util.mkdir();
         }
 
         await util.load(page, dashboards[d], util.config.server + dashboards[d].path + ((option_string.length > 1) ? option_string : '') ); // Dashboard full URL
-        await page.waitForSelector(dashboards[d].wait);  // Element that indicates page is loaded TODO move to load()
+        //        await page.waitForSelector(dashboards[d].wait);  // Element that indicates page is loaded TODO move to load()
 
+
+        
         // Remove pesky cookie confirmation from pmmdemo.percona.com
-//            const cookie_popup = '[aria-label="cookieconsent"]';
         const cookie_popup = util.defaults.cookie_popup_elem;
         try {
             await page.$(cookie_popup, {
@@ -77,11 +78,18 @@ util.mkdir();
                 for(var i=0; i< elements.length; i++){
                     elements[i].parentNode.removeChild(elements[i]);
                 }
-            }, cookie_popup)
+            }, cookie_popup);            
+        } catch(err) { console.log("No cookie popup to remove: " + err); } 
 
-        } catch {
-            console.log('No cookie popup to remove');
-        } finally {
+
+        if (dashboards[d].desc.match(/login/)) {
+            await util.snap(page, dashboards[d]); // Snap before logging in
+            try {
+                await util.login(page, dashboards[d])
+            } catch (err) {
+                console.log("Can't login: " + err);
+            }
+        } else {
             await util.snap(page, dashboards[d]);
         }
     }

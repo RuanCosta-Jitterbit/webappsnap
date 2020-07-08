@@ -80,10 +80,10 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
 // Convenience wrapper for loading pages with logging and standard load wait time
 async function load(p, d, u) { // page, dashboard, url
     try {
-        console.log("Loading " + u + " - " + "Waiting " + d.time/1000 + " seconds");
+        console.log("Loading " + u + " - " + "Waiting " + config.wait/1000 + " seconds");
         await Promise.all([    
             p.goto(u),
-            p.waitFor(defaults.default_time)
+            p.waitFor(config.wait)
         ]);
     } catch (err) {
         console.log("Can't load " + u + " - " + err);
@@ -91,20 +91,18 @@ async function load(p, d, u) { // page, dashboard, url
 }
 
 // Handle PMM login page
-async function login(page)
+async function login(page, dashboard)
 {
-    const dashboard = config.dashboards.login;
-    const dashboard_name = dashboard.toString();
     const url = config.server + dashboard.path;
 
-    await page.setViewport({
-        width: img_width * dashboard.x,
-        height: img_height * dashboard.y,
-        deviceScaleFactor: img_scale
-    });
+    // await page.setViewport({
+    //     width: img_width,
+    //     height: img_height,
+    //     deviceScaleFactor: img_scale
+    // });
 
-    await load(page, dashboard, url);
-    await snap(page, dashboard); // Login page
+//    await load(page, dashboard, url);
+//    await snap(page, dashboard); // Login page
 
     // Type in username and password and press Enter
     await page.type(defaults.login_user_elem, user);
@@ -114,7 +112,7 @@ async function login(page)
     //await page.waitForSelector('button.btn', { visible: true, timeout: 1000 });
 //    await page.click('.btn');
 
-    await page.waitFor(config.default_time); // Wait for login
+    await page.waitFor(config.wait); // Wait for login
 
     // TODO intercept and report 'invalid username or password' dialog
 
@@ -127,7 +125,7 @@ async function login(page)
         const skip_button = defaults.login_skip_elem;
         await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });            
         await page.click(skip_button);
-        await page.waitFor(config.default_time);
+        await page.waitFor(config.wait);
     } catch (err) {
         await console.log("Didn't find password change skip button");
     }
