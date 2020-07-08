@@ -4,7 +4,7 @@
   "stem"    : "d/",
   "version" : "2.8.1",
   "wait"    : 15000,
-  "login"   " true,
+  "login"   : true,
   "dashboards": [
     {
       "title": "Advanced Data Exploration",
