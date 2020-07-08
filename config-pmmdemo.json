@@ -1,226 +1,224 @@
 {
   "name": "pmmdemo",
   "server": "https://pmmdemo.percona.com/graph/",
+  "stem": "d/",
   "version": "2.8.0",
-  "wait": 15000,
+  "wait": 20000,
+  "login": true,
   "dashboards": [
     {
-      "desc": "login",
-      "path": "login"
+      "title": "Advanced Data Exploration",
+      "uid": "prometheus-advanced"
     },
     {
-      "desc": "pmm-home",
-      "path": "d/pmm-home"
+      "title": "CPU Utilization Details",
+      "uid": "node-cpu"
     },
     {
-      "desc": "1oz9QMHmk",
-      "path": "d/1oz9QMHmk"
+      "title": "Disk Details",
+      "uid": "node-disk"
     },
     {
-      "desc": "prometheus",
-      "path": "d/prometheus"
+      "title": "Home Dashboard",
+      "uid": "pmm-home"
     },
     {
-      "desc": "prometheus-status",
-      "path": "d/prometheus-status"
+      "title": "Memory Details",
+      "uid": "node-memory"
     },
     {
-      "desc": "prometheus-overview",
-      "path": "d/prometheus-overview"
+      "title": "MongoDB Cluster Summary",
+      "uid": "mongodb-cluster-summary"
     },
     {
-      "desc": "mongodb-cluster-summary",
-      "path": "d/mongodb-cluster-summary"
+      "title": "MongoDB InMemory Details",
+      "uid": "mongodb-inmemory"
     },
     {
-      "desc": "mongodb-inmemory",
-      "path": "d/mongodb-inmemory"
+      "title": "MongoDB Instance Summary",
+      "uid": "mongodb-instance-summary"
     },
     {
-      "desc": "mongodb-instance-summary",
-      "path": "d/mongodb-instance-summary"
+      "title": "MongoDB Instances Compare",
+      "uid": "mongodb-instance-compare"
     },
     {
-      "desc": "mongodb-instance-compare",
-      "path": "d/mongodb-instance-compare"
+      "title": "MongoDB Instances Overview",
+      "uid": "mongodb-instance-overview"
     },
     {
-      "desc": "mongodb-instance-overview",
-      "path": "d/mongodb-instance-overview"
+      "title": "MongoDB MMAPv1 Details",
+      "uid": "mongodb-mmapv1"
     },
     {
-      "desc": "mongodb-mmapv1",
-      "path": "d/mongodb-mmapv1"
+      "title": "MongoDB ReplSet Summary",
+      "uid": "mongodb-replicaset-summary"
     },
     {
-      "desc": "mongodb-replicaset-summary",
-      "path": "d/mongodb-replicaset-summary"
+      "title": "MongoDB RocksDB Details",
+      "uid": "mongodb-rocksdb"
     },
     {
-      "desc": "mongodb-rocksdb",
-      "path": "d/mongodb-rocksdb"
+      "title": "MongoDB WiredTiger Details",
+      "uid": "mongodb-wiredtiger"
     },
     {
-      "desc": "mongodb-wiredtiger",
-      "path": "d/mongodb-wiredtiger"
+      "title": "MySQL Amazon Aurora Details",
+      "uid": "mysql-amazonaurora"
     },
     {
-      "desc": "mysql-amazonaurora",
-      "path": "d/mysql-amazonaurora"
+      "title": "MySQL Command/Handler Counters Compare",
+      "uid": "mysql-commandhandler-compare"
     },
     {
-      "desc": "mysql-commandhandler-compare",
-      "path": "d/mysql-commandhandler-compare"
+      "title": "MySQL InnoDB Compression Details",
+      "uid": "mysql-innodb-compression"
     },
     {
-      "desc": "mysql-innodb-compression",
-      "path": "d/mysql-innodb-compression"
+      "title": "MySQL InnoDB Details",
+      "uid": "mysql-innodb"
     },
     {
-      "desc": "mysql-innodb",
-      "path": "d/mysql-innodb"
-    },
-    {
-      "desc": "mysql-instance-summary",
-      "path": "d/mysql-instance-summary",
+      "title": "MySQL Instance Summary",
+      "uid": "mysql-instance-summary",
       "options": [
         "var-service_name=rds-mysql57"
       ]
     },
     {
-      "desc": "mysql-instance-compare",
-      "path": "d/mysql-instance-compare",
+      "title": "MySQL Instances Compare",
+      "uid": "mysql-instance-compare"
+    },
+    {
+      "title": "MySQL Instances Overview",
+      "uid": "mysql-instance-overview",
       "options": [
         "var-service_name=pxc57-3-mysql"
       ]
     },
     {
-      "desc": "mysql-instance-overview",
-      "path": "d/mysql-instance-overview"
+      "title": "MySQL MyISAM/Aria Details",
+      "uid": "mysql-myisamaria"
     },
     {
-      "desc": "mysql-myisamaria",
-      "path": "d/mysql-myisamaria"
+      "title": "MySQL MyRocks Details",
+      "uid": "mysql-myrocks"
     },
     {
-      "desc": "mysql-myrocks",
-      "path": "d/mysql-myrocks"
+      "title": "MySQL Performance Schema Details",
+      "uid": "mysql-performance-schema"
     },
     {
-      "desc": "mysql-performance-schema",
-      "path": "d/mysql-performance-schema"
+      "title": "MySQL Query Response Time Details",
+      "uid": "mysql-queryresponsetime"
     },
     {
-      "desc": "mysql-queryresponsetime",
-      "path": "d/mysql-queryresponsetime"
+      "title": "MySQL Replication Summary",
+      "uid": "mysql-replicaset-summary"
     },
     {
-      "desc": "mysql-replicaset-summary",
-      "path": "d/mysql-replicaset-summary"
+      "title": "MySQL Table Details",
+      "uid": "mysql-table"
     },
     {
-      "desc": "mysql-table",
-      "path": "d/mysql-table"
+      "title": "MySQL TokuDB Details",
+      "uid": "mysql-tokudb"
     },
     {
-      "desc": "mysql-tokudb",
-      "path": "d/mysql-tokudb"
+      "title": "MySQL User Details",
+      "uid": "mysql-user"
     },
     {
-      "desc": "mysql-user",
-      "path": "d/mysql-user"
+      "title": "MySQL Wait Event Analyses Details",
+      "uid": "mysql-waitevents-analysis"
     },
     {
-      "desc": "mysql-waitevents-analysis",
-      "path": "d/mysql-waitevents-analysis"
+      "title": "NUMA Details",
+      "uid": "node-memory-numa"
     },
     {
-      "desc": "proxysql-instance-summary",
-      "path": "d/proxysql-instance-summary"
+      "title": "Network Details",
+      "uid": "node-network"
     },
     {
-      "desc": "pxc-cluster-summary",
-      "path": "d/pxc-cluster-summary"
+      "title": "Node Summary",
+      "uid": "node-instance-summary"
     },
     {
-      "desc": "pxc-node-summary",
-      "path": "d/pxc-node-summary"
+      "title": "Node Temperature Details",
+      "uid": "node-temp"
     },
     {
-      "desc": "pxc-nodes-compare",
-      "path": "d/pxc-nodes-compare"
+      "title": "Nodes Compare",
+      "uid": "node-instance-compare"
     },
     {
-      "desc": "node-cpu",
-      "path": "d/node-cpu"
+      "title": "Nodes Overview",
+      "uid": "node-instance-overview"
     },
     {
-      "desc": "node-disk",
-      "path": "d/node-disk"
+      "title": "PXC/Galera Cluster Summary",
+      "uid": "pxc-cluster-summary"
     },
     {
-      "desc": "node-memory",
-      "path": "d/node-memory"
+      "title": "PXC/Galera Node Summary",
+      "uid": "pxc-node-summary"
     },
     {
-      "desc": "node-network",
-      "path": "d/node-network"
+      "title": "PXC/Galera Nodes Compare",
+      "uid": "pxc-nodes-compare"
     },
     {
-      "desc": "node-instance-summary",
-      "path": "d/node-instance-summary"
+      "title": "PostgreSQL Instance Summary",
+      "uid": "postgresql-instance-summary"
     },
     {
-      "desc": "node-temp",
-      "path": "d/node-temp"
+      "title": "PostgreSQL Instances Compare",
+      "uid": "postgresql-instance-compare"
     },
     {
-      "desc": "node-instance-compare",
-      "path": "d/node-instance-compare"
+      "title": "PostgreSQL Instances Overview",
+      "uid": "postgresql-instance-overview"
     },
     {
-      "desc": "node-instance-overview",
-      "path": "d/node-instance-overview"
+      "title": "Processes Details",
+      "uid": "node-cpu-process"
     },
     {
-      "desc": "node-memory-numa",
-      "path": "d/node-memory-numa"
+      "title": "Prometheus",
+      "uid": "prometheus"
     },
     {
-      "desc": "node-cpu-process",
-      "path": "d/node-cpu-process"
+      "title": "Prometheus Exporter Status",
+      "uid": "prometheus-status"
     },
     {
-      "desc": "postgresql-instance-summary",
-      "path": "d/postgresql-instance-summary"
+      "title": "Prometheus Exporters Overview",
+      "uid": "prometheus-overview"
     },
     {
-      "desc": "postgresql-instance-compare",
-      "path": "d/postgresql-instance-compare"
+      "title": "ProxySQL Instance Summary",
+      "uid": "proxysql-instance-summary"
     },
     {
-      "desc": "postgresql-instance-overview",
-      "path": "d/postgresql-instance-overview"
+      "title": "PMM Add Instance",
+      "uid": "pmm-add-instance"
     },
     {
-      "desc": "pmm-add-instance",
-      "path": "d/pmm-add-instance"
+      "title": "PMM Database Checks",
+      "uid": "pmm-checks"
     },
     {
-      "desc": "pmm-qan",
-      "path": "d/pmm-qan"
+      "title": "PMM Inventory",
+      "uid": "pmm-inventory"
     },
     {
-      "desc": "pmm-checks",
-      "path": "d/pmm-checks"
+      "title": "PMM Query Analytics",
+      "uid": "pmm-qan"
     },
     {
-      "desc": "pmm-inventory",
-      "path": "d/pmm-inventory"
-    },
-    {
-      "desc": "pmm-settings",
-      "path": "d/pmm-settings"
+      "title": "PMM Settings",
+      "uid": "pmm-settings"
     }
   ]
 }

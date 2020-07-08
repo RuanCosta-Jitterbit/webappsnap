@@ -1,226 +1,185 @@
 {
-  "name": "pmmdemo",
-  "server": "https://pmmdemo.percona.com/graph/",
-  "version": "2.8.0",
-  "wait": 15000,
+  "name"    : "pmmstage",
+  "server"  : "https://pmmstage.percona.com/",
+  "stem"    : "d/",
+  "version" : "1.0.0",
+  "wait"    : 20000,
   "dashboards": [
     {
-      "desc": "login",
-      "path": "login"
+      "title": "Advanced Data Exploration",
+      "uid": "1oz9QMHmk"
     },
     {
-      "desc": "pmm-home",
-      "path": "d/pmm-home"
+      "title": "Amazon RDS / Aurora MySQL  Metrics",
+      "uid": "lqWR9oimz"
     },
     {
-      "desc": "1oz9QMHmk",
-      "path": "d/1oz9QMHmk"
+      "title": "CPU Utilization Details (Cores)",
+      "uid": "hCWR9oimz"
     },
     {
-      "desc": "prometheus",
-      "path": "d/prometheus"
+      "title": "Compare System Parameters",
+      "uid": "000000205"
     },
     {
-      "desc": "prometheus-status",
-      "path": "d/prometheus-status"
+      "title": "Cross Server Graphs",
+      "uid": "Swz9QGNmz"
     },
     {
-      "desc": "prometheus-overview",
-      "path": "d/prometheus-overview"
+      "title": "Disk Performance",
+      "uid": "oxkrQMNmz"
     },
     {
-      "desc": "mongodb-cluster-summary",
-      "path": "d/mongodb-cluster-summary"
+      "title": "Disk Space",
+      "uid": "80k9wMHmk"
     },
     {
-      "desc": "mongodb-inmemory",
-      "path": "d/mongodb-inmemory"
+      "title": "Home Dashboard",
+      "uid": "Fxvd1timk"
     },
     {
-      "desc": "mongodb-instance-summary",
-      "path": "d/mongodb-instance-summary"
+      "title": "MongoDB Cluster Summary",
+      "uid": "n9z9QGNiz"
     },
     {
-      "desc": "mongodb-instance-compare",
-      "path": "d/mongodb-instance-compare"
+      "title": "MongoDB InMemory",
+      "uid": "KPz9QMNmz"
     },
     {
-      "desc": "mongodb-instance-overview",
-      "path": "d/mongodb-instance-overview"
+      "title": "MongoDB MMAPv1",
+      "uid": "Cok9wMHik"
     },
     {
-      "desc": "mongodb-mmapv1",
-      "path": "d/mongodb-mmapv1"
+      "title": "MongoDB Overview",
+      "uid": "6Lk9wMHik"
     },
     {
-      "desc": "mongodb-replicaset-summary",
-      "path": "d/mongodb-replicaset-summary"
+      "title": "MongoDB ReplSet",
+      "uid": "7lzrQGNik"
     },
     {
-      "desc": "mongodb-rocksdb",
-      "path": "d/mongodb-rocksdb"
+      "title": "MongoDB RocksDB",
+      "uid": "EQzrQGNmk"
     },
     {
-      "desc": "mongodb-wiredtiger",
-      "path": "d/mongodb-wiredtiger"
+      "title": "MongoDB WiredTiger",
+      "uid": "tBkrQGNmz"
     },
     {
-      "desc": "mysql-amazonaurora",
-      "path": "d/mysql-amazonaurora"
+      "title": "MySQL Amazon Aurora Metrics",
+      "uid": "SokrwMHmz"
     },
     {
-      "desc": "mysql-commandhandler-compare",
-      "path": "d/mysql-commandhandler-compare"
+      "title": "MySQL Command/Handler Counters Compare",
+      "uid": "000000170"
     },
     {
-      "desc": "mysql-innodb-compression",
-      "path": "d/mysql-innodb-compression"
+      "title": "MySQL InnoDB Compression",
+      "uid": "CnOxqWGmz"
     },
     {
-      "desc": "mysql-innodb",
-      "path": "d/mysql-innodb"
+      "title": "MySQL InnoDB Metrics",
+      "uid": "giGgrTimz"
     },
     {
-      "desc": "mysql-instance-summary",
-      "path": "d/mysql-instance-summary",
-      "options": [
-        "var-service_name=rds-mysql57"
-      ]
+      "title": "MySQL InnoDB Metrics Advanced",
+      "uid": "ibkrwGHmz"
     },
     {
-      "desc": "mysql-instance-compare",
-      "path": "d/mysql-instance-compare",
-      "options": [
-        "var-service_name=pxc57-3-mysql"
-      ]
+      "title": "MySQL MyISAM/Aria Metrics",
+      "uid": "q8z9QGHik"
     },
     {
-      "desc": "mysql-instance-overview",
-      "path": "d/mysql-instance-overview"
+      "title": "MySQL MyRocks Metrics",
+      "uid": "G1z9wGNmk"
     },
     {
-      "desc": "mysql-myisamaria",
-      "path": "d/mysql-myisamaria"
+      "title": "MySQL Overview",
+      "uid": "MQWgroiiz"
     },
     {
-      "desc": "mysql-myrocks",
-      "path": "d/mysql-myrocks"
+      "title": "MySQL Performance Schema",
+      "uid": "BLk9wGNmz"
     },
     {
-      "desc": "mysql-performance-schema",
-      "path": "d/mysql-performance-schema"
+      "title": "MySQL Performance Schema Wait Event Analyses",
+      "uid": "fl8HVgcmk"
     },
     {
-      "desc": "mysql-queryresponsetime",
-      "path": "d/mysql-queryresponsetime"
+      "title": "MySQL Query Response Time",
+      "uid": "fsZR9omik"
     },
     {
-      "desc": "mysql-replicaset-summary",
-      "path": "d/mysql-replicaset-summary"
+      "title": "MySQL Replication",
+      "uid": "_9zrwMHmk"
     },
     {
-      "desc": "mysql-table",
-      "path": "d/mysql-table"
+      "title": "MySQL Table Statistics",
+      "uid": "CiMg9oiik"
     },
     {
-      "desc": "mysql-tokudb",
-      "path": "d/mysql-tokudb"
+      "title": "MySQL TokuDB Metrics",
+      "uid": "7Xk9QMNmk"
     },
     {
-      "desc": "mysql-user",
-      "path": "d/mysql-user"
+      "title": "MySQL User Statistics",
+      "uid": "EEkrQGNmk"
     },
     {
-      "desc": "mysql-waitevents-analysis",
-      "path": "d/mysql-waitevents-analysis"
+      "title": "NUMA Overview",
+      "uid": "8gx8yeMik"
     },
     {
-      "desc": "proxysql-instance-summary",
-      "path": "d/proxysql-instance-summary"
+      "title": "Network Overview",
+      "uid": "000000193"
     },
     {
-      "desc": "pxc-cluster-summary",
-      "path": "d/pxc-cluster-summary"
+      "title": "PXC/Galera Cluster Overview",
+      "uid": "s_k9wGNiz"
     },
     {
-      "desc": "pxc-node-summary",
-      "path": "d/pxc-node-summary"
+      "title": "PXC/Galera Graphs",
+      "uid": "Vwstci7iz"
     },
     {
-      "desc": "pxc-nodes-compare",
-      "path": "d/pxc-nodes-compare"
+      "title": "PostgreSQL Overview",
+      "uid": "IvhES05ik"
     },
     {
-      "desc": "node-cpu",
-      "path": "d/node-cpu"
+      "title": "Prometheus",
+      "uid": "SK8vJ2Hiz"
     },
     {
-      "desc": "node-disk",
-      "path": "d/node-disk"
+      "title": "Prometheus Exporter Status",
+      "uid": "o2zrwGNmz"
     },
     {
-      "desc": "node-memory",
-      "path": "d/node-memory"
+      "title": "Prometheus Exporters Overview",
+      "uid": "gfz9QMHiz"
     },
     {
-      "desc": "node-network",
-      "path": "d/node-network"
+      "title": "ProxySQL Overview",
+      "uid": "fwWR9oiiz"
     },
     {
-      "desc": "node-instance-summary",
-      "path": "d/node-instance-summary"
+      "title": "Summary Dashboard",
+      "uid": "qBWRrTiik"
     },
     {
-      "desc": "node-temp",
-      "path": "d/node-temp"
+      "title": "System Overview",
+      "uid": "qyzrQGHmk"
     },
     {
-      "desc": "node-instance-compare",
-      "path": "d/node-instance-compare"
+      "title": "Trends Dashboard",
+      "uid": "wjZRrTiiz"
     },
     {
-      "desc": "node-instance-overview",
-      "path": "d/node-instance-overview"
+      "title": "_PMM Amazon RDS and Remote Instances",
+      "uid": "pmm-list"
     },
     {
-      "desc": "node-memory-numa",
-      "path": "d/node-memory-numa"
-    },
-    {
-      "desc": "node-cpu-process",
-      "path": "d/node-cpu-process"
-    },
-    {
-      "desc": "postgresql-instance-summary",
-      "path": "d/postgresql-instance-summary"
-    },
-    {
-      "desc": "postgresql-instance-compare",
-      "path": "d/postgresql-instance-compare"
-    },
-    {
-      "desc": "postgresql-instance-overview",
-      "path": "d/postgresql-instance-overview"
-    },
-    {
-      "desc": "pmm-add-instance",
-      "path": "d/pmm-add-instance"
-    },
-    {
-      "desc": "pmm-qan",
-      "path": "d/pmm-qan"
-    },
-    {
-      "desc": "pmm-checks",
-      "path": "d/pmm-checks"
-    },
-    {
-      "desc": "pmm-inventory",
-      "path": "d/pmm-inventory"
-    },
-    {
-      "desc": "pmm-settings",
-      "path": "d/pmm-settings"
+      "title": "_PMM Query Analytics",
+      "uid": "7w6Q3PJmz"
     }
   ]
 }
