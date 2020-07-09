@@ -4,7 +4,7 @@ var uf = require('url');
 var fs = require('fs');
 
 // Default configuration values
-const defaults = require('./defaults.json');
+const defaults = require('./cfg/defaults.json');
 
 // Per-dashboard configuration values
 const config_file = process.env.SNAP_CONFIG_FILE || defaults.config_file;

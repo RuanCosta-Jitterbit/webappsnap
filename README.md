@@ -4,6 +4,12 @@ Connects to a PMM server, loads pages and takes a screen shot, saving the image 
 
 Uses Puppeteer to run Chrome.
 
+## Prerequisites
+
+- [Puppeteer](https://github.com/puppeteer/puppeteer)
+
+   `npm i puppeteer`
+
 ## Usage
 
 ./run.sh
