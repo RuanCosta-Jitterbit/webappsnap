@@ -37,7 +37,3 @@ SNAP_IMGDIR="images/$(date +%Y%m%d)"
 # SNAP_HEADLESS=false
 
 time node snap-pmm-dashboards.js
-
-# TODO use imagemagick to create gif slide show
-# Delay in 1/100s
-# convert -loop 1 -delay 150 *.jpg pmm-dashboard-slideshow.gif
