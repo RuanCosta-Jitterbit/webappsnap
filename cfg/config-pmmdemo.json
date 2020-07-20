@@ -2,7 +2,7 @@
   "name": "pmmdemo",
   "server": "https://pmmdemo.percona.com/graph/",
   "stem": "d/",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "wait": 20000,
   "login": true,
   "dashboards": [
