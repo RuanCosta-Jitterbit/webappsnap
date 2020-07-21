@@ -20,7 +20,7 @@ const img_pfx     = process.env.SNAP_IMG_PFX || defaults.img_pfx;
 const img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 const img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 const img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
-const img_scale   = Number(process.env.SNAP_IMG_SCALE) || defaults.img_scale; 
+const img_scale   = Number(process.env.SNAP_IMG_SCALE) || defaults.img_scale;
 
 // Get values from server config
 const hostname = uf.parse(config.server).hostname;
@@ -33,11 +33,11 @@ var idx = 1;
 
 // Create images directories
 function mkdir() {
-    if (!fs.existsSync(dir)) { 
+    if (!fs.existsSync(dir)) {
         try {
             console.log("Creating image save directory: " + dir);
-            fs.mkdirSync(dir, {recursive: true} );             
-        } 
+            fs.mkdirSync(dir, {recursive: true} );
+        }
         catch (err) {
             console.error("Failed to create image save directory " + dir);
             return;
@@ -49,23 +49,23 @@ function mkdir() {
 
 // Convenience wrapper for screenshots, and where the image filename is built
 async function snap(p, title="") { // page, dashboard, text
-    var filename = 
+    var filename =
         dir +                            // Directory (see above)
         img_pfx +                        // Prefix
         pad(idx++,2) + '_' +             // Sequence number and separator
-        title.replace(/[ \\\/]/g, "_") + // Title (replace spaces and forward/back slashes)
+        title.replace(/[\. \\\/]/g, "_") + // Title (replace dots, spaces and forward/back slashes)
         img_ext;                         // Image extension (.png/.jpg)
     process.stdout.write("Saving " + filename + " ... ");
 
-    try 
+    try
     {
-        await p.screenshot({path: filename}, { 
-            fullPage: true, 
-            quality: defaults.jpg_quality 
+        await (await p).screenshot({path: filename}, {
+            fullPage: true,
+            quality: defaults.jpg_quality
         });
         process.stdout.write("Done\n");
     } catch (err) {
-        process.stderr.write("Failed: " + err);
+        process.stderr.write("Failed: " + err + "\n");
     }
 }
 
@@ -80,7 +80,7 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
 async function load(p, u) { // page, url
     try {
         console.log("Loading " + u + " - " + "Waiting " + config.wait/1000 + " seconds");
-        await Promise.all([    
+        await Promise.all([
             p.goto(u),
             p.waitFor(config.wait)
         ]);
@@ -108,10 +108,10 @@ async function login(page, dashboard)
 // await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
 // await page.$eval('#inputPassword', el => el.value = '');
 
-    try 
+    try
     {
         const skip_button = defaults.login_skip_elem;
-        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });            
+        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
         await page.click(skip_button);
         await page.waitFor(config.wait);
     } catch (err) {

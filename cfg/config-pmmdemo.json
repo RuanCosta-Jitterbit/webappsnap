@@ -214,7 +214,226 @@
     },
     {
       "title": "PMM Query Analytics",
+      "comment": "Query Analytics Dashboard",
       "uid": "pmm-qan"
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics Panels",
+      "uid": "pmm-qan",
+      "panels": [
+        {
+          "name": "overview-table",
+          "selector": ".table-body"
+        },
+        {
+          "name": "filters",
+          "selector": ".overview-filters"
+        },
+        {
+          "name": "pagination",
+          "selector": ".ant-pagination"
+        },
+        {
+          "name": "add-columns",
+          "selector": ".add-columns"
+        },
+        {
+          "name": "group-by",
+          "selector": ".group-by-selector"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Details panel",
+      "uid": "pmm-qan",
+      "options": [
+        "details_tab=details"
+      ],
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "panels": [
+        {
+          "name": "details",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Examples panel",
+      "uid": "pmm-qan",
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "options": [
+        "details_tab=examples"
+      ],
+      "panels": [
+        {
+          "name": "examples",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Explain panel",
+      "uid": "pmm-qan",
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "options": [
+        "details_tab=explain"
+      ],
+      "panels": [
+        {
+          "name": "explain",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics Dashboard",
+      "uid": "pmm-qan"
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics Controls",
+      "uid": "pmm-qan",
+      "panels": [
+        {
+          "name": "overview-table-panel",
+          "selector": ".table-body"
+        },
+        {
+          "name": "filter-panel",
+          "selector": ".overview-filters"
+        },
+        {
+          "name": "pagination-button",
+          "selector": ".ant-pagination"
+        },
+        {
+          "name": "add-columns-button",
+          "selector": ".add-columns"
+        },
+        {
+          "name": "group-by-menu",
+          "selector": ".group-by-selector"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics Dimension Selector",
+      "comment": "Query Analytics - Dimension selector",
+      "uid": "pmm-qan",
+      "click": [
+        ".group-by-selector"
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Details panel",
+      "uid": "pmm-qan",
+      "options": [
+        "details_tab=details"
+      ],
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "panels": [
+        {
+          "name": "details-panel",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Examples panel",
+      "uid": "pmm-qan",
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "options": [
+        "details_tab=examples"
+      ],
+      "panels": [
+        {
+          "name": "examples-panel",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Explain panel",
+      "uid": "pmm-qan",
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "options": [
+        "details_tab=explain"
+      ],
+      "panels": [
+        {
+          "name": "explain-panel",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics",
+      "comment": "Query Analytics - Tables panel",
+      "uid": "pmm-qan",
+      "click": [
+        "div.tr:nth-child(3)"
+      ],
+      "options": [
+        "details_tab=tables"
+      ],
+      "panels": [
+        {
+          "name": "tables-panel",
+          "selector": ".query-analytics-details-grid"
+        }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics Time Range",
+      "comment": "Query Analytics - Time range",
+      "uid": "pmm-qan",
+      "click": [
+        "body > grafana-app > div > div > react-container > div > div.navbar > div:nth-child(5) > div > div.css-16ba5ut > div > div > button"
+      ]
+    },
+    {
+      "title": "PMM Query Analytics Main Metric Sparkline",
+      "comment": "Query Analytics - Sparkline",
+      "uid": "pmm-qan",
+      "move": [
+        "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div"
+      ]
+    },
+    {
+      "title": "PMM Query Analytics Main Metric Meter",
+      "comment": "Query Analytics - Main Metric Meter",
+      "uid": "pmm-qan",
+      "move": [
+        "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > span > div > div"
+      ]
+    },
+    {
+      "title": "PMM Query Analytics Metric Tooltip",
+      "comment": "Query Analytics - Metric Tooltip",
+      "uid": "pmm-qan",
+      "move": [
+        "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(4) > div > span > div > div"
+      ]
     },
     {
       "title": "PMM Settings",

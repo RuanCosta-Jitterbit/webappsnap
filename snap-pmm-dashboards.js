@@ -48,20 +48,18 @@ util.mkdir();
         }
     }
 
-    // all dashboards
     for (var d in dashboards) {
-
         // Build URL; append option string if present
         var option_string = '?';
         for (var i in dashboards[d].options) {
             option_string += dashboards[d].options[i] + '&';
         }
-        await util.load(page, 
-                        util.config.server + 
+        await util.load(page,
+                        util.config.server +
                         util.config.stem +
-                        dashboards[d].uid + 
+                        dashboards[d].uid +
                         ((option_string.length > 1) ? option_string : '') );
-         
+
         // Remove pesky cookie confirmation from pmmdemo.percona.com
         const cookie_popup = util.defaults.cookie_popup_elem;
         try {
@@ -74,10 +72,34 @@ util.mkdir();
                 for(var i=0; i< elements.length; i++){
                     elements[i].parentNode.removeChild(elements[i]);
                 }
-            }, cookie_popup);            
-        } catch(err) { console.log("No cookie popup to remove: " + err); } 
+            }, cookie_popup);
+        } catch(err) { console.log("No cookie popup to remove: " + err + "\n"); }
 
-        await util.snap(page, dashboards[d].title);
+        // Pre-snap mouse clicks - needed for some dashboards (e.g. QAN)
+        for (var c in dashboards[d].click) {
+            var click = dashboards[d].click[c];
+            await page.click(click);
+            await page.waitFor(util.config.wait);
+        }
+
+        // Pre-snap mouse-over (hover)
+        for (var h in dashboards[d].move) {
+            var hover = dashboards[d].move[h];
+            const element = await page.$(hover)
+            const box = await element.boundingBox();
+            await page.mouse.move(box.x+2,box.y+2);
+        }
+
+        // Snap panels/components, if any
+        if (dashboards[d].panels) {
+           for (var p in dashboards[d].panels) {
+                const panel = dashboards[d].panels[p];
+                var element = page.waitForSelector(panel.selector);
+                await util.snap(element, dashboards[d].title + "_" + panel.name);
+            }
+        } else { // Snap panels OR full pages
+            await util.snap(page, dashboards[d].title);
+        }
     }
     await browser.close();
 })();
