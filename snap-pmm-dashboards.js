@@ -4,45 +4,46 @@ const puppeteer = require('puppeteer');
 
 // Loads functions, config
 const util = require('./util.js');
+const config = require('./config.js'); // Config conduit
+const { nextTick } = require('process');
 
-// Load per-dashboard values
-const dashboards = util.config.dashboards; // The dashboards as a hash
-const hostname = util.hostname; // extracted from server URL
-const img_ext = util.img_ext;   // Image file extension
+const dashboards = config.dashboards; // The dashboards
+const img_ext = config.img_ext;   // Image file extension
 
-// Create image save directory TODO move to snap function
-util.mkdir();
+const server_cfg = config.server_cfg;
+
+util.mkdir(config.img_dir);    // Create image save directory TODO move to snap function
 
 (async () => {
-    console.log("Screen capturing " + util.config.name);
-    console.log("Configuration: " + util.config_file);
-    console.log("URL: " + util.config.server);
-    console.log("Viewport: " + util.img_width + "x" + util.img_height);
-    console.log("Image scaling factor: " + util.img_scale);
-    console.log("Image file type: " + util.img_ext);
-    if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + util.jpg_quality); }
-    console.log("Default page wait time: " + util.config.wait/1000 + " seconds");
-    if (!util.headless) { console.log("HEADLESS MODE OFF"); }
+    console.log("Server configuration file: " + config.cfg_file_name);
+    console.log("Server: " + config.hostname);
+    console.log("Server version: " + server_cfg.version);
+    console.log("Viewport: " + config.img_width + "x" + config.img_height);
+    console.log("Image scaling factor: " + config.img_scale);
+    console.log("Image file type: " + config.img_ext);
+    if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + config.jpg_quality); }
+    console.log("Default page wait time: " + server_cfg.wait/1000 + " seconds");
+    if (!config.headless) { console.log("HEADLESS MODE OFF"); }
 
     const browser = await puppeteer.launch({
-        headless: util.headless,
+        headless: config.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
         defaultViewport: {
-            width: util.img_width,
-            height: util.img_height,
-            deviceScaleFactor: util.img_scale
+            width: config.img_width,
+            height: config.img_height,
+            deviceScaleFactor: config.img_scale
         }
     });
     const page = await browser.newPage();
-    await page.setDefaultTimeout(util.config.wait);
+    await page.setDefaultTimeout(server_cfg.wait);
 
-    // Attempt login if allowed
-    if (util.config.login) {
-        await util.load(page, util.config.server + 'login');
-        await util.snap(page, 'login');
+    // Attempt login if configured
+    if (server_cfg.login) {
+        await util.load(page, server_cfg.server + 'login', server_cfg.wait);
+        await util.snap(page, 'login', config.img_dir);
         try {
-            await util.login(page, 'login')
+            await util.login(page, server_cfg.wait)
         } catch (err) {
             console.error("Can't login: " + err);
         }
@@ -54,14 +55,12 @@ util.mkdir();
         for (var i in dashboards[d].options) {
             option_string += dashboards[d].options[i] + '&';
         }
-        await util.load(page,
-                        util.config.server +
-                        util.config.stem +
-                        dashboards[d].uid +
-                        ((option_string.length > 1) ? option_string : '') );
+        var server_url = server_cfg.server + server_cfg.stem +
+                         dashboards[d].uid + ((option_string.length > 1) ? option_string : '');
+        await util.load(page, server_url, server_cfg.wait);
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
-        const cookie_popup = util.defaults.cookie_popup_elem;
+        const cookie_popup = config.defaults.cookie_popup_elem;
         try {
             await page.$(cookie_popup, {
                 timeout: 5000,
@@ -79,7 +78,7 @@ util.mkdir();
         for (var c in dashboards[d].click) {
             var click = dashboards[d].click[c];
             await page.click(click);
-            await page.waitFor(util.config.wait);
+            await page.waitFor(server_cfg.wait);
         }
 
         // Pre-snap mouse-over (hover)
@@ -95,10 +94,10 @@ util.mkdir();
            for (var p in dashboards[d].panels) {
                 const panel = dashboards[d].panels[p];
                 var element = page.waitForSelector(panel.selector);
-                await util.snap(element, dashboards[d].title + "_" + panel.name);
+                await util.snap(element, dashboards[d].title + "_" + panel.name, config.img_dir);
             }
         } else { // Snap panels OR full pages
-            await util.snap(page, dashboards[d].title);
+            await util.snap(page, dashboards[d].title, config.img_dir);
         }
     }
     await browser.close();
