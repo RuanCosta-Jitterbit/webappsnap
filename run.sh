@@ -4,12 +4,12 @@
 set -a
 
 # PMM Server credentials
-# SNAP_USER=admin
+# SNAP_USER=
 # TIP: Set in working env for security
 # SNAP_PASS=
 
-# Server config file
-# SNAP_CONFIG_FILE="./cfg/config-local.json"
+# Server config file - defines URL, snap wait time, whether to log in, server version
+SNAP_CONFIG_FILE="./cfg/config-pmmdemo.json"
 
 # Snap viewport
 # SNAP_IMG_WIDTH=2560
