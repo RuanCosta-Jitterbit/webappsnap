@@ -4,7 +4,10 @@
 set -a
 
 # PMM Server credentials
+# Username. Default: admin
 # SNAP_USER=
+
+# Password. Default: admin
 # TIP: Set in working env for security
 # SNAP_PASS=
 
@@ -15,18 +18,17 @@ SNAP_CONFIG_FILE="./cfg/config-pmmdemo.json"
 # SNAP_IMG_WIDTH=2560
 # SNAP_IMG_HEIGHT=1600
 
-# Image scale factor
-# Use in conjunction with quality to reduce filesize for large viewports
-# SNAP_IMG_SCALE=0.5
-
-# Image filename prefix
-# SNAP_IMG_PFX=
-
 # Image filetype .jpg or .png
 # SNAP_IMG_EXT=".png"
 
-# JPG Quality
+# JPG Quality (% value). Default: 100
 # SNAP_JPG_QUALITY=75
+
+# Image scale factor. Multiplies WIDTH and HEIGHT by this value. Default: 1
+# SNAP_IMG_SCALE=0.5
+
+# Image filename prefix. Default 'pmm_'
+SNAP_IMG_PFX=PMM_
 
 # Root for images
 # Images saved in ./IMGDIR/WIDTHxHEIGHT/SCALE/
