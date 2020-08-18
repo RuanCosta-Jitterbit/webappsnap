@@ -29,7 +29,7 @@ async function snap(page, title="", dir) {
         pad(idx++,2) + '_' +                 // Sequence number and separator
         title.replace(/[\. \\\/]/g, "_") +   // Title (replace dots, spaces and forward/back slashes)
         config.img_ext;                      // Image extension (.png/.jpg)
-    process.stdout.write("Saving " + filename + " ... ");
+    await process.stdout.write("Saving " + filename + " ... ");
 
     try
     {
@@ -37,9 +37,9 @@ async function snap(page, title="", dir) {
             fullPage: true,
             quality: config.defaults.jpg_quality
         });
-        process.stdout.write("Done\n");
+        await process.stdout.write("Done\n");
     } catch (err) {
-        process.stderr.write("Failed: " + err + "\n");
+        await process.stderr.write("Failed: " + err + "\n");
     }
 }
 
