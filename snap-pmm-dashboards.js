@@ -1,17 +1,27 @@
 // Connects to PMM instance to take screenshots of each dashboard
 'use strict';
 const puppeteer = require('puppeteer');
-
+const {argv} = require('yargs');
 // Utility functions: snapping, loading URLs
 const util = require('./util.js');
 // Start-up vs default configuration value handling
 const config = require('./config.js');
+const { nextTick } = require('process');
 
 const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to a PMM server
 
+// List dashboard UIDs and exit
+if (argv.list) {
+    console.log( Array.from( new Set( dashboards .map(e1 => e1.uid) .sort() ) ) .join("\n") );
+    return;
+}
+
 util.mkdir(config.img_dir);    // Create image save directory TODO move to snap function
+
+// Option for specifying dashboards to snap
+const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : [] );
 
 (async () => {
     console.log("Server: " + config.hostname);
@@ -53,6 +63,12 @@ util.mkdir(config.img_dir);    // Create image save directory TODO move to snap 
     // Loop through all dashboards in default config file (./cfg/dashboards.json)
     for (var d in dashboards) {
         var dash = dashboards[d];
+
+        // Handle optional --dash=uid,...
+        if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
+            console.log("Skipping " + dash.uid);
+            continue;
+        }
 
         // Build URL; append option string if present
         var option_string = '?';

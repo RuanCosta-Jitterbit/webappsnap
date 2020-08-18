@@ -5,9 +5,12 @@
 
 ## Prerequisites
 
-- [Puppeteer](https://github.com/puppeteer/puppeteer)
+- [Puppeteer (browser control)](https://github.com/puppeteer/puppeteer)
+- [Yargs (CLI arg processing)](https://github.com/yargs/yargs)
 
-   `npm i puppeteer`
+   ```
+   npm i puppeteer yarg
+   ```
 
 ## Usage
 

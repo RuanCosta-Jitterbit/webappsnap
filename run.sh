@@ -41,4 +41,14 @@ SNAP_IMGDIR="images/$(date +%Y%m%d)"
 # Headless mode. Whether to hide browser while snapping. Default: true
 # SNAP_HEADLESS=false
 
-time node snap-pmm-dashboards.js --unhandled-rejections=strict
+# USAGE
+# run.sh [--list] [--dash=<dashboard UID>[,]]
+# --list: outputs list of dashboard UIDs then exits.
+# --dash: When empty or unset, snaps all PMM dashboards.
+# To snap specific dashboards, add them as a comma-separated list to the --dash option.
+# All entries in cfg/dashboards.json with matching uid will be snapped, including any
+# panel/component entries.
+# The login page is snapped independently based on the value for 'login' in the
+# server configuration file (SNAP_CONFIG_FILE).
+
+time node snap-pmm-dashboards.js --unhandled-rejections=strict "$@"
