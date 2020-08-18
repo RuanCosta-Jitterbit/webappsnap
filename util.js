@@ -25,10 +25,10 @@ function mkdir(dir) {
 async function snap(page, title="", dir) {
     var filename =
         dir +
-        config.img_pfx +                     // Prefix
-        pad(idx++,2) + '_' +                 // Sequence number and separator
-        title.replace(/[\. \\\/]/g, "_") +   // Title (replace dots, spaces and forward/back slashes)
-        config.img_ext;                      // Image extension (.png/.jpg)
+        config.img_pfx +                             // Prefix
+        (config.img_seq ? pad(idx++,2) + '_' : '') + // Sequence number and separator
+        title.replace(/[\. \\\/]/g, "_") +           // Title (replace dots, spaces and forward/back slashes)
+        config.img_ext;                              // Image extension (.png/.jpg)
     await process.stdout.write("Saving " + filename + " ... ");
 
     try

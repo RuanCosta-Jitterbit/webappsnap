@@ -14,11 +14,13 @@ const server_cfg = config.server_cfg; // Config file specific to a PMM server
 util.mkdir(config.img_dir);    // Create image save directory TODO move to snap function
 
 (async () => {
-    console.log("Server configuration file: " + config.cfg_file_name);
     console.log("Server: " + config.hostname);
+    console.log("Server configuration file: " + config.cfg_file_name);
     console.log("Requested Viewport: " + config.img_width + "x" + config.img_height);
     console.log("Image scaling factor: " + config.img_scale);
     console.log("Image file type: " + config.img_ext);
+    console.log("Image filename prefix: " + config.img_pfx);
+    console.log("Image filename sequence numbers: " + config.img_seq);
     if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + config.jpg_quality); }
     console.log(`Default page wait time: ${server_cfg.wait / 1000} seconds`);
     console.log(`Default page pause time: ${server_cfg.pause / 1000} seconds`);

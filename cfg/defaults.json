@@ -4,6 +4,7 @@
     "img_pfx"           : "pmm_",
     "img_ext"           : ".jpg",
     "img_dir"           : "./images",
+    "img_seq"           : true,
     "user"              : "admin",
     "pass"              : "admin",
     "headless"          : true,
