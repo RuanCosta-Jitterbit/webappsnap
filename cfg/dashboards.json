@@ -302,97 +302,6 @@
     },
     {
       "title": "PMM Query Analytics",
-      "comment": "Query Analytics Dashboard",
-      "uid": "pmm-qan"
-    },
-    {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics Controls",
-      "uid": "pmm-qan",
-      "panels": [
-        {
-          "name": "overview-table-panel",
-          "selector": ".table-body"
-        },
-        {
-          "name": "filter-panel",
-          "selector": ".overview-filters"
-        },
-        {
-          "name": "pagination-button",
-          "selector": ".ant-pagination"
-        },
-        {
-          "name": "add-columns-button",
-          "selector": ".add-columns"
-        },
-        {
-          "name": "group-by-menu",
-          "selector": ".group-by-selector"
-        }
-      ]
-    },
-    {
-      "title": "PMM Query Analytics Dimension Selector",
-      "comment": "Query Analytics - Dimension selector",
-      "uid": "pmm-qan",
-      "click": [
-        ".group-by-selector"
-      ]
-    },
-    {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Details panel",
-      "uid": "pmm-qan",
-      "options": [
-        "details_tab=details"
-      ],
-      "click": [
-        "div.tr:nth-child(3)"
-      ],
-      "panels": [
-        {
-          "name": "details-panel",
-          "selector": ".query-analytics-details-grid"
-        }
-      ]
-    },
-    {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Examples panel",
-      "uid": "pmm-qan",
-      "click": [
-        "div.tr:nth-child(3)"
-      ],
-      "options": [
-        "details_tab=examples"
-      ],
-      "panels": [
-        {
-          "name": "examples-panel",
-          "selector": ".query-analytics-details-grid"
-        }
-      ]
-    },
-    {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Explain panel",
-      "uid": "pmm-qan",
-      "click": [
-        "div.tr:nth-child(3)"
-      ],
-      "options": [
-        "details_tab=explain"
-      ],
-      "panels": [
-        {
-          "name": "explain-panel",
-          "selector": ".query-analytics-details-grid"
-        }
-      ]
-    },
-    {
-      "title": "PMM Query Analytics",
       "comment": "Query Analytics - Tables panel",
       "uid": "pmm-qan",
       "click": [
@@ -406,6 +315,14 @@
           "name": "tables-panel",
           "selector": ".query-analytics-details-grid"
         }
+      ]
+    },
+    {
+      "title": "PMM Query Analytics Dimension Selector",
+      "comment": "Query Analytics - Dimension selector",
+      "uid": "pmm-qan",
+      "click": [
+        ".group-by-selector"
       ]
     },
     {
