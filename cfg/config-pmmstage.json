@@ -2,7 +2,6 @@
   "name"    : "pmmstage",
   "server"  : "https://pmmstage.percona.com/",
   "stem"    : "d/",
-  "version" : "1.0.0",
   "wait"    : 20000,
   "login"   : true
 }

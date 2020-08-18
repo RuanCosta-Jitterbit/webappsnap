@@ -2,7 +2,6 @@
   "name": "pmmdemo",
   "server": "https://pmmdemo.percona.com/graph/",
   "stem": "d/",
-  "wait": 20000,
-  "version": "2.9.0",
+  "wait": 25000,
   "login": true
 }

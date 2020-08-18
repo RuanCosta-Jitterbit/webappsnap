@@ -2,7 +2,6 @@
   "name": "local",
   "server": "http://localhost/graph/",
   "stem": "d/",
-  "version": "2.9.0",
   "wait": 20000,
   "login": true
 }
