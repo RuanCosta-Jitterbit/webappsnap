@@ -36,4 +36,4 @@ SNAP_IMGDIR="images/$(date +%Y%m%d)"
 # Headless mode
 # SNAP_HEADLESS=false
 
-time node snap-pmm-dashboards.js
+time node snap-pmm-dashboards.js --unhandled-rejections=strict
