@@ -13,17 +13,12 @@
       "uid": "node-disk"
     },
     {
-      "title": "Home Dashboard",
-      "uid": "pmm-home"
-    },
-    {
-      "title": "Home Dashboard PMM Update",
-      "comment": "Home Dashboard - Update panel",
+      "title": "Home Dashboard PMM Upgrade",
       "uid": "pmm-home",
       "panels": [
         {
           "name": "details",
-          "selector": "#panel-1337 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)"
+          "selector": "#panel-1337"
         }
       ]
     },
@@ -216,11 +211,6 @@
     {
       "title": "PMM Inventory",
       "uid": "pmm-inventory"
-    },
-    {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics Dashboard",
-      "uid": "pmm-qan"
     },
     {
       "title": "PMM Query Analytics",

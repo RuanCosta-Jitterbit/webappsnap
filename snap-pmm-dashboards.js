@@ -5,9 +5,8 @@ const puppeteer = require('puppeteer');
 // Loads functions, config
 const util = require('./util.js');
 const config = require('./config.js'); // Config conduit
-const { nextTick } = require('process');
 
-const dashboards = config.dashboards; // The dashboards
+const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension
 
 const server_cfg = config.server_cfg;
@@ -17,12 +16,11 @@ util.mkdir(config.img_dir);    // Create image save directory TODO move to snap 
 (async () => {
     console.log("Server configuration file: " + config.cfg_file_name);
     console.log("Server: " + config.hostname);
-    console.log("Server version: " + server_cfg.version);
-    console.log("Viewport: " + config.img_width + "x" + config.img_height);
+    console.log("Requested Viewport: " + config.img_width + "x" + config.img_height);
     console.log("Image scaling factor: " + config.img_scale);
     console.log("Image file type: " + config.img_ext);
     if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + config.jpg_quality); }
-    console.log("Default page wait time: " + server_cfg.wait/1000 + " seconds");
+    console.log("Default page wait time: " + server_cfg.wait / 1000 + " seconds");
     if (!config.headless) { console.log("HEADLESS MODE OFF"); }
 
     const browser = await puppeteer.launch({
@@ -56,8 +54,8 @@ util.mkdir(config.img_dir);    // Create image save directory TODO move to snap 
             option_string += dashboards[d].options[i] + '&';
         }
         var server_url = server_cfg.server + server_cfg.stem +
-                         dashboards[d].uid + ((option_string.length > 1) ? option_string : '');
-        await util.load(page, server_url, server_cfg.wait);
+            dashboards[d].uid + ((option_string.length > 1) ? option_string : '');
+        await util.load(page, server_url, server_cfg.wait);   // TODO allow per-dashboard override from config for e.g. slow explain tab on QAN
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
         const cookie_popup = config.defaults.cookie_popup_elem;
@@ -68,36 +66,40 @@ util.mkdir(config.img_dir);    // Create image save directory TODO move to snap 
             });
             await page.evaluate((sel) => {
                 var elements = document.querySelectorAll(sel);
-                for(var i=0; i< elements.length; i++){
+                for (var i = 0; i < elements.length; i++) {
                     elements[i].parentNode.removeChild(elements[i]);
                 }
             }, cookie_popup);
-        } catch(err) { console.log("No cookie popup to remove: " + err + "\n"); }
+        } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 
-        // Pre-snap mouse clicks - needed for some dashboards (e.g. QAN)
+        // Always snap freshly loaded pages irrespective of those for menus, panels, etc.
+        await util.snap(page, dashboards[d].title, config.img_dir);
+
+
+        // Mouse clicks - for drop down menus etc
         for (var c in dashboards[d].click) {
             var click = dashboards[d].click[c];
             await page.click(click);
             await page.waitFor(server_cfg.wait);
+            await util.snap(page, dashboards[d].title, config.img_dir);
         }
 
-        // Pre-snap mouse-over (hover)
+        // Mouse-over (hover)
         for (var h in dashboards[d].move) {
             var hover = dashboards[d].move[h];
             const element = await page.$(hover)
             const box = await element.boundingBox();
-            await page.mouse.move(box.x+2,box.y+2);
+            await page.mouse.move(box.x + 2, box.y + 2); // Middle of element
+            await util.snap(page, dashboards[d].title, config.img_dir);
         }
 
-        // Snap panels/components, if any
+        // panels/components
         if (dashboards[d].panels) {
-           for (var p in dashboards[d].panels) {
+            for (var p in dashboards[d].panels) {
                 const panel = dashboards[d].panels[p];
-                var element = page.waitForSelector(panel.selector);
+                var element = await page.waitForSelector(panel.selector);
                 await util.snap(element, dashboards[d].title + "_" + panel.name, config.img_dir);
             }
-        } else { // Snap panels OR full pages
-            await util.snap(page, dashboards[d].title, config.img_dir);
         }
     }
     await browser.close();

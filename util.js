@@ -22,18 +22,18 @@ function mkdir(dir) {
 }
 
 // Convenience wrapper for screenshots, and where the image filename is built
-async function snap(p, title="", dir) { // page, text, directory
+async function snap(page, title="", dir) {
     var filename =
         dir +
-        config.img_pfx +                        // Prefix
-        pad(idx++,2) + '_' +             // Sequence number and separator
-        title.replace(/[\. \\\/]/g, "_") + // Title (replace dots, spaces and forward/back slashes)
-        config.img_ext;                         // Image extension (.png/.jpg)
+        config.img_pfx +                     // Prefix
+        pad(idx++,2) + '_' +                 // Sequence number and separator
+        title.replace(/[\. \\\/]/g, "_") +   // Title (replace dots, spaces and forward/back slashes)
+        config.img_ext;                      // Image extension (.png/.jpg)
     process.stdout.write("Saving " + filename + " ... ");
 
     try
     {
-        await (await p).screenshot({path: filename}, {
+        await page.screenshot({path: filename}, {
             fullPage: true,
             quality: config.defaults.jpg_quality
         });
@@ -51,27 +51,27 @@ function pad(n, w, z) { // number, width, padding char (default: 0)
 }
 
 // Convenience wrapper for loading pages with logging and standard load wait time
-async function load(p, u, w) { // page, url, wait
+async function load(page, url, wait) {
     try {
-        console.log("Loading " + u + " - " + "Waiting " + w/1000 + " seconds");
+        console.log("Loading " + url + " - " + "Waiting " + wait/1000 + " seconds");
         await Promise.all([
-            p.goto(u),
-            p.waitFor(w)
+            page.goto(url, {waitUntil: 'load'}),
+            page.waitFor(wait)
         ]);
     } catch (err) {
-        console.error("Can't load " + u + " - " + err);
+        console.error("Can't load " + url + " - " + err);
     }
     // TODO handle net::ERR_INTERNET_DISCONNECTED
 }
 
 // Handle PMM login page
-async function login(p, w) // page, wait
+async function login(page, wait)
 {
     // Type in username and password and press Enter
-    await p.type(config.defaults.login_user_elem, config.user);
-    await p.type(config.defaults.login_pass_elem, config.pass);
-    await p.keyboard.press('Enter');
-    await p.waitFor(w); // Wait for login
+    await page.type(config.defaults.login_user_elem, config.user);
+    await page.type(config.defaults.login_pass_elem, config.pass);
+    await page.keyboard.press('Enter');
+    await page.waitFor(wait); // Wait for login
 
     // TODO intercept and report 'invalid username or password' dialog
 
@@ -82,9 +82,9 @@ async function login(p, w) // page, wait
     try
     {
         const skip_button = config.defaults.login_skip_elem;
-        await p.waitForSelector(skip_button, { visible: true, timeout: 5000 });
-        await p.click(skip_button);
-        await p.waitFor(w);
+        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
+        await page.click(skip_button);
+        await page.waitFor(wait);
     } catch (err) {
         await console.log("Didn't find password change skip button");
     }
