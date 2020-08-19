@@ -42,12 +42,14 @@ SNAP_IMGDIR="images/$(date +%Y%m%d)"
 # SNAP_HEADLESS=false
 
 # USAGE
-# run.sh [--list] [--dash=<dashboard UID>[,]]
+# run.sh [--list] [--full] [--dash=<dashboard UID>[,]]
 # --list: outputs list of dashboard UIDs then exits.
+# --full: Also snap container panels unconstrained by default viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT)
 # --dash: When empty or unset, snaps all PMM dashboards.
-# To snap specific dashboards, add them as a comma-separated list to the --dash option.
-# All entries in cfg/dashboards.json with matching uid will be snapped, including any
-# panel/component entries.
+#         To snap specific dashboards, add them as a comma-separated list to the --dash option.
+#         All entries in cfg/dashboards.json with matching uid will be snapped, including any
+#         panel/component entries.
+# --debug: Lists operating parameters.
 # The login page is snapped independently based on the value for 'login' in the
 # server configuration file (SNAP_CONFIG_FILE).
 

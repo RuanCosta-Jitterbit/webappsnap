@@ -13,11 +13,15 @@
       "uid": "node-disk"
     },
     {
-      "title": "Home Dashboard PMM Upgrade",
+      "title": "Home Dashboard",
+      "uid": "pmm-home"
+    },
+    {
+      "title": "Home Dashboard",
       "uid": "pmm-home",
       "panels": [
         {
-          "name": "details",
+          "name": "upgrade panel",
           "selector": "#panel-1337"
         }
       ]
