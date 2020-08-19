@@ -43,6 +43,7 @@ SNAP_IMGDIR="images/$(date +%Y%m%d)"
 
 # USAGE
 # run.sh [--list] [--full] [--dash=<dashboard UID>[,]]
+# --login: Go through the login screen (using SNAP_USER/SNAP_PASS) and snap it.
 # --list: outputs list of dashboard UIDs then exits.
 # --full: Also snap container panels unconstrained by default viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT)
 # --dash: When empty or unset, snaps all PMM dashboards.
