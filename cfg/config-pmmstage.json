@@ -3,6 +3,5 @@
   "server" : "https://pmmstage.percona.com/",
   "stem"   : "d/",
   "wait"   : 20000,
-  "pause"  : 2000,
-  "login"  : true
+  "pause"  : 2000
 }
