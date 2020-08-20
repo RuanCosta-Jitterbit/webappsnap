@@ -21,23 +21,23 @@
       "uid": "pmm-home",
       "panels": [
         {
-          "name": "grafana side menu",
+          "name": "Grafana Side Menu",
           "selector": "body > grafana-app > sidemenu"
         },
         {
-          "name": "top navigation bar",
+          "name": "Top Navigation Bar",
           "selector": "body > grafana-app > div > div > react-container > div > div.navbar"
         },
         {
-          "name": "submenu bar",
+          "name": "Submenu Bar",
           "selector": "body > grafana-app > div > div > react-container > div > div.scroll-canvas.scroll-canvas--dashboard > div > div.view > div > div:nth-child(1) > dashboard-submenu > div"
         },
         {
-          "name": "failed security checks panel",
+          "name": "Failed Security Checks",
           "selector": "#panel-1381"
         },
         {
-          "name": "upgrade panel",
+          "name": "Upgrade",
           "selector": "#panel-1337"
         }
       ]
@@ -221,49 +221,49 @@
       "uid": "proxysql-instance-summary"
     },
     {
-      "title": "PMM Add Instance",
+      "title": "Add Instance",
       "uid": "pmm-add-instance"
     },
     {
-      "title": "PMM Database Checks",
+      "title": "Database Checks",
       "uid": "pmm-checks"
     },
     {
-      "title": "PMM Inventory",
+      "title": "Inventory",
       "uid": "pmm-inventory"
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan"
     },
     {
-      "title": "PMM Query Analytics Panels",
+      "title": "Query Analytics Panels",
       "uid": "pmm-qan",
       "panels": [
         {
-          "name": "overview-table",
+          "name": "Overview Table",
           "selector": ".table-body"
         },
         {
-          "name": "filters",
+          "name": "Filters",
           "selector": ".overview-filters"
         },
         {
-          "name": "pagination",
+          "name": "Pagination",
           "selector": ".ant-pagination"
         },
         {
-          "name": "add-columns",
+          "name": "Add Columns",
           "selector": ".add-columns"
         },
         {
-          "name": "group-by",
+          "name": "Group By",
           "selector": ".group-by-selector"
         }
       ]
     },
     {
-      "title": "PMM Query Analytics ",
+      "title": "Query Analytics ",
       "uid": "pmm-qan",
       "options": [
         "details_tab=details"
@@ -276,13 +276,13 @@
       ],
       "panels": [
         {
-          "name": "details",
+          "name": "Details Panel",
           "selector": ".query-analytics-details-grid"
         }
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "click": [
         {
@@ -295,13 +295,13 @@
       ],
       "panels": [
         {
-          "name": "examples",
+          "name": "Examples Panel",
           "selector": ".query-analytics-details-grid"
         }
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "click": [
         {
@@ -314,13 +314,13 @@
       ],
       "panels": [
         {
-          "name": "explain",
+          "name": "Explain Panel",
           "selector": ".query-analytics-details-grid"
         }
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "click": [
         {
@@ -333,13 +333,13 @@
       ],
       "panels": [
         {
-          "name": "tables-panel",
+          "name": "Tables Panel",
           "selector": ".query-analytics-details-grid"
         }
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "click": [
         {
@@ -349,7 +349,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "click": [
         {
@@ -359,7 +359,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "move": [
         {
@@ -369,7 +369,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "move": [
         {
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "move": [
         {
@@ -389,11 +389,11 @@
       ]
     },
     {
-      "title": "PMM Settings",
+      "title": "Settings",
       "uid": "pmm-settings"
     },
     {
-      "title": "PMM Settings",
+      "title": "Settings",
       "uid": "pmm-settings",
       "click": [
         {
