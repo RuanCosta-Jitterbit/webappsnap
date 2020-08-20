@@ -43,8 +43,9 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         if (img_ext.match(/\.jpg$/)) { console.log(`JPG quality: ${config.jpg_quality}`); }
         console.log(`Default page wait time: ${server_cfg.wait / 1000} seconds`);
         console.log(`Default page pause time: ${server_cfg.pause / 1000} seconds`);
-        console.log(`Headless mode: ${config.headless}`;
-        console.log(`Snapping container panels beyond viewport: ${argv.full}`);
+        console.log(`Headless mode: ${Boolean(config.headless)}`);
+        console.log("Snapping container panels beyond viewport: " + ((argv.full) ? "On" : "Off"));
+        console.log(`Snapping container panels beyond viewport: ${Boolean(argv.full)}`);
         if (!argv.dash) { console.log("Snapping all listed dashboards"); }
     }
 
