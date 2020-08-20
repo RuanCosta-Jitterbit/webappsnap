@@ -22,15 +22,18 @@
       "panels": [
         {
           "name": "Grafana Side Menu",
-          "selector": "body > grafana-app > sidemenu"
+          "selector": ".sidemenu",
+          "viewport" : { "width": 1, "height": 0.75 }
         },
         {
           "name": "Top Navigation Bar",
-          "selector": "body > grafana-app > div > div > react-container > div > div.navbar"
+          "selector": ".navbar",
+          "viewport" : { "width": 0.5, "height": 1 }
         },
         {
           "name": "Submenu Bar",
-          "selector": "body > grafana-app > div > div > react-container > div > div.scroll-canvas.scroll-canvas--dashboard > div > div.view > div > div:nth-child(1) > dashboard-submenu > div"
+          "selector": ".submenu-controls",
+          "viewport" : { "width": 0.5, "height": 1 }
         },
         {
           "name": "Failed Security Checks",

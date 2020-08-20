@@ -73,7 +73,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         }
     }
 
-    // Loop through all dashboards in default config file (./cfg/dashboards.json)
+    // Loop through all dashboards in dashboards config file (e.g. ./cfg/dashboards.json)
     for (var d in dashboards) {
         var dash = dashboards[d];
 
@@ -99,7 +99,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
-        await util.eat(page);
+        await util.eat(page); // TODO can this go inside load()?
 
         // Full-screen snaps with mouse clicks (for drop down menus etc)
         for (var c in dash.click) {
@@ -124,9 +124,32 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         if (dash.panels) {
             for (var p in dash.panels) {
                 const panel = dash.panels[p];
+                // For sparse elements, resize viewport (and reload)
+                if (panel.viewport) {
+                    await page.setViewport({
+                        width: config.img_width * panel.viewport.width,
+                        height: config.img_height * panel.viewport.height,
+                        deviceScaleFactor: config.img_scale
+                    });
+                    // load to activate viewport
+                    await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+                    await util.eat(page); // Eat cookie again
+                }
+
                 var element = await page.waitForSelector(panel.selector);
                 await util.snap(element, dash.title + "_" + panel.name, img_dir);
                 await element.screenshot({ path: dash.title + "_" + panel.name + ".jpg" });
+
+                // Need to reset and reload for subsequent panels. Adds signigicant extra time. TODO
+                await page.setViewport({
+                    width: config.img_width,
+                    height: config.img_height,
+                    deviceScaleFactor: config.img_scale
+                });
+                // load to activate viewport
+                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+                await util.eat(page); // Eat cookie again
+
             }
         }
 
