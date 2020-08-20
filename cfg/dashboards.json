@@ -263,13 +263,16 @@
       ]
     },
     {
-      "title": "PMM Query Analytics Details",
+      "title": "PMM Query Analytics ",
       "uid": "pmm-qan",
       "options": [
         "details_tab=details"
       ],
       "click": [
-        "div.tr:nth-child(3)"
+        {
+          "name": "Details",
+          "selector": "div.tr:nth-child(3)"
+        }
       ],
       "panels": [
         {
@@ -279,10 +282,13 @@
       ]
     },
     {
-      "title": "PMM Query Analytics Examples",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "click": [
-        "div.tr:nth-child(3)"
+        {
+          "name": "Examples",
+          "selector": "div.tr:nth-child(3)"
+        }
       ],
       "options": [
         "details_tab=examples"
@@ -295,10 +301,13 @@
       ]
     },
     {
-      "title": "PMM Query Analytics Explain",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "click": [
-        "div.tr:nth-child(3)"
+        {
+          "name": "Explain",
+          "selector": "div.tr:nth-child(3)"
+        }
       ],
       "options": [
         "details_tab=explain"
@@ -311,10 +320,13 @@
       ]
     },
     {
-      "title": "PMM Query Analytics Tables",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "click": [
-        "div.tr:nth-child(3)"
+        {
+          "name": "Tables",
+          "selector": "div.tr:nth-child(3)"
+        }
       ],
       "options": [
         "details_tab=tables"
@@ -327,43 +339,84 @@
       ]
     },
     {
-      "title": "PMM Query Analytics Dimension Selector",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "click": [
-        ".group-by-selector"
+        {
+          "name": "Dimension Selector",
+          "selector": ".group-by-selector"
+        }
       ]
     },
     {
-      "title": "PMM Query Analytics Time Range",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "click": [
-        "body > grafana-app > div > div > react-container > div > div.navbar > div:nth-child(5) > div > div.css-16ba5ut > div > div > button"
+        {
+          "name": "Time Range",
+          "selector": "body > grafana-app > div > div > react-container > div > div.navbar > div:nth-child(5) > div > div.css-16ba5ut > div > div > button"
+        }
       ]
     },
     {
-      "title": "PMM Query Analytics Main Metric Sparkline",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "move": [
-        "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div"
+        {
+          "name": "Main Metric Sparkline",
+          "selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div"
+        }
       ]
     },
     {
-      "title": "PMM Query Analytics Main Metric Meter",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "move": [
-        "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > span > div > div"
+        {
+          "name": "Main Metric Meter",
+          "selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > span > div > div"
+        }
       ]
     },
     {
-      "title": "PMM Query Analytics Metric Tooltip",
+      "title": "PMM Query Analytics",
       "uid": "pmm-qan",
       "move": [
-        "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(4) > div > span > div > div"
+        {
+          "name": "Metric Tooltip",
+          "selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(4) > div > span > div > div"
+        }
       ]
     },
     {
       "title": "PMM Settings",
       "uid": "pmm-settings"
+    },
+    {
+      "title": "PMM Settings",
+      "uid": "pmm-settings",
+      "click": [
+        {
+          "name": "Metrics Resolution",
+          "selector": "li.css-nivouq:nth-child(2)"
+        },
+        {
+          "name": "Advanced Settings",
+          "selector": "li.css-nivouq:nth-child(3)"
+        },
+        {
+          "name": "SSH Key",
+          "selector": "li.css-nivouq:nth-child(4)"
+        },
+        {
+          "name": "Alertmanager Integration",
+          "selector": "li.css-nivouq:nth-child(5)"
+        },
+        {
+          "name": "Sign Up",
+          "selector": "li.css-nivouq:nth-child(6)"
+        }
+      ]
     }
   ]
 }

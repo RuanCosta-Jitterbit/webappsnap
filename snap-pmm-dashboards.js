@@ -19,13 +19,12 @@ if (argv.list) {
 }
 
 // Images saved in subdirectories per hostname/resolution/scale under that specified
-var img_dir =
-path.join(config.img_dir,
-          config.hostname,
-          String(config.img_width) + 'x' + String(config.img_height),
-          String(config.img_scale));
+var img_dir = path.join(config.img_dir,
+    server_cfg.name,
+    String(config.img_width) + 'x' + String(config.img_height),
+    String(config.img_scale));
 
-util.mkdir(config.img_dir);    // Create image save directory TODO move to snap function
+util.mkdir(img_dir);    // Create image save directory TODO move to snap function
 
 // Option for specifying dashboards to snap
 const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
@@ -34,6 +33,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
     if (argv.debug) {
         console.log(`Server: ${config.hostname}`);
         console.log(`Server configuration file: ${config.cfg_file_name}`);
+        console.log(`Defaults file: ${config.defaults_file_name}`);
         console.log(`Requested Viewport: ${config.img_width}x${config.img_height}`);
         console.log(`Capture full container: ${argv.full}`);
         console.log(`Image scaling factor: ${config.img_scale}`);
@@ -65,7 +65,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
     // Attempt login if configured (necessary for access to some dashboards)
     if (argv.login) {
         await util.load(page, server_cfg.server + 'login', server_cfg.wait);
-        await util.snap(page, 'login', config.img_dir);
+        await util.snap(page, 'login', img_dir);
         try {
             await util.login(page, server_cfg.wait)
         } catch (err) {
@@ -104,20 +104,20 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         // Full-screen snaps with mouse clicks (for drop down menus etc)
         for (var c in dash.click) {
             var click = dash.click[c];
-            await page.click(click);
+            await page.click(click.selector);
             await page.waitFor(server_cfg.pause);
-            await util.snap(page, dashboards[d].title, config.img_dir);
-            await page.click(click); // Remove clicked item
+            await util.snap(page, dash.title + "_" + click.name, img_dir);
+            //            await page.click(click); // TODO some need clicking to remove (drop downs), some don't (radio buttons)
         }
 
         // Full-screen snaps with mouse-over (hover) (for tool-tips)
         for (var h in dash.move) {
             var hover = dash.move[h];
-            const element = await page.$(hover)
+            const element = await page.$(hover.selector)
             const box = await element.boundingBox();
             await page.mouse.move(box.x + 2, box.y + 2); // Middle of element
             await page.waitFor(server_cfg.pause);
-            await util.snap(page, dash.title, config.img_dir);
+            await util.snap(page, dash.title + "_" + hover.name, img_dir);
         }
 
         // panel/component snaps
@@ -125,15 +125,15 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
             for (var p in dash.panels) {
                 const panel = dash.panels[p];
                 var element = await page.waitForSelector(panel.selector);
-                await util.snap(element, dash.title + "_" + panel.name, config.img_dir);
-                await element.screenshot({path: dash.title + "_" + panel.name + ".jpg"});
+                await util.snap(element, dash.title + "_" + panel.name, img_dir);
+                await element.screenshot({ path: dash.title + "_" + panel.name + ".jpg" });
             }
         }
 
         // Avoids duplicated snaps but needs extra entries in dashboards.json
         if (!dash.panels && !dash.move && !dash.click) {
             // Snap full page window
-            await util.snap(page, dash.title, config.img_dir);
+            await util.snap(page, dash.title, img_dir);
             // Snap container without cropping at viewport
             if (argv.full) {
                 // make height huge (x10) then reset
@@ -148,7 +148,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
                 // selector for main container and bounding box for it
                 var element = await page.waitForSelector(config.defaults.container);
                 const box = await element.boundingBox();
-                await util.snap(element, dash.title + "_full", config.img_dir, false, box);
+                await util.snap(element, dash.title + "_full", img_dir, false, box);
             }
         }
     }

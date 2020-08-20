@@ -1,0 +1,19 @@
+{
+    "config_file"       : "./cfg/config-pmmdemo.json",
+    "jpg_quality"       : 100,
+    "img_pfx"           : "PMM_",
+    "img_ext"           : ".jpg",
+    "img_dir"           : "./images",
+    "img_seq"           : true,
+    "user"              : "admin",
+    "pass"              : "admin",
+    "headless"          : true,
+    "img_width"         : 1920,
+    "img_height"        : 1080,
+    "img_scale"         : 1,
+    "login_user_elem"   : "div.css-8e5b3:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
+    "login_pass_elem"   : "div.css-8e5b3:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
+    "login_skip_elem"   : ".css-1mej2rr-button > span:nth-child(1) > span:nth-child(1)",
+    "cookie_popup_elem" : "[role=\"dialog\"]",
+    "container"         : "body > grafana-app > div > div > react-container > div > div.scroll-canvas.scroll-canvas--dashboard > div > div.view > div > div.react-grid-layout.layout"
+}

@@ -1,15 +1,18 @@
 // common configuration
 var uf = require('url');
 
-// Default configuration values
-const defaults = require('./cfg/defaults.json');
 // Dashboard details: URLs and panel IDs
 const dashboards = require('./cfg/dashboards.json');
 
-// Per-server configuration values
+// Defaults are configurable to cater for new grafana with different login/password field IDs.
+const defaults_file_name = process.env.SNAP_DEFAULTS_FILE || './cfg/defaults.json';
+const defaults = require(defaults_file_name);
+
+// Per-server configuration values (cfg/config-*.json)
 const cfg_file_name = process.env.SNAP_CONFIG_FILE || defaults.config_file;
 const server_cfg = require(cfg_file_name);
-const hostname = uf.parse(server_cfg.server).hostname;
+
+const hostname = uf.parse(server_cfg.server).hostname; // The PMM URL/server/IP
 
 // Override defaults.json values with env vars, if set
 const jpg_quality = Number(process.env.SNAP_JPG_QUALITY) || defaults.jpg_quality; // jpg only
@@ -22,6 +25,7 @@ const img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 const img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 const img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
 const img_scale   = Number(process.env.SNAP_IMG_SCALE) || defaults.img_scale;
+
 // Base dir for images
 const img_dir = process.env.SNAP_IMG_DIR || defaults.img_dir;
 
@@ -32,6 +36,7 @@ module.exports.defaults = defaults;
 //   Values
 module.exports.server_cfg = server_cfg;
 module.exports.cfg_file_name = cfg_file_name;
+module.exports.defaults_file_name = defaults_file_name;
 module.exports.hostname = hostname;
 module.exports.user = user;
 module.exports.pass = pass;

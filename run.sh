@@ -30,9 +30,13 @@ set -a
 # Server config file. Default: ./cfg/config-pmmdemo.json
 # SNAP_CONFIG_FILE=
 
+# Defaults. To cater for changes to element CSS paths (e.g. during Grafana update).
+# SNAP_DEFAULTS_FILE=./cfg/defaults-new.json
+
 # Snap viewport. Default: 1920x1080
-# SNAP_IMG_WIDTH=
-# SNAP_IMG_HEIGHT=
+# See: https://en.wikipedia.org/wiki/Graphics_display_resolution
+# SNAP_IMG_WIDTH=1280
+# SNAP_IMG_HEIGHT=1080
 
 # Image filetype (.jpg or .png). Default: jpg
 # SNAP_IMG_EXT=.png
@@ -54,7 +58,7 @@ set -a
 # Note: Within this directory, images are placed into directory named:
 # <PMM server name>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/${SNAP_IMG_SCALE}/
 # (See snap() in utils.js for subdirectory and file naming.)
-# SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
+SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
 # Headless mode. Whether to hide browser while snapping. Default: true
 # SNAP_HEADLESS=false
