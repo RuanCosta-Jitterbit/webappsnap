@@ -24,12 +24,18 @@ function mkdir(dir) {
 
 // Convenience wrapper for screenshots, and where the image filename is built
 async function snap(page, title = "", dir, boundingBox = null) {
-const filename =
-    (config.img_seq ? pad(idx++, 2) + '_' : '') + // Optional sequence number
-    config.img_pfx +                              // Configurable prefix
+    const filename = [
+        (config.img_seq ? pad(idx++) : ''),
+        config.img_pfx,
+        title.replace(/[\. \\\/]/g, "_"), // Join filename parts with underscore
+    ].join('_') + config.img_ext;
+
+/*
+    (config.img_seq ? pad(idx++) + '_' : '') + // Optional sequence number
+    config.img_pfx +                           // Configurable prefix
     title.replace(/[\. \\\/]/g, "_") +            // Title (replace dots, spaces and forward/back slashes)
     config.img_ext;                               // Image extension (.png/.jpg)
-
+*/
     const filepath = path.join(dir, filename);
     await process.stdout.write("Saving " + filepath + " ... ");
 
@@ -53,9 +59,8 @@ const filename =
 }
 
 // Zero-pad filename increment integer
-function pad(n, w, z) { // number, width, padding char (default: 0)
-    z = z || '0';
-    n = n + '';
+function pad(n, w=3, z='0') { // number, width, padding char
+    n = String(n);
     return n.length >= w ? n : new Array(w - n.length + 1).join(z) + n;
 }
 
