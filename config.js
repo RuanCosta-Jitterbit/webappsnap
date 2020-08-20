@@ -22,11 +22,8 @@ const img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 const img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 const img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
 const img_scale   = Number(process.env.SNAP_IMG_SCALE) || defaults.img_scale;
-
 // Base dir for images
-var img_dir = process.env.SNAP_IMGDIR || defaults.img_dir;
-// Images saved in subdirectories per hostname/resolution/scale under that specified
-img_dir = img_dir + '/' + hostname + '/' + img_width + 'x' + img_height + '/' + img_scale + '/';
+const img_dir = process.env.SNAP_IMG_DIR || defaults.img_dir;
 
 // EXPORTS
 //   Data structures

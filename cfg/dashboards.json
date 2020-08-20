@@ -21,6 +21,22 @@
       "uid": "pmm-home",
       "panels": [
         {
+          "name": "grafana side menu",
+          "selector": "body > grafana-app > sidemenu"
+        },
+        {
+          "name": "top navigation bar",
+          "selector": "body > grafana-app > div > div > react-container > div > div.navbar"
+        },
+        {
+          "name": "submenu bar",
+          "selector": "body > grafana-app > div > div > react-container > div > div.scroll-canvas.scroll-canvas--dashboard > div > div.view > div > div:nth-child(1) > dashboard-submenu > div"
+        },
+        {
+          "name": "failed security checks panel",
+          "selector": "#panel-1381"
+        },
+        {
           "name": "upgrade panel",
           "selector": "#panel-1337"
         }
@@ -218,7 +234,10 @@
     },
     {
       "title": "PMM Query Analytics",
-      "comment": "Query Analytics Panels",
+      "uid": "pmm-qan"
+    },
+    {
+      "title": "PMM Query Analytics Panels",
       "uid": "pmm-qan",
       "panels": [
         {
@@ -244,8 +263,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Details panel",
+      "title": "PMM Query Analytics Details",
       "uid": "pmm-qan",
       "options": [
         "details_tab=details"
@@ -261,8 +279,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Examples panel",
+      "title": "PMM Query Analytics Examples",
       "uid": "pmm-qan",
       "click": [
         "div.tr:nth-child(3)"
@@ -278,8 +295,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Explain panel",
+      "title": "PMM Query Analytics Explain",
       "uid": "pmm-qan",
       "click": [
         "div.tr:nth-child(3)"
@@ -295,8 +311,7 @@
       ]
     },
     {
-      "title": "PMM Query Analytics",
-      "comment": "Query Analytics - Tables panel",
+      "title": "PMM Query Analytics Tables",
       "uid": "pmm-qan",
       "click": [
         "div.tr:nth-child(3)"
@@ -313,7 +328,6 @@
     },
     {
       "title": "PMM Query Analytics Dimension Selector",
-      "comment": "Query Analytics - Dimension selector",
       "uid": "pmm-qan",
       "click": [
         ".group-by-selector"
@@ -321,7 +335,6 @@
     },
     {
       "title": "PMM Query Analytics Time Range",
-      "comment": "Query Analytics - Time range",
       "uid": "pmm-qan",
       "click": [
         "body > grafana-app > div > div > react-container > div > div.navbar > div:nth-child(5) > div > div.css-16ba5ut > div > div > button"
@@ -329,7 +342,6 @@
     },
     {
       "title": "PMM Query Analytics Main Metric Sparkline",
-      "comment": "Query Analytics - Sparkline",
       "uid": "pmm-qan",
       "move": [
         "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div"
@@ -337,7 +349,6 @@
     },
     {
       "title": "PMM Query Analytics Main Metric Meter",
-      "comment": "Query Analytics - Main Metric Meter",
       "uid": "pmm-qan",
       "move": [
         "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > span > div > div"
@@ -345,7 +356,6 @@
     },
     {
       "title": "PMM Query Analytics Metric Tooltip",
-      "comment": "Query Analytics - Metric Tooltip",
       "uid": "pmm-qan",
       "move": [
         "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(4) > div > span > div > div"

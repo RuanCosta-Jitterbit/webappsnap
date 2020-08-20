@@ -1,5 +1,6 @@
 // Utility functions
 var fs = require('fs');
+const path = require('path');
 const config = require('./config.js');
 
 // Increment screenshot file names
@@ -23,16 +24,17 @@ function mkdir(dir) {
 
 // Convenience wrapper for screenshots, and where the image filename is built
 async function snap(page, title = "", dir, boundingBox = null) {
-    var filename =
-        dir +
-        config.img_pfx +                             // Prefix
-        (config.img_seq ? pad(idx++, 2) + '_' : '') + // Sequence number and separator
-        title.replace(/[\. \\\/]/g, "_") +           // Title (replace dots, spaces and forward/back slashes)
-        config.img_ext;                              // Image extension (.png/.jpg)
-    await process.stdout.write("Saving " + filename + " ... ");
+const filename =
+    (config.img_seq ? pad(idx++, 2) + '_' : '') + // Optional sequence number
+    config.img_pfx +                              // Configurable prefix
+    title.replace(/[\. \\\/]/g, "_") +            // Title (replace dots, spaces and forward/back slashes)
+    config.img_ext;                               // Image extension (.png/.jpg)
+
+    const filepath = path.join(dir, filename);
+    await process.stdout.write("Saving " + filepath + " ... ");
 
     var options = {};
-    options.path = filename;
+    options.path = filepath;
     if (config.img_ext == '.jpg') {
         options.type = 'jpeg';
         options.quality = config.defaults.jpg_quality;
@@ -43,7 +45,6 @@ async function snap(page, title = "", dir, boundingBox = null) {
     }
 
     try {
-//        console.log(options);
             await page.screenshot(options);
             await process.stdout.write("Done\n");
     } catch (err) {
@@ -111,7 +112,6 @@ async function eat(page) {
             }, cookie_popup);
         } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 }
-
 
 // EXPORTS
 //   functions

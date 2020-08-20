@@ -2,6 +2,7 @@
 'use strict';
 const puppeteer = require('puppeteer');
 const { argv } = require('yargs');
+const path = require('path');
 // Utility functions: snapping, loading URLs
 const util = require('./util.js');
 // Start-up vs default configuration value handling
@@ -17,6 +18,13 @@ if (argv.list) {
     return;
 }
 
+// Images saved in subdirectories per hostname/resolution/scale under that specified
+var img_dir =
+path.join(config.img_dir,
+          config.hostname,
+          String(config.img_width) + 'x' + String(config.img_height),
+          String(config.img_scale));
+
 util.mkdir(config.img_dir);    // Create image save directory TODO move to snap function
 
 // Option for specifying dashboards to snap
@@ -24,19 +32,19 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
 
 (async () => {
     if (argv.debug) {
-        console.log("Server: " + config.hostname);
-        console.log("Server configuration file: " + config.cfg_file_name);
-        console.log("Requested Viewport: " + config.img_width + "x" + config.img_height);
-        console.log("Capture full container: " + argv.full);
-        console.log("Image scaling factor: " + config.img_scale);
-        console.log("Image file type: " + config.img_ext);
-        console.log("Image filename prefix: " + config.img_pfx);
-        console.log("Image filename sequence numbers: " + config.img_seq);
-        if (img_ext.match(/\.jpg$/)) { console.log("JPG quality: " + config.jpg_quality); }
+        console.log(`Server: ${config.hostname}`);
+        console.log(`Server configuration file: ${config.cfg_file_name}`);
+        console.log(`Requested Viewport: ${config.img_width}x${config.img_height}`);
+        console.log(`Capture full container: ${argv.full}`);
+        console.log(`Image scaling factor: ${config.img_scale}`);
+        console.log(`Image file type: ${config.img_ext}`);
+        console.log(`Image filename prefix: ${config.img_pfx}`);
+        console.log(`Image filename sequence numbers: ${config.img_seq}`);
+        if (img_ext.match(/\.jpg$/)) { console.log(`JPG quality: ${config.jpg_quality}`); }
         console.log(`Default page wait time: ${server_cfg.wait / 1000} seconds`);
         console.log(`Default page pause time: ${server_cfg.pause / 1000} seconds`);
-        if (!config.headless) { console.log("HEADLESS MODE OFF"); }
-        if (!argv.full) { console.log("Snapping container panels beyond viewport"); }
+        console.log(`Headless mode: ${config.headless}`;
+        console.log(`Snapping container panels beyond viewport: ${argv.full}`);
         if (!argv.dash) { console.log("Snapping all listed dashboards"); }
     }
 
@@ -98,6 +106,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
             await page.click(click);
             await page.waitFor(server_cfg.pause);
             await util.snap(page, dashboards[d].title, config.img_dir);
+            await page.click(click); // Remove clicked item
         }
 
         // Full-screen snaps with mouse-over (hover) (for tool-tips)
@@ -118,32 +127,29 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
                 await util.snap(element, dash.title + "_" + panel.name, config.img_dir);
                 await element.screenshot({path: dash.title + "_" + panel.name + ".jpg"});
             }
-        } else {
+        }
+
+        // Avoids duplicated snaps but needs extra entries in dashboards.json
+        if (!dash.panels && !dash.move && !dash.click) {
             // Snap full page window
             await util.snap(page, dash.title, config.img_dir);
-
+            // Snap container without cropping at viewport
+            if (argv.full) {
+                // make height huge (x10) then reset
+                await page.setViewport({
+                    width: config.img_width,
+                    height: 10 * config.img_height,
+                    deviceScaleFactor: config.img_scale
+                });
+                // load again to activate viewport
+                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+                await util.eat(page); // Eat cookie again
+                // selector for main container and bounding box for it
+                var element = await page.waitForSelector(config.defaults.container);
+                const box = await element.boundingBox();
+                await util.snap(element, dash.title + "_full", config.img_dir, false, box);
+            }
         }
-
-
-
-
-        // Snap container without cropping at viewport
-        if (argv.full) {
-            // make height huge (x10) then reset
-            await page.setViewport({
-                width: config.img_width,
-                height: 10 * config.img_height,
-                deviceScaleFactor: config.img_scale
-            });
-            // load again to activate viewport
-            await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
-            await util.eat(page); // Eat cookie again
-            // selector for main container and bounding box for it
-            var element = await page.waitForSelector(config.defaults.container);
-            const box = await element.boundingBox();
-            await util.snap(element, dash.title + "_full", config.img_dir, false, box);
-        }
-
     }
     await browser.close();
 })();
