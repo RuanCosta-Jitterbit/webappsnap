@@ -77,10 +77,15 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
     for (var d in dashboards) {
         var dash = dashboards[d];
 
-        // reset viewport in case of full panel snapping where viewport is enlarged
+        var viewport = { width: 1, height: 1 };
+        if (dash.viewport) {
+            viewport = dash.viewport;
+        }
+
+        // (re)set viewport
         await page.setViewport({
-            width: config.img_width,
-            height: config.img_height,
+            width: config.img_width * viewport.width,
+            height: config.img_height * viewport.height,
             deviceScaleFactor: config.img_scale
         });
 
@@ -112,12 +117,12 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
 
         // Full-screen snaps with mouse-over (hover) (for tool-tips)
         for (var h in dash.move) {
-            var hover = dash.move[h];
-            const element = await page.$(hover.selector)
+            var move = dash.move[h];
+            const element = await page.$(move.selector)
             const box = await element.boundingBox();
-            await page.mouse.move(box.x + 2, box.y + 2); // Middle of element
+            await page.mouse.move(box.x + box.width/2, box.y + box.height/2); // Middle of element (Y0 is top left)
             await page.waitFor(server_cfg.pause);
-            await util.snap(page, dash.title + "_" + hover.name, img_dir);
+            await util.snap(page, `${dash.title}_${move.name}`, img_dir);
         }
 
         // panel/component snaps
@@ -138,7 +143,6 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
 
                 var element = await page.waitForSelector(panel.selector);
                 await util.snap(element, dash.title + "_" + panel.name, img_dir);
-                await element.screenshot({ path: dash.title + "_" + panel.name + ".jpg" });
 
                 // Need to reset and reload for subsequent panels. Adds signigicant extra time. TODO
                 await page.setViewport({
