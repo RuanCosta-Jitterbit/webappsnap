@@ -5,7 +5,14 @@
   "dashboards": [
     {
       "title": "Advanced Data Exploration",
-      "uid": "prometheus-advanced"
+      "uid": "prometheus-advanced",
+      "panels": [
+        {
+          "comment": "This device is on regular dashboards and can be snapped in any of them.",
+          "name": "Annotation Toggle",
+          "selector": "div.submenu-item:nth-child(5)"
+        }
+      ]
     },
     {
       "title": "CPU Utilization Details",
