@@ -1,5 +1,5 @@
 {
-  "name": "percona-platform",
+  "name": "test",
   "server": "https://3.15.169.95/graph/",
   "stem": "d/",
   "wait": 40000,
