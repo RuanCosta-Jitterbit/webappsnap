@@ -1,7 +1,0 @@
-{
-  "name": "fb-settings",
-  "server": "https://3.15.174.185/graph/",
-  "stem": "d/",
-  "wait": 40000,
-  "pause": 5000
-}
