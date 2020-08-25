@@ -9,7 +9,8 @@
 # run.sh [--list] [--log_in] [--full] [--debug] [--dash=<dashboard UID>[,]]
 # --list: output list of dashboard UIDs then exit.
 # --log_in: Log in and snap the login screen.
-# --full: Also snap container panels unconstrained by default viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT). Note: This option doubles the total time for snapping.
+# --full: Also snap container panels unconstrained by default viewport
+#        (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT). Note: This option doubles the total time for snapping.
 # --dash: When empty or unset, snaps all PMM dashboards.
 #         To snap specific dashboards, add them as a comma-separated list to the --dash option.
 #         All entries in cfg/dashboards.json with matching uid will be snapped, including any
