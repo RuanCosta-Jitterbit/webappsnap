@@ -4,7 +4,12 @@
   ],
   "dashboards": [
     {
-      "title": "Advanced Data Exploration",
+      "title": "Swagger API",
+      "uid": "swagger",
+      "direct": true
+    },
+    {
+      "title": "Dashboard Controls",
       "uid": "prometheus-advanced",
       "panels": [
         {
@@ -13,6 +18,10 @@
           "selector": "div.submenu-item:nth-child(5)"
         }
       ]
+    },
+    {
+      "title": "Advanced Data Exploration",
+      "uid": "prometheus-advanced"
     },
     {
       "title": "CPU Utilization Details",

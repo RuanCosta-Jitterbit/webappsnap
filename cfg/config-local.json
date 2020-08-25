@@ -1,7 +1,8 @@
 {
-  "name"   : "local",
-  "server" : "http://localhost/graph/",
-  "stem"   : "d/",
-  "wait"   : 20000,
-  "pause"  : 1000
+  "name": "local",
+  "server": "http://localhost",
+  "graph": "graph",
+  "stem": "d",
+  "wait": 20000,
+  "pause": 1000
 }

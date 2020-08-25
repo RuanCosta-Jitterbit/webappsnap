@@ -67,7 +67,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
     // Attempt login if configured (necessary for access to some dashboards)
     if (config.log_in) {
-        await util.load(page, `${server_cfg.server}login`, server_cfg.wait);
+        await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`, server_cfg.wait);
         await util.snap(page, 'Login', img_dir);
         try {
             await util.login(page, server_cfg.wait)
@@ -102,8 +102,18 @@ if (argv.debug) { config.debug = argv.debug; }
         for (var i in dash.options) {
             option_string += dash.options[i] + '&';
         }
-        var server_url = server_cfg.server + server_cfg.stem +
-            dash.uid + ((option_string.length > 1) ? option_string : '');
+
+        // Build URL: Direct pages marked as 'direct' (e.g. swagger). URLs are server/UID
+        // Others are dashboards with URLs built from config as server/graph/stem/UID
+        var server_url;
+        if (dash.direct) {
+            server_url = `${server_cfg.server}/${dash.uid}/`;
+        } else {
+            server_url =
+                `${server_cfg.server}/${server_cfg.graph}/${server_cfg.stem}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
+        }
+
+
         // Load URL with either default global or dashboard-specific wait time
         await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
 
@@ -167,7 +177,8 @@ if (argv.debug) { config.debug = argv.debug; }
             // Snap full page window
             await util.snap(page, dash.title, img_dir);
             // Snap container without cropping at viewport
-            if (argv.full) {
+            // (Skip any direct URLs that don't have the container element)
+            if (argv.full && !dash.direct) {
                 // make height huge (x10) then reset
                 await page.setViewport({
                     width: config.img_width,

@@ -1,7 +1,8 @@
 {
   "name": "test",
-  "server": "https://3.15.169.95/graph/",
-  "stem": "d/",
+  "server": "https://3.15.169.95",
+  "graph": "graph",
+  "stem": "d",
   "wait": 40000,
   "pause": 1000
 }
