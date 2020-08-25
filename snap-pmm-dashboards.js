@@ -6,7 +6,7 @@ const path = require('path');
 // Utility functions: snapping, loading URLs
 const util = require('./util.js');
 // Start-up vs default configuration value handling
-const config = require('./config.js');
+var config = require('./config.js');
 
 const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
@@ -18,33 +18,35 @@ if (argv.list) {
     return;
 }
 
-// Images saved in subdirectories per hostname/resolution/scale under that specified
-var img_dir = path.join(config.img_dir,
-    server_cfg.name,
-    String(config.img_width) + 'x' + String(config.img_height),
-    String(config.img_scale));
+// Images save path
+var img_dir = path.join(config.img_dir, server_cfg.name,
+    `${String(config.img_width)}x${String(config.img_height)}x${String(config.img_scale)}`);
 
 util.mkdir(img_dir);    // Create image save directory TODO move to snap function
 
 // Option for specifying dashboards to snap
 const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
 
+// TODO Set option overrides: Defaults -> Env vars -> Command line args
+if (argv.log_in) { config.log_in = argv.log_in; }
+if (argv.debug) { config.debug = argv.debug; }
+
 (async () => {
-    if (argv.debug) {
+    if (config.debug) {
         console.log(`Server: ${config.hostname}`);
         console.log(`Server configuration file: ${config.cfg_file_name}`);
         console.log(`Defaults file: ${config.defaults_file_name}`);
         console.log(`Requested Viewport: ${config.img_width}x${config.img_height}`);
-        console.log(`Capture full container: ${argv.full}`);
+        console.log(`Capture full container: ${Boolean(argv.full)}`);
         console.log(`Image scaling factor: ${config.img_scale}`);
         console.log(`Image file type: ${config.img_ext}`);
         console.log(`Image filename prefix: ${config.img_pfx}`);
-        console.log(`Image filename sequence numbers: ${config.img_seq}`);
+        console.log(`Image filename sequence numbers: ${Boolean(config.img_seq)}`);
         if (img_ext.match(/\.jpg$/)) { console.log(`JPG quality: ${config.jpg_quality}`); }
         console.log(`Default page wait time: ${server_cfg.wait / 1000} seconds`);
         console.log(`Default page pause time: ${server_cfg.pause / 1000} seconds`);
         console.log(`Headless mode: ${Boolean(config.headless)}`);
-        console.log("Snapping container panels beyond viewport: " + ((argv.full) ? "On" : "Off"));
+        console.log(`Log in: ${Boolean(config.log_in)}`);
         console.log(`Snapping container panels beyond viewport: ${Boolean(argv.full)}`);
         if (!argv.dash) { console.log("Snapping all listed dashboards"); }
     }
@@ -53,6 +55,7 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         headless: config.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
+//        slowMo: 500,
         defaultViewport: {
             width: config.img_width,
             height: config.img_height,
@@ -63,13 +66,13 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
     await page.setDefaultTimeout(server_cfg.wait);
 
     // Attempt login if configured (necessary for access to some dashboards)
-    if (argv.login) {
-        await util.load(page, server_cfg.server + 'login', server_cfg.wait);
-        await util.snap(page, 'login', img_dir);
+    if (config.log_in) {
+        await util.load(page, `${server_cfg.server}login`, server_cfg.wait);
+        await util.snap(page, 'Login', img_dir);
         try {
             await util.login(page, server_cfg.wait)
         } catch (err) {
-            console.error("Can't login: " + err);
+            console.error(`Can't login: ${err}`);
         }
     }
 
@@ -101,29 +104,31 @@ const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
         }
         var server_url = server_cfg.server + server_cfg.stem +
             dash.uid + ((option_string.length > 1) ? option_string : '');
+        // Load URL with either default global or dashboard-specific wait time
         await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
 
         // Remove pesky cookie confirmation from pmmdemo.percona.com
         await util.eat(page); // TODO can this go inside load()?
+
+        // Full-screen snaps with mouse-over (hover) (for tool-tips)
+        for (var h in dash.move) {
+            const move = dash.move[h];
+            await page.hover(move.selector);
+            await page.waitFor(server_cfg.pause);
+            await util.snap(page, `${dash.title}_${move.name}`, img_dir);
+        }
 
         // Full-screen snaps with mouse clicks (for drop down menus etc)
         for (var c in dash.click) {
             var click = dash.click[c];
             await page.click(click.selector);
             await page.waitFor(server_cfg.pause);
-            await util.snap(page, dash.title + "_" + click.name, img_dir);
+            await util.snap(page, `${dash.title}_${click.name}`, img_dir);
             //            await page.click(click); // TODO some need clicking to remove (drop downs), some don't (radio buttons)
         }
 
-        // Full-screen snaps with mouse-over (hover) (for tool-tips)
-        for (var h in dash.move) {
-            var move = dash.move[h];
-            const element = await page.$(move.selector)
-            const box = await element.boundingBox();
-            await page.mouse.move(box.x + box.width/2, box.y + box.height/2); // Middle of element (Y0 is top left)
-            await page.waitFor(server_cfg.pause);
-            await util.snap(page, `${dash.title}_${move.name}`, img_dir);
-        }
+
+
 
         // panel/component snaps
         if (dash.panels) {
