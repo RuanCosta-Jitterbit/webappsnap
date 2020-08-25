@@ -24,8 +24,8 @@ function mkdir(dir) {
 
 // Convenience wrapper for screenshots, and where the image filename is built
 async function snap(page, title = "", dir, boundingBox = null) {
-    // Replace space, dot, slash with _
-    title.replace(/[\. \\\/]/g, "_");
+    // Replace space, dot, slash with underscore
+    title = title.replace(/[\. \\\/]/g, "_");
 
     // Array of two (possibly empty) prefixes joined with title and extension
     const filename = [
