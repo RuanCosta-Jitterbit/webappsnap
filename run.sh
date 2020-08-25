@@ -6,10 +6,10 @@
 #
 # USAGE
 #
-# run.sh [--list] [--login] [--full] [--debug] [--dash=<dashboard UID>[,]]
+# run.sh [--list] [--log_in] [--full] [--debug] [--dash=<dashboard UID>[,]]
 # --list: output list of dashboard UIDs then exit.
-# --login: Go via the login screen (using SNAP_USER/SNAP_PASS) and snap it.
-# --full: Also snap container panels unconstrained by default viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT)
+# --log_in: Log in and snap the login screen.
+# --full: Also snap container panels unconstrained by default viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT). Note: This option doubles the total time for snapping.
 # --dash: When empty or unset, snaps all PMM dashboards.
 #         To snap specific dashboards, add them as a comma-separated list to the --dash option.
 #         All entries in cfg/dashboards.json with matching uid will be snapped, including any
@@ -20,43 +20,47 @@
 
 set -a
 
-# PMM Server credentials
+## PMM Server credentials
 # Username. Default: admin
 # SNAP_USER=
 
 # Password. Default: admin
 # SNAP_PASS=
 
+# Log in and snap the login screen. Default=true
+# SNAP_LOG_IN=false
+
 # Server config file. Default: ./cfg/config-pmmdemo.json
 # SNAP_CONFIG_FILE=
 
-# Defaults. To cater for changes to element CSS paths (e.g. during Grafana update).
-# SNAP_DEFAULTS_FILE=./cfg/defaults-new.json
+# Default values. Default: ./cfg/defaults.json
+# Allows for changes to element CSS paths (e.g. during Grafana updates).
+# SNAP_DEFAULTS_FILE=
 
 # Snap viewport. Default: 1920x1080
 # See: https://en.wikipedia.org/wiki/Graphics_display_resolution
 # SNAP_IMG_WIDTH=1280
 # SNAP_IMG_HEIGHT=1080
 
-# Image filetype (.jpg or .png). Default: jpg
-# SNAP_IMG_EXT=.png
+# Image scale factor. Multiplies WIDTH and HEIGHT by this value. Default: 1
+# Use with .jpg file and JPG_QUALITY to reduce image file size
+# SNAP_IMG_SCALE=0.5
 
 # JPG Quality (% value). Default: 100
 # SNAP_JPG_QUALITY=75
 
-# Image scale factor. Multiplies WIDTH and HEIGHT by this value. Default: 1
-# SNAP_IMG_SCALE=0.5
+# Image filetype (.jpg or .png). Default: jpg
+# SNAP_IMG_EXT=.png
 
-# Image filename prefix. Default 'PMM_'
-# SNAP_IMG_PFX=
+# Primary prefix zero-padded 3-digit snap sequence number to image filename. Default: false
+SNAP_IMG_SEQ=true
 
-# Whether to add snap sequence number to image filename. Default: true
-# SNAP_IMG_SEQ=false
+# Secondary image filename prefix. Default 'PMM'
+# SNAP_IMG_PFX=''
 
-# Root for images
 # Images directory. Default: ./images/
 # Note: Within this directory, images are placed into directory named:
-# <PMM server name>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/${SNAP_IMG_SCALE}/
+# <config 'name'>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}x${SNAP_IMG_SCALE}/
 # (See snap() in utils.js for subdirectory and file naming.)
 SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
