@@ -24,21 +24,20 @@ function mkdir(dir) {
 
 // Convenience wrapper for screenshots, and where the image filename is built
 async function snap(page, title = "", dir, boundingBox = null) {
-    const filename = [
-        (config.img_seq ? pad(idx++) : ''),
-        config.img_pfx,
-        title.replace(/[\. \\\/]/g, "_"), // Join filename parts with underscore
-    ].join('_') + config.img_ext;
+    // Replace space, dot, slash with _
+    title.replace(/[\. \\\/]/g, "_");
 
-/*
-    (config.img_seq ? pad(idx++) + '_' : '') + // Optional sequence number
-    config.img_pfx +                           // Configurable prefix
-    title.replace(/[\. \\\/]/g, "_") +            // Title (replace dots, spaces and forward/back slashes)
-    config.img_ext;                               // Image extension (.png/.jpg)
-*/
+    // Array of two (possibly empty) prefixes joined with title and extension
+    const filename = [
+        (config.img_seq ? pad(idx++) : null),
+        (config.img_pfx ? config.img_pfx : null),
+        title].filter(function (a) { return a != null; }).join('_') + config.img_ext;
+
     const filepath = path.join(dir, filename);
+
     await process.stdout.write("Saving " + filepath + " ... ");
 
+    // Set up options for snap
     var options = {};
     options.path = filepath;
     if (config.img_ext == '.jpg') {
@@ -51,15 +50,15 @@ async function snap(page, title = "", dir, boundingBox = null) {
     }
 
     try {
-            await page.screenshot(options);
-            await process.stdout.write("Done\n");
+        await page.screenshot(options);
+        await process.stdout.write("Done\n");
     } catch (err) {
         await process.stderr.write("Failed: " + err + "\n");
     }
 }
 
 // Zero-pad filename increment integer
-function pad(n, w=3, z='0') { // number, width, padding char
+function pad(n, w = 3, z = '0') { // number, width, padding char
     n = String(n);
     return n.length >= w ? n : new Array(w - n.length + 1).join(z) + n;
 }
@@ -104,18 +103,18 @@ async function login(page, wait) {
 
 async function eat(page) {
     const cookie_popup = config.defaults.cookie_popup_elem;
-        try {
-            await page.$(cookie_popup, {
-                timeout: 5000,
-                visible: true
-            });
-            await page.evaluate((sel) => {
-                var elements = document.querySelectorAll(sel);
-                for (var i = 0; i < elements.length; i++) {
-                    elements[i].parentNode.removeChild(elements[i]);
-                }
-            }, cookie_popup);
-        } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
+    try {
+        await page.$(cookie_popup, {
+            timeout: 5000,
+            visible: true
+        });
+        await page.evaluate((sel) => {
+            var elements = document.querySelectorAll(sel);
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].parentNode.removeChild(elements[i]);
+            }
+        }, cookie_popup);
+    } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 }
 
 // EXPORTS
