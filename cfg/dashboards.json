@@ -1,4 +1,7 @@
 {
+  "versions": [
+    "2.10.0"
+  ],
   "dashboards": [
     {
       "title": "Advanced Data Exploration",
@@ -165,6 +168,10 @@
       "uid": "mysql-waitevents-analysis"
     },
     {
+      "title": "MySQL Group Replication Summary",
+      "uid": "mysql-group-repl"
+    },
+    {
       "title": "NUMA Details",
       "uid": "node-memory-numa"
     },
@@ -290,11 +297,15 @@
         {
           "name": "Group By",
           "selector": ".group-by-selector"
+        },
+        {
+          "name": "Dimension Search",
+          "selector": "div.th:nth-child(2)"
         }
       ]
     },
     {
-      "title": "Query Analytics ",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "options": [
         "details_tab=details"
@@ -385,10 +396,7 @@
     },
     {
       "title": "Settings",
-      "uid": "pmm-settings"
-    },
-    {
-      "title": "Metrics Resolution",
+      "comment": "Reduced viewport to make settings page look less sparse",
       "uid": "pmm-settings",
       "viewport": {
         "width": 0.8,
@@ -399,6 +407,10 @@
       "title": "Settings",
       "uid": "pmm-settings",
       "click": [
+        {
+          "name": "Metrics Resolution",
+          "selector": ".css-1n8kpcb-activeTabStyle"
+        },
         {
           "name": "Advanced Settings",
           "selector": "li.css-nivouq:nth-child(2)"
