@@ -22,15 +22,15 @@ To snap the default [pmmdemo](https://pmmdemo.percona.com/) instance:
 
 ## Configuration Files
 
-- `cfg/defaults.json` - Sets default values (can be overridden by environment variables).
-- `cfg/dashboards.json` - Details of each dashboard or HTML element to be snapped.
-- `cfg/config-*.json` - The PMM server details
+- [cfg/defaults.json](#defaults-json) - Default values (can be overridden by environment variables).
+- [cfg/config-*.json](#config-json) - PMM server IP, name and wait times.
+- [cfg/dashboards.json](#dashboards-json) - Details of each dashboard's URL and element IDs.
 
 Environment variables set in your environment or in `run.sh` override the values in `cfg/defaults.json`.
 
-### `defaults.json`
+### defaults.json
 
-Values in this file are the default settings if none are setting as environment variables in the execution envionment or in `run.sh`.
+Values in this file are the default settings if no environment variables are set or command line arguments provided to `run.sh`.
 
 - `config_file`: Path to the server configuration file.
 - `jpg_quality`: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy.
@@ -49,21 +49,26 @@ Values in this file are the default settings if none are setting as environment 
 - `cookie_popup_elem`: The CSS selector ID for the Percona 'Accept cookies' dialogue (which is removed before snapping).
 
 
-### config.json
+### config-*.json
 
-Defines the server and dashboards for a single PMM server instance.
+Defines a PMM server instance.
 
 Fields:
 
-name: Name for the instance
-server: Base URL for the instance
-version: Version of PMM to which this config applies
-wait: Default page wait time in milliseconds
-dashboards: Array of:
-  desc: Description. Short text used as image filenam
-  path: additional path to dashboard (Full Url is server + path + options)
-options: An array of URL parameters
+`name`
+: Name identifying the instance. (Used in the image save path.)
 
+`server`
+: Base URL for the instance (`https://<IP or server>`).
+
+`stem`
+: URL path extension for PMM dashboards. (Default `"d/"`)
+
+`wait`
+: Default pre-page load wait time in milliseconds. For slow networks or instances, increase this time but be prepared for a complete set of snaps (with `--full`) to take around an hour.
+
+`pause`
+: A short wait time in milliseconds, to allow the UI to settle before snapping.
 
 
 git clone https://github.com/percona/grafana-dashboards.git
@@ -75,3 +80,7 @@ for i in *.json; do echo "{"; grep -B 1 -h \"uid\" $i | sed '/uid/s/,$//'; echo 
 
 Insert into config-*.json as dashboards element
 Change "version" to match TAG
+
+### dashboards.json
+
+Snaps are made in the order of this file's entries.
