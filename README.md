@@ -14,11 +14,24 @@
 
 ## Usage
 
-To snap the default [pmmdemo](https://pmmdemo.percona.com/) instance:
+To snap all dashboards in the default [pmmdemo](https://pmmdemo.percona.com/) instance:
 
 ```
 ./run.sh
 ```
+
+To snap specific dashboards, list their UIDs:
+
+```
+./run.sh --dash=pmm-home,node-memory,mysql-instance-overview
+```
+
+To get a list of available dashboard UIDs:
+
+```
+./run.sh --list
+```
+
 
 ## Configuration Files
 
