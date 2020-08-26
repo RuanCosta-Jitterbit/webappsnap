@@ -2,7 +2,8 @@
 var uf = require('url');
 
 // Dashboard details: URLs and panel IDs
-const dashboards = require('./cfg/dashboards.json');
+const dashboards_file_name = process.env.SNAP_DASHBOARDS_FILE || './cfg/dashboards.json';
+const dashboards = require(dashboards_file_name);
 
 // Defaults are configurable to cater for new grafana with different login/password field IDs.
 const defaults_file_name = process.env.SNAP_DEFAULTS_FILE || './cfg/defaults.json';
@@ -55,6 +56,7 @@ module.exports.defaults = defaults;
 module.exports.server_cfg = server_cfg;
 module.exports.cfg_file_name = cfg_file_name;
 module.exports.defaults_file_name = defaults_file_name;
+module.exports.dashboards_file_name = dashboards_file_name;
 module.exports.hostname = hostname;
 module.exports.user = user;
 module.exports.pass = pass;

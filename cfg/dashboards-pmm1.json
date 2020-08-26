@@ -5,67 +5,68 @@
     "dashboards": [
         {
             "title": "Advanced Data Exploration",
-            "uid": "1oz9QMHmk"
+            "uid": "000000033"
         },
         {
             "title": "Amazon RDS / Aurora MySQL  Metrics",
-            "uid": "lqWR9oimz"
+            "uid": "000000100"
         },
         {
             "title": "CPU Utilization Details (Cores)",
-            "uid": "hCWR9oimz"
+            "uid": "000000099"
         },
         {
             "title": "Compare System Parameters",
-            "uid": "000000205"
+            "uid": "000000205",
+            "wait": 60000
         },
         {
             "title": "Cross Server Graphs",
-            "uid": "Swz9QGNmz"
+            "uid": "000000002"
         },
         {
             "title": "Disk Performance",
-            "uid": "oxkrQMNmz"
+            "uid": "000000003"
         },
         {
             "title": "Disk Space",
-            "uid": "80k9wMHmk"
+            "uid": "000000010"
         },
         {
             "title": "Home Dashboard",
-            "uid": "Fxvd1timk"
+            "uid": "000000176"
         },
         {
             "title": "MongoDB Cluster Summary",
-            "uid": "n9z9QGNiz"
+            "uid": "000000019"
         },
         {
             "title": "MongoDB InMemory",
-            "uid": "KPz9QMNmz"
+            "uid": "000000025"
         },
         {
             "title": "MongoDB MMAPv1",
-            "uid": "Cok9wMHik"
+            "uid": "000000017"
         },
         {
             "title": "MongoDB Overview",
-            "uid": "6Lk9wMHik"
+            "uid": "000000027"
         },
         {
             "title": "MongoDB ReplSet",
-            "uid": "7lzrQGNik"
+            "uid": "000000021"
         },
         {
             "title": "MongoDB RocksDB",
-            "uid": "EQzrQGNmk"
+            "uid": "000000005"
         },
         {
             "title": "MongoDB WiredTiger",
-            "uid": "tBkrQGNmz"
+            "uid": "000000011"
         },
         {
             "title": "MySQL Amazon Aurora Metrics",
-            "uid": "SokrwMHmz"
+            "uid": "000000141"
         },
         {
             "title": "MySQL Command/Handler Counters Compare",
@@ -77,27 +78,27 @@
         },
         {
             "title": "MySQL InnoDB Metrics",
-            "uid": "giGgrTimz"
+            "uid": "000000016"
         },
         {
             "title": "MySQL InnoDB Metrics Advanced",
-            "uid": "ibkrwGHmz"
+            "uid": "000000014"
         },
         {
             "title": "MySQL MyISAM/Aria Metrics",
-            "uid": "q8z9QGHik"
+            "uid": "000000096"
         },
         {
             "title": "MySQL MyRocks Metrics",
-            "uid": "G1z9wGNmk"
+            "uid": "000000097"
         },
         {
             "title": "MySQL Overview",
-            "uid": "MQWgroiiz"
+            "uid": "000000009"
         },
         {
             "title": "MySQL Performance Schema",
-            "uid": "BLk9wGNmz"
+            "uid": "000000012"
         },
         {
             "title": "MySQL Performance Schema Wait Event Analyses",
@@ -109,19 +110,19 @@
         },
         {
             "title": "MySQL Replication",
-            "uid": "_9zrwMHmk"
+            "uid": "000000024"
         },
         {
             "title": "MySQL Table Statistics",
-            "uid": "CiMg9oiik"
+            "uid": "000000006"
         },
         {
             "title": "MySQL TokuDB Metrics",
-            "uid": "7Xk9QMNmk"
+            "uid": "000000029"
         },
         {
             "title": "MySQL User Statistics",
-            "uid": "EEkrQGNmk"
+            "uid": "000000013"
         },
         {
             "title": "NUMA Overview",
@@ -133,11 +134,11 @@
         },
         {
             "title": "PXC/Galera Cluster Overview",
-            "uid": "s_k9wGNiz"
+            "uid": "000000031"
         },
         {
             "title": "PXC/Galera Graphs",
-            "uid": "Vwstci7iz"
+            "uid": "000000007"
         },
         {
             "title": "PostgreSQL Overview",
@@ -145,39 +146,31 @@
         },
         {
             "title": "Prometheus",
-            "uid": "SK8vJ2Hiz"
+            "uid": "000000020"
         },
         {
             "title": "Prometheus Exporter Status",
-            "uid": "o2zrwGNmz"
+            "uid": "000000082"
         },
         {
             "title": "Prometheus Exporters Overview",
-            "uid": "gfz9QMHiz"
+            "uid": "000000098"
         },
         {
             "title": "ProxySQL Overview",
-            "uid": "fwWR9oiiz"
+            "uid": "000000028"
         },
         {
             "title": "Summary Dashboard",
-            "uid": "qBWRrTiik"
+            "uid": "000000018"
         },
         {
             "title": "System Overview",
-            "uid": "qyzrQGHmk"
+            "uid": "000000026"
         },
         {
             "title": "Trends Dashboard",
-            "uid": "wjZRrTiiz"
-        },
-        {
-            "title": "_PMM Amazon RDS and Remote Instances",
-            "uid": "pmm-list"
-        },
-        {
-            "title": "_PMM Query Analytics",
-            "uid": "7w6Q3PJmz"
+            "uid": "000000015"
         }
     ]
 }

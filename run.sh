@@ -34,6 +34,9 @@ set -a
 # Server config file. Default: ./cfg/config-pmmdemo.json
 # SNAP_CONFIG_FILE=
 
+# Dashboard definitions file. Default (for PMM2): ./cfg/dashboards.json
+# SNAP_DASHBOARDS_FILE=./cfg/dashboards-pmm1.json
+
 # Default values. Default: ./cfg/defaults.json
 # Allows for changes to element CSS paths (e.g. during Grafana updates).
 # SNAP_DEFAULTS_FILE=

@@ -440,8 +440,12 @@
           "selector": "li.css-nivouq:nth-child(4)"
         },
         {
-          "name": "Sign Up",
+          "name": "Percona Platform",
           "selector": "li.css-nivouq:nth-child(5)"
+        },
+        {
+          "name": "Sign Up",
+          "selector": ".css-25t7ua-button"
         }
       ]
     }

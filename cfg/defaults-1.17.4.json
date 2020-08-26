@@ -1,0 +1,22 @@
+{
+    "version": "1.17.4",
+    "config_file": "./cfg/config-pmmstage.json",
+    "jpg_quality": 100,
+    "img_pfx": "PMM1",
+    "img_ext": ".jpg",
+    "img_dir": "./images",
+    "img_seq": false,
+    "user": "admin",
+    "pass": "admin",
+    "log_in": true,
+    "headless": true,
+    "debug": true,
+    "img_width": 1920,
+    "img_height": 1080,
+    "img_scale": 1,
+    "login_user_elem": "div.login-form:nth-child(1) > input:nth-child(1)",
+    "login_pass_elem": "#inputPassword",
+    "login_skip_elem": "a.btn",
+    "cookie_popup_elem": "[role=\"dialog\"]",
+    "container": ".react-grid-layout"
+}

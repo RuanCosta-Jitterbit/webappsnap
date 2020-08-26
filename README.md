@@ -2,6 +2,7 @@
 
 - Connects to a PMM server, loads dashboards and takes screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG.
 - Uses Puppeteer to run a headless Chromium web browser.
+- Works on PMM1 and PMM2.
 
 ## Prerequisites
 
@@ -14,7 +15,7 @@
 
 ## Usage
 
-To snap all dashboards in the default [pmmdemo](https://pmmdemo.percona.com/) instance:
+To snap all dashboards in the default [PMM2 demo instance](https://pmmdemo.percona.com/) instance:
 
 ```
 ./run.sh
@@ -31,6 +32,7 @@ To get a list of available dashboard UIDs:
 ```
 ./run.sh --list
 ```
+
 
 
 ## Configuration Files

@@ -35,6 +35,7 @@ if (argv.debug) { config.debug = argv.debug; }
     if (config.debug) {
         console.log(`Server: ${config.hostname}`);
         console.log(`Server configuration file: ${config.cfg_file_name}`);
+        console.log(`Dashboards configuration file: ${config.dashboards_file_name}`);
         console.log(`Defaults file: ${config.defaults_file_name}`);
         console.log(`Requested Viewport: ${config.img_width}x${config.img_height}`);
         console.log(`Capture full container: ${Boolean(argv.full)}`);
@@ -63,6 +64,7 @@ if (argv.debug) { config.debug = argv.debug; }
         }
     });
     const page = await browser.newPage();
+    // Default server wait can be overridden per dashboard
     await page.setDefaultTimeout(server_cfg.wait);
 
     // Attempt login if configured (necessary for access to some dashboards)
@@ -113,7 +115,6 @@ if (argv.debug) { config.debug = argv.debug; }
                 `${server_cfg.server}/${server_cfg.graph}/${server_cfg.stem}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
         }
 
-
         // Load URL with either default global or dashboard-specific wait time
         await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
 
@@ -156,8 +157,12 @@ if (argv.debug) { config.debug = argv.debug; }
                     await util.eat(page); // Eat cookie again
                 }
 
-                var element = await page.waitForSelector(panel.selector);
-                await util.snap(element, dash.title + "_" + panel.name, img_dir);
+                try {
+                    var element = await page.waitForSelector(panel.selector, { timeout: server_cfg.pause });
+                    await util.snap(element, dash.title + "_" + panel.name, img_dir);
+                } catch (e) {
+                    console.log(`Can't snap ${panel.selector} in ${dash.title} - skipping`);
+                }
 
                 // Need to reset and reload for subsequent panels. Adds signigicant extra time. TODO
                 await page.setViewport({
