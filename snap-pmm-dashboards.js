@@ -82,6 +82,7 @@ if (argv.debug) { config.debug = argv.debug; }
     for (var d in dashboards) {
         var dash = dashboards[d];
 
+        // A viewport scaling factor, overridden by optional per-dashboard config for sparse pages (e.g. settings)
         var viewport = { width: 1, height: 1 };
         if (dash.viewport) {
             viewport = dash.viewport;
