@@ -25,31 +25,35 @@ var img_dir = path.join(config.img_dir, server_cfg.name,
 util.mkdir(img_dir);    // Create image save directory TODO move to snap function
 
 // Option for specifying dashboards to snap
-const selected_dashboards = ((argv.dash) ? argv.dash.split(',') : []);
+const selected_dashboards = ((argv.uid) ? argv.uid.split(',') : []);
 
-// TODO Set option overrides: Defaults -> Env vars -> Command line args
-if (argv.log_in) { config.log_in = argv.log_in; }
+// TODO Better debug/logging/usage options
 if (argv.debug) { config.debug = argv.debug; }
 
 (async () => {
     if (config.debug) {
         console.log(`Server: ${config.hostname}`);
-        console.log(`Server configuration file: ${config.cfg_file_name}`);
-        console.log(`Dashboards configuration file: ${config.dashboards_file_name}`);
-        console.log(`Defaults file: ${config.defaults_file_name}`);
-        console.log(`Requested Viewport: ${config.img_width}x${config.img_height}`);
-        console.log(`Capture full container: ${Boolean(argv.full)}`);
-        console.log(`Image scaling factor: ${config.img_scale}`);
-        console.log(`Image file type: ${config.img_ext}`);
-        console.log(`Image filename prefix: ${config.img_pfx}`);
-        console.log(`Image filename sequence numbers: ${Boolean(config.img_seq)}`);
-        if (img_ext.match(/\.jpg$/)) { console.log(`JPG quality: ${config.jpg_quality}`); }
-        console.log(`Default page wait time: ${server_cfg.wait / 1000} seconds`);
-        console.log(`Default page pause time: ${server_cfg.pause / 1000} seconds`);
-        console.log(`Headless mode: ${Boolean(config.headless)}`);
-        console.log(`Log in: ${Boolean(config.log_in)}`);
-        console.log(`Snapping container panels beyond viewport: ${Boolean(argv.full)}`);
-        if (!argv.dash) { console.log("Snapping all listed dashboards"); }
+        console.log("Files");
+        console.log(`  Image base directory (SNAP_IMG_DIR): ${img_dir}`)
+        console.log(`  Server configuration file (SNAP_CONFIG_FILE): ${config.cfg_file_name}`);
+        console.log(`  Dashboards configuration file (SNAP_DASHBOARDS_FILE): ${config.dashboards_file_name}`);
+        console.log(`  Defaults file (SNAP_DEFAULTS_FILE): ${config.defaults_file_name}`);
+        console.log("Images");
+        console.log(`  Viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT): ${config.img_width}x${config.img_height}`);
+        console.log(`  Image filename sequence numbers (SNAP_IMG_SEQ): ${Boolean(config.img_seq)}`);
+        console.log(`  Image scaling factor (SNAP_IMG_SCALE): ${config.img_scale}`);
+        console.log(`  Image filename prefix (SNAP_IMG_PFX): ${config.img_pfx}`);
+        console.log(`  Image filename suffix (SNAP_IMG_EXT): ${config.img_ext}`);
+        if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality (SNAP_JPG_QUALITY): ${config.jpg_quality}`); }
+        console.log("Waits");
+        console.log(`  Default page wait time: ${server_cfg.wait / 1000} seconds`);
+        console.log(`  Default page pause time: ${server_cfg.pause / 1000} seconds`);
+        console.log("Options");
+        console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
+        console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
+        console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
+        if (!argv.uid) { console.log("  Snapping all dashboards"); }
+        else { console.log(`  Snapping selected (--uid=):  ${argv.uid.join(' ')}`); }
     }
 
     const browser = await puppeteer.launch({
