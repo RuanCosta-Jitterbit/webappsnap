@@ -6,16 +6,18 @@
 #
 # USAGE
 #
-# run.sh [--list] [--log_in] [--full] [--debug] [--dash=<dashboard UID>[,]]
-# --list: output list of dashboard UIDs then exit.
-# --log_in: Log in and snap the login screen.
-# --full: Also snap container panels unconstrained by default viewport
-#        (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT). Note: This option doubles the total time for snapping.
-# --dash: When empty or unset, snaps all PMM dashboards.
-#         To snap specific dashboards, add them as a comma-separated list to the --dash option.
-#         All entries in cfg/dashboards.json with matching uid will be snapped, including any
-#         panel/component entries.
-# --debug: Lists operating parameters.
+# run.sh [--list] [--full] [--debug] [--dash=<dashboard UID>[,]]
+#
+#   --list: output list of dashboard UIDs then exit.
+#   --full: Also snap container panels unconstrained by default viewport
+#          (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT). Note: This option doubles
+#           the total time for snapping.
+#   --uid: When empty or unset, snaps all PMM dashboards.
+#          To snap specific dashboards, add them as a comma-separated list to the --dash option.
+#          All entries in cfg/dashboards.json with matching uid will be snapped, including any
+#          panel/component entries.
+#   --debug: Lists operating parameters.
+#
 # The login page is snapped independently based on the value for 'login' in the
 # server configuration file (SNAP_CONFIG_FILE).
 
@@ -31,7 +33,7 @@ set -a
 # Log in and snap the login screen. Default=true
 # SNAP_LOG_IN=false
 
-# Server config file. Default: ./cfg/config-pmmdemo.json
+# Server config file. Default: ./cfg/server-pmmdemo.json
 # SNAP_CONFIG_FILE=
 
 # Dashboard definitions file. Default (for PMM2): ./cfg/dashboards.json
@@ -39,7 +41,7 @@ set -a
 
 # Default values. Default: ./cfg/defaults.json
 # Allows for changes to element CSS paths (e.g. during Grafana updates).
-# SNAP_DEFAULTS_FILE=
+# SNAP_DEFAULTS_FILE=./cfg/defaults-2.10.0.json
 
 # Snap viewport. Default: 1920x1080
 # See: https://en.wikipedia.org/wiki/Graphics_display_resolution
