@@ -1,6 +1,6 @@
 {
     "version"           : "2.9.1",
-    "config_file"       : "./cfg/config-pmmdemo.json",
+    "config_file"       : "./cfg/server-pmmdemo.json",
     "jpg_quality"       : 100,
     "img_pfx"           : "PMM",
     "img_ext"           : ".jpg",

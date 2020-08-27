@@ -1,6 +1,6 @@
 {
     "version": "1.17.4",
-    "config_file": "./cfg/config-pmmstage.json",
+    "config_file": "./cfg/server-pmmstage.json",
     "jpg_quality": 100,
     "img_pfx": "PMM1",
     "img_ext": ".jpg",
