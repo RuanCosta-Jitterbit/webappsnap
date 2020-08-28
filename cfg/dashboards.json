@@ -448,6 +448,41 @@
           "selector": ".css-25t7ua-button"
         }
       ]
+    },
+    {
+      "title": "Settings Metrics Resolution",
+      "uid": "pmm-settings",
+      "options": [
+        "menu=metrics-resolution"
+      ]
+    },
+    {
+      "title": "Settings Advanced Settings",
+      "uid": "pmm-settings",
+      "options": [
+        "menu=advanced-settings"
+      ]
+    },
+    {
+      "title": "Settings SSH Key",
+      "uid": "pmm-settings",
+      "options": [
+        "menu=ssh-key"
+      ]
+    },
+    {
+      "title": "Settings Alertmanager Integration",
+      "uid": "pmm-settings",
+      "options": [
+        "menu=am-integration"
+      ]
+    },
+    {
+      "title": "Settings Percona Platform",
+      "uid": "pmm-settings",
+      "options": [
+        "menu=percona-platform"
+      ]
     }
   ]
 }
