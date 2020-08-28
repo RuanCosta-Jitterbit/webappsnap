@@ -53,7 +53,7 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all dashboards"); }
-        else { console.log(`  Snapping selected (--uid=):  ${argv.uid.join(' ')}`); }
+        else { console.log(`  Snapping selected (--uid=):  ${selected_dashboards.join(' ')}`); }
     }
 
     const browser = await puppeteer.launch({
