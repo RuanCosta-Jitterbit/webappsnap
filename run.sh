@@ -43,9 +43,11 @@ set -a
 # Allows for changes to element CSS paths (e.g. during Grafana updates).
 # SNAP_DEFAULTS_FILE=./cfg/defaults-2.10.0.json
 
-# Snap viewport. Default: 1920x1080
+# Snap viewport. Default: 1280x720
 # See: https://en.wikipedia.org/wiki/Graphics_display_resolution
-# SNAP_IMG_WIDTH=1280
+# Can be overridden per dashboard with the viewport value
+# (this is done for Query Analytics)
+# SNAP_IMG_WIDTH=1920
 # SNAP_IMG_HEIGHT=1080
 
 # Image scale factor. Multiplies WIDTH and HEIGHT by this value. Default: 1
