@@ -43,24 +43,24 @@
           "name": "Grafana Side Menu",
           "selector": ".sidemenu",
           "viewport": {
-            "width": 1,
-            "height": 0.75
+            "width": 1080,
+            "height": 1080
           }
         },
         {
           "name": "Top Navigation Bar",
           "selector": ".navbar",
           "viewport": {
-            "width": 0.5,
-            "height": 1
+            "width": 720,
+            "height": 1080
           }
         },
         {
           "name": "Submenu Bar",
           "selector": ".submenu-controls",
           "viewport": {
-            "width": 0.5,
-            "height": 1
+            "width": 1080,
+            "height": 1080
           }
         },
         {
@@ -269,7 +269,11 @@
     },
     {
       "title": "Query Analytics",
-      "uid": "pmm-qan"
+      "uid": "pmm-qan",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      }
     },
     {
       "title": "Query Analytics",
@@ -412,11 +416,11 @@
     },
     {
       "title": "Settings",
-      "comment": "Reduced viewport to make settings page look less sparse",
+      "comment": "Adjust viewport to make settings page look less sparse",
       "uid": "pmm-settings",
       "viewport": {
-        "width": 0.8,
-        "height": 0.8
+        "width": 1920,
+        "height": 1080
       }
     },
     {

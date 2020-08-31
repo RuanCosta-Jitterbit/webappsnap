@@ -86,16 +86,16 @@ if (argv.debug) { config.debug = argv.debug; }
     for (var d in dashboards) {
         var dash = dashboards[d];
 
-        // A viewport scaling factor, overridden by optional per-dashboard config for sparse pages (e.g. settings)
-        var viewport = { width: 1, height: 1 };
+        // Override viewport if set
+        var dashboard_viewport = { width: config.img_width, height: config.img_height };
         if (dash.viewport) {
-            viewport = dash.viewport;
+            dashboard_viewport = dash.viewport;
         }
 
         // (re)set viewport
         await page.setViewport({
-            width: config.img_width * viewport.width,
-            height: config.img_height * viewport.height,
+            width: dashboard_viewport.width,
+            height: dashboard_viewport.height,
             deviceScaleFactor: config.img_scale
         });
 
@@ -153,8 +153,8 @@ if (argv.debug) { config.debug = argv.debug; }
                 // For sparse elements, resize viewport (and reload)
                 if (panel.viewport) {
                     await page.setViewport({
-                        width: config.img_width * panel.viewport.width,
-                        height: config.img_height * panel.viewport.height,
+                        width: panel.viewport.width,
+                        height: panel.viewport.height,
                         deviceScaleFactor: config.img_scale
                     });
                     // load to activate viewport
@@ -171,14 +171,13 @@ if (argv.debug) { config.debug = argv.debug; }
 
                 // Need to reset and reload for subsequent panels. Adds signigicant extra time. TODO
                 await page.setViewport({
-                    width: config.img_width,
-                    height: config.img_height,
+                    width: dashboard_viewport.width,
+                    height: dashboard_viewport.height,
                     deviceScaleFactor: config.img_scale
                 });
                 // load to activate viewport
                 await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
                 await util.eat(page); // Eat cookie again
-
             }
         }
 
