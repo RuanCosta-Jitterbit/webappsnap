@@ -3,6 +3,7 @@
 - Connects to a PMM server, loads dashboards and takes screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG.
 - Uses Puppeteer to run a headless Chromium web browser.
 - Works on PMM1 and PMM2.
+- What to snap (whole dashboards, panels, buttons, menus, etc.) are defined in a JSON file.
 
 ## Prerequisites
 
@@ -21,7 +22,7 @@ Snap all dashboards in the default [PMM2 demo instance](https://pmmdemo.percona.
 ./run.sh
 ```
 
-Snap specific dashboards, use the `--dash` option to specify their UIDs as a comma-separated list:
+Snap specific dashboards with the `--dash` option to specify their UIDs as a comma-separated list:
 
 ```
 ./run.sh --dash=pmm-home,node-memory,mysql-instance-overview
@@ -43,7 +44,7 @@ Snapping the dashboards of a PMM instance.
    - `"name"`: A free-form name for your instance. (Snapped images will be saved in a subdirectory with this name.)
    - `"server"`: The HTTPS server IP or hostname.
    - `"graph"`: For PMM2 instances, the word `"graph"`. For PMM1, an empty value (`""`)
-   - `"wait"`: The number of milliseconds to wait for a page to load.
+   - `"wait"`: The number of milliseconds to wait for a page to load. (10000 to 20000 for local instances, 30000 or more for remote instances.)
 
    (`"stem"` is always `"d"`. `"pause"` is a shorter wait interval used when snapping mouse-over tooltips.)
 
@@ -59,15 +60,15 @@ Snapping the dashboards of a PMM instance.
 
    Optional:
 
-   - `SNAP_IMG_WIDTH`: The snap image width (in pixels). Default: 1920
-   - `SNAP_IMG_HEIGHT`: The snap image height (in pixels). Default: 1080
+   - `SNAP_IMG_WIDTH`: The snap image width (in pixels). Default: 1280
+   - `SNAP_IMG_HEIGHT`: The snap image height (in pixels). Default: 720
    - `SNAP_IMG_SCALE`: Images can be scaled to reduce their size (for JPG formats). Default: 1
    - `SNAP_JPG_QUALITY`: For JPG format, the image quality (a percent value) also helps reduce file size. Default: 100
    - `SNAP_IMG_EXT`: Set to `.png` for PNG format images. Default: `.jpg`
    - `SNAP_IMG_SEQ`: Set to `true` to prefix image filenames with a sequence number. Useful for testing and identifying images. Default: `false`
    - `SNAP_IMG_PFX`: After the optional sequence number, a secondary prefix is added to the filename. Default: `PMM`
    - `SNAP_IMG_DIR`: Where to save images. Default: `./images`. This is the base directory within which two additional subdirectories are created: `<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHTxSNAP_IMG_SCALE`. E.g `./images/myserver/1920x1080x1/`
-   - `SNAP_LOG_IN`: Whether to snap the log in page, log in and click the 'skip password change' button. Default: true.
+   - `SNAP_LOG_IN`: Set to true to snap the login page, log in, and click the 'skip password change' button. Default: true.
 
 4. Run the wrapper script:
 
@@ -249,7 +250,7 @@ Fields:
       : The CSS selector for the element (can be a panel, UI element or any distinct HTML element with a static selector ID).
 
       `viewport`
-      : An array of [`width`, `height`] scaling factors (0 to 1). Used to scale the default viewport (`SNAP_IMG_WIDTH` x `SNAP_IMG_HEIGHT`). Used when snapping sparse pages (e.g. PMM Settings) or for reducing the length/height of side/top menu bar snaps.
+      : An array of [`width`, `height`] values in pixels. Used to override the default viewport (`SNAP_IMG_WIDTH` x `SNAP_IMG_HEIGHT`). Used when snapping sparse pages (e.g. PMM Settings) or for reducing the length/height of side/top menu bar snaps.
 
    `options`
    : An array of URL option strings appended to the dashboard load URL. Used to snap dashboards with a specific service name, node name, or any dashboard where URL options are used to select pages, e.g. Query Analytics details tabs.
