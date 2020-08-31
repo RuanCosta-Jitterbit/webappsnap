@@ -34,8 +34,7 @@ async function snap(page, title = "", dir, boundingBox = null) {
         title].filter(function (a) { return a != null; }).join('_') + config.img_ext;
 
     const filepath = path.join(dir, filename);
-
-    await process.stdout.write("Saving " + filepath + " ... ");
+    process.stdout.write("Saving " + filepath + " ... ");
 
     // Set up options for snap
     var options = {};
@@ -51,9 +50,9 @@ async function snap(page, title = "", dir, boundingBox = null) {
 
     try {
         await page.screenshot(options);
-        await process.stdout.write("Done\n");
+        process.stdout.write("Done\n");
     } catch (err) {
-        await process.stderr.write("Failed: " + err + "\n");
+        process.stderr.write("Failed: " + err + "\n");
     }
 }
 
@@ -97,7 +96,7 @@ async function login(page, wait) {
         await page.click(skip_button);
         await page.waitFor(wait);
     } catch (err) {
-        await console.log("Didn't find password change skip button");
+        console.log("Didn't find password change skip button");
     }
 }
 
