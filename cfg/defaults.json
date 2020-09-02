@@ -18,5 +18,5 @@
     "login_pass_elem"   : "#inputPassword",
     "login_skip_elem"   : "a.btn",
     "cookie_popup_elem" : "[role=\"dialog\"]",
-    "container"         : "body > grafana-app > div > div > react-container > div > div.scroll-canvas.scroll-canvas--dashboard > div > div.view > div > div.react-grid-layout.layout"
+    "container"         : ".react-grid-layout"
 }

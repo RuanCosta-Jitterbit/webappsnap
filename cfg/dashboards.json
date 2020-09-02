@@ -33,7 +33,11 @@
     },
     {
       "title": "Home Dashboard",
-      "uid": "pmm-home"
+      "uid": "pmm-home",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      }
     },
     {
       "title": "Home Dashboard",
@@ -268,6 +272,20 @@
       "uid": "pmm-inventory"
     },
     {
+      "title": "Inventory",
+      "uid": "pmm-inventory",
+      "click": [
+        {
+          "name": "Item Selection",
+          "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(1)"
+        },
+        {
+          "name": "Item Delete",
+          "selector": ".css-1fqqqdh-button"
+        }
+      ]
+    },
+    {
       "title": "Query Analytics",
       "uid": "pmm-qan",
       "viewport": {
@@ -282,7 +300,8 @@
       "move": [
         {
           "name": "Main Metric Sparkline",
-          "selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div > canvas"
+          "selector": "div.tr:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
+          "new-selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div > canvas"
         },
         {
           "name": "Main Metric Meter",

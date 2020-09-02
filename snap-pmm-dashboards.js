@@ -102,6 +102,7 @@ if (argv.debug) { config.debug = argv.debug; }
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
             continue;
+            // TODO Check that supplied UIDs exist
         }
 
         // Build URL; append option string if present
@@ -129,18 +130,26 @@ if (argv.debug) { config.debug = argv.debug; }
         // Full-screen snaps with mouse-over (hover) (for tool-tips)
         for (var h in dash.move) {
             const move = dash.move[h];
-            await page.hover(move.selector);
-            await page.waitFor(server_cfg.pause);
-            await util.snap(page, `${dash.title}_${move.name}`, img_dir);
+            try {
+                await page.hover(move.selector);
+                await page.waitFor(server_cfg.pause);
+                await util.snap(page, `${dash.title}_${move.name}`, img_dir);
+            } catch(e) {
+                console.log(`Can't snap ${move.selector} in ${dash.title} - skipping (${e})`);
+            }
         }
 
         // Full-screen snaps with mouse clicks (for drop down menus etc)
         for (var c in dash.click) {
             var click = dash.click[c];
-            await page.click(click.selector);
-            await page.waitFor(server_cfg.pause);
-            await util.snap(page, `${dash.title}_${click.name}`, img_dir);
-            //            await page.click(click); // TODO some need clicking to remove (drop downs), some don't (radio buttons)
+            try {
+                await page.click(click.selector);
+                await page.waitFor(server_cfg.pause);
+                await util.snap(page, `${dash.title}_${click.name}`, img_dir);
+                //            await page.click(click); // TODO some need clicking to remove (drop downs), some don't (radio buttons)
+            } catch(e) {
+                console.log(`Can't snap ${click.selector} in ${dash.title} - skipping (${e})`);
+            }
         }
 
 
@@ -188,19 +197,18 @@ if (argv.debug) { config.debug = argv.debug; }
             // Snap container without cropping at viewport
             // (Skip any direct URLs that don't have the container element)
             if (argv.full && !dash.direct) {
-                // make height huge (x10) then reset
+                var elem = await page.waitForSelector(config.defaults.container);
+                const bx = await elem.boundingBox();
+                // increase viewport to height of container (plus a bit)
                 await page.setViewport({
                     width: config.img_width,
-                    height: 10 * config.img_height,
+                    height: bx.height + 60,
                     deviceScaleFactor: config.img_scale
                 });
                 // load again to activate viewport
                 await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
                 await util.eat(page); // Eat cookie again
-                // selector for main container and bounding box for it
-                var element = await page.waitForSelector(config.defaults.container);
-                const box = await element.boundingBox();
-                await util.snap(element, dash.title + "_full", img_dir, false, box);
+                await util.snap(page, dash.title + "_full", img_dir);
             }
         }
     }
