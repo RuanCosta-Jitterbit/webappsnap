@@ -34,7 +34,7 @@ set -a
 # SNAP_LOG_IN=false
 
 # Server config file. Default: ./cfg/server-pmmdemo.json
-# SNAP_CONFIG_FILE=
+# SNAP_CONFIG_FILE=./cfg/server-test.json
 
 # Dashboard definitions file. Default (for PMM2): ./cfg/dashboards.json
 # SNAP_DASHBOARDS_FILE=./cfg/dashboards-pmm1.json
