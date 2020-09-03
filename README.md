@@ -1,4 +1,4 @@
-# Screen capture for PMM
+# PMM Dashboard Screenshots
 
 - Connects to a PMM server, loads dashboards and takes screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG.
 - Uses Puppeteer to run a headless Chromium web browser.
@@ -22,10 +22,10 @@ Snap all dashboards in the default [PMM2 demo instance](https://pmmdemo.percona.
 ./run.sh
 ```
 
-Snap specific dashboards with the `--dash` option to specify their UIDs as a comma-separated list:
+Snap specific dashboards with the `--uid` option to specify their UIDs as a comma-separated list:
 
 ```
-./run.sh --dash=pmm-home,node-memory,mysql-instance-overview
+./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
 ```
 
 List available dashboard UIDs:
@@ -311,6 +311,6 @@ There are two ways to shorten the time spent using this tool.
 
 1. Reduce the default page wait time. This can speed things up but some dashboards won't finish loading before the snap is taken.
 
-2. Use the `--dash` option to snap specific dashboards.
+2. Use the `--uid` option to snap specific dashboards.
 
 3. Don't use the `--full` option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
