@@ -61,7 +61,7 @@ set -a
 # SNAP_IMG_EXT=.png
 
 # Primary prefix zero-padded 3-digit snap sequence number to image filename. Default: false
-SNAP_IMG_SEQ=true
+# SNAP_IMG_SEQ=true
 
 # Secondary image filename prefix. Default 'PMM'
 # SNAP_IMG_PFX=''

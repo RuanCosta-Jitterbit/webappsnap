@@ -9,6 +9,21 @@
       "direct": true
     },
     {
+      "title": "Swagger API",
+      "uid": "swagger",
+      "direct": true,
+      "viewport": {
+        "width": 1280,
+        "height": 950
+      },
+      "click": [
+        {
+          "name": "Execute",
+          "selector": "#operations-Server-Logs > div:nth-child(1) > span:nth-child(1)"
+        }
+      ]
+    },
+    {
       "title": "Dashboard Controls",
       "uid": "prometheus-advanced",
       "panels": [
@@ -262,6 +277,16 @@
     {
       "title": "Add Instance",
       "uid": "pmm-add-instance"
+    },
+    {
+      "title": "Add Instance",
+      "uid": "pmm-add-instance",
+      "move":[
+        {
+          "name":"Add AWS",
+          "selector":"a.navigation__link:nth-child(1)"
+        }
+      ]
     },
     {
       "title": "Database Checks",
