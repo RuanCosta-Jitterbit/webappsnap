@@ -281,10 +281,10 @@
     {
       "title": "Add Instance",
       "uid": "pmm-add-instance",
-      "move":[
+      "move": [
         {
-          "name":"Add AWS",
-          "selector":"a.navigation__link:nth-child(1)"
+          "name": "Add AWS",
+          "selector": "a.navigation__link:nth-child(1)"
         }
       ]
     },
@@ -530,6 +530,31 @@
       "uid": "pmm-settings",
       "options": [
         "menu=percona-platform"
+      ]
+    },
+    {
+      "title": "DBaaS",
+      "uid": "pmm-dbaas"
+    },
+    {
+      "title": "DBaaS",
+      "uid": "pmm-dbaas",
+      "click": [
+        {
+          "name": "Add Kubernetes Cluster",
+          "selector": ".css-tgsqbo > button:nth-child(1)"
+        }
+      ]
+    },
+    {
+      "title": "DBaaS",
+      "uid": "pmm-dbaas",
+      "click": [
+        {
+          "comment":"Separate forces reload to remove add dialogue",
+          "name": "Delete Kubernetes Cluster",
+          "selector": ".css-16g7pdf-button"
+        }
       ]
     }
   ]
