@@ -8,6 +8,7 @@ const util = require('./util.js');
 // Start-up vs default configuration value handling
 var config = require('./config.js');
 
+const defaults = config.defaults;
 const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to a PMM server
@@ -165,17 +166,21 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // Avoids duplicated snaps but needs extra entries in dashboards.json
         if (!dash.panels) {
-            // Snap full page window
+            // Snap normal (viewport)
             await util.snap(page, dash.title, img_dir);
+
             // Snap container without cropping at viewport
             // (Skip any direct URLs that don't have the container element)
             if (argv.full && !dash.direct) {
-                var elem = await page.waitForSelector(config.defaults.container);
+                var elem = await page.waitForSelector(defaults.container);
                 const bx = await elem.boundingBox();
-                // increase viewport to height of container (plus a bit)
+
+                console.log(`Bounding box height for container: ${bx.height}`);
+
+                // increase viewport to height of container (plus padding)
                 await page.setViewport({
                     width: config.img_width,
-                    height: bx.height + 60,
+                    height: bx.height + 125,
                     deviceScaleFactor: config.img_scale
                 });
                 // load again to activate viewport
