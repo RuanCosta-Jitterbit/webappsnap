@@ -35,7 +35,7 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`Server: ${config.hostname}`);
         console.log("Files");
         console.log(`  Image base directory (SNAP_IMG_DIR): ${img_dir}`)
-        console.log(`  Server configuration file (SNAP_CONFIG_FILE): ${config.cfg_file_name}`);
+        console.log(`  Server configuration file (SNAP_SRV_CFG_FILE): ${config.cfg_file_name}`);
         console.log(`  Dashboards configuration file (SNAP_DASHBOARDS_FILE): ${config.dashboards_file_name}`);
         console.log(`  Defaults file (SNAP_DEFAULTS_FILE): ${config.defaults_file_name}`);
         console.log("Images");
@@ -53,14 +53,14 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all dashboards"); }
-        else { console.log(`  Snapping selected (--uid=):  ${selected_dashboards.join(' ')}`); }
+        else { console.log(`  Snapping selected (--uid):  ${selected_dashboards.join(' ')}`); }
     }
 
     const browser = await puppeteer.launch({
         headless: config.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
-//        slowMo: 500,
+        //        slowMo: 500,
         defaultViewport: {
             width: config.img_width,
             height: config.img_height,
@@ -72,6 +72,7 @@ if (argv.debug) { config.debug = argv.debug; }
     await page.setDefaultTimeout(server_cfg.wait);
 
     // Attempt login if configured (necessary for access to some dashboards)
+    // TODO Use new dashboard operations to do this?
     if (config.log_in) {
         await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`, server_cfg.wait);
         await util.snap(page, 'Login', img_dir);
@@ -127,34 +128,6 @@ if (argv.debug) { config.debug = argv.debug; }
         // Remove pesky cookie confirmation from pmmdemo.percona.com
         await util.eat(page); // TODO can this go inside load()?
 
-        // Full-screen snaps with mouse-over (hover) (for tool-tips)
-        for (var h in dash.move) {
-            const move = dash.move[h];
-            try {
-                await page.hover(move.selector);
-                await page.waitFor(server_cfg.pause);
-                await util.snap(page, `${dash.title}_${move.name}`, img_dir);
-            } catch(e) {
-                console.log(`Can't snap ${move.selector} in ${dash.title} - skipping (${e})`);
-            }
-        }
-
-        // Full-screen snaps with mouse clicks (for drop down menus etc)
-        for (var c in dash.click) {
-            var click = dash.click[c];
-            try {
-                await page.click(click.selector);
-                await page.waitFor(server_cfg.pause);
-                await util.snap(page, `${dash.title}_${click.name}`, img_dir);
-                //            await page.click(click); // TODO some need clicking to remove (drop downs), some don't (radio buttons)
-            } catch(e) {
-                console.log(`Can't snap ${click.selector} in ${dash.title} - skipping (${e})`);
-            }
-        }
-
-
-
-
         // panel/component snaps
         if (dash.panels) {
             for (var p in dash.panels) {
@@ -191,7 +164,7 @@ if (argv.debug) { config.debug = argv.debug; }
         }
 
         // Avoids duplicated snaps but needs extra entries in dashboards.json
-        if (!dash.panels && !dash.move && !dash.click) {
+        if (!dash.panels) {
             // Snap full page window
             await util.snap(page, dash.title, img_dir);
             // Snap container without cropping at viewport
@@ -211,6 +184,45 @@ if (argv.debug) { config.debug = argv.debug; }
                 await util.snap(page, dash.title + "_full", img_dir);
             }
         }
+
+        // Operations - Any number of groups of steps, each step being one of:
+        // move (hover) to a selector, click a selector, enter text into a selector
+        for (var o in dash.operations) {
+            var op = dash.operations[o];
+
+            console.log(`Operation: ${op.name}`);
+
+            for (var p in op.steps) {
+                var preop = op.steps[p];
+                var name = preop.name;
+                var type = preop.type;
+                var selector = preop.selector;
+                var value = preop.value;
+
+                console.log(`  Step ${p}: ${name}`);
+
+                if (type == "move") {
+                    console.log(`    Moving to ${selector}`);
+                    try { await page.hover(selector); } catch (e) { console.log(`${e}...Skipping`); }
+                }
+
+                if (type == "text") {
+                    console.log(`    Typing ${value} in ${selector}`);
+                    try { await page.type(selector, value); } catch (e) { console.log(`${e}...Skipping`); }
+                }
+
+                if (type == "click") {
+                    console.log(`    Clicking ${selector}`);
+                    try { await page.click(selector); } catch (e) { console.log(`${e}...Skipping`); }
+                }
+
+                await page.waitFor(server_cfg.pause);
+                await util.snap(page, `${dash.title}_${op.name}_${name}`, img_dir);
+            }
+        }
+
+
+
     }
     await browser.close();
 })();
