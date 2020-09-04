@@ -17,9 +17,6 @@
 #          All entries in cfg/dashboards.json with matching uid will be snapped, including any
 #          panel/component entries.
 #   --debug: Lists operating parameters.
-#
-# The login page is snapped independently based on the value for 'login' in the
-# server configuration file (SNAP_CONFIG_FILE).
 
 set -a
 
@@ -34,7 +31,7 @@ set -a
 # SNAP_LOG_IN=false
 
 # Server config file. Default: ./cfg/server-pmmdemo.json
-# SNAP_CONFIG_FILE=./cfg/server-test.json
+# SNAP_SRV_CFG_FILE=./cfg/server-test.json
 
 # Dashboard definitions file. Default (for PMM2): ./cfg/dashboards.json
 # SNAP_DASHBOARDS_FILE=./cfg/dashboards-pmm1.json

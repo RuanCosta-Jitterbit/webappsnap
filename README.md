@@ -54,7 +54,7 @@ Snapping the dashboards of a PMM instance.
 
    - `SNAP_USER`: The username for the instance. Default: `admin`
    - `SNAP_PASS`: The password for this username. Default: `admin`
-   - `SNAP_CONFIG_FILE`: The path to your newly-created server configuration file (created in step 1).
+   - `SNAP_SRV_CFG_FILE`: The path to your newly-created server configuration file (created in step 1).
    - `SNAP_DASHBOARDS_FILE`: This does not need to be changed for PMM2 instances. For PMM1, set the value to `./cfg/dashboards-pmm1.json`.
    - `SNAP_DEFAULTS_FILE`: The default (`./cfg/defaults.json`) works for PMM2 instances. For PMM1, set the value to `./cfg/defaults-1.17.4.json`.
 

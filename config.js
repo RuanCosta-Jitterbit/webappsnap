@@ -10,7 +10,7 @@ const defaults_file_name = process.env.SNAP_DEFAULTS_FILE || './cfg/defaults.jso
 const defaults = require(defaults_file_name);
 
 // Per-server configuration values (cfg/config-*.json)
-const cfg_file_name = process.env.SNAP_CONFIG_FILE || defaults.config_file;
+const cfg_file_name = process.env.SNAP_SRV_CFG_FILE || defaults.config_file;
 const server_cfg = require(cfg_file_name);
 
 const hostname = uf.parse(server_cfg.server).hostname; // The PMM URL/server/IP
