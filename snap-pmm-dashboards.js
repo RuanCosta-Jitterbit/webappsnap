@@ -47,14 +47,14 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Image filename suffix (SNAP_IMG_EXT): ${config.img_ext}`);
         if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality (SNAP_JPG_QUALITY): ${config.jpg_quality}`); }
         console.log("Waits");
-        console.log(`  Default page wait time: ${server_cfg.wait / 1000} seconds`);
-        console.log(`  Default page pause time: ${server_cfg.pause / 1000} seconds`);
+        console.log(`  Default page load wait time: ${server_cfg.wait / 1000} seconds`);
+        console.log(`  Default page settle time: ${server_cfg.pause / 1000} ${Math.floor(server_cfg.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log("Options");
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
         console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all dashboards"); }
-        else { console.log(`  Snapping selected (--uid):  ${selected_dashboards.join(' ')}`); }
+        else { console.log(`  Snapping selected (--uid): ${selected_dashboards.join(' ')}`); }
     }
 
     const browser = await puppeteer.launch({
@@ -68,60 +68,73 @@ if (argv.debug) { config.debug = argv.debug; }
             deviceScaleFactor: config.img_scale
         }
     });
-    const page = await browser.newPage();
+
+    var page = await browser.newPage();
     // Default server wait can be overridden per dashboard
     await page.setDefaultTimeout(server_cfg.wait);
 
     // Attempt login if configured (necessary for access to some dashboards)
     // TODO Use new dashboard operations to do this?
+
     if (config.log_in) {
         await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`, server_cfg.wait);
         await util.snap(page, 'Login', img_dir);
         try {
+            console.info("Logging in");
             await util.login(page, server_cfg.wait)
         } catch (err) {
             console.error(`Can't login: ${err}`);
         }
     }
 
-    // Loop through all dashboards in dashboards config file (e.g. ./cfg/dashboards.json)
-    for (var d in dashboards) {
-        var dash = dashboards[d];
 
-        // Override viewport if set
+    /*************************************************************************************
+     * Loop through all dashboards in dashboards config file (e.g. ./cfg/dashboards.json)
+     */
+    for (var d in dashboards) {
+        // TEST Different page on same browser - still logged in so privileged items should work (checks panel)
+        page = await browser.newPage();
+        await page.setDefaultTimeout(server_cfg.wait);
+
+        var dash = dashboards[d]; // convenience handle
+
+        // Override default viewport if set per-dashboard
         var dashboard_viewport = { width: config.img_width, height: config.img_height };
+
         if (dash.viewport) {
             dashboard_viewport = dash.viewport;
+            // (re)set viewport
+            await page.setViewport({
+                width: dashboard_viewport.width,
+                height: dashboard_viewport.height,
+                deviceScaleFactor: config.img_scale
+            });
         }
-
-        // (re)set viewport
-        await page.setViewport({
-            width: dashboard_viewport.width,
-            height: dashboard_viewport.height,
-            deviceScaleFactor: config.img_scale
-        });
 
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
+        // TODO Check that supplied UIDs exist
         if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
             continue;
-            // TODO Check that supplied UIDs exist
         }
 
-        // Build URL; append option string if present
-        var option_string = '?';
-        for (var i in dash.options) {
-            option_string += dash.options[i] + '&';
+        // Build URL: Create option string if needed
+        var option_string = "";
+        if (dash.options) {
+           option_string = "?" + dash.options.join('&');
         }
 
-        // Build URL: Direct pages marked as 'direct' (e.g. swagger). URLs are server/UID
-        // Others are dashboards with URLs built from config as server/graph/stem/UID
+        // Build URL: Most are dashboards with URLs built from config as SERVER/graph/d/UID
+        // Some exceptions (use 'url' to override): SERVER/swagger, SERVER/graph/login
         var server_url;
-        if (dash.direct) {
-            server_url = `${server_cfg.server}/${dash.uid}/`;
+        if (dash.url) {
+            server_url = `${server_cfg.server}/${dash.url}`;
         } else {
             server_url =
                 `${server_cfg.server}/${server_cfg.graph}/${server_cfg.stem}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
         }
+
+        // TEST Load home to avoid long history in menu bar breadcrumbs
+        //        await util.load(page, `${server_cfg.server}/${server_cfg.graph}/`, server_cfg.pause);
 
         // Load URL with either default global or dashboard-specific wait time
         await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
@@ -130,39 +143,41 @@ if (argv.debug) { config.debug = argv.debug; }
         await util.eat(page); // TODO can this go inside load()?
 
         // panel/component snaps
-        if (dash.panels) {
-            for (var p in dash.panels) {
-                const panel = dash.panels[p];
-                // For sparse elements, resize viewport (and reload)
-                if (panel.viewport) {
-                    await page.setViewport({
-                        width: panel.viewport.width,
-                        height: panel.viewport.height,
-                        deviceScaleFactor: config.img_scale
-                    });
-                    // load to activate viewport
-                    await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
-                    await util.eat(page); // Eat cookie again
-                }
+        for (var p in dash.panels) {
+            const panel = dash.panels[p];
+            // Some panels need to adjust viewport and reload to activate
+            if (panel.viewport) {
+                await page.setViewport({
+                    width: panel.viewport.width,
+                    height: panel.viewport.height,
+                    deviceScaleFactor: config.img_scale
+                });
+                // load to activate viewport
+                // TEST necessary? Docs say setViewport will reload anyway
+                //                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+                //               await util.eat(page); // Eat cookie again
+            }
 
-                try {
-                    var element = await page.waitForSelector(panel.selector, { timeout: server_cfg.pause });
-                    await util.snap(element, dash.title + "_" + panel.name, img_dir);
-                } catch (e) {
-                    console.log(`Can't snap ${panel.selector} in ${dash.title} - skipping`);
-                }
+            try {
+                var element = await page.waitForSelector(panel.selector, { timeout: server_cfg.pause });
+                await util.snap(element, dash.title + "_" + panel.name, img_dir);
+            } catch (e) {
+                console.log(`Can't snap ${panel.selector} in ${dash.title} - skipping (${e})`);
+            }
 
-                // Need to reset and reload for subsequent panels. Adds signigicant extra time. TODO
+            // Need to reset and reload for subsequent panels. Adds signigicant extra time. TODO workaround
+            if (panel.viewport) {
                 await page.setViewport({
                     width: dashboard_viewport.width,
                     height: dashboard_viewport.height,
                     deviceScaleFactor: config.img_scale
                 });
-                // load to activate viewport
-                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
-                await util.eat(page); // Eat cookie again
+                // TEST necessary? Docs say setViewport will reload anyway
+//                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+ //               await util.eat(page); // Eat cookie again
             }
-        }
+        } // for panels
+
 
         // Avoids duplicated snaps but needs extra entries in dashboards.json
         if (!dash.panels) {
@@ -175,8 +190,6 @@ if (argv.debug) { config.debug = argv.debug; }
                 var elem = await page.waitForSelector(defaults.container);
                 const bx = await elem.boundingBox();
 
-                console.log(`Bounding box height for container: ${bx.height}`);
-
                 // increase viewport to height of container (plus padding)
                 await page.setViewport({
                     width: config.img_width,
@@ -184,8 +197,8 @@ if (argv.debug) { config.debug = argv.debug; }
                     deviceScaleFactor: config.img_scale
                 });
                 // load again to activate viewport
-                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
-                await util.eat(page); // Eat cookie again
+//                await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+//                await util.eat(page); // Eat cookie again
                 await util.snap(page, dash.title + "_full", img_dir);
             }
         }
@@ -202,7 +215,7 @@ if (argv.debug) { config.debug = argv.debug; }
                 var name = preop.name;
                 var type = preop.type;
                 var selector = preop.selector;
-                var value = preop.value;
+                var value = String(preop.value); // TODO Some values are not static. How to detect them?
 
                 console.log(`  Step ${p}: ${name}`);
 
@@ -225,9 +238,7 @@ if (argv.debug) { config.debug = argv.debug; }
                 await util.snap(page, `${dash.title}_${op.name}_${name}`, img_dir);
             }
         }
-
-
-
-    }
-    await browser.close();
+        page.close(); // TEST close and reeopen
+    } // for dashboards
+    await browser.close(); // TEST Close/recreate browser to remove grafana breadcrumbs
 })();

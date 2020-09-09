@@ -3,6 +3,6 @@
   "server": "https://pmmdemo.percona.com",
   "graph": "graph",
   "stem": "d",
-  "wait": 30000,
-  "pause": 2000
+  "wait": 40000,
+  "pause": 5000
 }

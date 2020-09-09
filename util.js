@@ -65,13 +65,13 @@ function pad(n, w = 3, z = '0') { // number, width, padding char
 // Convenience wrapper for loading pages with logging and standard load wait time
 async function load(page, url, wait) {
     try {
-        console.log("Loading " + url + " - " + "Waiting " + wait / 1000 + " seconds");
+        console.log(`Loading ${url} - Waiting ${wait/1000} ${Math.floor(wait/1000) == 1 ? "second" : "seconds"}`);
         await Promise.all([
             page.goto(url, { waitUntil: 'load' }),
             page.waitFor(wait)
         ]);
-    } catch (err) {
-        console.error("Can't load " + url + " - " + err);
+    } catch (e) {
+        console.error(`Can't load ${url} - skipping (${e})`);
     }
     // TODO handle net::ERR_INTERNET_DISCONNECTED
 }
@@ -86,7 +86,7 @@ async function login(page, wait) {
 
     // TODO intercept and report 'invalid username or password' dialog
 
-    // How to clear user/pass fields
+    // to clear user/pass fields:
     // await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
     // await page.$eval('#inputPassword', el => el.value = '');
 
@@ -95,6 +95,7 @@ async function login(page, wait) {
         await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
         await page.click(skip_button);
         await page.waitFor(wait);
+        console.log(`Current URL: ${page.url}`);
     } catch (err) {
         console.log("Didn't find password change skip button");
     }

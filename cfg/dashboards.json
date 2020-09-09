@@ -6,20 +6,21 @@
     {
       "title": "Swagger API",
       "uid": "swagger",
-      "direct": true
-    },
-    {
-      "title": "Swagger API",
-      "uid": "swagger",
-      "direct": true,
+      "url": "swagger/",
       "viewport": {
         "width": 1280,
         "height": 950
       },
-      "click": [
+      "operations": [
         {
-          "name": "Execute",
-          "selector": "#operations-Server-Logs > div:nth-child(1) > span:nth-child(1)"
+          "name": "Get Logs",
+          "steps": [
+            {
+              "name": "Execute",
+              "type": "click",
+              "selector": "#operations-Server-Logs > div:nth-child(1) > span:nth-child(1)"
+            }
+          ]
         }
       ]
     },
@@ -63,7 +64,7 @@
           "selector": ".sidemenu",
           "viewport": {
             "width": 1080,
-            "height": 1080
+            "height": 720
           }
         },
         {
@@ -163,6 +164,7 @@
       "title": "MySQL Instances Overview",
       "uid": "mysql-instance-overview",
       "options": [
+        "var-service_name=pxc57-1-mysql",
         "var-service_name=pxc57-3-mysql"
       ]
     },
@@ -281,10 +283,16 @@
     {
       "title": "Add Instance",
       "uid": "pmm-add-instance",
-      "move": [
+      "operations": [
         {
-          "name": "Add AWS",
-          "selector": "a.navigation__link:nth-child(1)"
+          "name": "Add",
+          "steps": [
+            {
+              "name": "Add AWS",
+              "type": "move",
+              "selector": "a.navigation__link:nth-child(1)"
+            }
+          ]
         }
       ]
     },
@@ -299,14 +307,31 @@
     {
       "title": "Inventory",
       "uid": "pmm-inventory",
-      "click": [
+      "operations": [
         {
-          "name": "Item Selection",
-          "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(1)"
-        },
-        {
-          "name": "Item Delete",
-          "selector": ".css-1fqqqdh-button"
+          "name": "Delete",
+          "steps": [
+            {
+              "name": "Select Item",
+              "type": "click",
+              "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(1) > span:nth-child(2)"
+            },
+            {
+              "name": "Delete Item",
+              "type": "click",
+              "selector": ".css-1fqqqdh-button"
+            },
+            {
+              "name": "Cancel Delete Item",
+              "type": "click",
+              "selector": ".css-1q5qmf9-button"
+            },
+            {
+              "name": "Unselect Item",
+              "type": "click",
+              "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(1) > span:nth-child(2)"
+            }
+          ]
         }
       ]
     },
@@ -321,20 +346,31 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
-      "comment": "Show tooltips on sparkline, metric and meter",
-      "move": [
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "operations": [
         {
-          "name": "Main Metric Sparkline",
-          "selector": "div.tr:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
-          "new-selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div > canvas"
-        },
-        {
-          "name": "Main Metric Meter",
-          "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > span:nth-child(2)"
-        },
-        {
-          "name": "Metric Tooltip",
-          "selector": "div.tr:nth-child(3) > div:nth-child(4)"
+          "name": "Tooltips",
+          "steps": [
+            {
+              "name": "Main Metric Sparkline",
+              "type": "move",
+              "selector": "div.tr:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
+              "new-selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div > canvas"
+            },
+            {
+              "name": "Main Metric Meter",
+              "type": "move",
+              "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > span:nth-child(2)"
+            },
+            {
+              "name": "Metric Tooltip",
+              "type": "move",
+              "selector": "div.tr:nth-child(3) > div:nth-child(4)"
+            }
+          ]
         }
       ]
     },
@@ -374,10 +410,16 @@
       "options": [
         "details_tab=details"
       ],
-      "click": [
+      "operations": [
         {
-          "name": "Details",
-          "selector": "div.tr:nth-child(3)"
+          "name": "Select Query",
+          "steps": [
+            {
+              "name": "Details",
+              "type": "click",
+              "selector": "div.tr:nth-child(3)"
+            }
+          ]
         }
       ],
       "panels": [
@@ -390,12 +432,6 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
-      "click": [
-        {
-          "name": "Examples",
-          "selector": "div.tr:nth-child(3)"
-        }
-      ],
       "options": [
         "details_tab=examples"
       ],
@@ -409,12 +445,6 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
-      "click": [
-        {
-          "name": "Explain",
-          "selector": "div.tr:nth-child(3)"
-        }
-      ],
       "options": [
         "details_tab=explain"
       ],
@@ -428,12 +458,6 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
-      "click": [
-        {
-          "name": "Tables",
-          "selector": "div.tr:nth-child(3)"
-        }
-      ],
       "options": [
         "details_tab=tables"
       ],
@@ -447,55 +471,32 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
-      "click": [
+      "operations": [
         {
-          "name": "Dimension Selector",
-          "selector": ".group-by-selector"
-        },
-        {
-          "name": "Time Range",
-          "selector": ".css-132xth5"
+          "name": "Menus",
+          "steps": [
+            {
+              "name": "Dimension Selector",
+              "type": "click",
+              "selector": ".group-by-selector"
+            },
+            {
+              "name": "Time Range",
+              "type": "click",
+              "selector": ".css-132xth5"
+            }
+          ]
         }
       ]
     },
     {
       "title": "Settings",
-      "comment": "Adjust viewport to make settings page look less sparse",
       "uid": "pmm-settings",
       "viewport": {
-        "width": 1920,
-        "height": 1080
+        "comment": "Adjust viewport to make settings page look less sparse",
+        "width": 1280,
+        "height": 720
       }
-    },
-    {
-      "title": "Settings",
-      "uid": "pmm-settings",
-      "click": [
-        {
-          "name": "Metrics Resolution",
-          "selector": ".css-1n8kpcb-activeTabStyle"
-        },
-        {
-          "name": "Advanced Settings",
-          "selector": "li.css-nivouq:nth-child(2)"
-        },
-        {
-          "name": "SSH Key",
-          "selector": "li.css-nivouq:nth-child(3)"
-        },
-        {
-          "name": "Alertmanager Integration",
-          "selector": "li.css-nivouq:nth-child(4)"
-        },
-        {
-          "name": "Percona Platform",
-          "selector": "li.css-nivouq:nth-child(5)"
-        },
-        {
-          "name": "Sign Up",
-          "selector": ".css-25t7ua-button"
-        }
-      ]
     },
     {
       "title": "Settings Metrics Resolution",
@@ -533,27 +534,119 @@
       ]
     },
     {
+      "title": "Settings Percona Platform",
+      "uid": "pmm-settings",
+      "options": [
+        "menu=percona-platform"
+      ],
+      "operations": [
+        {
+          "name": "Sign Up",
+          "steps": [
+            {
+              "name": "Sign Up",
+              "type": "click",
+              "selector": ".css-25t7ua-button"
+            },
+            {
+              "name": "Email",
+              "type": "text",
+              "selector": "div.css-8e5b3:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
+              "value": "user2@example.com",
+              "comment": "Can't delete accounts, so must manually change this between snap runs"
+            },
+            {
+              "name": "Password",
+              "type": "text",
+              "selector": "div.css-8e5b3:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
+              "value": "Password1"
+            },
+            {
+              "name": "Acknowledge",
+              "type": "click",
+              "selector": ".css-1c76rdo"
+            },
+            {
+              "name": "Sign up",
+              "type": "click",
+              "selector": ".css-18tzmp9-button"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "steps": [
+            {
+              "name": "Email",
+              "type": "text",
+              "selector": "div.css-8e5b3:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
+              "value": "user1@example.com"
+            },
+            {
+              "name": "Password",
+              "type": "text",
+              "selector": "div.css-8e5b3:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
+              "value": "Password1"
+            },
+            {
+              "name": "Login",
+              "type": "click",
+              "selector": ".css-1t1zklt-button"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "DBaaS",
       "uid": "pmm-dbaas"
     },
     {
       "title": "DBaaS",
       "uid": "pmm-dbaas",
-      "click": [
+      "operations": [
         {
-          "name": "Add Kubernetes Cluster",
-          "selector": ".css-tgsqbo > button:nth-child(1)"
-        }
-      ]
-    },
-    {
-      "title": "DBaaS",
-      "uid": "pmm-dbaas",
-      "click": [
+          "name": "Add New Kubernetes Cluster",
+          "steps": [
+            {
+              "name": "Add",
+              "type": "click",
+              "selector": ".css-gtuy1a-button"
+            },
+            {
+              "name": "Cluster Name",
+              "type": "text",
+              "selector": ".css-1bjepp-input-input",
+              "value": "MyKubernetesClusterName1"
+            },
+            {
+              "name": "Kubeconfig file",
+              "type": "text",
+              "selector": ".css-1f38lle",
+              "value": "My KubeConfig File Text"
+            },
+            {
+              "name": "Add",
+              "type": "click",
+              "selector": ".css-u6ysb0-button"
+            }
+          ]
+        },
         {
-          "comment":"Separate forces reload to remove add dialogue",
           "name": "Delete Kubernetes Cluster",
-          "selector": ".css-16g7pdf-button"
+          "steps": [
+            {
+              "name": "Delete",
+              "type": "click",
+              "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) > button:nth-child(1)",
+              "comment": "First one in list, not necessarily the one just created"
+            },
+            {
+              "name": "Proceed",
+              "type": "click",
+              "selector": ".css-1scyk9l-button"
+            }
+          ]
         }
       ]
     }
