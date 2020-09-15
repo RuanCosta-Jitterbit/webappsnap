@@ -69,6 +69,11 @@
               "selector": "ul.dropdown-menu--menu:nth-child(1) > li:nth-child(2)"
             },
             {
+              "name": "Hide URL",
+              "type": "blur",
+              "selector": "input.gf-form-input"
+            },
+            {
               "name": "Share",
               "type": "snap"
             }

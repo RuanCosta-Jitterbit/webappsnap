@@ -270,6 +270,9 @@ Fields:
             `value`
             : Text for `text` type.
 
+            `blur`
+            : Blur (make illegible) the element specified by `selector`.
+
             `snap`
             : Screenshot the window. If a `selector` is given, screenshot only it.
 

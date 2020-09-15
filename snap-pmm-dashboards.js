@@ -192,8 +192,12 @@ if (argv.debug) { config.debug = argv.debug; }
                     try { await page.type(step.selector, String(step.value)); } catch (e) { console.log(`${e}...Skipping`); }
                 }
                 else if (step.type == "click") {
-                    console.log(`    Clicking ${step.selector} (${step.name})`);
+                    console.log(`    Clicking ${step.selector}`);
                     try { await page.click(step.selector); } catch (e) { console.log(`${e}...Skipping`); }
+                }
+                else if (step.type == "blur") {
+                    console.log(`    Blurring ${step.selector}`);
+                    try { await page.addStyleTag({content: `${step.selector} { filter: blur(2px); }` }); } catch (e) { console.log(`${e}...Skipping`); }
                 }
                 else if (step.type == "snap") {
                     if (step.selector) {
