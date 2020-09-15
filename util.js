@@ -21,7 +21,6 @@ function mkdir(dir) {
         console.log("Image save directory: " + dir + " (already exists)");
     }
 }
-
 // Convenience wrapper for screenshots, and where the image filename is built
 async function snap(page, title = "", dir, boundingBox = null) {
     // Replace space, dot, slash with underscore
@@ -55,13 +54,11 @@ async function snap(page, title = "", dir, boundingBox = null) {
         process.stderr.write("Failed: " + err + "\n");
     }
 }
-
 // Zero-pad filename increment integer
 function pad(n, w = 3, z = '0') { // number, width, padding char
     n = String(n);
     return n.length >= w ? n : new Array(w - n.length + 1).join(z) + n;
 }
-
 // Convenience wrapper for loading pages with logging and standard load wait time
 async function load(page, url, wait) {
     try {
@@ -75,7 +72,6 @@ async function load(page, url, wait) {
     }
     // TODO handle net::ERR_INTERNET_DISCONNECTED
 }
-
 // Handle PMM login page
 async function login(page, wait) {
     // Type in username and password and press Enter
@@ -95,12 +91,12 @@ async function login(page, wait) {
         await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
         await page.click(skip_button);
         await page.waitFor(wait);
-        console.log(`Current URL: ${page.url}`);
+        console.log(`Current URL: ${page.url()}`);
     } catch (err) {
         console.log("Didn't find password change skip button");
     }
 }
-
+// Delete cookie popup element extant on pmmdemo
 async function eat(page) {
     const cookie_popup = config.defaults.cookie_popup_elem;
     try {
@@ -116,6 +112,13 @@ async function eat(page) {
         }, cookie_popup);
     } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 }
+// Convenience viewport setter
+async function viewport(elem, viewport) {
+    await elem.setViewport({
+        width: viewport.width,
+        height: viewport.height
+    });
+}
 
 // EXPORTS
 //   functions
@@ -124,3 +127,4 @@ module.exports.mkdir = mkdir;
 module.exports.load = load;
 module.exports.login = login;
 module.exports.eat = eat;
+module.exports.viewport = viewport;

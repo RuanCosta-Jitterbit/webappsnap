@@ -16,22 +16,63 @@
           "name": "Get Logs",
           "steps": [
             {
+              "name": "View",
+              "type": "snap"
+            },
+            {
               "name": "Execute",
               "type": "click",
               "selector": "#operations-Server-Logs > div:nth-child(1) > span:nth-child(1)"
+            },
+            {
+              "name": "Execute",
+              "type": "snap"
             }
           ]
         }
       ]
     },
     {
-      "title": "Dashboard Controls",
+      "title": "Common",
       "uid": "prometheus-advanced",
-      "panels": [
+      "operations": [
         {
-          "comment": "This device is on regular dashboards and can be snapped in any of them.",
-          "name": "Annotation Toggle",
-          "selector": "div.submenu-item:nth-child(5)"
+          "name": "Controls",
+          "steps": [
+            {
+              "name": "Annotation Toggle",
+              "type": "snap",
+              "selector": ".submenu-controls > div:nth-child(5)"
+            }
+          ]
+        },
+        {
+          "name": "Panel Menu",
+          "steps": [
+            {
+              "name": "Open",
+              "type": "click",
+              "selector": "#panel-999 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > svg:nth-child(1)"
+            },
+            {
+              "name": "Open",
+              "type": "snap",
+              "selector": "ul.dropdown-menu--menu:nth-child(1)"
+            },
+            {
+              "name": "Open",
+              "type": "snap"
+            },
+            {
+              "name": "Share",
+              "type": "click",
+              "selector": "ul.dropdown-menu--menu:nth-child(1) > li:nth-child(2)"
+            },
+            {
+              "name": "Share",
+              "type": "snap"
+            }
+          ]
         }
       ]
     },
@@ -58,38 +99,54 @@
     {
       "title": "Home Dashboard",
       "uid": "pmm-home",
-      "panels": [
+      "operations": [
         {
-          "name": "Grafana Side Menu",
-          "selector": ".sidemenu",
-          "viewport": {
-            "width": 1080,
-            "height": 720
-          }
+          "name": "Menus",
+          "steps": [
+            {
+              "name": "Grafana Left Side Menu",
+              "type": "snap",
+              "selector": ".sidemenu",
+              "viewport": {
+                "comment": "Viewport shrinks vertical menu to avoid ugly space",
+                "width": 1080,
+                "height": 720
+              }
+            },
+            {
+              "name": "Top Navigation Bar",
+              "type": "snap",
+              "selector": ".navbar",
+              "viewport": {
+                "width": 720,
+                "height": 1080
+              }
+            },
+            {
+              "name": "Submenu Bar",
+              "type": "snap",
+              "selector": ".submenu-controls",
+              "viewport": {
+                "width": 1080,
+                "height": 1080
+              }
+            }
+          ]
         },
         {
-          "name": "Top Navigation Bar",
-          "selector": ".navbar",
-          "viewport": {
-            "width": 720,
-            "height": 1080
-          }
-        },
-        {
-          "name": "Submenu Bar",
-          "selector": ".submenu-controls",
-          "viewport": {
-            "width": 1080,
-            "height": 1080
-          }
-        },
-        {
-          "name": "Failed Security Checks",
-          "selector": "#panel-1381"
-        },
-        {
-          "name": "Upgrade",
-          "selector": "#panel-1337"
+          "name": "Panels",
+          "steps": [
+            {
+              "name": "Failed Security Checks",
+              "type": "snap",
+              "selector": "#panel-1381"
+            },
+            {
+              "name": "Upgrade",
+              "type": "snap",
+              "selector": "#panel-1337"
+            }
+          ]
         }
       ]
     },
@@ -124,10 +181,6 @@
     {
       "title": "MongoDB ReplSet Summary",
       "uid": "mongodb-replicaset-summary"
-    },
-    {
-      "title": "MongoDB RocksDB Details",
-      "uid": "mongodb-rocksdb"
     },
     {
       "title": "MongoDB WiredTiger Details",
@@ -291,6 +344,10 @@
               "name": "Add AWS",
               "type": "move",
               "selector": "a.navigation__link:nth-child(1)"
+            },
+            {
+              "name": "Add AWS",
+              "type": "snap"
             }
           ]
         }
@@ -314,22 +371,39 @@
             {
               "name": "Select Item",
               "type": "click",
-              "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(1) > span:nth-child(2)"
+              "comment": "Select first in row",
+              "selector": "td.css-pw663m > div:nth-child(1) > label:nth-child(1) > input:nth-child(1)"
+            },
+            {
+              "name": "Select Item",
+              "type": "snap"
             },
             {
               "name": "Delete Item",
               "type": "click",
-              "selector": ".css-1fqqqdh-button"
+              "selector": ".css-8txkzz-button"
+            },
+            {
+              "name": "Delete Item",
+              "type": "snap"
             },
             {
               "name": "Cancel Delete Item",
               "type": "click",
-              "selector": ".css-1q5qmf9-button"
+              "selector": ".css-n4gkqg-button"
+            },
+            {
+              "name": "Cancel Delete Item",
+              "type": "snap"
             },
             {
               "name": "Unselect Item",
               "type": "click",
-              "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(1) > span:nth-child(2)"
+              "selector": "td.css-pw663m > div:nth-child(1) > label:nth-child(1) > input:nth-child(1)"
+            },
+            {
+              "name": "Unselect Item",
+              "type": "snap"
             }
           ]
         }
@@ -357,8 +431,7 @@
             {
               "name": "Main Metric Sparkline",
               "type": "move",
-              "selector": "div.tr:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)",
-              "new-selector": "#antd > div.query-analytics-data > div > div.css-1102rm2 > div > div.Pane.horizontal.Pane1 > div > div:nth-child(1) > div > div > div > div > div > div.tr.tr-0 > div:nth-child(3) > div > div > canvas"
+              "selector": "div.tr:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
             },
             {
               "name": "Main Metric Meter",
@@ -366,9 +439,17 @@
               "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > span:nth-child(2)"
             },
             {
+              "name": "Main Metric Meter",
+              "type": "snap"
+            },
+            {
               "name": "Metric Tooltip",
               "type": "move",
               "selector": "div.tr:nth-child(3) > div:nth-child(4)"
+            },
+            {
+              "name": "Metric Tooltip",
+              "type": "snap"
             }
           ]
         }
@@ -377,30 +458,41 @@
     {
       "title": "Query Analytics Panels",
       "uid": "pmm-qan",
-      "panels": [
+      "operations": [
         {
-          "name": "Overview Table",
-          "selector": ".table-body"
-        },
-        {
-          "name": "Filters",
-          "selector": ".overview-filters"
-        },
-        {
-          "name": "Pagination",
-          "selector": ".ant-pagination"
-        },
-        {
-          "name": "Add Columns",
-          "selector": ".add-columns"
-        },
-        {
-          "name": "Group By",
-          "selector": ".group-by-selector"
-        },
-        {
-          "name": "Dimension Search",
-          "selector": "div.th:nth-child(2)"
+          "name": "Panels",
+          "steps": [
+            {
+              "name": "Overview Table",
+              "type": "snap",
+              "selector": ".table-body"
+            },
+            {
+              "name": "Filters",
+              "type": "snap",
+              "selector": ".overview-filters"
+            },
+            {
+              "name": "Pagination",
+              "type": "snap",
+              "selector": ".ant-pagination"
+            },
+            {
+              "name": "Add Columns",
+              "type": "snap",
+              "selector": ".add-columns"
+            },
+            {
+              "name": "Group By",
+              "type": "snap",
+              "selector": ".group-by-selector"
+            },
+            {
+              "name": "Dimension Search",
+              "type": "snap",
+              "selector": "div.th:nth-child(2)"
+            }
+          ]
         }
       ]
     },
@@ -418,14 +510,17 @@
               "name": "Details",
               "type": "click",
               "selector": "div.tr:nth-child(3)"
+            },
+            {
+              "name": "Details Panel",
+              "type": "snap",
+              "selector": ".query-analytics-details-grid"
+            },
+            {
+              "name": "Details Panel",
+              "type": "snap"
             }
           ]
-        }
-      ],
-      "panels": [
-        {
-          "name": "Details Panel",
-          "selector": ".query-analytics-details-grid"
         }
       ]
     },
@@ -435,10 +530,16 @@
       "options": [
         "details_tab=examples"
       ],
-      "panels": [
+      "operations": [
         {
-          "name": "Examples Panel",
-          "selector": ".query-analytics-details-grid"
+          "name": "Panels",
+          "steps": [
+            {
+              "name": "Examples Panel",
+              "type": "snap",
+              "selector": ".query-analytics-details-grid"
+            }
+          ]
         }
       ]
     },
@@ -448,10 +549,16 @@
       "options": [
         "details_tab=explain"
       ],
-      "panels": [
+      "operations": [
         {
-          "name": "Explain Panel",
-          "selector": ".query-analytics-details-grid"
+          "name": "Panels",
+          "steps": [
+            {
+              "name": "Explain Panel",
+              "type": "snap",
+              "selector": ".query-analytics-details-grid"
+            }
+          ]
         }
       ]
     },
@@ -461,10 +568,16 @@
       "options": [
         "details_tab=tables"
       ],
-      "panels": [
+      "operations": [
         {
-          "name": "Tables Panel",
-          "selector": ".query-analytics-details-grid"
+          "name": "Panels",
+          "steps": [
+            {
+              "name": "Tables Panel",
+              "type": "snap",
+              "selector": ".query-analytics-details-grid"
+            }
+          ]
         }
       ]
     },
@@ -481,9 +594,17 @@
               "selector": ".group-by-selector"
             },
             {
+              "name": "Dimension Selector",
+              "type": "snap"
+            },
+            {
               "name": "Time Range",
               "type": "click",
               "selector": ".css-132xth5"
+            },
+            {
+              "name": "Time Range",
+              "type": "snap"
             }
           ]
         }
@@ -549,6 +670,10 @@
               "selector": ".css-25t7ua-button"
             },
             {
+              "name": "Sign Up",
+              "type": "snap"
+            },
+            {
               "name": "Email",
               "type": "text",
               "selector": "div.css-8e5b3:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
@@ -567,9 +692,17 @@
               "selector": ".css-1c76rdo"
             },
             {
+              "name": "Filled Credentials",
+              "type": "snap"
+            },
+            {
               "name": "Sign up",
               "type": "click",
               "selector": ".css-18tzmp9-button"
+            },
+            {
+              "name": "Post Sign Up",
+              "type": "snap"
             }
           ]
         },
@@ -589,9 +722,17 @@
               "value": "Password1"
             },
             {
+              "name": "Filled Credentials",
+              "type": "snap"
+            },
+            {
               "name": "Login",
               "type": "click",
               "selector": ".css-1t1zklt-button"
+            },
+            {
+              "name": "Post Login",
+              "type": "snap"
             }
           ]
         }
@@ -614,6 +755,10 @@
               "selector": ".css-gtuy1a-button"
             },
             {
+              "name": "Add",
+              "type": "snap"
+            },
+            {
               "name": "Cluster Name",
               "type": "text",
               "selector": ".css-1bjepp-input-input",
@@ -624,6 +769,10 @@
               "type": "text",
               "selector": ".css-1f38lle",
               "value": "My KubeConfig File Text"
+            },
+            {
+              "name": "Cluster Details Filled",
+              "type": "snap"
             },
             {
               "name": "Add",
@@ -640,6 +789,10 @@
               "type": "click",
               "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) > button:nth-child(1)",
               "comment": "First one in list, not necessarily the one just created"
+            },
+            {
+              "name": "Delete Select",
+              "type": "snap"
             },
             {
               "name": "Proceed",
