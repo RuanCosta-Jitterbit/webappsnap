@@ -114,7 +114,7 @@ A brief description of other functions:
 - `mkdir()`: Creates the image save directories.
 - `pad()`: Zero-pads the three-digit numerical prefix sequence number (when `SNAP_IMG_SEQ=true`).
 - `login()`: Handles the special case of the main login page.
-- `eat()`: Removes a 'accept cookies' dialogue that occassionally appears on the [PMM Demo](https://pmmdemo.percona.com/) site.
+- `eat()`: Removes a 'accept cookies' dialogue that occasionally appears on the [PMM Demo](https://pmmdemo.percona.com/) site.
 
 **config.js**
 
@@ -234,42 +234,55 @@ Fields:
    `uid`
    : The dashboard's UID. (The part of the URL after `https://<server>/d/graph/` for PMM2, `https://<server>/d` for PMM1).
 
-   `direct`
-   : Some pages live outside of Grafana and are accessed directly from the server base URL. The only example currently is the Swagger API. For this, setting `direct=true` means loading the UID without the graph or stem URL components.
+   `url`
+   : Grafana dashboards are served from `/graph/d/<uid>`. Two exceptions are the Swagger API page (`/swagger/`) and the login page (`/graph/login`). Using `url=<url>` overrides the default dashboard path.
 
    `wait`
    : Override the default page load wait time in the server `config-*.json` file. The value is in milliseconds.
 
-   `panels`
-   : An optional list of panels to snap.
-
-      `name`
-      : Name for the panel. Added to the dashboard title in the image filename.
-
-      `selector`
-      : The CSS selector for the element (can be a panel, UI element or any distinct HTML element with a static selector ID).
-
-      `viewport`
-      : An array of [`width`, `height`] values in pixels. Used to override the default viewport (`SNAP_IMG_WIDTH` x `SNAP_IMG_HEIGHT`). Used when snapping sparse pages (e.g. PMM Settings) or for reducing the length/height of side/top menu bar snaps.
-
    `options`
    : An array of URL option strings appended to the dashboard load URL. Used to snap dashboards with a specific service name, node name, or any dashboard where URL options are used to select pages, e.g. Query Analytics details tabs.
 
-   `click`
-   : An array of elements which are clicked before snapping.
+   `operations`
+   : A list of tasks, each task being a name and a list of steps. Dashboard entries without operations are snapped automatically. If `operations` is present, dashboards and dashboard elements must be explicitly snapped using a `"type": "snap"` element within a `"step"` element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items for `pmm-inventory`, showing tooltips on `pmm-qan` elements, or snap specific GUI elements and panels in `pmm-home`. The most complex application is in `pmm-settings` where a dummy Percona Platform account is created and logged into.
 
       `name`
-      : Name for the snapped element. Appended to the dashboard title in the saved image filename.
+      : A name for this operation (group of steps).
 
-      `selector`
-      : The CSS selector for the clickable item.
+      `steps`
+      : An array of individual steps.
 
-   `move`
-   : An array of elements where the mouse is hovered before snapping. Used for snapping tooltips and QAN sparkline. (Uses [`page.hover()`](https://github.com/puppeteer/puppeteer/blob/v4.0.0/docs/api.md#pagehoverselector) which finds the first CSS selector ID and positions the mouse in the center of it.)
+         `name`
+         : Name for this step.
 
+         `type`
+         : Type of step. One of:
+
+            `click`
+            : Click the element specified by `selector`.
+
+            `move`
+            : Move to (hover over) the element specified by `selector`. (Uses [`page.hover()`](https://github.com/puppeteer/puppeteer/blob/v4.0.0/docs/api.md#pagehoverselector) which finds the first CSS selector ID and positions the mouse in the center of it.)
+
+            `text`
+            : Type text (from `value`) into the element specified by `selector`.
+
+            `value`
+            : Text for `text` type.
+
+            `snap`
+            : Screenshot the window. If a `selector` is given, screenshot only it.
+
+         `selector`
+         : The CSS selector for the clickable item.
+
+         `viewport`
+         : Each step can specify its own viewport which overrides either the outer dashboard or default viewport.
+
+            `width`, `height`
+            : Width and height (in pixels) for this step's viewport (if snapped).
 
 Some entries have a `comment` field. This is ignored, as are any other fields not mentioned above.
-
 
 ## Create a new `dashboards.json` file
 
@@ -293,7 +306,7 @@ for i in *.json; do echo "{"; grep -B 1 -h \"uid\" $i | sed '/uid/s/,$//'; echo 
 This tool was made to make documentation easier. However, the code needs constant nurturing and updating. With every change to PMM, something usually changes.
 
 - CSS selectors in PMM have not been created consistently and often change.
-- Some UI interactions are difficult to automate. Anything requiring a lot of user interaction needs specialised coding. Examples include: creating and logging into accounts, adding or deleting items from the inventory, changing settings.
+- Some UI interactions are difficult to automate, especially where the text (e.g. an account name or password) can't be hard-coded.
 
 ### Changed CSS selectors
 
