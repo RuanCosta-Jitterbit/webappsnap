@@ -311,6 +311,10 @@ This tool was made to make documentation easier. However, the code needs constan
 - CSS selectors in PMM have not been created consistently and often change.
 - Some UI interactions are difficult to automate, especially where the text (e.g. an account name or password) can't be hard-coded.
 
+### General
+
+- The server URL  (`server` in `server-*.json`) has no trailing forward slash (`https://server`, not `https://server/`).
+
 ### Changed CSS selectors
 
 Use your browser's developer's mode to inspect the element causing trouble. Check that the CSS selector matches that specified. This tool uses CSS selectors but xpaths also work.
