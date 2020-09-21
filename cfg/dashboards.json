@@ -436,7 +436,11 @@
             {
               "name": "Main Metric Sparkline",
               "type": "move",
-              "selector": "div.tr:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
+              "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
+            },
+            {
+              "name": "Main Metric Sparkline",
+              "type": "snap"
             },
             {
               "name": "Main Metric Meter",
@@ -453,6 +457,11 @@
               "selector": "div.tr:nth-child(3) > div:nth-child(4)"
             },
             {
+              "name": "Explicit Pause",
+              "type": "wait",
+              "period": 10000
+            },
+            {
               "name": "Metric Tooltip",
               "type": "snap"
             }
@@ -461,7 +470,7 @@
       ]
     },
     {
-      "title": "Query Analytics Panels",
+      "title": "Query Analytics",
       "uid": "pmm-qan",
       "operations": [
         {
@@ -475,7 +484,7 @@
             {
               "name": "Filters",
               "type": "snap",
-              "selector": ".overview-filters"
+              "selector": ".overview-filters > div:nth-child(1) > div:nth-child(1)"
             },
             {
               "name": "Pagination",
@@ -485,7 +494,7 @@
             {
               "name": "Add Columns",
               "type": "snap",
-              "selector": ".add-columns"
+              "selector": ".add-columns-selector"
             },
             {
               "name": "Group By",
@@ -498,6 +507,16 @@
               "selector": "div.th:nth-child(2)"
             }
           ]
+        },
+        {
+          "name": "Filter Panel Controls",
+          "steps": [
+            {
+              "name": "Dashboard Shortcut",
+              "type": "snap",
+              "selector": ".css-1e47vvn > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > span:nth-child(2) > a:nth-child(1) > div:nth-child(1)"
+            }
+          ]
         }
       ]
     },
@@ -507,22 +526,26 @@
       "options": [
         "details_tab=details"
       ],
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "operations": [
         {
-          "name": "Select Query",
+          "name": "Tabs",
           "steps": [
             {
-              "name": "Details",
+              "name": "Select First Item",
               "type": "click",
-              "selector": "div.tr:nth-child(3)"
+              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
             },
             {
-              "name": "Details Panel",
-              "type": "snap",
-              "selector": ".query-analytics-details-grid"
+              "name": "Wait for panel load",
+              "type": "wait",
+              "period": 10000
             },
             {
-              "name": "Details Panel",
+              "name": "Details",
               "type": "snap"
             }
           ]
@@ -535,14 +558,27 @@
       "options": [
         "details_tab=examples"
       ],
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "operations": [
         {
-          "name": "Panels",
+          "name": "Tabs",
           "steps": [
             {
-              "name": "Examples Panel",
-              "type": "snap",
-              "selector": ".query-analytics-details-grid"
+              "name": "Select First Item",
+              "type": "click",
+              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+            },
+            {
+              "name": "Wait for panel load",
+              "type": "wait",
+              "period": 10000
+            },
+            {
+              "name": "Examples",
+              "type": "snap"
             }
           ]
         }
@@ -554,14 +590,27 @@
       "options": [
         "details_tab=explain"
       ],
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "operations": [
         {
-          "name": "Panels",
+          "name": "Tabs",
           "steps": [
             {
-              "name": "Explain Panel",
-              "type": "snap",
-              "selector": ".query-analytics-details-grid"
+              "name": "Select First Item",
+              "type": "click",
+              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+            },
+            {
+              "name": "Wait for panel load",
+              "type": "wait",
+              "period": 10000
+            },
+            {
+              "name": "Explain",
+              "type": "snap"
             }
           ]
         }
@@ -573,14 +622,22 @@
       "options": [
         "details_tab=tables"
       ],
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "operations": [
         {
-          "name": "Panels",
+          "name": "Tabs",
           "steps": [
             {
-              "name": "Tables Panel",
-              "type": "snap",
-              "selector": ".query-analytics-details-grid"
+              "name": "Select First Item",
+              "type": "click",
+              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+            },
+            {
+              "name": "Tables",
+              "type": "snap"
             }
           ]
         }
