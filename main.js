@@ -168,9 +168,12 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 5 - Operations - Any number of groups of steps, each step being an
         // array of one of:
         // - move: move to (hover over) a selector;
-        // - click: click the selector,
         // - text: enter text into the selector;
+        // - click: click the selector;
+        // - blur: blur (make fuzzy) the element specified by selector;
+        // - wait: explicitly wait for the specified period (in ms);
         // - snap: Explicitly snap the the specified selector or the whole viewport.
+        // With no operations, a dashboard is automatically snapped.
         // If operations are used, dedicate at least one step to a full-window snap,
         // or add another dashboard entry with no operations.
         for (var o in dash.operations) {
@@ -183,7 +186,10 @@ if (argv.debug) { config.debug = argv.debug; }
 
                 if (step.viewport) { util.viewport(page, step.viewport); }
 
-                if (step.type == "move") {
+                if (step.type == "wait") {
+                    console.log(`    Waiting ${step.period} ms`);
+                    await page.waitFor(step.period);
+                } else if (step.type == "move") {
                     console.log(`    Moving to ${step.selector}`);
                     try { await page.hover(step.selector); } catch (e) { console.log(`${e}...Skipping`); }
                 }

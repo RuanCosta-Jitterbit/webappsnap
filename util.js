@@ -64,9 +64,7 @@ async function load(page, url, wait) {
     try {
         console.log(`Loading ${url} - Waiting ${wait/1000} ${Math.floor(wait/1000) == 1 ? "second" : "seconds"}`);
         await Promise.all([
-            page.goto(url, { waitUntil: 'load' }),
-            page.waitFor(wait)
-        ]);
+            page.goto(url, { waitUntil: 'load' }), page.waitFor(wait)]);
     } catch (e) {
         console.error(`Can't load ${url} - skipping (${e})`);
     }

@@ -1,0 +1,22 @@
+{
+    "version"           : "2.9.1",
+    "config_file"       : "./cfg/server-pmmdemo.json",
+    "jpg_quality"       : 100,
+    "img_pfx"           : "PMM",
+    "img_ext"           : ".jpg",
+    "img_dir"           : "./images",
+    "img_seq"           : false,
+    "user"              : "admin",
+    "pass"              : "admin",
+    "log_in"            : true,
+    "headless"          : true,
+    "debug"             : true,
+    "img_width"         : 1280,
+    "img_height"        : 720,
+    "img_scale"         : 1,
+    "login_user_elem"   : "div.login-form:nth-child(1) > input:nth-child(1)",
+    "login_pass_elem"   : "#inputPassword",
+    "login_skip_elem"   : "a.btn",
+    "cookie_popup_elem" : "[role=\"dialog\"]",
+    "container"         : ".react-grid-layout"
+}
