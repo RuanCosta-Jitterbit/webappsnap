@@ -178,7 +178,7 @@ if (argv.debug) { config.debug = argv.debug; }
         // or add another dashboard entry with no operations.
         for (var o in dash.operations) {
             const operation = dash.operations[o]; // Convenience handle
-            console.log(`Operation: ${operation.name}`);
+            console.log(`Operation: ${o}: ${operation.name}`);
 
             for (var s in operation.steps) {
                 const step = operation.steps[s]; // Convenience handle
@@ -189,50 +189,64 @@ if (argv.debug) { config.debug = argv.debug; }
                 if (step.type == "wait") {
                     console.log(`    Waiting ${step.period} ms`);
                     await page.waitFor(step.period);
-                } else if (step.type == "move") {
+                }
+                else if (step.type == "move") {
                     console.log(`    Moving to ${step.selector}`);
-                    try { await page.hover(step.selector); } catch (e) { console.log(`${e}...Skipping`); }
+                    try {
+                        await page.hover(step.selector);
+                    } catch (e) {
+                        console.log(`${e}...Skipping`);
+                    }
                 }
                 else if (step.type == "text") {
                     console.log(`    Typing ${step.value} in ${step.selector}`);
-                    try { await page.type(step.selector, String(step.value)); } catch (e) { console.log(`${e}...Skipping`); }
+                    try {
+                        await page.type(step.selector, String(step.value));
+                    } catch (e) {
+                        console.log(`${e}...Skipping`);
+                    }
                 }
                 else if (step.type == "click") {
                     console.log(`    Clicking ${step.selector}`);
-                    try { await page.click(step.selector); } catch (e) { console.log(`${e}...Skipping`); }
+                    try {
+                        await page.click(step.selector);
+                    } catch (e) {
+                        console.log(`${e}...Skipping`);
+                    }
                 }
                 else if (step.type == "blur") {
                     console.log(`    Blurring ${step.selector}`);
-                    try { await page.addStyleTag({content: `${step.selector} { filter: blur(2px); }` }); } catch (e) { console.log(`${e}...Skipping`); }
+                    try {
+                        await page.addStyleTag({ content: `${step.selector} { filter: blur(2px); }` });
+                    } catch (e) {
+                        console.log(`${e}...Skipping`);
+                    }
                 }
                 else if (step.type == "snap") {
+                    var element;
+
                     if (step.selector) {
+                        element = await page.waitForSelector(step.selector, { visible: true });
                         console.log(`    Snapping ${step.selector}`);
-                        try {
-                            var element = await page.waitForSelector(step.selector, { timeout: server_cfg.pause });
-                            await util.snap(element, [dash.title, operation.name, step.name].join("_"), img_dir);
-                        } catch (e) {
-                            console.log(`${e}...Skipping`);
-                        }
                     } else {
-                        console.log(`    Snapping viewport`);
-                        await util.snap(page, [dash.title, operation.name, step.name].join("_"), img_dir);
+                        element = page;
+                        console.log(`    Snapping page`);
+                    }
+
+                    try {
+                        await util.snap(element, [dash.title, operation.name, step.name].join("_"), img_dir);
+                    } catch (e) {
+                        console.log(`${e}...Skipping`);
                     }
                 } else {
                     console.log('    Do nothing');
                 }
                 // Reset to dashboard viewport for next step
-                await page.setViewport({
-                    width: dashboard_viewport.width,
-                    height: dashboard_viewport.height
-                });
+                await util.viewport(page, dashboard_viewport);
             } // for step
 
             // Reset to dashboard viewport for next operation
-            await page.setViewport({
-                width: dashboard_viewport.width,
-                height: dashboard_viewport.height
-            });
+            await util.viewport(page, dashboard_viewport);
         } // for operations
 
 

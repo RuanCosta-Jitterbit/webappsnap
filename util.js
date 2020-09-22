@@ -46,6 +46,8 @@ async function snap(page, title = "", dir, boundingBox = null) {
         options.clip = boundingBox;
         options.fullPage = false;
     }
+    // TEST can this option affect sparkline tooltip capture?
+    options.omitBackground = true;
 
     try {
         await page.screenshot(options);
@@ -64,7 +66,9 @@ async function load(page, url, wait) {
     try {
         console.log(`Loading ${url} - Waiting ${wait/1000} ${Math.floor(wait/1000) == 1 ? "second" : "seconds"}`);
         await Promise.all([
-            page.goto(url, { waitUntil: 'load' }), page.waitFor(wait)]);
+            // TODO Not easy to tell when page is loaded/visible
+            page.goto(url, { waitUntil: ['load', 'networkidle2'] }),
+            page.waitFor(wait)]);
     } catch (e) {
         console.error(`Can't load ${url} - skipping (${e})`);
     }
@@ -89,7 +93,7 @@ async function login(page, wait) {
         await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
         await page.click(skip_button);
         await page.waitFor(wait);
-        console.log(`Current URL: ${page.url()}`);
+//        console.log(`Current URL: ${page.url()}`);
     } catch (err) {
         console.log("Didn't find password change skip button");
     }
@@ -112,10 +116,16 @@ async function eat(page) {
 }
 // Convenience viewport setter
 async function viewport(elem, viewport) {
-    await elem.setViewport({
-        width: viewport.width,
-        height: viewport.height
-    });
+    try {
+
+        await elem.setViewport({
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: config.img_scale
+        });
+    } catch(e) {
+        console.error(e);
+    }
 }
 
 // EXPORTS

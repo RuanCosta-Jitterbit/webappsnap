@@ -417,6 +417,10 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
+      "options": [
+        "from=now-3h",
+        "to=now"
+      ],
       "viewport": {
         "width": 1920,
         "height": 1080
@@ -425,6 +429,10 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
+      "options": [
+        "from=now-3h",
+        "to=now"
+      ],
       "viewport": {
         "width": 1920,
         "height": 1080
@@ -437,6 +445,11 @@
               "name": "Main Metric Sparkline",
               "type": "move",
               "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
+            },
+            {
+              "name": "Explicit Pause",
+              "type": "wait",
+              "period": 500
             },
             {
               "name": "Main Metric Sparkline",
@@ -464,6 +477,16 @@
             {
               "name": "Metric Tooltip",
               "type": "snap"
+            },
+            {
+              "comment": "Do last because large panes need big mouse movements to hide",
+              "name": "Examples Quick View",
+              "type": "move",
+              "selector": "div.tr:nth-child(3) > div:nth-child(2) > div:nth-child(1) > svg:nth-child(2)"
+            },
+            {
+              "name": "Examples Quick View",
+              "type": "snap"
             }
           ]
         }
@@ -472,6 +495,10 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
+      "options": [
+        "from=now-3h",
+        "to=now"
+      ],
       "operations": [
         {
           "name": "Panels",
@@ -484,8 +511,13 @@
             {
               "name": "Filters",
               "type": "snap",
-              "selector": ".overview-filters > div:nth-child(1) > div:nth-child(1)"
-            },
+              "selector": ".overview-filters > div:nth-child(1)"
+            }
+          ]
+        },
+        {
+          "name": "Devices",
+          "steps": [
             {
               "name": "Pagination",
               "type": "snap",
@@ -505,16 +537,16 @@
               "name": "Dimension Search",
               "type": "snap",
               "selector": "div.th:nth-child(2)"
-            }
-          ]
-        },
-        {
-          "name": "Filter Panel Controls",
-          "steps": [
+            },
             {
-              "name": "Dashboard Shortcut",
+              "name": "Filter Shortcut",
               "type": "snap",
               "selector": ".css-1e47vvn > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > span:nth-child(2) > a:nth-child(1) > div:nth-child(1)"
+            },
+            {
+              "name":"Examples Icon",
+              "type": "snap",
+              "selector":"div.tr:nth-child(3) > div:nth-child(2) > div:nth-child(1) > svg:nth-child(2)"
             }
           ]
         }
@@ -524,7 +556,9 @@
       "title": "Query Analytics",
       "uid": "pmm-qan",
       "options": [
-        "details_tab=details"
+        "details_tab=details",
+        "from=now-3h",
+        "to=now"
       ],
       "viewport": {
         "width": 1920,
@@ -556,7 +590,9 @@
       "title": "Query Analytics",
       "uid": "pmm-qan",
       "options": [
-        "details_tab=examples"
+        "details_tab=examples",
+        "from=now-3h",
+        "to=now"
       ],
       "viewport": {
         "width": 1920,
@@ -588,7 +624,9 @@
       "title": "Query Analytics",
       "uid": "pmm-qan",
       "options": [
-        "details_tab=explain"
+        "details_tab=explain",
+        "from=now-3h",
+        "to=now"
       ],
       "viewport": {
         "width": 1920,
@@ -620,7 +658,9 @@
       "title": "Query Analytics",
       "uid": "pmm-qan",
       "options": [
-        "details_tab=tables"
+        "details_tab=tables",
+        "from=now-3h",
+        "to=now"
       ],
       "viewport": {
         "width": 1920,
@@ -636,6 +676,11 @@
               "selector": "div.tr:nth-child(3) > div:nth-child(2)"
             },
             {
+              "name": "Wait for panel load",
+              "type": "wait",
+              "period": 10000
+            },
+            {
               "name": "Tables",
               "type": "snap"
             }
@@ -646,6 +691,10 @@
     {
       "title": "Query Analytics",
       "uid": "pmm-qan",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "operations": [
         {
           "name": "Menus",
