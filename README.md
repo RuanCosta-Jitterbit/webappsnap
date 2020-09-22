@@ -95,7 +95,7 @@ There are three Node.js files and three configuration files.
 
 ### Node.js Files
 
-**snap-pmm-dashboards.js**
+**main.js**
 
 The 'main' file. After an initial login section, this script loops through the entries in `dashboards.json` each of which specifies a PMM dashboard and, optionally, elements to click (menus, buttons), hover over (tooltips) and snap (individual elements such as buttons, menus or panels).
 

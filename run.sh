@@ -72,4 +72,4 @@ SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 # Headless mode. Whether to hide browser while snapping. Default: true
 # SNAP_HEADLESS=false
 
-node snap-pmm-dashboards.js --unhandled-rejections=strict "$@"
+node main.js --unhandled-rejections=strict "$@"
