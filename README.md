@@ -1,69 +1,76 @@
 # PMM Dashboard Screenshots
 
-- Connects to a PMM server, loads dashboards and takes screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG.
-- Uses Puppeteer to run a headless Chromium web browser.
-- Works on PMM1 and PMM2.
-- What to snap (whole dashboards, panels, buttons, menus, etc.) are defined in a JSON file.
+[Percona Monitoring and Management (PMM)](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is free, open-source database monitoring software.
 
-## Prerequisites
+This repository is a tool to automate PMM screenshot capture.
 
-- [Puppeteer (browser control)](https://github.com/puppeteer/puppeteer)
-- [Yargs (CLI arg processing)](https://github.com/yargs/yargs)
+- It connects to a PMM server, loading specified dashboards, taking screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG. It works on PMM1 and PMM2.
 
-   ```
-   npm i puppeteer yarg
-   ```
+- It uses Puppeteer to run a headless Chromium web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
+
+## Install (Prerequirements)
+
+- [Node.js](https://nodejs.org/en/download/)
+- [Puppeteer](https://github.com/puppeteer/puppeteer)
+- [Yargs](https://github.com/yargs/yargs)
 
 ## Quick Start
 
-Snap all dashboards in the default [PMM2 demo instance](https://pmmdemo.percona.com/) instance:
+1. Clone this repository.
 
-```
-./run.sh
-```
+2. Snap dashboards in the [PMM2 demo instance](https://pmmdemo.percona.com/):
 
-Snap specific dashboards with the `--uid` option to specify their UIDs as a comma-separated list:
-
-```
-./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
-```
-
-List available dashboard UIDs:
-
-```
-./run.sh --list
-```
+    ```
+    cd pmm-screenshots
+    # Snap ALL dashboards
+    ./run.sh
+    # Snap specific dashboards
+    ./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
+    # Show available dashboard UIDs
+    ./run.sh --list
+    ```
 
 ## Usage
 
-Snapping the dashboards of a PMM instance.
+To create PMM dashboards screenshots for your own PMM instance:
 
 1. Create a new JSON file `./cfg/server-<my pmm instance>.json`. (Copy `server-local.json` or `server-test.json`)
 
-2. Set the fields:
+2. Edit this new file and set values for the fields:
+
    - `"name"`: A free-form name for your instance. (Snapped images will be saved in a subdirectory with this name.)
    - `"server"`: The HTTPS server IP or hostname.
    - `"graph"`: For PMM2 instances, the word `"graph"`. For PMM1, an empty value (`""`)
    - `"wait"`: The number of milliseconds to wait for a page to load. (10000 to 20000 for local instances, 30000 or more for remote instances.)
 
-   (`"stem"` is always `"d"`. `"pause"` is a shorter wait interval used when snapping mouse-over tooltips.)
+   These fields are configurable but don't need changing:
 
-3. Set environment variables. You can either set them in `run.sh` or in your environment:
+   - `"stem"` is `"d"` for both PMM1 and PMM2.
+   - `"pause"` is a shorter wait interval used when snapping mouse-over tooltips. 1000-5000ms is enough.
 
-   Mandatory:
+3. Set values for environment variables (in your shell, or in `run.sh` where examples and explanations are given).
 
-   - `SNAP_USER`: The username for the instance. Default: `admin`
-   - `SNAP_PASS`: The password for this username. Default: `admin`
    - `SNAP_SRV_CFG_FILE`: The path to your newly-created server configuration file (created in step 1).
-   - `SNAP_DASHBOARDS_FILE`: This does not need to be changed for PMM2 instances. For PMM1, set the value to `./cfg/dashboards-pmm1.json`.
+
+   If your PMM instance uses a non-default login, you should also set:
+
+   - `SNAP_USER`: The Grafana username for the instance.
+
+   - `SNAP_PASS`: The Grafana password for this user.
+
+
+   If your instance is PMM version 1, you must set:
+
+   - `SNAP_DASHBOARDS_FILE`: Set the value to `./cfg/dashboards-pmm1.json`. (The default is `./cfg/dashboards-pmm2.json`).
+
    - `SNAP_DEFAULTS_FILE`: The default (`./cfg/defaults.json`) works for PMM2 instances. For PMM1, set the value to `./cfg/defaults-1.17.4.json`.
 
    Optional:
 
    - `SNAP_IMG_WIDTH`: The snap image width (in pixels). Default: 1280
    - `SNAP_IMG_HEIGHT`: The snap image height (in pixels). Default: 720
-   - `SNAP_IMG_SCALE`: Images can be scaled to reduce their size (for JPG formats). Default: 1
-   - `SNAP_JPG_QUALITY`: For JPG format, the image quality (a percent value) also helps reduce file size. Default: 100
+   - `SNAP_IMG_SCALE`: Images can be scaled up or down by this factor. Default: 1
+   - `SNAP_JPG_QUALITY`: For JPG format, the image quality (a percent value) can help reduce file size. Default: 100
    - `SNAP_IMG_EXT`: Set to `.png` for PNG format images. Default: `.jpg`
    - `SNAP_IMG_SEQ`: Set to `true` to prefix image filenames with a sequence number. Useful for testing and identifying images. Default: `false`
    - `SNAP_IMG_PFX`: After the optional sequence number, a secondary prefix is added to the filename. Default: `PMM`
@@ -86,85 +93,121 @@ Optional arguments:
 
 ## How it works
 
-Puppeteer is a Node.js framework for remotely controlling a web browser.
+`main.js` loops through entries in the defined dashboards configuration file (default `./cfg/dashboards-pmm2.json`), processing each dashboard, its operations and steps, one by one.
 
-It is used to load PMM dashboards one by one and take screenshots of the entire window
-and of selected elements.
+The basic structure of a dashboards configuration file is:
+
+```
+One or more dashboards
+  Zero or more operations
+    One or more steps
+```
+
+- A dashboard can be specified more than once. This is useful if the same dashboard needs to be snapped with a different sized browser window, or there are individual components (e.g. menus, buttons, specific panels) to be snapped separately as well as the whole window.
+
+- You can specify one or more operations to define what should happen prior to a snap. For example, you can hover over something to reveal a tooltip, select an item in a list, enter text into a field, or go through the step-by-step process of adding, editing and deleting something (as done for the PMM inventory entry). You can snap the whole window or an HTML element as specified by its CSS selector.
+
+- An operation is a group of steps. Except for 'wait', a selector specifies the CSS selector to move to, click on, enter text into, blur (to obscure it), or snap. A step's type is one of:
+
+  - `move`: move to (hover over) a selector;
+  - `text`: enter text into the selector;
+  - `click`: click the selector;
+  - `blur`: blur (make fuzzy) the element specified by selector;
+  - `wait`: explicitly wait for the specified period (in ms);
+  - `snap`: Explicitly snap the the specified selector or the whole viewport.
+
+- If no operations are specified, a dashboard entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements (using the `selector` field).
+
+See also [Dashboard definitions](#dashboard-definitions-dashboardsjson).
+
+### Program Files
 
 There are three Node.js files and three configuration files.
 
-### Node.js Files
+#### main.js
 
-**main.js**
+The core of `main.js` loops through the dashboards file, processing each dashboard entry, and looping through its operations and steps.
 
-The 'main' file. After an initial login section, this script loops through the entries in `dashboards.json` each of which specifies a PMM dashboard and, optionally, elements to click (menus, buttons), hover over (tooltips) and snap (individual elements such as buttons, menus or panels).
-
-**util.js**
+#### util.js
 
 Functions for common operations, the most important of which are:
 
-`snap()`
-: Given a Puppeteer `page` (which may be a page or an element), snap title, save directory and optional element bounding box, snaps the item and saves the image with [`page.screenshot()`](https://github.com/puppeteer/puppeteer/blob/v4.0.0/docs/api.md#pagescreenshotoptions).
+`snap(page, title, dir, boundingBox)`
+: `page` = a page or an element;
+`title` = the filename title (before prefixing and character replacement);
+`dir` = the save directory;
+`boundingBox` = optional viewport to snap.
 
-`load()`
-: Loads a URL (with [`page.goto()`](https://github.com/puppeteer/puppeteer/blob/v4.0.0/docs/api.md#pagegotourl-options)) and waits for it
+`load(page, url, wait)`
+: Loads `url` into browser's `page` and waits `wait` milliseconds.
 
 A brief description of other functions:
 
 - `mkdir()`: Creates the image save directories.
-- `pad()`: Zero-pads the three-digit numerical prefix sequence number (when `SNAP_IMG_SEQ=true`).
 - `login()`: Handles the special case of the main login page.
-- `eat()`: Removes a 'accept cookies' dialogue that occasionally appears on the [PMM Demo](https://pmmdemo.percona.com/) site.
+- `eat()`: Removes an 'accept cookies' pop-up dialogue that occasionally appears on the [PMM Demo](https://pmmdemo.percona.com/) site.
 
-**config.js**
+#### config.js
 
 Loads and provides a common access to dashboard and defaults configuration files.
 
 ### Configuration Files
 
-**Default values: `defaults.json`**
+#### Default values: `defaults.json`
 
-- `defaults.json` - For PMM 2.9.1
-- `defaults-2.10.0.json` - For PMM 2.10.0 (Grafana 7)
+- `defaults.json` - For PMM 2.10 (Grafana 7)
+- `defaults-2.9.1.json` - For PMM 2.9.1
 - `defaults-1.17.4.json` - For PMM 1.17.4
 
-Values in this file are the default settings if no environment variables are set or command line arguments provided to `run.sh`. Values in here are specific to the version of PMM. The values are:
+Values in this file are the default settings if no environment variables are set or command line arguments provided to `run.sh`. Below are the available fields and corresponding environment variables and command-line options, where appropriate.
 
 `version`
 : Version of PMM for which these defaults apply (i.e. have been tested).
 
 `config_file`
-: Path to the server configuration file.
+: Path to default server configuration file. (`SNAP_SRV_CFG_FILE`)
 
-`jpg_quality`
-: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy.
-
-`img_pfx`
-: File name prefix for each snap file.
-
-`img_ext`
-: File name extension, either `.png` or `.jpg`.
-
-`img_dir`
-: Where to save images.
+`dashboards_file`
+: Path to default dashboards configuration file. (`SNAP_DASHBOARDS_FILE`)
 
 `user`
-: PMM Server login name.
+: PMM Server login name. (`SNAP_USER`)
 
 `pass`
-: PMM Server login password.
+: PMM Server login password. (`SNAP_PASS`)
 
-`headless`
-: When `true`, Puppeteer uses a headless (invisible) web browser. If `false`, the web browser is made visible. Useful for debugging (or simply entertainment).
+`img_dir`
+: Where to save images. (`SNAP_IMG_DIR`)
+
+`img_seq`
+: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number. (`SNAP_IMG_SEQ`)
+
+`img_pfx`
+: The secondary file name prefix for each snap file. (`SNAP_IMG_PFX`)
+
+`img_ext`
+: File name extension, either `.png` or `.jpg`. (`SNAP_IMG_EXT`)
 
 `img_width`
-: The image width, in pixels, for full screen snaps.
+: The image width, in pixels, for full screen snaps. (`SNAP_IMG_WIDTH`)
 
 `img_height`
-: The image height, in pixels, for full screen snaps.
+: The image height, in pixels, for full screen snaps. (`SNAP_IMG_HEIGHT`)
 
 `img_scale`
-: The image scaling factor.
+: The image scaling factor. (`SNAP_IMG_SCALE`)
+
+`jpg_quality`
+: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy. (`SNAP_JPG_QUALITY`)
+
+`log_in`
+: Whether to attempt logging in using `user` and `pass` values. (`SNAP_LOG_IN`)
+
+`headless`
+: When `true`, Puppeteer uses a headless (invisible) web browser. If `false`, the web browser is made visible. Useful for debugging (or simply entertainment). (`SNAP_HEADLESS`)
+
+`debug`
+: When `true`, program prints operating parameters. (`--debug`)
 
 `login_user_elem`
 : The CSS selector ID for the PMM login screen user input text field.
@@ -179,19 +222,17 @@ Values in this file are the default settings if no environment variables are set
 : The CSS selector ID for the Percona 'Accept cookies' dialogue (which is removed before snapping).
 
 `container`
-: The CSS selector ID for the dashboard body, exluding left and top menu bars. This is used by the `--full` option to snap the entire dashboard beyond the specified viewport. (Puppeteer's `fullPage` option to `screenshot()` has no effect, possibly because of how the PMM interface's left-most menu bar defines the extent of the full viewport.)
+: The CSS selector ID for the dashboard body, excluding left and top menu bars. This is used by the `--full` option to snap the entire dashboard beyond the specified viewport. (Puppeteer's `fullPage` option to `screenshot()` has no effect, possibly because of how the PMM interface's left-most menu bar defines the extent of the full viewport.)
 
-**Server configuration: `server-*.json`**
+#### Server configuration: `server-*.json`
 
-- `config-local.json` - For localhost instances.
-- `config-test.json` - Test or template configuration file.
-- `config-pmmdemo.json` - For <https://pmmdemo.percona.com> (PMM2)
-- `config-pmm2stage.json` - For <https://pmm2stage.percona.com> (PMM2)
-- `config-pmmstage.json` - For <https://pmmstage.percona.com> (PMM1)
+- `server-pmmdemo.json` - For <https://pmmdemo.percona.com> (PMM2)
+- `server-pmm2stage.json` - For <https://pmm2stage.percona.com> (PMM2)
+- `server-pmmstage.json` - For <https://pmmstage.percona.com> (PMM1)
+- `server-local.json` - For localhost instances.
+- `server-test.json` - Test or template configuration file.
 
 Defines PMM server instances: their URLs and default page load time.
-
-Fields:
 
 `name`
 : Name identifying the instance. (Used in the image save path.)
@@ -211,16 +252,14 @@ Fields:
 `pause`
 : A short wait time in milliseconds, to allow the UI to settle before snapping items such as drop-down menus and mouse-over tooltips.
 
-**Dashboard definitions: `dashboards.json`**
+#### Dashboard definitions: `dashboards.json`
 
-- `dashboards.json` - For PMM2 (2.10.0)
+- `dashboards-pmm2.json` - For PMM2 (2.10.0)
 - `dashboards-pmm1.json` - For PMM1 (1.17.4)
 
-The bulk of configuration is in these files. They list each dashboard's UID (part of the URL), what items to click before snapping, which element to move to before snapping, and which specific elements to snap individually (e.g various UI devices or panels).
+The bulk of configuration is in these files. They list each dashboard's UID (part of the URL), what items to click before snapping, which operations and steps to perform, and which specific elements to snap individually (e.g various UI devices or panels).
 
 *Snaps occur in the order listed in this file.*
-
-Fields:
 
 `versions`
 : List of PMM versions for which this configuration works. (Not currently used.)
@@ -234,17 +273,17 @@ Fields:
    `uid`
    : The dashboard's UID. (The part of the URL after `https://<server>/d/graph/` for PMM2, `https://<server>/d` for PMM1).
 
-   `url`
+   `url` (optional)
    : Grafana dashboards are served from `/graph/d/<uid>`. Two exceptions are the Swagger API page (`/swagger/`) and the login page (`/graph/login`). Using `url=<url>` overrides the default dashboard path.
 
-   `wait`
+   `wait` (optional)
    : Override the default page load wait time in the server `config-*.json` file. The value is in milliseconds.
 
-   `options`
+   `options` (optional)
    : An array of URL option strings appended to the dashboard load URL. Used to snap dashboards with a specific service name, node name, or any dashboard where URL options are used to select pages, e.g. Query Analytics details tabs.
 
-   `operations`
-   : A list of tasks, each task being a name and a list of steps. Dashboard entries without operations are snapped automatically. If `operations` is present, dashboards and dashboard elements must be explicitly snapped using a `"type": "snap"` element within a `"step"` element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items for `pmm-inventory`, showing tooltips on `pmm-qan` elements, or snap specific GUI elements and panels in `pmm-home`. The most complex application is in `pmm-settings` where a dummy Percona Platform account is created and logged into.
+   `operations` (optional)
+   : A list of tasks, each task being a name and a list of steps. Dashboard entries without operations are snapped automatically. If `operations` is present, dashboards and dashboard elements must be explicitly snapped using a `"type": "snap"` element within a `"step"` element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items for `pmm-inventory`, showing tooltips on `pmm-qan` elements, or snap specific GUI elements and panels in `pmm-home`. Examples of operations are in `pmm-qan` and `pmm-settings` dashboards.
 
       `name`
       : A name for this operation (group of steps).
@@ -287,7 +326,76 @@ Fields:
 
 Some entries have a `comment` field. This is ignored, as are any other fields not mentioned above.
 
-## Create a new `dashboards.json` file
+[How to create a new dashboards configuration file](#how-to-create-a-new-dashboards-configuration-file) explains how a dashboards configuration file is created from scratch.
+
+## Image file names
+
+The image file path is made up of the directory and the filename.
+
+The directory path is a hierarchy constructed in `main.js`. It is made up of:
+
+- Defaults file `img_dir` (or `SNAP_IMG_DIR` if set)
+- System path separator (e.g. "/" on Linux).
+- Server configuration file `name`
+- System path separator.
+- Defaults file `img_width` (or `SNAP_IMG_WIDTH` if set)
+- "x"
+- Defaults file `img_height` (or `SNAP_IMG_HEIGHT` if set)
+- "x"
+- Defaults file `img_scale` (or `SNAP_IMG_SCALE` if set)
+- System path separator.
+
+**Note:** The purpose of a hierarchy is to separate images made with different servers and viewport sizes.
+
+The file name is constructed in `snap()` in `util.js` and is made of each dashboard's entry values (with optional prefixes). Each part is separated with a single underscore ("_").
+
+- (Optional primary prefix) If `img_seq` or `SNAP_IMG_SEQ` is true, a zero-padded integer, incremented for each image.
+- (Optional secondary prefix) The value of `img_pfx` or `SNAP_IMG_PFX`
+- `dashboards.title`
+- (If operations)
+  - `dashboards.operations.name`
+  - `dashboards.operations.steps.name`
+- (If not operations and `--full` option is set) "_full"
+- `img_ext` or `SNAP_IMG_EXT` (file extension)
+
+
+**Note:** Spaces, back slashes (`\`), forward slashes ('/'), and dots (`.`) in titles and names are replaced with underscores (in `util.snap()`).
+
+
+**Examples**
+
+Dashboard configuration element:
+
+```
+{
+  "title": "Database Checks",
+  "uid": "pmm-checks"
+}
+```
+
+Image filename (with defaults): `pmm-screenshots/images/pmmdemo/1280x720x1/PMM_Database_Checks.jpg`
+Image filename (with defaults and `--full`): `pmm-screenshots/images/pmmdemo/1280x720x1/PMM_Database_Checks_full.jpg`
+
+```
+{
+  "title": "DBaaS",
+  "uid": "pmm-dbaas",
+  "operations": [
+    {
+      "name": "Add New Kubernetes Cluster",
+      ...
+        {
+          "name": "Details Filled",
+          "type": "snap"
+        },
+      ...
+```
+
+Image file name: `pmm-screenshots/images/pmmdemo/1280x720x1/PMM_DBaaS_Add_New_Kubernetes_Cluster_Details_Filled.jpg`
+
+(No `_full` image if `--full` option given because this definition uses operations.)
+
+## How to create a new dashboards configuration file
 
 The core of a dashboards configuration file is the title and UID for each.
 These can be extracted from the `grafana-dashboards` repository as follows.
@@ -334,3 +442,10 @@ There are two ways to shorten the time spent using this tool.
 2. Use the `--uid` option to snap specific dashboards.
 
 3. Don't use the `--full` option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
+
+### Images are not the size I expected
+
+- Check the values for `SNAP_IMG_WIDTH`, `SNAP_IMG_HEIGHT`
+- Check the value for `SNAP_IMG_SCALE`: If 0.5, dimensions are halved, if 2, dimensions are doubled, etc.
+- Check whether the viewport is set (overriding the default) for the dashboard or step.
+- The height of `_full` images is determined by each dashboard's default container size.
