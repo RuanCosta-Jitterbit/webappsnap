@@ -1,15 +1,15 @@
 // common configuration
 var uf = require('url');
 
-// Dashboard details: URLs and panel IDs
-const dashboards_file_name = process.env.SNAP_DASHBOARDS_FILE || './cfg/dashboards.json';
-const dashboards = require(dashboards_file_name);
-
-// Defaults are configurable to cater for new grafana with different login/password field IDs.
+// Default values file
 const defaults_file_name = process.env.SNAP_DEFAULTS_FILE || './cfg/defaults.json';
 const defaults = require(defaults_file_name);
 
-// Per-server configuration values (cfg/config-*.json)
+// Dashboards
+const dashboards_file_name = process.env.SNAP_DASHBOARDS_FILE || defaults.dashboards_file;
+const dashboards = require(dashboards_file_name);
+
+// Per-server configuration values (cfg/server-*.json)
 const cfg_file_name = process.env.SNAP_SRV_CFG_FILE || defaults.config_file;
 const server_cfg = require(cfg_file_name);
 
@@ -29,8 +29,6 @@ if (typeof process.env.SNAP_IMG_PFX === 'undefined') {
 } else {
     console.log("SNAP_IMG_PFX can't be set");
 }
-
-
 
 var img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 var img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
