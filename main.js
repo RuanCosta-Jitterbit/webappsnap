@@ -225,15 +225,14 @@ if (argv.debug) { config.debug = argv.debug; }
                 else if (step.type == "snap") {
                     var element;
 
-                    if (step.selector) {
-                        element = await page.waitForSelector(step.selector, { visible: true });
-                        console.log(`    Snapping ${step.selector}`);
-                    } else {
-                        element = page;
-                        console.log(`    Snapping page`);
-                    }
-
                     try {
+                        if (step.selector) {
+                            element = await page.waitForSelector(step.selector, { visible: true });
+                            console.log(`    Snapping ${step.selector}`);
+                        } else {
+                            element = page;
+                            console.log(`    Snapping page`);
+                        }
                         await util.snap(element, [dash.title, operation.name, step.name].join("_"), img_dir);
                     } catch (e) {
                         console.log(`${e}...Skipping`);
