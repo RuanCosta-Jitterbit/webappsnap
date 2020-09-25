@@ -870,7 +870,7 @@
               "type": "snap"
             },
             {
-              "name": "Cluster Name",
+              "name": "Name",
               "type": "text",
               "selector": ".css-1bjepp-input-input",
               "value": "MyKubernetesClusterName1"
@@ -882,7 +882,7 @@
               "value": "My KubeConfig File Text"
             },
             {
-              "name": "Cluster Details Filled",
+              "name": "Details Filled",
               "type": "snap"
             },
             {
