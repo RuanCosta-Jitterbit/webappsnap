@@ -121,7 +121,7 @@ async function eat(page) {
     const cookie_popup = config.defaults.cookie_popup_elem;
     try {
         await page.$(cookie_popup, {
-            timeout: 5000,
+            timeout: config.server_cfg.pause,
             visible: true
         });
         await page.evaluate((sel) => {
@@ -134,7 +134,7 @@ async function eat(page) {
 }
 
 /*
-** Convenience viewport setter
+** Convenience viewport setter (with reload)
 */
 async function viewport(page, viewport) {
     try {
@@ -144,7 +144,9 @@ async function viewport(page, viewport) {
             deviceScaleFactor: config.img_scale
         });
         // setViewport needs a reload
-        await page.reload({ waitUntil: ['load', 'networkidle2'] });
+        await page.reload({
+            waitUntil: ['load', 'networkidle2'],
+            timeout: config.server_cfg.pause });
     } catch (e) {
         console.error(e);
     }
