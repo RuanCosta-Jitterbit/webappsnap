@@ -3,6 +3,6 @@
   "server": "http://localhost",
   "graph": "graph",
   "stem": "d",
-  "wait": 20000,
-  "pause": 1000
+  "wait": 45000,
+  "pause": 6000
 }
