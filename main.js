@@ -3,12 +3,9 @@
 const puppeteer = require('puppeteer');
 const { argv } = require('yargs');
 const path = require('path');
-// Utility functions: snapping, loading URLs
-const util = require('./util.js');
-// Start-up vs default configuration value handling
-var config = require('./config.js');
-
-const defaults = config.defaults;
+const util = require('./util.js'); // Utility functions: snapping, loading URLs
+var config = require('./config.js'); // Start-up vs default configuration value handling
+const defaults = config.defaults; // Default config values
 const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to a PMM server
@@ -88,38 +85,32 @@ if (argv.debug) { config.debug = argv.debug; }
     /*************************************************************************************
      * A loop through all dashboards in dashboards config file (e.g. ./cfg/dashboards.json):
      *
-     * Part 1: Define viewport
-     * Part 2: Build URL
+     * Part 1: Build URL
+     * Part 2: Define viewport
      * Part 3: Load the page and remove any 'cookie confirm' dialogue
      * Part 4: If no operations, snap the viewport and optionally (--full) unconstrained container
      * Part 5: If operations/steps, process them sequentially
      * Part 6: Close the browser page. This prevents long 'breadcrumb' paths cluttering the menu.
      */
     for (var d in dashboards) {
-        // TEST Different page on same browser - still logged in so privileged items should work (checks panel)
-        page = await browser.newPage();
-        page.setDefaultTimeout(server_cfg.wait);
         var dash = dashboards[d]; // convenience handles
-        var wait = (dash.wait ? dash.wait : server_cfg.wait);
-
-        // PART 1
-        // Override default viewport if set per-dashboard
-        var dashboard_viewport = { width: config.img_width, height: config.img_height };
-        if (dash.viewport) { await util.viewport(page, dash.viewport); }
 
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         // TODO Check that supplied UIDs exist
         if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
-            page.close();
             continue;
         }
 
-        // PART 2 - Build URL
+        const wait = (dash.wait ? dash.wait : server_cfg.wait);
+
+        // Different page on same browser - still logged in so privileged items should work (checks panel)
+        page = await browser.newPage();
+//        page.setDefaultTimeout(server_cfg.wait);
+
+// PART 1 - Build URL
         // Create option string if needed
         var option_string = "";
-        if (dash.options) {
-            option_string = "?" + dash.options.join('&');
-        }
+        if (dash.options) { option_string = "?" + dash.options.join('&'); }
         // Most are dashboards with URLs built from config as SERVER/graph/d/UID
         // Exceptions (using 'url'): SERVER/swagger, SERVER/graph/login
         var server_url;
@@ -130,13 +121,14 @@ if (argv.debug) { config.debug = argv.debug; }
                 `${server_cfg.server}/${server_cfg.graph}/${server_cfg.stem}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
         }
 
-        // PART 3
-        // Load URL with either default global or dashboard-specific wait time
-        await util.load(page, server_url, wait);
-        // Remove pesky cookie confirmation from pmmdemo.percona.com
-        await util.eat(page); // TODO can this go inside load()? Only needed for pmmdemo
+// PART 2 - Optional dashboard viewport
+        const dashboard_viewport = { width: config.img_width, height: config.img_height };
+        if (dash.viewport) { await util.viewport(page, dash.viewport); }
 
-        // PART 4 - Dashboard-level snap (no operations)
+// PART 3 - Load URL with either default global or dashboard-specific wait time
+        await util.load(page, server_url, wait);
+
+// PART 4 - Dashboard-level snap (no operations)
         if (!dash.operations) {
             await util.snap(page, dash.title, img_dir);
 
@@ -149,7 +141,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     const bx = await elem.boundingBox();
                     // Resize viewport to container height plus padding
                     const vp = { width: config.img_width, height: bx.height + 150, deviceScaleFactor: config.img_scale };
-                    await util.viewport(page, vp);
+                    await util.viewport(page, vp, true);
                     await util.snap(page, dash.title + "_full", img_dir, true);
                 }
                 catch (e) {
@@ -158,8 +150,7 @@ if (argv.debug) { config.debug = argv.debug; }
             }
         }
 
-        // PART 5 - Operations - Any number of groups of steps, each step being an
-        // array of one of:
+// PART 5 - Operations - Any number of groups of steps, each step being an array of one of:
         // - move: move to (hover over) a selector;
         // - text: enter text into the selector;
         // - click: click the selector;
@@ -176,10 +167,7 @@ if (argv.debug) { config.debug = argv.debug; }
             for (var s in operation.steps) {
                 const step = operation.steps[s]; // Convenience handle
 
-                if (step.viewport) {
-                    await util.viewport(page, step.viewport);
-                    await util.load(page, server_url, wait);
-                }
+                if (step.viewport) { await util.viewport(page, step.viewport); }
 
                 try {
                     console.log(`  Step ${s}: ${step.name} (${step.type})`);
@@ -212,13 +200,11 @@ if (argv.debug) { config.debug = argv.debug; }
                     console.log(`Skipping (${e})`);
                 }
 
-                // Reset to dashboard viewport for next step
-//                await util.viewport(page, dashboard_viewport);
             } // for step
 
-            // Reset to dashboard viewport for next operation
-            await util.viewport(page, dashboard_viewport);
         } // for operations
+        // Reset
+        await util.viewport(page, dashboard_viewport);
 
         // PART 6 - Close page (Prevent long and ugly 'breadcrumb' navigation)
         page.close();
