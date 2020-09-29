@@ -212,7 +212,8 @@
       "uid": "mysql-instance-summary",
       "options": [
         "var-service_name=rds-mysql57"
-      ]
+      ],
+      "wait": 60000
     },
     {
       "title": "MySQL Instances Compare",
@@ -341,27 +342,103 @@
     {
       "title": "Add Instance",
       "uid": "pmm-add-instance",
+      "viewport": {
+        "width": 1280,
+        "height": 1280
+      },
       "operations": [
         {
-          "name": "Add AWS",
+          "name": "AWS",
           "steps": [
             {
-              "name": "Highlight",
-              "type": "move",
-              "selector": "a.navigation__link:nth-child(1)"
-            },
-            {
               "name": "Select",
-              "type": "snap"
-            },
-            {
-              "name": "Select Add AWS",
               "type": "click",
               "selector": "a.navigation__link:nth-child(1)"
             },
             {
-              "name":"Details",
+              "name": "Details",
               "type": "snap"
+            },
+            {
+              "name": "Return",
+              "type": "click",
+              "selector": ".ant-btn"
+            }
+          ]
+        },
+        {
+          "name": "Add PostgreSQL",
+          "steps": [
+            {
+              "name": "Select",
+              "type": "click",
+              "selector": "a.navigation__link:nth-child(2)"
+            },
+            {
+              "name": "Details",
+              "type": "snap"
+            },
+            {
+              "name": "Return",
+              "type": "click",
+              "selector": ".ant-btn"
+            }
+          ]
+        },
+        {
+          "name": "Add MySQL",
+          "steps": [
+            {
+              "name": "Select",
+              "type": "click",
+              "selector": "a.navigation__link:nth-child(3)"
+            },
+            {
+              "name": "Details",
+              "type": "snap"
+            },
+            {
+              "name": "Return",
+              "type": "click",
+              "selector": ".ant-btn"
+            }
+          ]
+        },
+        {
+          "name": "Add MongoDB",
+          "steps": [
+            {
+              "name": "Select",
+              "type": "click",
+              "selector": "a.navigation__link:nth-child(4)"
+            },
+            {
+              "name": "Details",
+              "type": "snap"
+            },
+            {
+              "name": "Return",
+              "type": "click",
+              "selector": ".ant-btn"
+            }
+          ]
+        },
+        {
+          "name": "Add ProxySQL",
+          "steps": [
+            {
+              "name": "Select",
+              "type": "click",
+              "selector": "a.navigation__link:nth-child(5)"
+            },
+            {
+              "name": "Details",
+              "type": "snap"
+            },
+            {
+              "name": "Return",
+              "type": "click",
+              "selector": ".ant-btn"
             }
           ]
         }
@@ -810,6 +887,11 @@
               "name": "Acknowledge",
               "type": "click",
               "selector": ".css-1c76rdo"
+            },
+            {
+              "name": "Wait for registration",
+              "type": "wait",
+              "period": 10000
             },
             {
               "name": "Filled Credentials",
