@@ -250,7 +250,7 @@ Defines PMM server instances: their URLs and default page load time.
 : Default pre-page load wait time in milliseconds. For slow networks or instances, increase this time but be prepared for a complete set of snaps (with `--full`) to take around an hour.
 
 `pause`
-: A short wait time in milliseconds, to allow the UI to settle before snapping items such as drop-down menus and mouse-over tooltips.
+: A shorter wait time in milliseconds, to allow the UI to settle before snapping items such as drop-down menus, mouse-over tooltips, or to complete the loading of data in panel components (such as System Summary in Node Summary dashboard). Default: 6000.
 
 #### Dashboard definitions: `dashboards.json`
 
