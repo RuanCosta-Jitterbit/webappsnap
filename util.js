@@ -27,7 +27,7 @@ function mkdir(dir) {
 /*
 ** Convenience wrapper for screenshots, and where the image filename is built
 */
-async function snap(page, title = "", dir, full=false) {
+async function snap(page, title = "", dir, full = false) {
     // Replace space, dot, slash with underscore
     title = title.replace(/[\. \\\/]/g, "_");
 
@@ -76,15 +76,40 @@ function pad(n, w = 3, z = '0') { // number, width, padding char
 */
 async function load(page, url, wait = config.server_cfg.wait) {
     try {
-        console.log(`Loading ${url} - Waiting ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"}`);
-        await Promise.all([
-            // TODO Not easy to tell when page is loaded/visible
-            page.goto(url, { waitUntil: ['load', 'networkidle2'] }),
-            page.waitFor(wait)]);
+        console.log(`Loading ${url} (timeout=${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
+        await page.goto(url, {
+            waitUntil: ['load', 'networkidle0'],
+            timeout: wait
+        });
+        // Remove pesky cookie confirmation (from pmmdemo.percona.com)
+        await eat(page); // TODO only for pmmdemo
     } catch (e) {
         console.error(`Can't load ${url} - skipping (${e})`);
     }
     // TODO handle net::ERR_INTERNET_DISCONNECTED
+}
+
+/*
+** Convenience viewport setter (with reload)
+*/
+async function viewport(page, viewport, reload = false) {
+    try {
+        await page.setViewport({
+            width: viewport.width,
+            height: viewport.height,
+            deviceScaleFactor: config.img_scale
+        });
+        if (reload) {
+            await page.reload({
+                waitUntil: ['load', 'networkidle0'],
+                timeout: config.server_cfg.wait
+            });
+            // Remove pesky cookie confirmation (from pmmdemo.percona.com)
+            await eat(page); // TODO only for pmmdemo
+        }
+    } catch (e) {
+        console.error(`Failed setting viewport - ${e}`);
+    }
 }
 
 /*
@@ -105,10 +130,9 @@ async function login(page, wait) {
 
     try {
         const skip_button = config.defaults.login_skip_elem;
-        await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
+        await page.waitForSelector(skip_button, { visible: true, timeout: config.server_cfg.pause });
         await page.click(skip_button);
         await page.waitFor(wait);
-        //        console.log(`Current URL: ${page.url()}`);
     } catch (err) {
         console.log("Didn't find password change skip button");
     }
@@ -133,24 +157,7 @@ async function eat(page) {
     } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 }
 
-/*
-** Convenience viewport setter (with reload)
-*/
-async function viewport(page, viewport) {
-    try {
-        await page.setViewport({
-            width: viewport.width,
-            height: viewport.height,
-            deviceScaleFactor: config.img_scale
-        });
-        // setViewport needs a reload
-        await page.reload({
-            waitUntil: ['load', 'networkidle2'],
-            timeout: config.server_cfg.pause });
-    } catch (e) {
-        console.error(e);
-    }
-}
+
 
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
