@@ -75,7 +75,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
     // Attempt login if configured (necessary for access to some dashboards)
     if (config.log_in) {
-        await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`, server_cfg.wait);
+        await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`);
         await util.snap(page, 'Login', img_dir);
         try {
             console.info("Logging in");
@@ -99,24 +99,18 @@ if (argv.debug) { config.debug = argv.debug; }
         // TEST Different page on same browser - still logged in so privileged items should work (checks panel)
         page = await browser.newPage();
         page.setDefaultTimeout(server_cfg.wait);
-        var dash = dashboards[d]; // convenience handle
+        var dash = dashboards[d]; // convenience handles
+        var wait = (dash.wait ? dash.wait : server_cfg.wait);
 
         // PART 1
         // Override default viewport if set per-dashboard
         var dashboard_viewport = { width: config.img_width, height: config.img_height };
-        // TODO Reusable code block
-        // (re)set viewport
-        if (dash.viewport) {
-            dashboard_viewport = dash.viewport;
-            await page.setViewport({
-                width: dashboard_viewport.width,
-                height: dashboard_viewport.height
-            });
-        }
+        if (dash.viewport) { await util.viewport(page, dash.viewport); }
 
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         // TODO Check that supplied UIDs exist
         if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
+            page.close();
             continue;
         }
 
@@ -138,26 +132,25 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // PART 3
         // Load URL with either default global or dashboard-specific wait time
-        await util.load(page, server_url, (dash.wait ? dash.wait : server_cfg.wait));
+        await util.load(page, server_url, wait);
         // Remove pesky cookie confirmation from pmmdemo.percona.com
-        await util.eat(page); // TODO can this go inside load()?
+        await util.eat(page); // TODO can this go inside load()? Only needed for pmmdemo
 
         // PART 4 - Dashboard-level snap (no operations)
         if (!dash.operations) {
             await util.snap(page, dash.title, img_dir);
+
             // Snap container without cropping at viewport
             // Skip any using 'url' element as these are outside of grafana
             if (argv.full && !dash.url) {
                 try {
-                    var elem = await page.waitForSelector(defaults.container);
+                    // Get height of container
+                    const elem = await page.waitFor(defaults.container);
                     const bx = await elem.boundingBox();
-                    // increase viewport to height of container (plus padding)
-                    await page.setViewport({
-                        width: config.img_width,
-                        height: bx.height + 125, // TODO Put padding in server config
-                        deviceScaleFactor: config.img_scale
-                    });
-                    await util.snap(page, dash.title + "_full", img_dir);
+                    // Resize viewport to container height plus padding
+                    const vp = { width: config.img_width, height: bx.height + 150, deviceScaleFactor: config.img_scale };
+                    await util.viewport(page, vp);
+                    await util.snap(page, dash.title + "_full", img_dir, true);
                 }
                 catch (e) {
                     console.log(`${e}...Skipping full snap`);
@@ -182,78 +175,53 @@ if (argv.debug) { config.debug = argv.debug; }
 
             for (var s in operation.steps) {
                 const step = operation.steps[s]; // Convenience handle
-                console.log(`  Step ${s}: ${step.name}`);
 
-                if (step.viewport) { util.viewport(page, step.viewport); }
+                if (step.viewport) {
+                    await util.viewport(page, step.viewport);
+                    await util.load(page, server_url, wait);
+                }
 
-                if (step.type == "wait") {
-                    console.log(`    Waiting ${step.period} ms`);
-                    await page.waitFor(step.period);
-                }
-                else if (step.type == "move") {
-                    console.log(`    Moving to ${step.selector}`);
-                    try {
-                        await page.hover(step.selector);
-                    } catch (e) {
-                        console.log(`${e}...Skipping`);
-                    }
-                }
-                else if (step.type == "text") {
-                    console.log(`    Typing ${step.value} in ${step.selector}`);
-                    try {
-                        await page.type(step.selector, String(step.value));
-                    } catch (e) {
-                        console.log(`${e}...Skipping`);
-                    }
-                }
-                else if (step.type == "click") {
-                    console.log(`    Clicking ${step.selector}`);
-                    try {
-                        await page.click(step.selector);
-                    } catch (e) {
-                        console.log(`${e}...Skipping`);
-                    }
-                }
-                else if (step.type == "blur") {
-                    console.log(`    Blurring ${step.selector}`);
-                    try {
-                        await page.addStyleTag({ content: `${step.selector} { filter: blur(2px); }` });
-                    } catch (e) {
-                        console.log(`${e}...Skipping`);
-                    }
-                }
-                else if (step.type == "snap") {
-                    var element;
+                try {
+                    console.log(`  Step ${s}: ${step.name} (${step.type})`);
 
-                    try {
-                        if (step.selector) {
-                            element = await page.waitForSelector(step.selector, { visible: true });
-                            console.log(`    Snapping ${step.selector}`);
-                        } else {
-                            element = page;
-                            console.log(`    Snapping page`);
-                        }
-                        await util.snap(element, [dash.title, operation.name, step.name].join("_"), img_dir);
-                    } catch (e) {
-                        console.log(`${e}...Skipping`);
+                    switch (step.type) {
+                        case "wait":
+                            await page.waitFor(step.period);
+                            break;
+                        case "move":
+                            await page.hover(step.selector);
+                            break;
+                        case "text":
+                            await page.type(step.selector, String(step.value));
+                            break;
+                        case "click":
+                            await page.click(step.selector);
+                            break;
+                        case "blur":
+                            await page.addStyleTag({ content: `${step.selector} { filter: blur(2px); }` });
+                            break;
+                        case "snap":
+                            const selector =
+                                (step.selector) ?
+                                    await page.waitForSelector(step.selector, { visible: true }) :
+                                    page;
+                            await util.snap(selector, [dash.title, operation.name, step.name].join("_"), img_dir);
+                            break;
                     }
-                } else {
-                    console.log('    Do nothing');
+                } catch (e) {
+                    console.log(`Skipping (${e})`);
                 }
+
                 // Reset to dashboard viewport for next step
-                await util.viewport(page, dashboard_viewport);
+//                await util.viewport(page, dashboard_viewport);
             } // for step
 
             // Reset to dashboard viewport for next operation
             await util.viewport(page, dashboard_viewport);
         } // for operations
 
-
-
-
-
-        // PART 6 - Close page
-        page.close(); // close and reopen
+        // PART 6 - Close page (Prevent long and ugly 'breadcrumb' navigation)
+        page.close();
     } // for dashboards
 
     await browser.close();

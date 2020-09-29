@@ -6,7 +6,9 @@ const config = require('./config.js');
 // Increment screenshot file names
 var idx = 1;
 
-// Create images directories
+/*
+** Create images directories
+*/
 function mkdir(dir) {
     if (!fs.existsSync(dir)) {
         try {
@@ -21,8 +23,11 @@ function mkdir(dir) {
         console.log("Image save directory: " + dir + " (already exists)");
     }
 }
-// Convenience wrapper for screenshots, and where the image filename is built
-async function snap(page, title = "", dir, boundingBox = null) {
+
+/*
+** Convenience wrapper for screenshots, and where the image filename is built
+*/
+async function snap(page, title = "", dir, full=false) {
     // Replace space, dot, slash with underscore
     title = title.replace(/[\. \\\/]/g, "_");
 
@@ -42,12 +47,13 @@ async function snap(page, title = "", dir, boundingBox = null) {
         options.type = 'jpeg';
         options.quality = config.defaults.jpg_quality;
     }
-    if (boundingBox) {
-        options.clip = boundingBox;
-        options.fullPage = false;
-    }
+
+    // Doesn't work as expected - needs viewport set to full size of container
+    // https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#pagescreenshotoptions
+    if (full) { options.fullPage = true; }
+
     // TEST can this option affect sparkline tooltip capture?
-    options.omitBackground = true;
+    //    options.omitBackground = true;
 
     try {
         await page.screenshot(options);
@@ -56,15 +62,21 @@ async function snap(page, title = "", dir, boundingBox = null) {
         process.stderr.write("Failed: " + err + "\n");
     }
 }
-// Zero-pad filename increment integer
+
+/*
+** Zero-pad filename increment integer
+*/
 function pad(n, w = 3, z = '0') { // number, width, padding char
     n = String(n);
     return n.length >= w ? n : new Array(w - n.length + 1).join(z) + n;
 }
-// Convenience wrapper for loading pages with logging and standard load wait time
-async function load(page, url, wait) {
+
+/*
+** Convenience wrapper for loading pages with logging and standard load wait time
+*/
+async function load(page, url, wait = config.server_cfg.wait) {
     try {
-        console.log(`Loading ${url} - Waiting ${wait/1000} ${Math.floor(wait/1000) == 1 ? "second" : "seconds"}`);
+        console.log(`Loading ${url} - Waiting ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"}`);
         await Promise.all([
             // TODO Not easy to tell when page is loaded/visible
             page.goto(url, { waitUntil: ['load', 'networkidle2'] }),
@@ -74,7 +86,10 @@ async function load(page, url, wait) {
     }
     // TODO handle net::ERR_INTERNET_DISCONNECTED
 }
-// Handle PMM login page
+
+/*
+** Handle PMM login page
+*/
 async function login(page, wait) {
     // Type in username and password and press Enter
     await page.type(config.defaults.login_user_elem, config.user);
@@ -93,12 +108,15 @@ async function login(page, wait) {
         await page.waitForSelector(skip_button, { visible: true, timeout: 5000 });
         await page.click(skip_button);
         await page.waitFor(wait);
-//        console.log(`Current URL: ${page.url()}`);
+        //        console.log(`Current URL: ${page.url()}`);
     } catch (err) {
         console.log("Didn't find password change skip button");
     }
 }
-// Delete cookie popup element extant on pmmdemo
+
+/*
+** Delete cookie popup element extant on pmmdemo
+*/
 async function eat(page) {
     const cookie_popup = config.defaults.cookie_popup_elem;
     try {
@@ -114,22 +132,24 @@ async function eat(page) {
         }, cookie_popup);
     } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 }
-// Convenience viewport setter
-async function viewport(elem, viewport) {
-    try {
 
-        await elem.setViewport({
+/*
+** Convenience viewport setter
+*/
+async function viewport(page, viewport) {
+    try {
+        await page.setViewport({
             width: viewport.width,
             height: viewport.height,
             deviceScaleFactor: config.img_scale
         });
-    } catch(e) {
+        // setViewport needs a reload
+        await page.reload({ waitUntil: ['load', 'networkidle2'] });
+    } catch (e) {
         console.error(e);
     }
 }
 
-// EXPORTS
-//   functions
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
 module.exports.load = load;
