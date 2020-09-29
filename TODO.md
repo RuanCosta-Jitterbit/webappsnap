@@ -9,3 +9,5 @@
 - [ ] Skip util.eat if not on pmmdemo
 - [ ] Consider whether `--full` option should also be specified via env var
 - [ ] Rationalise and relocate directory creation code
+- [ ] Check that supplied UIDs exist
+- [ ] Img dir doesn't need to be arg of snap()

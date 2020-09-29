@@ -132,11 +132,11 @@ The core of `main.js` loops through the dashboards file, processing each dashboa
 
 Functions for common operations, the most important of which are:
 
-`snap(page, title, dir, boundingBox)`
+`snap(page, title, dir, full)`
 : `page` = a page or an element;
 `title` = the filename title (before prefixing and character replacement);
 `dir` = the save directory;
-`boundingBox` = optional viewport to snap.
+`full` = whether to snap the entire page (needs prior viewport adjustment).
 
 `load(page, url, wait)`
 : Loads `url` into browser's `page` and waits `wait` milliseconds.
