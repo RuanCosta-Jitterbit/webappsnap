@@ -1,4 +1,7 @@
-// common configuration
+/*
+** Common configuration for PMM Screenshot
+*/
+
 var uf = require('url');
 
 // Default values file
@@ -51,6 +54,7 @@ const img_dir = process.env.SNAP_IMG_DIR || defaults.img_dir;
 module.exports.dashboards = dashboards.dashboards;
 module.exports.defaults = defaults;
 //   Values
+module.exports.dashboards_version = dashboards.version;
 module.exports.server_cfg = server_cfg;
 module.exports.cfg_file_name = cfg_file_name;
 module.exports.defaults_file_name = defaults_file_name;

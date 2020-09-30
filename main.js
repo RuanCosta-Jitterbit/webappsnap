@@ -4,17 +4,18 @@ const puppeteer = require('puppeteer');
 const { argv } = require('yargs');
 const path = require('path');
 const util = require('./util.js'); // Utility functions: snapping, loading URLs
-var config = require('./config.js'); // Start-up vs default configuration value handling
+const config = require('./config.js'); // Start-up vs default configuration value handling
 const defaults = config.defaults; // Default config values
 const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to a PMM server
 
-// List dashboard UIDs and exit
-if (argv.list) {
+if (argv.list) { // List dashboard UIDs and exit
     console.log(Array.from(new Set(dashboards.map(e1 => e1.uid).sort())).join("\n"));
     return;
 }
+
+
 
 // Images save path
 var img_dir = path.join(config.img_dir, server_cfg.name,
@@ -54,6 +55,11 @@ if (argv.debug) { config.debug = argv.debug; }
         else { console.log(`  Snapping selected (--uid): ${selected_dashboards.join(' ')}`); }
     }
 
+    await util.check_versions();
+
+
+
+
     const browser = await puppeteer.launch({
         headless: config.headless,
         ignoreHTTPSErrors: true,
@@ -76,7 +82,7 @@ if (argv.debug) { config.debug = argv.debug; }
         await util.snap(page, 'Login', img_dir);
         try {
             console.info("Logging in");
-            await util.login(page, server_cfg.wait)
+            await util.login(page, server_cfg.wait);
         } catch (err) {
             console.error(`Can't login: ${err}`);
         }
@@ -105,9 +111,9 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // Different page on same browser - still logged in so privileged items should work (checks panel)
         page = await browser.newPage();
-//        page.setDefaultTimeout(server_cfg.wait);
+        //        page.setDefaultTimeout(server_cfg.wait);
 
-// PART 1 - Build URL
+        // PART 1 - Build URL
         // Create option string if needed
         var option_string = "";
         if (dash.options) { option_string = "?" + dash.options.join('&'); }
@@ -121,14 +127,14 @@ if (argv.debug) { config.debug = argv.debug; }
                 `${server_cfg.server}/${server_cfg.graph}/${server_cfg.stem}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
         }
 
-// PART 2 - Optional dashboard viewport
+        // PART 2 - Optional dashboard viewport
         const dashboard_viewport = { width: config.img_width, height: config.img_height };
         if (dash.viewport) { await util.viewport(page, dash.viewport); }
 
-// PART 3 - Load URL with either default global or dashboard-specific wait time
+        // PART 3 - Load URL with either default global or dashboard-specific wait time
         await util.load(page, server_url, wait);
 
-// PART 4 - Dashboard-level snap (no operations)
+        // PART 4 - Dashboard-level snap (no operations)
         if (!dash.operations) {
             await util.snap(page, dash.title, img_dir);
 
@@ -150,7 +156,7 @@ if (argv.debug) { config.debug = argv.debug; }
             }
         }
 
-// PART 5 - Operations - Any number of groups of steps, each step being an array of one of:
+        // PART 5 - Operations - Any number of groups of steps, each step being an array of one of:
         // - move: move to (hover over) a selector;
         // - text: enter text into the selector;
         // - click: click the selector;

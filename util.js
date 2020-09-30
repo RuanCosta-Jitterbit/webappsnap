@@ -1,5 +1,8 @@
 // Utility functions
 var fs = require('fs');
+
+//const { request } = require('http');
+const axios = require('axios')
 const path = require('path');
 const config = require('./config.js');
 
@@ -157,7 +160,37 @@ async function eat(page) {
     } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
 }
 
+/*
+** GET via Swagger API
+*/
+async function swagger(url, callback) {
+    try {
+        var ret = await axios.get(url, {
+            auth: {
+                username: config.user,
+                password: config.pass
+            }
+        });
+        return callback(ret.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
 
+// Check versions
+async function check_versions() {
+    swagger('http://' + config.hostname + '/v1/version',
+        function (response) {
+            if (response.version == config.defaults.version
+                &&
+                response.version == config.dashboards_version) {
+                console.log("Versions match");
+            } else {
+                console.error(`WARNING: Configuration/server version mismatch - Defaults (${config.defaults.version}), Dashboards (${config.dashboards_version}), PMM Server (${response.version})`);
+            }
+        }
+    );
+}
 
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
@@ -165,3 +198,5 @@ module.exports.load = load;
 module.exports.login = login;
 module.exports.eat = eat;
 module.exports.viewport = viewport;
+module.exports.swagger = swagger;
+module.exports.check_versions = check_versions;
