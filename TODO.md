@@ -11,3 +11,4 @@
 - [ ] Rationalise and relocate directory creation code
 - [ ] Check that supplied UIDs exist
 - [ ] Img dir doesn't need to be arg of snap()
+- [ ] Avoid image overwrite when SNAP_IMG_SEQ is off
