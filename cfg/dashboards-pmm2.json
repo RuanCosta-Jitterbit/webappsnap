@@ -941,64 +941,134 @@
     },
     {
       "title": "DBaaS",
-      "uid": "pmm-dbaas"
-    },
-    {
-      "title": "DBaaS",
       "uid": "pmm-dbaas",
       "operations": [
         {
-          "name": "Add New Kubernetes Cluster",
+          "name": "Kubernetes Cluster",
           "steps": [
             {
-              "name": "Add",
-              "type": "click",
-              "selector": ".css-gtuy1a-button"
+              "name": "Panel",
+              "type": "snap"
             },
             {
               "name": "Add",
-              "type": "snap"
+              "type": "click",
+              "selector": "[data-qa=\"kubernetes-new-cluster-button\"]"
             },
             {
               "name": "Name",
               "type": "text",
-              "selector": ".css-1bjepp-input-input",
+              "selector": "[data-qa=\"name-text-input\"]",
               "value": "MyKubernetesClusterName1"
             },
             {
               "name": "Kubeconfig file",
               "type": "text",
-              "selector": ".css-1f38lle",
+              "selector": "[data-qa=\"kubeConfig-textarea-input\"]",
               "value": "My KubeConfig File Text"
             },
             {
-              "name": "Details Filled",
+              "name": "Details",
               "type": "snap"
             },
             {
               "name": "Add",
               "type": "click",
-              "selector": ".css-u6ysb0-button"
+              "selector": "[data-qa=\"kubernetes-add-cluster-button\"]"
+            },
+            {
+              "name": "Added",
+              "type": "snap"
             }
           ]
         },
         {
-          "name": "Delete Kubernetes Cluster",
+          "name": "DB Cluster",
           "steps": [
             {
-              "name": "Delete",
+              "name": "Select Tab",
               "type": "click",
-              "selector": ".css-1j9iycg > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) > button:nth-child(1)",
-              "comment": "First one in list, not necessarily the one just created"
+              "selector": ".css-nivouq"
             },
             {
-              "name": "Delete Select",
+              "name": "Wait for error to close",
+              "comment": "Needed during development",
+              "type": "wait",
+              "period": 10000
+            },
+            {
+              "name": "Panel",
               "type": "snap"
             },
             {
-              "name": "Proceed",
+              "name": "Add",
               "type": "click",
-              "selector": ".css-1scyk9l-button"
+              "selector": "[data-qa=\"xtradb-add-cluster-button\"]"
+            },
+            {
+              "name": "Create Cluster",
+              "type": "snap"
+            },
+            {
+              "name": "Cluster Name",
+              "type": "text",
+              "selector": "[data-qa=\"name-text-input\"]",
+              "value": "MyDBClusterName"
+            },
+            {
+              "name": "Kubernetes Cluster",
+              "type": "text",
+              "selector": "#react-select-3-input",
+              "value": "MyKubernetesClusterName1\n"
+            },
+            {
+              "name": "Database Type",
+              "type": "text",
+              "selector": "#react-select-4-input",
+              "value": "MySQL\n"
+            },
+            {
+              "name": "Details",
+              "type": "snap"
+            },
+            {
+              "name": "Create Cluster Button",
+              "comment": "click",
+              "selector": "[data-qa=\"xtradb-create-cluster-button\"]"
+            },
+            {
+              "comment": "This step not yet implemented",
+              "name": "TODO Created",
+              "type": "snap"
+            },
+            {
+              "name": "Close",
+              "type": "click",
+              "selector": "[data-qa=\"modal-close-button\"]"
+            }
+          ]
+        },
+        {
+          "name": "Kubernetes Cluster",
+          "steps": [
+            {
+              "name": "Select Tab",
+              "type": "click",
+              "selector": "[aria-label=\"Tab Kubernetes Cluster\"]"
+            },
+            {
+              "name":"Delete",
+              "type": "click",
+              "selector": "[data-qa=\"open-delete-modal-button\"]"
+            },
+            {
+              "name": "Delete",
+              "type": "snap"
+            },
+            {
+              "name": "Close",
+              "type": "click",
+              "selector":"[data-qa=\"modal-close-button\"]"
             }
           ]
         }
