@@ -180,6 +180,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
                     switch (step.type) {
                         case "wait":
+                            console.log(`    ${step.period} ms`);
                             await page.waitFor(step.period);
                             break;
                         case "move":
@@ -199,6 +200,7 @@ if (argv.debug) { config.debug = argv.debug; }
                                 (step.selector) ?
                                     await page.waitForSelector(step.selector, { visible: true }) :
                                     page;
+                            await process.stdout.write("    "); // Indent following message
                             await util.snap(selector, [dash.title, operation.name, step.name].join("_"), img_dir);
                             break;
                     }

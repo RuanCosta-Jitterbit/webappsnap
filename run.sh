@@ -45,6 +45,7 @@ SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
 ## Server config file. Default: 'config_file' in defaults file ("./cfg/server-pmmdemo.json")
 # SNAP_SRV_CFG_FILE=./cfg/server-test.json
+SNAP_SRV_CFG_FILE=./cfg/server-local.json
 
 ## Dashboard definitions file. Default: 'dashboards_file' in defaults file ("./cfg/dashboards-pmm2.json")
 # SNAP_DASHBOARDS_FILE=./cfg/dashboards-pmm1.json
@@ -65,7 +66,7 @@ SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 # SNAP_IMG_EXT=.png
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename. Default: 'img_seq' in defaults file (false)
-# SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix. Default: 'img_pfx' in defaults file ("PMM")
 # SNAP_IMG_PFX=''
