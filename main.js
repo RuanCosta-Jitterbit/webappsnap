@@ -1,10 +1,11 @@
 // Connects to PMM instance to take screenshots of each dashboard
 'use strict';
-const puppeteer = require('puppeteer');
+const { chromium, firefox, webkit } = require('playwright');
 const { argv } = require('yargs');
 const path = require('path');
 const util = require('./util.js'); // Utility functions: snapping, loading URLs
 const config = require('./config.js'); // Start-up vs default configuration value handling
+const { exit } = require('process');
 const defaults = config.defaults; // Default config values
 const dashboards = config.dashboards; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
@@ -43,8 +44,8 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Image filename suffix (SNAP_IMG_EXT): ${config.img_ext}`);
         if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality (SNAP_JPG_QUALITY): ${config.jpg_quality}`); }
         console.log("Waits");
-        console.log(`  Default page load wait time: ${server_cfg.wait / 1000} seconds`);
-        console.log(`  Default page settle time: ${server_cfg.pause / 1000} ${Math.floor(server_cfg.pause / 1000) == 1 ? "second" : "seconds"}`);
+        console.log(`  Default page load wait: ${server_cfg.wait / 1000} seconds`);
+        console.log(`  Default page settle: ${server_cfg.pause / 1000} ${Math.floor(server_cfg.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log("Options");
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
         console.log(`  SlowMo value (SNAP_SLOW_MO): ${config.slowmo / 1000} seconds`);
@@ -55,31 +56,30 @@ if (argv.debug) { config.debug = argv.debug; }
     }
 
 
-
+    // TODO broken since 2.12.0
     //await util.check_versions();
 
 
-
-
-    const browser = await puppeteer.launch({
+    const browser = await chromium.launch({
         headless: config.headless,
+//        slowMo: config.slowmo,
         ignoreHTTPSErrors: true,
         timeout: 0,
-        slowMo: config.slowmo,
         defaultViewport: {
             width: config.img_width,
             height: config.img_height,
             deviceScaleFactor: config.img_scale
         }
-    });
+    });  // chromium, firefox, webkit
 
     var page = await browser.newPage();
     // Default server wait can be overridden per dashboard
-    page.setDefaultTimeout(server_cfg.wait);
+//    page.setDefaultTimeout(server_cfg.wait);
 
     // Attempt login if configured (necessary for access to some dashboards)
     if (config.log_in) {
         await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`);
+        await page.waitForTimeout(server_cfg.pause); // extra time for background to load/render
         await util.snap(page, 'Login', img_dir);
         try {
             console.info("Logging in");
@@ -108,14 +108,14 @@ if (argv.debug) { config.debug = argv.debug; }
             continue;
         }
 
-        const wait = (dash.wait ? dash.wait : server_cfg.wait);
-
-        //        page.setDefaultTimeout(server_cfg.wait);
+        page.setDefaultTimeout(server_cfg.wait);
+        const wait = (dash.wait ? dash.wait : server_cfg.wait); // Dashboard waits override default
 
         // PART 1 - Build URL
         // Create option string if needed
         var option_string = "";
         if (dash.options) { option_string = "?" + dash.options.join('&'); }
+
         // Most are dashboards with URLs built from config as SERVER/graph/d/UID
         // Exceptions (using 'url'): SERVER/swagger, SERVER/graph/login
         var server_url;
@@ -133,6 +133,15 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 3 - Load URL with either default global or dashboard-specific wait time
         await util.load(page, server_url, wait);
 
+        // TODO how long to wait when network slow
+//        await page.waitForLoadState();
+//        await page.waitForTimeout(wait);
+        await page.waitForResponse(response =>
+            response.url() === 'https://pmmdemo.percona.com/graph/api/search' &&
+            response.status() === 200, { timeout: wait });
+
+        await util.eat(page); // cookie popup
+
         // PART 4 - Dashboard-level snap (no operations)
         if (!dash.operations) {
             await util.snap(page, dash.title, img_dir);
@@ -142,7 +151,7 @@ if (argv.debug) { config.debug = argv.debug; }
             if (argv.full && !dash.url) {
                 try {
                     // Get height of container
-                    const elem = await page.waitFor(defaults.container);
+                    const elem = await page.waitForSelector(defaults.container, { visible: true });
                     const bx = await elem.boundingBox();
                     // Resize viewport to container height plus padding
                     const vp = { width: config.img_width, height: bx.height + 150, deviceScaleFactor: config.img_scale };
@@ -180,7 +189,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     switch (step.type) {
                         case "wait":
                             console.log(`    ${step.period} ms`);
-                            await page.waitFor(step.period);
+                            await page.waitForTimeout(step.period);
                             break;
                         case "move":
                             await page.hover(step.selector);
@@ -204,7 +213,8 @@ if (argv.debug) { config.debug = argv.debug; }
                             break;
                     }
                 } catch (e) {
-                    console.log(`Skipping (${e})`);
+                    console.log("Skipping");
+                    console.log(e);
                 }
 
             } // for step

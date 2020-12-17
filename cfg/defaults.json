@@ -15,7 +15,7 @@
     "jpg_quality": 100,
     "log_in": true,
     "headless": true,
-    "slowmo": 1000,
+    "slowmo": 0,
     "debug": false,
     "login_user_elem": "div.css-8e5b3:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",
     "login_pass_elem": "div.css-8e5b3:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)",

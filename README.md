@@ -1,4 +1,4 @@
-# PMM Dashboard Screenshots
+# PMM Dashboard Screenshots (Playwright version)
 
 [Percona Monitoring and Management (PMM)](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is free, open-source database monitoring software.
 
@@ -6,13 +6,14 @@ This repository is a tool to automate PMM screenshot capture.
 
 - It connects to a PMM server, loading specified dashboards, taking screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG. It works on PMM1 and PMM2.
 
-- It uses Puppeteer to run a headless Chromium web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
+- It uses ~~Puppeteer~~ Playwright (WIP port) to run a headless Chromium, Firefox or Webkit web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
 
 ## Install (Prerequirements)
 
 - [Node.js](https://nodejs.org/en/download/)
-- [Puppeteer](https://github.com/puppeteer/puppeteer)
-- [Yargs](https://github.com/yargs/yargs)
+- [Playwright](https://github.com/microsoft/playwright/): `npm i -D playwright`
+- [Yargs](https://github.com/yargs/yargs): `npm i yargs`
+- [Axios](https://github.com/axios/axios): `npm i axios`
 
 ## Quick Start
 
@@ -21,7 +22,7 @@ This repository is a tool to automate PMM screenshot capture.
 2. Snap dashboards in the [PMM2 demo instance](https://pmmdemo.percona.com/):
 
     ```
-    cd pmm-screenshots
+    cd pmm-screenshots-pw
     # Snap ALL dashboards
     ./run.sh
     # Snap specific dashboards
@@ -204,7 +205,7 @@ Values in this file are the default settings if no environment variables are set
 : Whether to attempt logging in using `user` and `pass` values. (`SNAP_LOG_IN`)
 
 `headless`
-: When `true`, Puppeteer uses a headless (invisible) web browser. If `false`, the web browser is made visible. Useful for debugging (or simply entertainment). (`SNAP_HEADLESS`)
+: When `true`, Playwright uses a headless (invisible) web browser. If `false`, the web browser is made visible. Useful for debugging (or simply entertainment). (`SNAP_HEADLESS`)
 
 `debug`
 : When `true`, program prints operating parameters. (`--debug`)
@@ -301,7 +302,7 @@ The bulk of configuration is in these files. They list each dashboard's UID (par
             : Click the element specified by `selector`.
 
             `move`
-            : Move to (hover over) the element specified by `selector`. (Uses [`page.hover()`](https://github.com/puppeteer/puppeteer/blob/v4.0.0/docs/api.md#pagehoverselector) which finds the first CSS selector ID and positions the mouse in the center of it.)
+            : Move to (hover over) the element specified by `selector`. (Uses [`page.hover()`](https://playwright.dev/docs/api/class-page#pagehoverselector-options) which finds the first CSS selector ID and positions the mouse in the center of it.)
 
             `text`
             : Type text (from `value`) into the element specified by `selector`.

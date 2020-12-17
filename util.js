@@ -79,11 +79,14 @@ function pad(n, w = 3, z = '0') { // number, width, padding char
 */
 async function load(page, url, wait = config.server_cfg.wait) {
     try {
-        console.log(`Loading ${url} (timeout=${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
-        await page.goto(url, {
-            waitUntil: ['load', 'networkidle0'],
-            timeout: wait
-        });
+        console.log(`Loading ${url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
+
+        await page.goto(url,
+            {
+                waitUntil: 'networkidle', // TODO what's best? load, domcontentloaded, networkidle?
+                timeout: wait
+            }
+        );
         // Remove pesky cookie confirmation (from pmmdemo.percona.com)
         await eat(page); // TODO only for pmmdemo
     } catch (e) {
@@ -97,14 +100,15 @@ async function load(page, url, wait = config.server_cfg.wait) {
 */
 async function viewport(page, viewport, reload = false) {
     try {
-        await page.setViewport({
+        await page.setViewportSize({
             width: viewport.width,
             height: viewport.height,
             deviceScaleFactor: config.img_scale
         });
         if (reload) {
+            console.log(`Reloading (timeout=${config.server_cfg.wait / 1000})`);
             await page.reload({
-                waitUntil: ['load', 'networkidle0'],
+                waitUntil: 'load',
                 timeout: config.server_cfg.wait
             });
             // Remove pesky cookie confirmation (from pmmdemo.percona.com)
@@ -123,7 +127,7 @@ async function login(page, wait) {
     await page.type(config.defaults.login_user_elem, config.user);
     await page.type(config.defaults.login_pass_elem, config.pass);
     await page.keyboard.press('Enter');
-    await page.waitFor(wait); // Wait for login
+    await page.waitForTimeout(wait); // Wait for login
 
     // TODO intercept and report 'invalid username or password' dialog
 
@@ -135,7 +139,7 @@ async function login(page, wait) {
         const skip_button = config.defaults.login_skip_elem;
         await page.waitForSelector(skip_button, { visible: true, timeout: config.server_cfg.pause });
         await page.click(skip_button);
-        await page.waitFor(wait);
+        await page.waitForTimeout(wait);
     } catch (err) {
         console.log("Didn't find password change skip button");
     }

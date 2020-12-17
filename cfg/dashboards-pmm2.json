@@ -2,98 +2,6 @@
     "version": "2.12.0",
     "dashboards": [
         {
-            "title": "Swagger API",
-            "uid": "swagger",
-            "url": "swagger/",
-            "viewport": {
-                "width": 1280,
-                "height": 950
-            },
-            "operations": [
-                {
-                    "name": "Get Logs",
-                    "steps": [
-                        {
-                            "name": "View",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "Execute",
-                            "type": "click",
-                            "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
-                        },
-                        {
-                            "name": "Execute",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Common",
-            "uid": "node-disk",
-            "comment": "Any valid UID will do, just for snapping common devices",
-            "operations": [
-                {
-                    "name": "Controls",
-                    "steps": [
-                        {
-                            "name": "Annotation Toggle",
-                            "type": "snap",
-                            "selector": ".submenu-controls > div:nth-child(5)"
-                        }
-                    ]
-                },
-                {
-                    "name": "Panel Menu",
-                    "steps": [
-                        {
-                            "name": "Open",
-                            "type": "click",
-                            "selector": "#panel-999 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > svg:nth-child(1)"
-                        },
-                        {
-                            "name": "Open Menu",
-                            "type": "snap",
-                            "selector": "ul.dropdown-menu--menu:nth-child(1)"
-                        },
-                        {
-                            "name": "Open",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "Share",
-                            "type": "click",
-                            "selector": "ul.dropdown-menu--menu:nth-child(1) > li:nth-child(2)"
-                        },
-                        {
-                            "name": "Hide URL",
-                            "type": "blur",
-                            "selector": "input.gf-form-input"
-                        },
-                        {
-                            "name": "Share",
-                            "type": "snap",
-                            "comment": "Snaps image share panel without knowing whether plugin is installed"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Advanced Data Exploration",
-            "uid": "prometheus-advanced"
-        },
-        {
-            "title": "CPU Utilization Details",
-            "uid": "node-cpu"
-        },
-        {
-            "title": "Disk Details",
-            "uid": "node-disk"
-        },
-        {
             "title": "Home Dashboard",
             "uid": "pmm-home",
             "viewport": {
@@ -163,6 +71,66 @@
                 }
             ]
         },
+        {
+            "title": "Common",
+            "uid": "node-cpu-process",
+            "comment": "Any valid UID will do, just for snapping common devices",
+            "operations": [
+                {
+                    "name": "Controls",
+                    "steps": [
+                        {
+                            "name": "Annotation Toggle",
+                            "type": "snap",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls > div:nth-child(4) > div"
+                        }
+                    ]
+                },
+                {
+                    "name": "Panel Menu",
+                    "steps": [
+                        {
+                            "name": "Open",
+                            "type": "click",
+                            "selector": "#panel-999 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)"
+                        },
+                        {
+                            "name": "Open Menu",
+                            "type": "snap",
+                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul"
+                        },
+                        {
+                            "name": "Open",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Share",
+                            "type": "click",
+                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul > li:nth-child(2)"
+                        },
+                        {
+                            "name": "Hide URL",
+                            "type": "blur",
+                            "selector": "input.gf-form-input"
+                        },
+                        {
+                            "name": "Share",
+                            "type": "snap",
+                            "comment": "Snaps image share panel without knowing whether plugin is installed"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "CPU Utilization Details",
+            "uid": "node-cpu"
+        },
+        {
+            "title": "Disk Details",
+            "uid": "node-disk"
+        },
+
         {
             "title": "Memory Details",
             "uid": "node-memory"
@@ -1192,6 +1160,40 @@
                         },
                         {
                             "name": "Unregistered",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Swagger API",
+            "uid": "swagger",
+            "url": "swagger/",
+            "viewport": {
+                "width": 1280,
+                "height": 950
+            },
+            "operations": [
+                {
+                    "name": "Get Logs",
+                    "steps": [
+                        {
+                            "name": "Explicit Pause",
+                            "type": "wait",
+                            "period": 10000
+                        },
+                        {
+                            "name": "View",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Execute",
+                            "type": "click",
+                            "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
+                        },
+                        {
+                            "name": "Execute",
                             "type": "snap"
                         }
                     ]

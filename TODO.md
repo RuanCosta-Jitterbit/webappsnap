@@ -16,3 +16,5 @@
 - [ ] Option to skip version checking
 - [ ] Easier handling of `/graph/d/vagent` paths
 - [x] Allow configurable slowmo value when headless=false
+- [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
+- [ ] Write settings file in images directory (to know what were used for that snap set)
