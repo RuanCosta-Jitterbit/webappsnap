@@ -1,7 +1,6 @@
 /*
 ** Common configuration for PMM Screenshot
 */
-
 var uf = require('url');
 
 // Default values file
@@ -38,6 +37,8 @@ var img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 var img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
 var img_scale   = Number(process.env.SNAP_IMG_SCALE) || defaults.img_scale;
 
+var slowmo      = Number(process.env.SNAP_SLOW_MO) || defaults.slowmo;
+
 var user        = process.env.SNAP_USER || defaults.user;
 var pass        = process.env.SNAP_PASS || defaults.pass;
 // Binary options
@@ -65,6 +66,7 @@ module.exports.pass = pass;
 module.exports.log_in = log_in;
 module.exports.debug = debug;
 module.exports.headless = headless;
+module.exports.slowmo = slowmo;
 module.exports.img_height = img_height;
 module.exports.img_width = img_width;
 module.exports.img_scale = img_scale;
