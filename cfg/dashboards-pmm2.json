@@ -17,111 +17,7 @@
                 "height": 1440
             }
         },
-        {
-            "title": "Home Dashboard",
-            "uid": "pmm-home",
-            "operations": [
-                {
-                    "name": "Menus",
-                    "steps": [
-                        {
-                            "name": "Grafana Left Side Menu",
-                            "type": "snap",
-                            "selector": ".sidemenu",
-                            "viewport": {
-                                "comment": "Viewport shrinks vertical menu to avoid ugly space",
-                                "width": 1080,
-                                "height": 720
-                            }
-                        },
-                        {
-                            "name": "Top Navigation Bar",
-                            "type": "snap",
-                            "selector": ".navbar",
-                            "viewport": {
-                                "width": 720,
-                                "height": 1080
-                            }
-                        },
-                        {
-                            "name": "Submenu Bar",
-                            "type": "snap",
-                            "selector": ".submenu-controls",
-                            "viewport": {
-                                "width": 1080,
-                                "height": 1080
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "Panels",
-                    "steps": [
-                        {
-                            "name": "Failed Security Checks",
-                            "type": "snap",
-                            "selector": "#panel-1381"
-                        },
-                        {
-                            "name": "Upgrade",
-                            "type": "snap",
-                            "selector": "#panel-1337"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Common",
-            "uid": "node-cpu-process",
-            "comment": "Any valid UID will do, just for snapping common devices",
-            "operations": [
-                {
-                    "name": "Controls",
-                    "steps": [
-                        {
-                            "name": "Annotation Toggle",
-                            "type": "snap",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls > div:nth-child(4) > div"
-                        }
-                    ]
-                },
-                {
-                    "name": "Panel Menu",
-                    "steps": [
-                        {
-                            "name": "Open",
-                            "type": "click",
-                            "selector": "#panel-999 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)"
-                        },
-                        {
-                            "name": "Open Menu",
-                            "type": "snap",
-                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul"
-                        },
-                        {
-                            "name": "Open",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "Share",
-                            "type": "click",
-                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul > li:nth-child(2)"
-                        },
-                        {
-                            "name": "Hide URL",
-                            "type": "blur",
-                            "selector": "input.gf-form-input"
-                        },
-                        {
-                            "name": "Share",
-                            "type": "snap",
-                            "comment": "Snaps image share panel without knowing whether plugin is installed"
-                        }
-                    ]
-                }
-            ]
-        },
+
         {
             "title": "CPU Utilization Details",
             "uid": "node-cpu"
@@ -1161,6 +1057,111 @@
                         {
                             "name": "Unregistered",
                             "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Home Dashboard",
+            "uid": "pmm-home",
+            "operations": [
+                {
+                    "name": "Menus",
+                    "steps": [
+                        {
+                            "name": "Grafana Left Side Menu",
+                            "type": "snap",
+                            "selector": ".sidemenu",
+                            "viewport": {
+                                "comment": "Viewport shrinks vertical menu to avoid ugly space",
+                                "width": 1080,
+                                "height": 720
+                            }
+                        },
+                        {
+                            "name": "Top Navigation Bar",
+                            "type": "snap",
+                            "selector": ".navbar",
+                            "viewport": {
+                                "width": 720,
+                                "height": 1080
+                            }
+                        },
+                        {
+                            "name": "Submenu Bar",
+                            "type": "snap",
+                            "selector": ".submenu-controls",
+                            "viewport": {
+                                "width": 1080,
+                                "height": 1080
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Panels",
+                    "steps": [
+                        {
+                            "name": "Failed Security Checks",
+                            "type": "snap",
+                            "selector": "#panel-1381"
+                        },
+                        {
+                            "name": "Upgrade",
+                            "type": "snap",
+                            "selector": "#panel-1337"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Common",
+            "uid": "node-cpu-process",
+            "comment": "Any valid UID will do, just for snapping common devices",
+            "operations": [
+                {
+                    "name": "Controls",
+                    "steps": [
+                        {
+                            "name": "Annotation Toggle",
+                            "type": "snap",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls > div:nth-child(4) > div"
+                        }
+                    ]
+                },
+                {
+                    "name": "Panel Menu",
+                    "steps": [
+                        {
+                            "name": "Open",
+                            "type": "click",
+                            "selector": "#panel-999 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)"
+                        },
+                        {
+                            "name": "Open Menu",
+                            "type": "snap",
+                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul"
+                        },
+                        {
+                            "name": "Open",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Share",
+                            "type": "click",
+                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul > li:nth-child(2)"
+                        },
+                        {
+                            "name": "Hide URL",
+                            "type": "blur",
+                            "selector": "input.gf-form-input"
+                        },
+                        {
+                            "name": "Share",
+                            "type": "snap",
+                            "comment": "Snaps image share panel without knowing whether plugin is installed"
                         }
                     ]
                 }
