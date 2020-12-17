@@ -15,8 +15,6 @@ if (argv.list) { // List dashboard UIDs and exit
     return;
 }
 
-
-
 // Images save path
 var img_dir = path.join(config.img_dir, server_cfg.name,
     `${String(config.img_width)}x${String(config.img_height)}x${String(config.img_scale)}`);
@@ -49,13 +47,16 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Default page settle time: ${server_cfg.pause / 1000} ${Math.floor(server_cfg.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log("Options");
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
+        console.log(`  SlowMo value (SNAP_SLOW_MO): ${config.slowmo / 1000} seconds`);
         console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all dashboards"); }
         else { console.log(`  Snapping selected (--uid): ${selected_dashboards.join(' ')}`); }
     }
 
-    await util.check_versions();
+
+
+    //await util.check_versions();
 
 
 
@@ -64,7 +65,7 @@ if (argv.debug) { config.debug = argv.debug; }
         headless: config.headless,
         ignoreHTTPSErrors: true,
         timeout: 0,
-        //        slowMo: 500,
+        slowMo: config.slowmo,
         defaultViewport: {
             width: config.img_width,
             height: config.img_height,
@@ -99,7 +100,7 @@ if (argv.debug) { config.debug = argv.debug; }
      * Part 6: Close the browser page. This prevents long 'breadcrumb' paths cluttering the menu.
      */
     for (var d in dashboards) {
-        var dash = dashboards[d]; // convenience handles
+        var dash = dashboards[d]; // convenience handle
 
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         // TODO Check that supplied UIDs exist
@@ -109,8 +110,6 @@ if (argv.debug) { config.debug = argv.debug; }
 
         const wait = (dash.wait ? dash.wait : server_cfg.wait);
 
-        // Different page on same browser - still logged in so privileged items should work (checks panel)
-        page = await browser.newPage();
         //        page.setDefaultTimeout(server_cfg.wait);
 
         // PART 1 - Build URL
@@ -213,9 +212,6 @@ if (argv.debug) { config.debug = argv.debug; }
         } // for operations
         // Reset
         await util.viewport(page, dashboard_viewport);
-
-        // PART 6 - Close page (Prevent long and ugly 'breadcrumb' navigation)
-        page.close();
     } // for dashboards
 
     await browser.close();
