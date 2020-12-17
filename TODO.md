@@ -13,3 +13,6 @@
 - [ ] Img dir doesn't need to be arg of snap()
 - [ ] Avoid image overwrite when SNAP_IMG_SEQ is off
 - [ ] How to inject custom text strings as form values
+- [ ] Option to skip version checking
+- [ ] Easier handling of `/graph/d/vagent` paths
+- [x] Allow configurable slowmo value when headless=false
