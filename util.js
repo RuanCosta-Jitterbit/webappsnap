@@ -102,8 +102,7 @@ async function viewport(page, viewport, reload = false) {
     try {
         await page.setViewportSize({
             width: viewport.width,
-            height: viewport.height,
-            deviceScaleFactor: config.img_scale
+            height: viewport.height
         });
         if (reload) {
             console.log(`Reloading (timeout=${config.server_cfg.wait / 1000})`);

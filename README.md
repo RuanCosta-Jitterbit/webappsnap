@@ -70,12 +70,11 @@ To create PMM dashboards screenshots for your own PMM instance:
 
    - `SNAP_IMG_WIDTH`: The snap image width (in pixels). Default: 1280
    - `SNAP_IMG_HEIGHT`: The snap image height (in pixels). Default: 720
-   - `SNAP_IMG_SCALE`: Images can be scaled up or down by this factor. Default: 1
    - `SNAP_JPG_QUALITY`: For JPG format, the image quality (a percent value) can help reduce file size. Default: 100
    - `SNAP_IMG_EXT`: Set to `.png` for PNG format images. Default: `.jpg`
    - `SNAP_IMG_SEQ`: Set to `true` to prefix image filenames with a sequence number. Useful for testing and identifying images. Default: `false`
    - `SNAP_IMG_PFX`: After the optional sequence number, a secondary prefix is added to the filename. Default: `PMM`
-   - `SNAP_IMG_DIR`: Where to save images. Default: `./images`. This is the base directory within which two additional subdirectories are created: `<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHTxSNAP_IMG_SCALE`. E.g `./images/myserver/1920x1080x1/`
+   - `SNAP_IMG_DIR`: Where to save images. Default: `./images`. This is the base directory within which two additional subdirectories are created: `<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHT`. E.g `./images/myserver/1920x1080/`
    - `SNAP_LOG_IN`: Set to true to snap the login page, log in, and click the 'skip password change' button. Default: true.
 
 4. Run the wrapper script:
@@ -194,9 +193,6 @@ Values in this file are the default settings if no environment variables are set
 
 `img_height`
 : The image height, in pixels, for full screen snaps. (`SNAP_IMG_HEIGHT`)
-
-`img_scale`
-: The image scaling factor. (`SNAP_IMG_SCALE`)
 
 `jpg_quality`
 : For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy. (`SNAP_JPG_QUALITY`)
@@ -342,8 +338,6 @@ The directory path is a hierarchy constructed in `main.js`. It is made up of:
 - Defaults file `img_width` (or `SNAP_IMG_WIDTH` if set)
 - "x"
 - Defaults file `img_height` (or `SNAP_IMG_HEIGHT` if set)
-- "x"
-- Defaults file `img_scale` (or `SNAP_IMG_SCALE` if set)
 - System path separator.
 
 **Note:** The purpose of a hierarchy is to separate images made with different servers and viewport sizes.
@@ -447,6 +441,5 @@ There are two ways to shorten the time spent using this tool.
 ### Images are not the size I expected
 
 - Check the values for `SNAP_IMG_WIDTH`, `SNAP_IMG_HEIGHT`
-- Check the value for `SNAP_IMG_SCALE`: If 0.5, dimensions are halved, if 2, dimensions are doubled, etc.
 - Check whether the viewport is set (overriding the default) for the dashboard or step.
 - The height of `_full` images is determined by each dashboard's default container size.

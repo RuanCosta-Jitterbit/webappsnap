@@ -35,7 +35,6 @@ if (typeof process.env.SNAP_IMG_PFX === 'undefined') {
 var img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 var img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 var img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
-var img_scale   = Number(process.env.SNAP_IMG_SCALE) || defaults.img_scale;
 
 var slowmo      = Number(process.env.SNAP_SLOW_MO) || defaults.slowmo;
 
@@ -69,7 +68,6 @@ module.exports.headless = headless;
 module.exports.slowmo = slowmo;
 module.exports.img_height = img_height;
 module.exports.img_width = img_width;
-module.exports.img_scale = img_scale;
 module.exports.img_pfx = img_pfx;
 module.exports.img_seq = img_seq;
 module.exports.jpg_quality = jpg_quality;

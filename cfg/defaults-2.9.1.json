@@ -13,7 +13,6 @@
     "debug"             : true,
     "img_width"         : 1280,
     "img_height"        : 720,
-    "img_scale"         : 1,
     "login_user_elem"   : "div.login-form:nth-child(1) > input:nth-child(1)",
     "login_pass_elem"   : "#inputPassword",
     "login_skip_elem"   : "a.btn",

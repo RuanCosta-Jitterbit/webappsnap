@@ -11,7 +11,6 @@
     "img_ext": ".jpg",
     "img_width": 1280,
     "img_height": 1280,
-    "img_scale": 1,
     "jpg_quality": 75,
     "log_in": true,
     "headless": true,

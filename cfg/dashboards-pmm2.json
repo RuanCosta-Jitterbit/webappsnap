@@ -3,11 +3,7 @@
     "dashboards": [
         {
             "title": "Home Dashboard",
-            "uid": "pmm-home",
-            "viewport": {
-                "width": 1920,
-                "height": 1080
-            }
+            "uid": "pmm-home"
         },
         {
             "title": "Home Dashboard TALL",

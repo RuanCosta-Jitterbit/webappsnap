@@ -18,7 +18,7 @@ if (argv.list) { // List dashboard UIDs and exit
 
 // Images save path
 var img_dir = path.join(config.img_dir, server_cfg.name,
-    `${String(config.img_width)}x${String(config.img_height)}x${String(config.img_scale)}`);
+    `${String(config.img_width)}x${String(config.img_height)}`);
 
 util.mkdir(img_dir);    // Create image save directory TODO move to snap function
 
@@ -39,42 +39,38 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log("Images");
         console.log(`  Viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT): ${config.img_width}x${config.img_height}`);
         console.log(`  Image filename sequence numbers (SNAP_IMG_SEQ): ${Boolean(config.img_seq)}`);
-        console.log(`  Image scaling factor (SNAP_IMG_SCALE): ${config.img_scale}`);
         console.log(`  Image filename prefix (SNAP_IMG_PFX): ${config.img_pfx}`);
         console.log(`  Image filename suffix (SNAP_IMG_EXT): ${config.img_ext}`);
         if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality (SNAP_JPG_QUALITY): ${config.jpg_quality}`); }
         console.log("Waits");
         console.log(`  Default page load wait: ${server_cfg.wait / 1000} seconds`);
         console.log(`  Default page settle: ${server_cfg.pause / 1000} ${Math.floor(server_cfg.pause / 1000) == 1 ? "second" : "seconds"}`);
+        console.log(`  SlowMo value (SNAP_SLOW_MO): ${config.slowmo / 1000} seconds`);
         console.log("Options");
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
-        console.log(`  SlowMo value (SNAP_SLOW_MO): ${config.slowmo / 1000} seconds`);
         console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all dashboards"); }
         else { console.log(`  Snapping selected (--uid): ${selected_dashboards.join(' ')}`); }
     }
 
-
     // TODO broken since 2.12.0
     //await util.check_versions();
 
-
     const browser = await chromium.launch({
         headless: config.headless,
-//        slowMo: config.slowmo,
-        ignoreHTTPSErrors: true,
-        timeout: 0,
-        defaultViewport: {
-            width: config.img_width,
-            height: config.img_height,
-            deviceScaleFactor: config.img_scale
-        }
-    });  // chromium, firefox, webkit
+        slowMo: config.slowmo,
+        ignoreHTTPSErrors: true
+    });
 
     var page = await browser.newPage();
-    // Default server wait can be overridden per dashboard
-//    page.setDefaultTimeout(server_cfg.wait);
+
+    page.setDefaultTimeout(server_cfg.wait);
+    util.viewport(page, {
+        width: config.img_width,
+        height: config.img_height
+    });
+
 
     // Attempt login if configured (necessary for access to some dashboards)
     if (config.log_in) {
@@ -137,8 +133,8 @@ if (argv.debug) { config.debug = argv.debug; }
 //        await page.waitForLoadState();
 //        await page.waitForTimeout(wait);
         await page.waitForResponse(response =>
-            response.url() === 'https://pmmdemo.percona.com/graph/api/search' &&
-            response.status() === 200, { timeout: wait });
+            response.url() === `${server_cfg.server}/${server_cfg.graph}/api/search` &&
+            response.status() === 200, { timeout: 0 });
 
         await util.eat(page); // cookie popup
 
@@ -154,7 +150,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     const elem = await page.waitForSelector(defaults.container, { visible: true });
                     const bx = await elem.boundingBox();
                     // Resize viewport to container height plus padding
-                    const vp = { width: config.img_width, height: bx.height + 150, deviceScaleFactor: config.img_scale };
+                    const vp = { width: config.img_width, height: bx.height + 150 };
                     await util.viewport(page, vp, true);
                     await util.snap(page, dash.title + "_full", img_dir, true);
                 }
