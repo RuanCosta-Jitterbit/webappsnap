@@ -2,7 +2,7 @@
   "name": "pmmstage",
   "server": "https://pmmstage.percona.com",
   "graph": "",
-  "stem": "d",
+  "dshbd": "d",
   "wait": 30000,
   "pause": 6000
 }

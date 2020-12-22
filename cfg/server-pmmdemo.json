@@ -2,7 +2,7 @@
   "name": "pmmdemo",
   "server": "https://pmmdemo.percona.com",
   "graph": "graph",
-  "stem": "d",
+  "dshbd": "d",
   "wait": 60000,
   "pause": 6000
 }

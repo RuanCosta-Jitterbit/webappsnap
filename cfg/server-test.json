@@ -2,7 +2,7 @@
   "name": "test",
   "server": "https://18.223.166.189",
   "graph": "graph",
-  "stem": "d",
+  "dshbd": "d",
   "wait": 40000,
   "pause": 6000
 }

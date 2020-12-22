@@ -2,7 +2,7 @@
   "name": "local",
   "server": "http://localhost",
   "graph": "graph",
-  "stem": "d",
-  "wait": 45000,
-  "pause": 6000
+  "dshbd": "d",
+  "wait": 15000,
+  "pause": 3000
 }
