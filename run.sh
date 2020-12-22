@@ -16,7 +16,8 @@
 #           the total time for snapping.
 #
 #   --uid: When empty or unset, snaps all PMM dashboards.
-#          To snap specific dashboards, add them as a comma-separated list to this option.
+#          To snap specific dashboards, use a single option with a comma-separated list, or
+#          multiple options each with a UID.
 #          All entries in file specified by SNAP_DASHBOARDS_FILE (or its default) with
 #          matching uid will be snapped, including any panel/component entries.
 #
@@ -26,7 +27,7 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-# SNAP_DEFAULTS_FILE=./cfg/defaults-2.9.1.json
+# SNAP_DEFAULTS_FILE=
 
 ## PMM Server credentials
 # Username.
@@ -39,7 +40,7 @@ set -a
 ## Image base directory.
 # Default: 'img_dir' in defaults file ("./images")
 # Note: Within this directory, images are saved to a directory named:
-# <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}x${SNAP_IMG_SCALE}/
+# <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/
 # E.g. "./images/pmmdemo/1280x720x1/"
 # (See snap() in utils.js for subdirectory and file naming.)
 # SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
@@ -56,21 +57,17 @@ set -a
 ## Dashboard definitions file.
 # Default: 'dashboards_file' in defaults file ("./cfg/dashboards-pmm2.json")
 # SNAP_DASHBOARDS_FILE=./cfg/dashboards-pmm1.json
+# SNAP_DASHBOARDS_FILE=./cfg/dashboards-pmm2-video.json
 
 ## Snap viewport.
-# Default: 'img_width' and 'img_height' in defaults file (1280, 720)
+# Default: 'img_width' and 'img_height' in defaults file (1280, 1280)
 # Note: Can be overridden per dashboard or per step (see pmm-qan entries in dashboards file)
 # SNAP_IMG_WIDTH=1920
 # SNAP_IMG_HEIGHT=1920
 
-## Image scale factor. Multiplies WIDTH and HEIGHT by this value.
-# Default: 1 (from 'img_scale' in defaults file)
-# Note: Use with .jpg file and JPG_QUALITY to reduce image file size
-# SNAP_IMG_SCALE=0.5
-
 ## JPG Quality (% value).
-# Default: 100 (from 'jpg_quality' in defaults file)
-# SNAP_JPG_QUALITY=75
+# Default: 'jpg_quality' in defaults file (75)
+# SNAP_JPG_QUALITY=100
 
 ## Image filetype (.jpg or .png).
 # Default: .jpg (from 'img_ext' in defaults file)
@@ -85,12 +82,12 @@ set -a
 # SNAP_IMG_PFX=''
 
 ## Headless mode. Whether to hide browser while snapping.
-# Default: setting for 'headless' in defaults file (true)
+# Default: 'headless' in defaults file (true)
 # SNAP_HEADLESS=false
 
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode
-# Default: setting for 'slowmo' in defaults file (1000)
-# SNAP_SLOW_MO=2000
+# Default: 'slowmo' in defaults file (0)
+# SNAP_SLOW_MO=500
 
 node main.js --unhandled-rejections=strict "$@"
