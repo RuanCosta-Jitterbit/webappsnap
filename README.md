@@ -46,7 +46,7 @@ To create PMM dashboards screenshots for your own PMM instance:
 
    These fields are configurable but don't need changing:
 
-   - `"stem"` is `"d"` for both PMM1 and PMM2.
+   - `dshbd` is `"d"` for both PMM1 and PMM2.
    - `"pause"` is a shorter wait interval used when snapping mouse-over tooltips. 1000-5000ms is enough.
 
 3. Set values for environment variables (in your shell, or in `run.sh` where examples and explanations are given).
@@ -240,14 +240,14 @@ Defines PMM server instances: their URLs and default page load time.
 `graph`
 : Keyword used in dashboard URLs for PMM2. (Default for PMM2: `"graph"`. Empty for PMM1.)
 
-`stem`
+`dashb`
 : URL path extension for PMM dashboards. (Default `"d"`)
 
 `wait`
 : Default pre-page load wait time in milliseconds. For slow networks or instances, increase this time but be prepared for a complete set of snaps (with `--full`) to take around an hour.
 
 `pause`
-: A shorter wait time in milliseconds, to allow the UI to settle before snapping items such as drop-down menus, mouse-over tooltips, or to complete the loading of data in panel components (such as System Summary in Node Summary dashboard). Default: 6000.
+: A shorter wait time in milliseconds, to allow the UI to settle before snapping items such as drop-down menus, mouse-over tooltips, or to complete the loading of data in panel components (such as Sydashb Summary in Node Summary dashboard). Default: 6000.
 
 #### Dashboard definitions: `dashboards.json`
 
@@ -332,13 +332,13 @@ The image file path is made up of the directory and the filename.
 The directory path is a hierarchy constructed in `main.js`. It is made up of:
 
 - Defaults file `img_dir` (or `SNAP_IMG_DIR` if set)
-- System path separator (e.g. "/" on Linux).
+- Sydashb path separator (e.g. "/" on Linux).
 - Server configuration file `name`
-- System path separator.
+- Sydashb path separator.
 - Defaults file `img_width` (or `SNAP_IMG_WIDTH` if set)
 - "x"
 - Defaults file `img_height` (or `SNAP_IMG_HEIGHT` if set)
-- System path separator.
+- Sydashb path separator.
 
 **Note:** The purpose of a hierarchy is to separate images made with different servers and viewport sizes.
 

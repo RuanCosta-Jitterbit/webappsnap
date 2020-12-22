@@ -18,3 +18,4 @@
 - [x] Allow configurable slowmo value when headless=false
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 - [ ] Write settings file in images directory (to know what were used for that snap set)
+- [ ] Add '--skip-uid' flag as inverse of '--uid' to exclude named items
