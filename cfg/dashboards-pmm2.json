@@ -13,7 +13,6 @@
                 "height": 1440
             }
         },
-
         {
             "title": "CPU Utilization Details",
             "uid": "node-cpu"
@@ -22,7 +21,6 @@
             "title": "Disk Details",
             "uid": "node-disk"
         },
-
         {
             "title": "Memory Details",
             "uid": "node-memory"
@@ -335,7 +333,7 @@
                             "name": "Select Item",
                             "type": "click",
                             "comment": "Select first in row",
-                            "selector": "td.css-pw663m > div:nth-child(1) > label:nth-child(1) > input:nth-child(1)"
+                            "selector": "[data-qa='select-row']"
                         },
                         {
                             "name": "Select Item",
@@ -362,7 +360,7 @@
                         {
                             "name": "Unselect Item",
                             "type": "click",
-                            "selector": "td.css-pw663m > div:nth-child(1) > label:nth-child(1) > input:nth-child(1)"
+                            "selector": "[data-qa='select-row']"
                         },
                         {
                             "name": "Unselect Item",
@@ -1191,6 +1189,44 @@
                         },
                         {
                             "name": "Execute",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Alert Rules",
+            "uid": "list",
+            "url": "graph/alerting/list",
+            "viewport": {
+                "width": 1280,
+                "height": 720
+            }
+        },
+        {
+            "title": "Notification",
+            "uid": "notifications",
+            "url": "graph/alerting/notifications",
+            "viewport": {
+                "width": 1280,
+                "height": 870
+            },
+            "operations": [
+                {
+                    "name": "Channels",
+                    "steps": [
+                        {
+                            "name": "Add",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "New",
+                            "type": "click",
+                            "selector": "body > grafana-app > div > div > react-container > div > div > div.view > div > div.page-container.page-body > div > a"
+                        },
+                        {
+                            "name": "New",
                             "type": "snap"
                         }
                     ]
