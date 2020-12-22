@@ -113,28 +113,40 @@ if (argv.debug) { config.debug = argv.debug; }
         if (dash.options) { option_string = "?" + dash.options.join('&'); }
 
         // Most are dashboards with URLs built from config as SERVER/graph/d/UID
-        // Exceptions (using 'url'): SERVER/swagger, SERVER/graph/login
+        // Exceptions (using 'url'):
+        // - SERVER/swagger
+        // - SERVER/graph/login
+        // - SERVER/alerting/list
+        // - SERVER/alerting/notifications
         var server_url;
+        var wait_for_response = true; // Need to skip response wait for certain dashboards
+
         if (dash.url) {
             server_url = `${server_cfg.server}/${dash.url}`;
+            wait_for_response = false;
         } else {
             server_url =
-                `${server_cfg.server}/${server_cfg.graph}/${server_cfg.stem}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
+                `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
         }
 
         // PART 2 - Optional dashboard viewport
         const dashboard_viewport = { width: config.img_width, height: config.img_height };
         if (dash.viewport) { await util.viewport(page, dash.viewport); }
 
-        // PART 3 - Load URL with either default global or dashboard-specific wait time
+        // PART 3 - Load URL
         await util.load(page, server_url, wait);
 
-        // TODO how long to wait when network slow
-//        await page.waitForLoadState();
-//        await page.waitForTimeout(wait);
-        await page.waitForResponse(response =>
-            response.url() === `${server_cfg.server}/${server_cfg.graph}/api/search` &&
-            response.status() === 200, { timeout: 0 });
+
+        // One approach to knowing when the page has finished loading
+        if (wait_for_response) {
+            try {
+                await page.waitForResponse(response =>
+                    response.url() === `${server_cfg.server}/${server_cfg.graph}/api/search` &&
+                    response.status() === 200, { timeout: server_cfg.wait });
+            } catch (e) {
+                console.log(`Stopped waiting for response (${e})`);
+            }
+        }
 
         await util.eat(page); // cookie popup
 
