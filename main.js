@@ -63,7 +63,7 @@ if (argv.debug) { config.debug = argv.debug; }
         ignoreHTTPSErrors: true
     });
 
-    var page = await browser.newPage();
+    var page = await browser.newPage({ignoreHTTPSErrors: true});
 
     page.setDefaultTimeout(server_cfg.wait);
     util.viewport(page, {
