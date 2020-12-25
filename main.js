@@ -217,7 +217,7 @@ if (argv.debug) { config.debug = argv.debug; }
                                     await page.waitForSelector(step.selector, { visible: true }) :
                                     page;
                             await process.stdout.write("    "); // Indent following message
-                            await util.snap(selector, [dash.title, operation.name, step.name].join("_"), img_dir);
+                            await util.snap(selector, [dash.title, operation.name, step.name].filter(String).join("_"), img_dir);
                             break;
                     }
                 } catch (e) {
