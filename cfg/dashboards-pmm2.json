@@ -1196,16 +1196,152 @@
             ]
         },
         {
-            "title": "Alert Rules",
+            "title": "Integrated Alerting",
+            "uid": "integrated-alerting",
+            "url": "graph/integrated-alerting",
+            "operations": [
+                {
+                    "name": "Alerts",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "Alert Rules",
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "selector": "[aria-label=\"Tab Alert Rules\"]"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "selector": "[data-qa=\"alert-rule-template-add-modal-button\"]",
+                            "viewport": {
+                                "comment": "Viewport shrinks vertical menu to avoid ugly space",
+                                "width": 1280,
+                                "height": 1000
+                            }
+
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 1000
+                        },
+                        {
+                            "name": "Add Form",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Integrated Alerting",
+            "uid": "integrated-alerting",
+            "url": "graph/integrated-alerting",
+            "operations": [
+                {
+                    "name": "Alert Rule Templates",
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "selector": "[aria-label=\"Tab Alert Rule Templates\"]"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "selector": "[data-qa=\"alert-rule-template-add-modal-button\"]"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 1000
+                        },
+                        {
+                            "name": "Add Form",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Integrated Alerting",
+            "uid": "integrated-alerting",
+            "url": "graph/integrated-alerting",
+            "operations": [
+                {
+                    "name": "Notification Channels",
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "selector": "[aria-label=\"Tab Notification Channels\"]"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "selector": "[data-qa=\"notification-channel-add-modal-button\"]"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 1000
+                        },
+                        {
+                            "name": "Add Form",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Alert Rules (OLD)",
             "uid": "list",
             "url": "graph/alerting/list",
             "viewport": {
                 "width": 1280,
                 "height": 720
-            }
+            },
+            "wait": 6000
         },
         {
-            "title": "Notification",
+            "title": "Notifications (OLD)",
             "uid": "notifications",
             "url": "graph/alerting/notifications",
             "viewport": {
