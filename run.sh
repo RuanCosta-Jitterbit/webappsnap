@@ -2,7 +2,8 @@
 #
 # Wrapper script for auto screen capture using Puppeteer
 #
-# Environment variables set here override those in defaults.json
+# Default values are defined in defaults.json
+# Environment variables override settings in defaults.json
 #
 # USAGE
 #
@@ -43,7 +44,7 @@ set -a
 # <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/
 # E.g. "./images/pmmdemo/1280x720x1/"
 # (See snap() in utils.js for subdirectory and file naming.)
-# SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
+SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
 ## Log in and snap the login screen.
 # Default: 'log_in' field in defaults file (true)
@@ -52,7 +53,7 @@ set -a
 ## Server config file.
 # Default: 'config_file' in defaults file ("./cfg/server-pmmdemo.json")
 # SNAP_SRV_CFG_FILE=./cfg/server-test.json
-# SNAP_SRV_CFG_FILE=./cfg/server-local.json
+SNAP_SRV_CFG_FILE=./cfg/server-local.json
 
 ## Dashboard definitions file.
 # Default: 'dashboards_file' in defaults file ("./cfg/dashboards-pmm2.json")
@@ -62,8 +63,8 @@ set -a
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file (1280, 1280)
 # Note: Can be overridden per dashboard or per step (see pmm-qan entries in dashboards file)
-# SNAP_IMG_WIDTH=1920
-# SNAP_IMG_HEIGHT=1920
+SNAP_IMG_WIDTH=1280
+SNAP_IMG_HEIGHT=720
 
 ## JPG Quality (% value).
 # Default: 'jpg_quality' in defaults file (75)
@@ -75,7 +76,7 @@ set -a
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file (false)
-# SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file ("PMM")

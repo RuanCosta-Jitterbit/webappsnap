@@ -1,6 +1,6 @@
 {
     "COMMENT": "Default values for settings. Many can be overridden via envvars or on the command line",
-    "version": "2.12.0",
+    "version": "2.13.0",
     "config_file": "./cfg/server-pmmdemo.json",
     "dashboards_file": "./cfg/dashboards-pmm2.json",
     "user": "admin",

@@ -57,10 +57,10 @@ if (argv.debug) { config.debug = argv.debug; }
     // TODO broken since 2.12.0
     //await util.check_versions();
 
-    const browser = await chromium.launch({
+
+    const browser = await webkit.launch({
         headless: config.headless,
-        slowMo: config.slowmo,
-        ignoreHTTPSErrors: true
+        slowMo: config.slowmo
     });
 
     var page = await browser.newPage({ignoreHTTPSErrors: true});
@@ -70,7 +70,6 @@ if (argv.debug) { config.debug = argv.debug; }
         width: config.img_width,
         height: config.img_height
     });
-
 
     // Attempt login if configured (necessary for access to some dashboards)
     if (config.log_in) {
