@@ -118,14 +118,18 @@ if (argv.debug) { config.debug = argv.debug; }
         // - SERVER/alerting/list
         // - SERVER/alerting/notifications
         var server_url;
-        var wait_for_response = true; // Need to skip response wait for certain dashboards
+        // Need to skip response wait for direct URL dashboards and others (e.g. pmm-home)
+        var wait_for_response = true;
+
+        server_url =
+            `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
 
         if (dash.url) {
             server_url = `${server_cfg.server}/${dash.url}`;
             wait_for_response = false;
-        } else {
-            server_url =
-                `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
+        }
+        if (dash.skip_wait_for_response) {
+            wait_for_response = false;
         }
 
         // PART 2 - Optional dashboard viewport
