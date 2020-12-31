@@ -2,18 +2,6 @@
     "version": "2.13.0",
     "dashboards": [
         {
-            "title": "Home Dashboard",
-            "uid": "pmm-home"
-        },
-        {
-            "title": "Home Dashboard TALL",
-            "uid": "pmm-home",
-            "viewport": {
-                "width": 1280,
-                "height": 1440
-            }
-        },
-        {
             "title": "CPU Utilization Details",
             "uid": "node-cpu"
         },
@@ -1050,6 +1038,21 @@
         {
             "title": "Home Dashboard",
             "uid": "pmm-home",
+            "skip_wait_for_response": true
+        },
+        {
+            "title": "Home Dashboard TALL",
+            "uid": "pmm-home",
+            "skip_wait_for_response": true,
+            "viewport": {
+                "width": 1280,
+                "height": 1120
+            }
+        },
+        {
+            "title": "Home Dashboard",
+            "uid": "pmm-home",
+            "skip_wait_for_response": true,
             "operations": [
                 {
                     "name": "Menus",
@@ -1083,7 +1086,14 @@
                             }
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "title": "Home Dashboard",
+            "uid": "pmm-home",
+            "skip_wait_for_response": true,
+            "operations": [
                 {
                     "name": "Panels",
                     "steps": [
