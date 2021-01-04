@@ -1038,22 +1038,25 @@
         {
             "title": "Home Dashboard",
             "uid": "pmm-home",
-            "skip_wait_for_response": true
-        },
-        {
-            "title": "Home Dashboard TALL",
-            "uid": "pmm-home",
-            "skip_wait_for_response": true,
-            "viewport": {
-                "width": 1280,
-                "height": 1120
-            }
-        },
-        {
-            "title": "Home Dashboard",
-            "uid": "pmm-home",
             "skip_wait_for_response": true,
             "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "TALL",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1280,
+                                "height": 1120
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "Menus",
                     "steps": [
@@ -1063,7 +1066,7 @@
                             "selector": ".sidemenu",
                             "viewport": {
                                 "comment": "Viewport shrinks vertical menu to avoid ugly space",
-                                "width": 1080,
+                                "width": 900,
                                 "height": 720
                             }
                         },
@@ -1072,7 +1075,7 @@
                             "type": "snap",
                             "selector": ".navbar",
                             "viewport": {
-                                "width": 720,
+                                "width": 900,
                                 "height": 1080
                             }
                         },
@@ -1081,19 +1084,12 @@
                             "type": "snap",
                             "selector": ".submenu-controls",
                             "viewport": {
-                                "width": 1080,
+                                "width": 900,
                                 "height": 1080
                             }
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "title": "Home Dashboard",
-            "uid": "pmm-home",
-            "skip_wait_for_response": true,
-            "operations": [
+                },
                 {
                     "name": "Panels",
                     "steps": [
@@ -1106,6 +1102,45 @@
                             "name": "Upgrade",
                             "type": "snap",
                             "selector": "#panel-1337"
+                        }
+                    ]
+                },
+                {
+                    "name": "Search",
+                    "steps": [
+                        {
+                            "name": "Click",
+                            "type": "click",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.navbar > div:nth-child(1) > div"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": "5000"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "String",
+                            "type": "text",
+                            "selector":"body > grafana-app > search-wrapper > div > div > div.css-pmp369 > div.css-1schass > input",
+                            "value": "Instances"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": "5000"
+                        },
+                        {
+                            "name": "String",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369 > div.css-1962slh > button"
                         }
                     ]
                 }
@@ -1122,7 +1157,7 @@
                         {
                             "name": "Annotation Toggle",
                             "type": "snap",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls > div:nth-child(4) > div"
+                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls > div:nth-child(3) > div"
                         }
                     ]
                 },
