@@ -227,12 +227,10 @@ if (argv.debug) { config.debug = argv.debug; }
                     console.log("Skipping");
                     console.log(e);
                 }
-
             } // for step
-
+            await util.viewport(page, dashboard_viewport); // Reset
         } // for operations
-        // Reset
-        await util.viewport(page, dashboard_viewport);
+        await util.viewport(page, dashboard_viewport); // Reset
     } // for dashboards
 
     await browser.close();
