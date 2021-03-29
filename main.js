@@ -214,6 +214,12 @@ if (argv.debug) { config.debug = argv.debug; }
                         case "blur":
                             await page.addStyleTag({ content: `${step.selector} { filter: blur(2px); }` });
                             break;
+						case "highlight":
+							await page.addStyleTag({ content: `${step.selector} { border: ${defaults.highlight_style} }` });
+                            break;
+						case "unhighlight":
+							await page.addStyleTag({ content: `${step.selector} { border: none }` });
+                            break;
                         case "snap":
                             const selector =
                                 (step.selector) ?

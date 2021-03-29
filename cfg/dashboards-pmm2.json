@@ -1,5 +1,5 @@
 {
-    "version": "2.13.0",
+    "version": "2.16.0",
     "dashboards": [
         {
             "title": "CPU Utilization Details",
@@ -667,7 +667,8 @@
         },
         {
             "title": "Settings",
-            "uid": "pmm-settings",
+            "uid": "settings",
+            "url": "graph/settings/",
             "viewport": {
                 "comment": "Adjust viewport to make settings page look less sparse",
                 "width": 1280,
@@ -692,38 +693,28 @@
         },
         {
             "title": "Settings Metrics Resolution",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=metrics-resolution"
-            ]
+            "uid": "settings",
+            "url": "graph/settings/metrics-resolution"
         },
         {
             "title": "Settings Advanced Settings",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=advanced-settings"
-            ]
+            "uid": "settings",
+            "url": "graph/settings/advanced-settings"
         },
         {
             "title": "Settings SSH Key",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=ssh-key"
-            ]
+            "uid": "settings",
+            "url": "graph/settings/ssh-key"
         },
         {
             "title": "Settings Alertmanager Integration",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=am-integration"
-            ]
+            "uid": "settings",
+            "url": "graph/settings/am-integration"
         },
         {
             "title": "Settings Percona Platform",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=percona-platform"
-            ],
+            "uid": "settings",
+            "url": "graph/settings/percona-platform",
             "operations": [
                 {
                     "name": "",
@@ -747,10 +738,8 @@
         },
         {
             "title": "Settings Advanced",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=advanced-settings"
-            ],
+            "uid": "settings",
+            "url": "graph/settings/advanced-settings",
             "operations": [
                 {
                     "name": "Integrated Alerting",
@@ -758,7 +747,7 @@
                         {
                             "name": "Activate",
                             "type": "click",
-                            "selector": "#panel-2 > div > div:nth-child(1) > div > div.panel-content > div > div.css-zahccf > div > form > div:nth-child(5) > div:nth-child(2) > div > label"
+                            "selector": "body > grafana-app > div > div > react-container > div > div.css-1lefdfv > div.css-zahccf > div > form > div:nth-child(5) > div:nth-child(2) > div > label"
                         },
                         {
                             "name": "Apply",
@@ -780,10 +769,8 @@
         },
         {
             "title": "Settings Communication",
-            "uid": "pmm-settings",
-            "options": [
-                "menu=communication"
-            ],
+            "uid": "settings",
+            "url": "graph/settings/communication",
             "viewport": {
                 "width": 1280,
                 "height": 1000
@@ -815,7 +802,7 @@
                             "name": "Kubeconfig file",
                             "type": "text",
                             "selector": "[data-qa=\"kubeConfig-textarea-input\"]",
-                            "value": "apiVersion: v1\nkind: Config\nusers:\n- name: percona-dbaas-cluster-operator\n  user:\n    token: <token>\nclusters:\n- cluster:\n    insecure-skip-tls-verify: true\n    server: https://<server>:<port>\n  name: self-hosted-cluster\ncontexts:\n- context:\n    cluster: self-hosted-cluster\n    user: percona-dbaas-cluster-operator\n  name: svcs-acct-context\ncurrent-context: svcs-acct-context"
+                            "value": "apiVersion: v1\nkind: Config\nusers:\n- name: percona-xtradb-cluster-operator\n  user:\n    token: XX\nclusters:\n- cluster:\n    insecure-skip-tls-verify: true\n    server: https://192.168.65.2:55000\n  name: self-hosted-cluster\ncontexts:\n- context:\n    cluster: self-hosted-cluster\n    user: percona-xtradb-cluster-operator\n  name: percona-xtradb-cluster-context\ncurrent-context: percona-xtradb-cluster-context"
                         },
                         {
                             "name": "Details",
@@ -885,13 +872,13 @@
                         {
                             "name": "Kubernetes Cluster",
                             "type": "text",
-                            "selector": "#react-select-3-input",
+                            "selector": "#react-select-2-input",
                             "value": "MyKubernetesCluster\n"
                         },
                         {
                             "name": "Database Type",
                             "type": "text",
-                            "selector": "#react-select-4-input",
+                            "selector": "#react-select-3-input",
                             "value": "MySQL\n"
                         },
                         {
@@ -1014,9 +1001,18 @@
                             "selector": "[aria-label=\"Tab Kubernetes Cluster\"]"
                         },
                         {
+                            "name": "Menu",
+                            "type": "click",
+                            "selector": "[data-qa='dropdown-menu-toggle']"
+                        },
+                        {
+                            "name": "Menu",
+                            "type": "snap"
+                        },
+                        {
                             "name": "Unregister",
                             "type": "click",
-                            "selector": "[data-qa=\"open-delete-modal-button\"]"
+                            "selector": "#panel-1 > div > div:nth-child(1) > div > div.panel-content > div > div.css-18m13of > div > div.css-1kajsh6 > div > table > tbody > tr > td:nth-child(4) > div > div > div > span:nth-child(1)"
                         },
                         {
                             "name": "Unregister",
@@ -1025,7 +1021,7 @@
                         {
                             "name": "Proceed",
                             "type": "click",
-                            "selector": "[data-qa=\"delete-kubernetes-button\"]"
+                            "selector": "[data-qa='delete-kubernetes-button']"
                         },
                         {
                             "name": "Unregistered",
@@ -1035,6 +1031,102 @@
                 }
             ]
         },
+        {
+            "title": "Home Dashboard Elements",
+            "uid": "pmm-home",
+            "skip_wait_for_response": true,
+            "viewport": {
+                "width": 1280,
+                "height": 1120
+            },
+            "operations": [
+                {
+                    "name": "Highlight",
+                    "steps": [
+                        {
+                            "name": "Highlight",
+                            "type": "highlight",
+                            "selector": ".navbar"
+                        },
+                        {
+                            "name": "Navbar",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "unhighlight",
+                            "selector": ".navbar"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "highlight",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls"
+                        },
+                        {
+                            "name": "Submenu",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "unhighlight",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "highlight",
+                            "selector": ".sidemenu"
+                        },
+                        {
+                            "name": "Sidemenu",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "unhighlight",
+                            "selector": ".sidemenu"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "highlight",
+                            "selector": "#panel-1381"
+                        },
+                        {
+                            "name": "Failed Security Checks",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "unhighlight",
+                            "selector": "#panel-1381"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "highlight",
+                            "selector": "#panel-1337"
+                        },
+                        {
+                            "name": "Upgrade",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "unhighlight",
+                            "selector": "#panel-1337"
+                        }
+                    ]
+                }
+            ]
+        },
+
+
+
+
+
+
+
+
+
+
         {
             "title": "Home Dashboard",
             "uid": "pmm-home",
@@ -1057,6 +1149,11 @@
                         }
                     ]
                 },
+
+
+
+
+
                 {
                     "name": "Menus",
                     "steps": [
@@ -1125,7 +1222,7 @@
                         {
                             "name": "String",
                             "type": "text",
-                            "selector":"body > grafana-app > search-wrapper > div > div > div.css-pmp369 > div.css-1schass > input",
+                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369 > div.css-1schass > input",
                             "value": "Instances"
                         },
                         {

@@ -20,3 +20,4 @@
 - [ ] Write settings file in images directory (to know what were used for that snap set)
 - [ ] Add '--skip-uid' flag as inverse of '--uid' to exclude named items
 - [ ] Allow choice of browser technology {chromium|webkit|firefox}
+- [ ] Allow skipping/selecting operations/steps per UID

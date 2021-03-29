@@ -89,6 +89,6 @@ SNAP_IMG_SEQ=true
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode
 # Default: 'slowmo' in defaults file (0)
-# SNAP_SLOW_MO=500
+#SNAP_SLOW_MO=500
 
 node main.js --unhandled-rejections=strict "$@"
