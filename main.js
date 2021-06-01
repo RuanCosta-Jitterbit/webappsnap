@@ -64,7 +64,6 @@ if (argv.debug) { config.debug = argv.debug; }
     });
 
     var page = await browser.newPage({ignoreHTTPSErrors: true});
-
     page.setDefaultTimeout(server_cfg.wait);
     util.viewport(page, {
         width: config.img_width,
@@ -89,13 +88,20 @@ if (argv.debug) { config.debug = argv.debug; }
      *
      * Part 1: Build URL
      * Part 2: Define viewport
-     * Part 3: Load the page and remove any 'cookie confirm' dialogue
-     * Part 4: If no operations, snap the viewport and optionally (--full) unconstrained container
-     * Part 5: If operations/steps, process them sequentially
-     * Part 6: Close the browser page. This prevents long 'breadcrumb' paths cluttering the menu.
+     * Part 3: Load the page
+     * Part 4: Remove any unwanted page elements:
+     *   - 'cookie confirm' dialogue
+     *
+     * Part 5: If no operations, snap the viewport and optionally (--full) unconstrained container
+     * Part 6: If operations/steps, process them sequentially
      */
     for (var d in dashboards) {
         var dash = dashboards[d]; // convenience handle
+
+        if (dash.skip) {
+            console.log(`Skipping ${dash.uid}`)
+            continue; // Skip a dashboard
+        }
 
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         // TODO Check that supplied UIDs exist
@@ -108,8 +114,6 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // PART 1 - Build URL
         // Create option string if needed
-        var option_string = "";
-        if (dash.options) { option_string = "?" + dash.options.join('&'); }
 
         // Most are dashboards with URLs built from config as SERVER/graph/d/UID
         // Exceptions (using 'url'):
@@ -117,20 +121,17 @@ if (argv.debug) { config.debug = argv.debug; }
         // - SERVER/graph/login
         // - SERVER/alerting/list
         // - SERVER/alerting/notifications
+        // - SERVER/settings
         var server_url;
-        // Need to skip response wait for direct URL dashboards and others (e.g. pmm-home)
-        var wait_for_response = true;
-
-        server_url =
-            `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(option_string.length > 1) ? option_string : ''}`;
+        var option_string = "";
+        if (dash.options) { option_string = "?" + dash.options.join('&'); }
 
         if (dash.url) {
-            server_url = `${server_cfg.server}/${dash.url}`;
-            wait_for_response = false;
+            server_url = `${server_cfg.server}/${dash.url}${(dash.options) ? option_string : ''}`;
+        } else {
+            server_url = `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(dash.options) ? option_string : ''}`;
         }
-        if (dash.skip_wait_for_response) {
-            wait_for_response = false;
-        }
+
 
         // PART 2 - Optional dashboard viewport
         const dashboard_viewport = { width: config.img_width, height: config.img_height };
@@ -139,21 +140,15 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 3 - Load URL
         await util.load(page, server_url, wait);
 
+        // TODO Reliable way of knowing when page has completed loading
 
-        // One approach to knowing when the page has finished loading
-        if (wait_for_response) {
-            try {
-                await page.waitForResponse(response =>
-                    response.url() === `${server_cfg.server}/${server_cfg.graph}/api/search` &&
-                    response.status() === 200, { timeout: server_cfg.wait });
-            } catch (e) {
-                console.log(`Stopped waiting for response (${e})`);
-            }
-        }
+        // PART 4 - Remove unwanted elements
+        //await util.eat(page); // cookie popup
+        await util.erase(page, defaults.cookie_popup_elem);
+        await util.erase(page, defaults.breadcrumb_container);
 
-        await util.eat(page); // cookie popup
 
-        // PART 4 - Dashboard-level snap (no operations)
+        // PART 5 - Dashboard-level snap (no operations)
         if (!dash.operations) {
             await util.snap(page, dash.title, img_dir);
 
@@ -175,7 +170,7 @@ if (argv.debug) { config.debug = argv.debug; }
             }
         }
 
-        // PART 5 - Operations - Any number of groups of steps, each step being an array of one of:
+        // PART 6 - Operations - Any number of groups of steps, each step being an array of one of:
         // - move: move to (hover over) a selector;
         // - text: enter text into the selector;
         // - click: click the selector;
@@ -189,15 +184,22 @@ if (argv.debug) { config.debug = argv.debug; }
             const operation = dash.operations[o]; // Convenience handle
             console.log(`Operation: ${o}: ${operation.name}`);
 
+            if (operation.viewport) {
+                console.log(`  Viewport: ${operation.viewport.width}x${operation.viewport.height}`);
+                await util.viewport(page, operation.viewport);
+            }
+
             for (var s in operation.steps) {
                 const step = operation.steps[s]; // Convenience handle
 
-                if (step.viewport) { await util.viewport(page, step.viewport); }
 
                 try {
                     console.log(`  Step ${s}: ${step.name} (${step.type})`);
 
                     switch (step.type) {
+                        case "back":
+                            await page.goBack();
+                            break;
                         case "wait":
                             console.log(`    ${step.period} ms`);
                             await page.waitForTimeout(step.period);
@@ -214,11 +216,11 @@ if (argv.debug) { config.debug = argv.debug; }
                         case "blur":
                             await page.addStyleTag({ content: `${step.selector} { filter: blur(2px); }` });
                             break;
-						case "highlight":
-							await page.addStyleTag({ content: `${step.selector} { border: ${defaults.highlight_style} }` });
+                        case "highlight":
+                            await page.addStyleTag({ content: `${step.selector} { border: ${defaults.highlight_style} }` });
                             break;
-						case "unhighlight":
-							await page.addStyleTag({ content: `${step.selector} { border: none }` });
+                        case "unhighlight":
+                            await page.addStyleTag({ content: `${step.selector} { border: none }` });
                             break;
                         case "snap":
                             const selector =
@@ -238,6 +240,6 @@ if (argv.debug) { config.debug = argv.debug; }
         } // for operations
         await util.viewport(page, dashboard_viewport); // Reset
     } // for dashboards
-
     await browser.close();
+
 })();

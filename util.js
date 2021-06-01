@@ -166,6 +166,24 @@ async function eat(page) {
 }
 
 /*
+** Remove element from page
+*/
+async function erase(page, element) {
+    try {
+        await page.$(element, {
+            timeout: config.server_cfg.pause,
+            visible: true
+        });
+        await page.evaluate((sel) => {
+            var elements = document.querySelectorAll(sel);
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].parentNode.removeChild(elements[i]);
+            }
+        }, element);
+    } catch (err) { console.log("Can't remove element" + err + "\n"); }
+}
+
+/*
 ** GET via Swagger API
 */
 async function swagger(url, callback) {
@@ -202,6 +220,7 @@ module.exports.mkdir = mkdir;
 module.exports.load = load;
 module.exports.login = login;
 module.exports.eat = eat;
+module.exports.erase = erase;
 module.exports.viewport = viewport;
 module.exports.swagger = swagger;
 module.exports.check_versions = check_versions;

@@ -7,11 +7,15 @@
         },
         {
             "title": "Disk Details",
-            "uid": "node-disk"
+            "uid": "node-disk",
+            "skip_wait_for_response": true
         },
         {
             "title": "Memory Details",
-            "uid": "node-memory"
+            "uid": "node-memory",
+            "options": [
+                "var-node_name=pmm-server"
+            ]
         },
         {
             "title": "MongoDB Cluster Summary",
@@ -64,9 +68,6 @@
         {
             "title": "MySQL Instance Summary",
             "uid": "mysql-instance-summary",
-            "options": [
-                "var-service_name=rds-mysql57"
-            ],
             "wait": 60000
         },
         {
@@ -75,11 +76,7 @@
         },
         {
             "title": "MySQL Instances Overview",
-            "uid": "mysql-instance-overview",
-            "options": [
-                "var-service_name=pxc57-1-mysql",
-                "var-service_name=pxc57-3-mysql"
-            ]
+            "uid": "mysql-instance-overview"
         },
         {
             "title": "MySQL MyISAM/Aria Details",
@@ -119,7 +116,7 @@
         },
         {
             "title": "MySQL Group Replication Summary",
-            "uid": "mysql-group-repl"
+            "uid": "mysql-group-replicaset-summary"
         },
         {
             "title": "NUMA Details",
@@ -183,7 +180,11 @@
         },
         {
             "title": "VictoriaMetrics",
-            "uid": "victoriametrics"
+            "uid": "victoriametrics",
+            "viewport": {
+                "width": 1280,
+                "height": 720
+            }
         },
         {
             "title": "VictoriaMetrics Agents Overview",
@@ -195,108 +196,131 @@
         },
         {
             "title": "Add Instance",
-            "uid": "pmm-add-instance"
-        },
-        {
-            "title": "Add Instance",
-            "uid": "pmm-add-instance",
+            "uid": "add-instance",
+            "url": "graph/add-instance",
             "viewport": {
                 "width": 1280,
-                "height": 1280
-            },
+                "height": 720
+            }
+        },
+        {
+            "title": "Add",
+            "uid": "add-instance",
+            "url": "graph/add-instance",
             "operations": [
                 {
-                    "name": "AWS",
+                    "name": "Instance",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 720
+                    },
                     "steps": [
                         {
                             "name": "Select",
                             "type": "click",
-                            "selector": "a.navigation__link:nth-child(1)"
+                            "selector": "[data-qa='rds-instance']"
                         },
                         {
-                            "name": "Details",
+                            "name": "AWS RDS",
                             "type": "snap"
                         },
                         {
                             "name": "Return",
                             "type": "click",
-                            "selector": ".ant-btn"
+                            "selector": "'Return to menu'"
                         }
                     ]
                 },
                 {
-                    "name": "Add PostgreSQL",
+                    "name": "Instance",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 1850
+                    },
                     "steps": [
                         {
                             "name": "Select",
                             "type": "click",
-                            "selector": "a.navigation__link:nth-child(2)"
+                            "selector": "[data-qa='postgresql-instance']"
                         },
                         {
-                            "name": "Details",
+                            "name": "PostgreSQL",
                             "type": "snap"
                         },
                         {
                             "name": "Return",
                             "type": "click",
-                            "selector": ".ant-btn"
-                        }
-                    ]
-                },
-                {
-                    "name": "Add MySQL",
-                    "steps": [
+                            "selector": "'Return to menu'"
+                        },
                         {
                             "name": "Select",
                             "type": "click",
-                            "selector": "a.navigation__link:nth-child(3)"
+                            "selector": "[data-qa='mysql-instance']"
                         },
                         {
-                            "name": "Details",
+                            "name": "MySQL",
                             "type": "snap"
                         },
                         {
                             "name": "Return",
                             "type": "click",
-                            "selector": ".ant-btn"
-                        }
-                    ]
-                },
-                {
-                    "name": "Add MongoDB",
-                    "steps": [
+                            "selector": "'Return to menu'"
+                        },
                         {
                             "name": "Select",
                             "type": "click",
-                            "selector": "a.navigation__link:nth-child(4)"
+                            "selector": "[data-qa='mongodb-instance']"
                         },
                         {
-                            "name": "Details",
+                            "name": "MongoDB",
                             "type": "snap"
                         },
                         {
                             "name": "Return",
                             "type": "click",
-                            "selector": ".ant-btn"
-                        }
-                    ]
-                },
-                {
-                    "name": "Add ProxySQL",
-                    "steps": [
+                            "selector": "'Return to menu'"
+                        },
                         {
                             "name": "Select",
                             "type": "click",
-                            "selector": "a.navigation__link:nth-child(5)"
+                            "selector": "[data-qa='proxysql-instance']"
                         },
                         {
-                            "name": "Details",
+                            "name": "ProxySQL",
                             "type": "snap"
                         },
                         {
                             "name": "Return",
                             "type": "click",
-                            "selector": ".ant-btn"
+                            "selector": "'Return to menu'"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "selector": "[data-qa='external-instance']"
+                        },
+                        {
+                            "name": "External",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "selector": "'Return to menu'"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "selector": "[data-qa='haproxy-instance']"
+                        },
+                        {
+                            "name": "HAProxy",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "selector": "'Return to menu'"
                         }
                     ]
                 }
@@ -304,15 +328,18 @@
         },
         {
             "title": "Database Checks",
-            "uid": "pmm-checks"
+            "uid": "pmm-database-checks",
+            "url": "graph/pmm-database-checks"
         },
         {
             "title": "Inventory",
-            "uid": "pmm-inventory"
+            "uid": "inventory",
+            "url": "graph/inventory"
         },
         {
             "title": "Inventory",
-            "uid": "pmm-inventory",
+            "uid": "inventory",
+            "url": "graph/inventory",
             "operations": [
                 {
                     "name": "Delete",
@@ -330,7 +357,7 @@
                         {
                             "name": "Delete Item",
                             "type": "click",
-                            "selector": ".css-8txkzz-button"
+                            "selector": "[class='css-vshpqg-button']"
                         },
                         {
                             "name": "Delete Item",
@@ -339,7 +366,7 @@
                         {
                             "name": "Cancel Delete Item",
                             "type": "click",
-                            "selector": ".css-n4gkqg-button"
+                            "selector": "[class='css-n4gkqg-button']"
                         },
                         {
                             "name": "Cancel Delete Item",
@@ -368,7 +395,8 @@
             "viewport": {
                 "width": 1920,
                 "height": 1080
-            }
+            },
+            "wait": 60000
         },
         {
             "title": "Query Analytics",
@@ -448,14 +476,9 @@
                     "name": "Panels",
                     "steps": [
                         {
-                            "name": "Overview Table",
-                            "type": "snap",
-                            "selector": ".table-body"
-                        },
-                        {
                             "name": "Filters",
                             "type": "snap",
-                            "selector": ".overview-filters > div:nth-child(1)"
+                            "selector": "[data-qa='pmm-overlay-wrapper']"
                         }
                     ]
                 },
@@ -475,22 +498,7 @@
                         {
                             "name": "Group By",
                             "type": "snap",
-                            "selector": ".group-by-selector"
-                        },
-                        {
-                            "name": "Dimension Search",
-                            "type": "snap",
-                            "selector": "div.th:nth-child(2)"
-                        },
-                        {
-                            "name": "Filter Shortcut",
-                            "type": "snap",
-                            "selector": ".css-1e47vvn > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > span:nth-child(2) > a:nth-child(1) > div:nth-child(1)"
-                        },
-                        {
-                            "name": "Examples Icon",
-                            "type": "snap",
-                            "selector": "div.tr:nth-child(3) > div:nth-child(2) > div:nth-child(1) > svg:nth-child(2)"
+                            "selector": "[data-qa='group-by']"
                         }
                     ]
                 }
@@ -658,6 +666,11 @@
                             "selector": ".css-132xth5"
                         },
                         {
+                            "name": "Wait for Dimension selector to disappear",
+                            "type": "wait",
+                            "period": 2000
+                        },
+                        {
                             "name": "Time Range",
                             "type": "snap"
                         }
@@ -669,11 +682,6 @@
             "title": "Settings",
             "uid": "settings",
             "url": "graph/settings/",
-            "viewport": {
-                "comment": "Adjust viewport to make settings page look less sparse",
-                "width": 1280,
-                "height": 720
-            },
             "operations": [
                 {
                     "name": "",
@@ -764,6 +772,30 @@
                             "type": "snap"
                         }
                     ]
+                },
+                {
+                    "name": "Backup Management",
+                    "steps": [
+                        {
+                            "name": "Activate",
+                            "type": "click",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.css-1lefdfv > div.css-zahccf > div > form > div:nth-child(7) > div:nth-child(2) > div > label"
+                        },
+                        {
+                            "name": "Apply",
+                            "type": "click",
+                            "selector": "[data-qa='advanced-button']"
+                        },
+                        {
+                            "name": "pause",
+                            "type": "pause",
+                            "period": 10000
+                        },
+                        {
+                            "name": "Active",
+                            "type": "snap"
+                        }
+                    ]
                 }
             ]
         },
@@ -777,8 +809,39 @@
             }
         },
         {
+            "title": "Backup Management",
+            "uid": "backup",
+            "url": "graph/backup/locations"
+        },
+        {
+            "title": "Backup Management",
+            "uid": "backup",
+            "url": "graph/backup/locations",
+            "viewport": {
+                "width": 1280,
+                "height": 1000
+            },
+            "operations": [
+                {
+                    "name": "Locations",
+                    "steps": [
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "selector": "[data-qa='storage-location-add-modal-button']"
+                        },
+                        {
+                            "name": "Add Storage Location",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "DBaaS",
             "uid": "pmm-dbaas",
+            "skip": true,
             "operations": [
                 {
                     "name": "Kubernetes Cluster",
@@ -835,6 +898,7 @@
         {
             "title": "DBaaS",
             "uid": "pmm-dbaas",
+            "skip": true,
             "operations": [
                 {
                     "name": "DB Cluster",
@@ -912,6 +976,7 @@
         {
             "title": "DBaaS",
             "uid": "pmm-dbaas",
+            "skip": true,
             "operations": [
                 {
                     "name": "DB Cluster",
@@ -937,6 +1002,7 @@
         {
             "title": "DBaaS",
             "uid": "pmm-dbaas",
+            "skip": true,
             "operations": [
                 {
                     "name": "DB Cluster",
@@ -991,6 +1057,7 @@
         {
             "title": "DBaaS",
             "uid": "pmm-dbaas",
+            "skip": true,
             "operations": [
                 {
                     "name": "Kubernetes Cluster",
@@ -1117,16 +1184,6 @@
                 }
             ]
         },
-
-
-
-
-
-
-
-
-
-
         {
             "title": "Home Dashboard",
             "uid": "pmm-home",
@@ -1149,11 +1206,6 @@
                         }
                     ]
                 },
-
-
-
-
-
                 {
                     "name": "Menus",
                     "steps": [
