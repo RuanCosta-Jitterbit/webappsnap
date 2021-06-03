@@ -63,7 +63,7 @@ if (argv.debug) { config.debug = argv.debug; }
         slowMo: config.slowmo
     });
 
-    var page = await browser.newPage({ignoreHTTPSErrors: true});
+    var page = await browser.newPage({ ignoreHTTPSErrors: true });
     page.setDefaultTimeout(server_cfg.wait);
     util.viewport(page, {
         width: config.img_width,
@@ -98,14 +98,15 @@ if (argv.debug) { config.debug = argv.debug; }
     for (var d in dashboards) {
         var dash = dashboards[d]; // convenience handle
 
-        if (dash.skip) {
-            console.log(`Skipping ${dash.uid}`)
-            continue; // Skip a dashboard
-        }
-
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         // TODO Check that supplied UIDs exist
         if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
+            continue;
+        }
+
+        // Dashboards can be skipped by adding "skip": true in dashboards config
+        if (dash.skip) {
+            console.log(`Skipping ${dash.uid}`)
             continue;
         }
 
@@ -132,21 +133,27 @@ if (argv.debug) { config.debug = argv.debug; }
             server_url = `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(dash.options) ? option_string : ''}`;
         }
 
-
-        // PART 2 - Optional dashboard viewport
-        const dashboard_viewport = { width: config.img_width, height: config.img_height };
-        if (dash.viewport) { await util.viewport(page, dash.viewport); }
+        // PART 2 - Viewport
+        // Default when none specified
+        const default_dashboard_viewport = { width: config.img_width, height: config.img_height };
+        // Used to reset after loop
+        var dashboard_viewport = default_dashboard_viewport;
+        var operation_viewport = default_dashboard_viewport;
 
         // PART 3 - Load URL
         await util.load(page, server_url, wait);
 
+        if (dash.viewport) {
+            console.log(`Viewport ${dash.viewport.width}x${dash.viewport.height} for dashboard`);
+            await util.viewport(page, dash.viewport);
+            dashboard_viewport = dash.viewport;
+        }
+
         // TODO Reliable way of knowing when page has completed loading
 
         // PART 4 - Remove unwanted elements
-        //await util.eat(page); // cookie popup
         await util.erase(page, defaults.cookie_popup_elem);
         await util.erase(page, defaults.breadcrumb_container);
-
 
         // PART 5 - Dashboard-level snap (no operations)
         if (!dash.operations) {
@@ -171,11 +178,15 @@ if (argv.debug) { config.debug = argv.debug; }
         }
 
         // PART 6 - Operations - Any number of groups of steps, each step being an array of one of:
+        // - back: return to previous page
+        // - wait: explicitly wait for the specified period (in ms);
         // - move: move to (hover over) a selector;
         // - text: enter text into the selector;
+        // - press: press keys listed in array;
         // - click: click the selector;
         // - blur: blur (make fuzzy) the element specified by selector;
-        // - wait: explicitly wait for the specified period (in ms);
+        // - highlight: draw yellow border around element;
+        // - unhighlight: remove yellow border from element;
         // - snap: Explicitly snap the the specified selector or the whole viewport.
         // With no operations, a dashboard is automatically snapped.
         // If operations are used, dedicate at least one step to a full-window snap,
@@ -184,18 +195,17 @@ if (argv.debug) { config.debug = argv.debug; }
             const operation = dash.operations[o]; // Convenience handle
             console.log(`Operation: ${o}: ${operation.name}`);
 
+            // Viewport per operation
             if (operation.viewport) {
-                console.log(`  Viewport: ${operation.viewport.width}x${operation.viewport.height}`);
+                console.log(`  Viewport for operation: ${operation.viewport.width}x${operation.viewport.height}`);
                 await util.viewport(page, operation.viewport);
+                operation_viewport = operation.viewport;
             }
 
             for (var s in operation.steps) {
                 const step = operation.steps[s]; // Convenience handle
-
-
                 try {
                     console.log(`  Step ${s}: ${step.name} (${step.type})`);
-
                     switch (step.type) {
                         case "back":
                             await page.goBack();
@@ -210,6 +220,13 @@ if (argv.debug) { config.debug = argv.debug; }
                         case "text":
                             await page.type(step.selector, String(step.value));
                             break;
+                        case "press":
+                            for (var k in step.value) {
+                                var key = String(step.value[k]);
+                                console.log(`    Pressing ${key}`);
+                                await page.press('body', key);
+                            }
+                            break;
                         case "click":
                             await page.click(step.selector);
                             break;
@@ -223,12 +240,18 @@ if (argv.debug) { config.debug = argv.debug; }
                             await page.addStyleTag({ content: `${step.selector} { border: none }` });
                             break;
                         case "snap":
-                            const selector =
-                                (step.selector) ?
-                                    await page.waitForSelector(step.selector, { visible: true }) :
-                                    page;
-                            await process.stdout.write("    "); // Indent following message
+                            // Viewport per step
+                            if (step.viewport) {
+                                console.log(`    Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
+                                await util.viewport(page, step.viewport, true);
+                            }
+                            // If selector defined, snap only it, otherwise snap page
+                            console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
+                            const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
+                            process.stdout.write("    "); // Indent log message in snap function
                             await util.snap(selector, [dash.title, operation.name, step.name].filter(String).join("_"), img_dir);
+                            console.log(`    Viewport reset to: ${operation_viewport.width}x${operation_viewport.height}`);
+                            await util.viewport(page, operation_viewport); // Reset to operation viewport
                             break;
                     }
                 } catch (e) {
@@ -236,9 +259,9 @@ if (argv.debug) { config.debug = argv.debug; }
                     console.log(e);
                 }
             } // for step
-            await util.viewport(page, dashboard_viewport); // Reset
+            await util.viewport(page, dashboard_viewport); // Reset to dashboard viewport
         } // for operations
-        await util.viewport(page, dashboard_viewport); // Reset
+        await util.viewport(page, default_dashboard_viewport); // Reset to default viewport
     } // for dashboards
     await browser.close();
 

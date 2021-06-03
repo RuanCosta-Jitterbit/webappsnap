@@ -43,7 +43,7 @@ async function snap(page, title = "", dir, full = false) {
         .filter(function (a) { return a != null; }).join('_') + config.img_ext;
 
     const filepath = path.join(dir, filename);
-    process.stdout.write("Saving " + filepath + " ... ");
+    process.stdout.write(`Saving ${filepath} ... `);
 
     // Set up options for snap
     var options = {};

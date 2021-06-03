@@ -1,5 +1,5 @@
 {
-    "version": "2.16.0",
+    "version": "2.18.0",
     "dashboards": [
         {
             "title": "CPU Utilization Details",
@@ -9,6 +9,10 @@
             "title": "Disk Details",
             "uid": "node-disk",
             "skip_wait_for_response": true
+        },
+        {
+            "title": "HAProxy Instance Summary",
+            "uid": "haproxy-instance-summary"
         },
         {
             "title": "Memory Details",
@@ -55,7 +59,11 @@
         },
         {
             "title": "MySQL Command/Handler Counters Compare",
-            "uid": "mysql-commandhandler-compare"
+            "uid": "mysql-commandhandler-compare",
+            "options": [
+                "var-service_name=rds-mysql57",
+                "var-service_name=mariadb-105-mysql"
+            ]
         },
         {
             "title": "MySQL InnoDB Compression Details",
@@ -72,7 +80,12 @@
         },
         {
             "title": "MySQL Instances Compare",
-            "uid": "mysql-instance-compare"
+            "uid": "mysql-instance-compare",
+            "options": [
+                "var-service_name=ps-80-gr-1-mysql",
+                "var-service_name=rds-aurora57-instance-1",
+                "var-service_name=rds-mysql57"
+            ]
         },
         {
             "title": "MySQL Instances Overview",
@@ -124,11 +137,33 @@
         },
         {
             "title": "Network Details",
-            "uid": "node-network"
+            "uid": "node-network",
+            "options": [
+                "var-node_name=load-gen-sysbench"
+            ]
         },
         {
             "title": "Node Summary",
-            "uid": "node-instance-summary"
+            "uid": "node-instance-summary",
+            "options": [
+                "var-node_name=pmm-server"
+            ],
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Wait for system summary panel to load",
+                            "type": "wait",
+                            "period": 5000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "title": "Node Temperature Details",
@@ -144,7 +179,10 @@
         },
         {
             "title": "PXC/Galera Cluster Summary",
-            "uid": "pxc-cluster-summary"
+            "uid": "pxc-cluster-summary",
+            "options": [
+                "var-cluster=pxc-80-cluster"
+            ]
         },
         {
             "title": "PXC/Galera Node Summary",
@@ -177,6 +215,10 @@
         {
             "title": "Prometheus Exporters Overview",
             "uid": "prometheus-overview"
+        },
+        {
+            "title": "Advanced Data Exploration",
+            "uid": "prometheus-advanced"
         },
         {
             "title": "VictoriaMetrics",
@@ -396,7 +438,7 @@
                 "width": 1920,
                 "height": 1080
             },
-            "wait": 60000
+            "wait": 80000
         },
         {
             "title": "Query Analytics",
@@ -687,10 +729,6 @@
                     "name": "",
                     "steps": [
                         {
-                            "name": "",
-                            "type": "snap"
-                        },
-                        {
                             "name": "Menu",
                             "type": "snap",
                             "selector": "[data-qa='settings-tabs']"
@@ -702,27 +740,47 @@
         {
             "title": "Settings Metrics Resolution",
             "uid": "settings",
-            "url": "graph/settings/metrics-resolution"
+            "url": "graph/settings/metrics-resolution",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            }
         },
         {
             "title": "Settings Advanced Settings",
             "uid": "settings",
-            "url": "graph/settings/advanced-settings"
+            "url": "graph/settings/advanced-settings",
+            "viewport": {
+                "width": 1420,
+                "height": 1020
+            }
         },
         {
             "title": "Settings SSH Key",
             "uid": "settings",
-            "url": "graph/settings/ssh-key"
+            "url": "graph/settings/ssh-key",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            }
         },
         {
             "title": "Settings Alertmanager Integration",
             "uid": "settings",
-            "url": "graph/settings/am-integration"
+            "url": "graph/settings/am-integration",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            }
         },
         {
             "title": "Settings Percona Platform",
             "uid": "settings",
             "url": "graph/settings/percona-platform",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            },
             "operations": [
                 {
                     "name": "",
@@ -748,6 +806,7 @@
             "title": "Settings Advanced",
             "uid": "settings",
             "url": "graph/settings/advanced-settings",
+            "skip": true,
             "operations": [
                 {
                     "name": "Integrated Alerting",
@@ -755,7 +814,7 @@
                         {
                             "name": "Activate",
                             "type": "click",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.css-1lefdfv > div.css-zahccf > div > form > div:nth-child(5) > div:nth-child(2) > div > label"
+                            "selector": "[for='switch-40']"
                         },
                         {
                             "name": "Apply",
@@ -772,7 +831,15 @@
                             "type": "snap"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "title": "Settings Advanced",
+            "uid": "settings",
+            "url": "graph/settings/advanced-settings",
+            "skip": true,
+            "operations": [
                 {
                     "name": "Backup Management",
                     "steps": [
@@ -805,18 +872,20 @@
             "url": "graph/settings/communication",
             "viewport": {
                 "width": 1280,
-                "height": 1000
+                "height": 800
             }
         },
         {
             "title": "Backup Management",
             "uid": "backup",
-            "url": "graph/backup/locations"
+            "url": "graph/backup/locations",
+            "skip": true
         },
         {
             "title": "Backup Management",
             "uid": "backup",
             "url": "graph/backup/locations",
+            "skip": true,
             "viewport": {
                 "width": 1280,
                 "height": 1000
@@ -1099,6 +1168,7 @@
             ]
         },
         {
+            "skip": true,
             "title": "Home Dashboard Elements",
             "uid": "pmm-home",
             "skip_wait_for_response": true,
@@ -1193,16 +1263,11 @@
                     "name": "",
                     "steps": [
                         {
-                            "name": "",
-                            "type": "snap"
+                            "wait": 10000
                         },
                         {
-                            "name": "TALL",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1280,
-                                "height": 1120
-                            }
+                            "name": "",
+                            "type": "snap"
                         }
                     ]
                 },
@@ -1241,6 +1306,10 @@
                 },
                 {
                     "name": "Panels",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 1280
+                    },
                     "steps": [
                         {
                             "name": "Failed Security Checks",
@@ -1299,6 +1368,10 @@
             "title": "Common",
             "uid": "node-cpu-process",
             "comment": "Any valid UID will do, just for snapping common devices",
+            "viewport": {
+                "width": 1280,
+                "height": 720
+            },
             "operations": [
                 {
                     "name": "Controls",
@@ -1306,7 +1379,7 @@
                         {
                             "name": "Annotation Toggle",
                             "type": "snap",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls > div:nth-child(3) > div"
+                            "selector": "[for='1']"
                         }
                     ]
                 },
@@ -1316,31 +1389,36 @@
                         {
                             "name": "Open",
                             "type": "click",
-                            "selector": "#panel-999 > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1)"
+                            "selector": "[class='panel-title']"
                         },
                         {
-                            "name": "Open Menu",
+                            "name": "",
                             "type": "snap",
-                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul"
-                        },
-                        {
-                            "name": "Open",
-                            "type": "snap"
+                            "selector": "[class='dropdown-menu dropdown-menu--menu panel-menu']"
                         },
                         {
                             "name": "Share",
-                            "type": "click",
-                            "selector": "#panel-999 > div > div:nth-child(1) > div > div.panel-header.grid-drag-handle > div > div > div > ul > li:nth-child(2)"
+                            "type": "press",
+                            "comment": "Open share menu using keyboard shortcut",
+                            "value": [
+                                "p",
+                                "s"
+                            ]
                         },
                         {
                             "name": "Hide URL",
                             "type": "blur",
-                            "selector": "input.gf-form-input"
+                            "selector": "[class='css-1w5c5dq-input-inputWrapper']"
                         },
                         {
                             "name": "Share",
                             "type": "snap",
-                            "comment": "Snaps image share panel without knowing whether plugin is installed"
+                            "comment": "Image filename for when plugin is installed"
+                        },
+                        {
+                            "name": "Share Link Missing Plugins",
+                            "type": "snap",
+                            "comment": "If plugin not installed"
                         }
                     ]
                 }
@@ -1371,6 +1449,11 @@
                             "name": "Execute",
                             "type": "click",
                             "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
+                        },
+                        {
+                            "name": "Explicit Pause",
+                            "type": "wait",
+                            "period": 10000
                         },
                         {
                             "name": "Execute",

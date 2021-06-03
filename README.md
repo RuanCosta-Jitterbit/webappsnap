@@ -6,7 +6,7 @@ This repository is a tool to automate PMM screenshot capture.
 
 - It connects to a PMM server, loading specified dashboards, taking screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG. It works on PMM1 and PMM2.
 
-- It uses ~~Puppeteer~~ Playwright (WIP port) to run a headless Chromium, Firefox or Webkit web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
+- It uses Playwright to run a headless Chromium, Firefox or Webkit web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
 
 ## Install (Prerequirements)
 
@@ -19,15 +19,22 @@ This repository is a tool to automate PMM screenshot capture.
 
 1. Clone this repository.
 
-2. Snap dashboards in the [PMM2 demo instance](https://pmmdemo.percona.com/):
+2. Snap ALL dashboards in the [PMM2 demo instance](https://pmmdemo.percona.com/):
 
-    ```
-    cd pmm-screenshots-pw
-    # Snap ALL dashboards
+    ```sh
+    cd pmm-screenshots
     ./run.sh
-    # Snap specific dashboards
+    ```
+
+    Or, to snap specific dashboards
+
+    ```sh
     ./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
-    # Show available dashboard UIDs
+    ```
+
+    To see a list of available ddashboard UIDs:
+
+    ```sh
     ./run.sh --list
     ```
 
@@ -56,14 +63,11 @@ To create PMM dashboards screenshots for your own PMM instance:
    If your PMM instance uses a non-default login, you should also set:
 
    - `SNAP_USER`: The Grafana username for the instance.
-
    - `SNAP_PASS`: The Grafana password for this user.
-
 
    If your instance is PMM version 1, you must set:
 
    - `SNAP_DASHBOARDS_FILE`: Set the value to `./cfg/dashboards-pmm1.json`. (The default is `./cfg/dashboards-pmm2.json`).
-
    - `SNAP_DEFAULTS_FILE`: The default (`./cfg/defaults.json`) works for PMM2 instances. For PMM1, set the value to `./cfg/defaults-1.17.4.json`.
 
    Optional:
@@ -79,7 +83,7 @@ To create PMM dashboards screenshots for your own PMM instance:
 
 4. Run the wrapper script:
 
-   ```
+   ```sh
    ./run.sh
    ```
 
@@ -285,6 +289,9 @@ The bulk of configuration is in these files. They list each dashboard's UID (par
       `name`
       : A name for this operation (group of steps).
 
+      `viewport`
+      : A viewport for this operation.
+
       `steps`
       : An array of individual steps.
 
@@ -294,23 +301,35 @@ The bulk of configuration is in these files. They list each dashboard's UID (par
          `type`
          : Type of step. One of:
 
-            `click`
-            : Click the element specified by `selector`.
+            `back`
+            : Return to the previous page.
+
+            `wait`
+            : Wait for `period` milliseconds.
 
             `move`
             : Move to (hover over) the element specified by `selector`. (Uses [`page.hover()`](https://playwright.dev/docs/api/class-page#pagehoverselector-options) which finds the first CSS selector ID and positions the mouse in the center of it.)
 
             `text`
-            : Type text (from `value`) into the element specified by `selector`.
+            : Enter `value` text into element `selector`.
 
-            `value`
-            : Text for `text` type.
+            `press`
+            : Press each of the keys in the `value` array.
+
+            `click`
+            : Click the element `selector`.
 
             `blur`
-            : Blur (make illegible) the element specified by `selector`.
+            : Blur (make illegible) the element `selector`.
+
+            `highlight`
+            : Draw a yellow dotted line around `selector`.
+
+            `unhighlight`
+            : Remove the yellow dotted line around `selector`.
 
             `snap`
-            : Screenshot the window. If a `selector` is given, screenshot only it.
+            : Screenshot the window. If a `selector` is given, screenshot only it. If `viewport` is given, adjust the window to that size before snapping.
 
          `selector`
          : The CSS selector for the clickable item.

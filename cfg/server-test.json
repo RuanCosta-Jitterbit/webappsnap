@@ -1,6 +1,6 @@
 {
   "name": "test",
-  "server": "https://18.223.166.189",
+  "server": "https://X.X.X.X",
   "graph": "graph",
   "dshbd": "d",
   "wait": 40000,
