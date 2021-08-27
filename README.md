@@ -1,4 +1,4 @@
-# PMM Dashboard Screenshots (Playwright version)
+# PMM Dashboard Screenshots
 
 [Percona Monitoring and Management (PMM)](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is free, open-source database monitoring software.
 
