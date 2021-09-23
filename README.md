@@ -2,13 +2,21 @@
 
 [Percona Monitoring and Management (PMM)](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is free, open-source database monitoring software.
 
-This repository is a tool to automate PMM screenshot capture.
+This repository contains the code and configuration for a tool that takes screenshots of all PMM dashboards, and selected UI elements (menus, buttons).
 
 - It connects to a PMM server, loading specified dashboards, taking screen shots of whole screens or portions (HTML elements), saving the images as JPG or PNG. It works on PMM1 and PMM2.
 
-- It uses Playwright to run a headless Chromium, Firefox or Webkit web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
+- It uses [Playwright] to run a headless Chromium, Firefox or Webkit web browser. A JSON file defines what to snap (whole dashboards, panels, buttons, menus, etc.), and any preliminary tasks (*operations* and *steps*) needed to set up the screenshot (open a menu, enter text, etc.).
 
-## Install (Prerequirements)
+> **CAUTION**
+>
+> PMM changes frequently and so do the IDs of UI elements (known as *selectors*).
+> This program needs adjusting with each new PMM release, mostly in the snap specifications (`dashboards-pmmX.json`).
+> Snap specifications change because of:
+> - added, removed, or changed UI elements;
+> - added, removed, or changed dashboards or UI pages.
+
+## Install (Pre-requirements)
 
 - [Node.js](https://nodejs.org/en/download/)
 - [Playwright](https://github.com/microsoft/playwright/): `npm i -D playwright`
@@ -95,6 +103,42 @@ Optional arguments:
 `--full`
 : Also snap the full dashboard beyond the specified viewport (`SNAP_IMG_WIDTH` x `SNAP_IMG_HEIGHT`).
 
+## Tips
+
+### Changing selectors (IDs of UI elements)
+
+Because of the high rate of change of the test subject (PMM), there is a lot of logging to show what is happening and what is being snapped.
+
+The logs will show when something has changed in PMM by a timeout when trying to locate a selector.
+
+You should then load the target PMM instance in a browser, navigate to the page in question and activate your browser's development tools.
+
+These contain an option to select an element to find its selector and compare it with that defined in the `dashboards-pmmX.json` file.
+
+Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`).
+
+Ask developers to allocate static names to frequently used elements. (This is already done occasionally with the `data-qa` ID, some of which are used by this tool.)
+
+### Multiple runs
+
+Snap filenames are intended for the [PMM technical documentation].
+
+By default the filenames don't include a sequence number prefix.
+
+When debugging or testing this tool, edit `run.sh` and set `SNAP_IMG_SEQ=true`.
+
+This means the images are listed in order of snapping, making it easier to track which part of the `dashboards-pmmX.json` specification file is responsible for each snap.
+
+You can also use the `SNAP_IMG_PFX` and `SNAP_IMG_DIR` environment variables in `run.sh` to separate runs of the tool.
+
+### Login problems
+
+The default administrator credentials for PMM are `admin`/`admin`.
+
+If different, set the PMM admin credentials (on the command line or in `run.sh`) with the variables `SNAP_USER` and `SNAP_PASS`.
+
+The tool assumes the presence of a 'Skip' button which is displayed on new PMM installations using the default credentials.
+
 ## How it works
 
 `main.js` loops through entries in the defined dashboards configuration file (default `./cfg/dashboards-pmm2.json`), processing each dashboard, its operations and steps, one by one.
@@ -113,12 +157,13 @@ One or more dashboards
 
 - An operation is a group of steps. Except for 'wait', a selector specifies the CSS selector to move to, click on, enter text into, blur (to obscure it), or snap. A step's type is one of:
 
-  - `move`: move to (hover over) a selector;
-  - `text`: enter text into the selector;
-  - `click`: click the selector;
-  - `blur`: blur (make fuzzy) the element specified by selector;
-  - `wait`: explicitly wait for the specified period (in ms);
-  - `snap`: Explicitly snap the the specified selector or the whole viewport.
+    - `move`: move to (hover over) a selector;
+    - `text`: enter text into the selector;
+    - `click`: click the selector;
+    - `press`: perform one or more keystrokes;
+    - `blur`: blur (make fuzzy) the element specified by selector;
+    - `wait`: explicitly wait for the specified period (in ms);
+    - `snap`: Explicitly snap the the specified selector or the whole viewport.
 
 - If no operations are specified, a dashboard entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements (using the `selector` field).
 
@@ -462,3 +507,6 @@ There are two ways to shorten the time spent using this tool.
 - Check the values for `SNAP_IMG_WIDTH`, `SNAP_IMG_HEIGHT`
 - Check whether the viewport is set (overriding the default) for the dashboard or step.
 - The height of `_full` images is determined by each dashboard's default container size.
+
+[Playwright]: https://playwright.dev
+[PMM technical documentation]: https://github.com/percona/pmm-doc

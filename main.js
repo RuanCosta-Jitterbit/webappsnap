@@ -255,8 +255,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             break;
                     }
                 } catch (e) {
-                    console.log("Skipping");
-                    console.log(e);
+                    console.log(`Skipping: ${e}`);
                 }
             } // for step
             await util.viewport(page, dashboard_viewport); // Reset to dashboard viewport

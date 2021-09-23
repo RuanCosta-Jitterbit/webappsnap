@@ -399,7 +399,8 @@
                         {
                             "name": "Delete Item",
                             "type": "click",
-                            "selector": "[class='css-vshpqg-button']"
+                            "comment": "selector subject to change",
+                            "selector": "[class='css-lhgpbu-button']"
                         },
                         {
                             "name": "Delete Item",
@@ -408,7 +409,8 @@
                         {
                             "name": "Cancel Delete Item",
                             "type": "click",
-                            "selector": "[class='css-n4gkqg-button']"
+                            "comment": "selector subject to change",
+                            "selector": "[class='css-nso2ro-button']"
                         },
                         {
                             "name": "Cancel Delete Item",
@@ -461,7 +463,7 @@
                             "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
                         },
                         {
-                            "name": "Explicit Pause",
+                            "name": "Wait",
                             "type": "wait",
                             "period": 500
                         },
@@ -484,7 +486,7 @@
                             "selector": "div.tr:nth-child(3) > div:nth-child(4)"
                         },
                         {
-                            "name": "Explicit Pause",
+                            "name": "Wait",
                             "type": "wait",
                             "period": 10000
                         },
@@ -814,7 +816,7 @@
                         {
                             "name": "Activate",
                             "type": "click",
-                            "selector": "[for='switch-40']"
+                            "selector": "[for='switch-20']"
                         },
                         {
                             "name": "Apply",
@@ -822,8 +824,8 @@
                             "selector": "[data-qa='advanced-button']"
                         },
                         {
-                            "name": "pause",
-                            "type": "pause",
+                            "name": "wait",
+                            "type": "wait",
                             "period": 6000
                         },
                         {
@@ -854,8 +856,8 @@
                             "selector": "[data-qa='advanced-button']"
                         },
                         {
-                            "name": "pause",
-                            "type": "pause",
+                            "name": "Wait",
+                            "type": "wait",
                             "period": 10000
                         },
                         {
@@ -1263,6 +1265,8 @@
                     "name": "",
                     "steps": [
                         {
+                            "name": "Wait",
+                            "type": "wait",
                             "wait": 10000
                         },
                         {
@@ -1287,7 +1291,7 @@
                         {
                             "name": "Top Navigation Bar",
                             "type": "snap",
-                            "selector": ".navbar",
+                            "selector": ".page-toolbar",
                             "viewport": {
                                 "width": 900,
                                 "height": 1080
@@ -1329,7 +1333,8 @@
                         {
                             "name": "Click",
                             "type": "click",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.navbar > div:nth-child(1) > div"
+                            "comment": "Fragile selector path",
+                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369"
                         },
                         {
                             "name": "wait for load",
@@ -1343,7 +1348,7 @@
                         {
                             "name": "String",
                             "type": "text",
-                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369 > div.css-1schass > input",
+                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369",
                             "value": "Instances"
                         },
                         {
@@ -1357,8 +1362,11 @@
                         },
                         {
                             "name": "close",
-                            "type": "click",
-                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369 > div.css-1962slh > button"
+                            "type": "press",
+                            "comment": "Close search dialogue without clicking X button",
+                            "value": [
+                                "Escape"
+                            ]
                         }
                     ]
                 }
@@ -1437,7 +1445,7 @@
                     "name": "Get Logs",
                     "steps": [
                         {
-                            "name": "Explicit Pause",
+                            "name": "Wait",
                             "type": "wait",
                             "period": 10000
                         },
@@ -1451,7 +1459,7 @@
                             "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
                         },
                         {
-                            "name": "Explicit Pause",
+                            "name": "Wait",
                             "type": "wait",
                             "period": 10000
                         },
@@ -1591,45 +1599,6 @@
                         },
                         {
                             "name": "Add Form",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Alert Rules (OLD)",
-            "uid": "list",
-            "url": "graph/alerting/list",
-            "viewport": {
-                "width": 1280,
-                "height": 720
-            },
-            "wait": 6000
-        },
-        {
-            "title": "Notifications (OLD)",
-            "uid": "notifications",
-            "url": "graph/alerting/notifications",
-            "viewport": {
-                "width": 1280,
-                "height": 870
-            },
-            "operations": [
-                {
-                    "name": "Channels",
-                    "steps": [
-                        {
-                            "name": "Add",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "New",
-                            "type": "click",
-                            "selector": "body > grafana-app > div > div > react-container > div > div > div.view > div > div.page-container.page-body > div > a"
-                        },
-                        {
-                            "name": "New",
                             "type": "snap"
                         }
                     ]
