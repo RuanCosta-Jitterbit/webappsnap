@@ -200,7 +200,7 @@ async function swagger(url, callback) {
     }
 }
 
-// Check versions
+// Check versions TODO
 async function check_versions() {
     swagger('http://' + config.hostname + '/v1/version',
         function (response) {
@@ -214,6 +214,14 @@ async function check_versions() {
         }
     );
 }
+// TODO
+async function get_version() {
+    swagger('http://' + config.hostname + '/v1/version',
+        function (response) {
+            return response.version;
+        }
+    );
+}
 
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
@@ -224,3 +232,4 @@ module.exports.erase = erase;
 module.exports.viewport = viewport;
 module.exports.swagger = swagger;
 module.exports.check_versions = check_versions;
+module.exports.get_version = get_version;

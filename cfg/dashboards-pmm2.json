@@ -440,7 +440,7 @@
                 "width": 1920,
                 "height": 1080
             },
-            "wait": 80000
+            "wait": 120000
         },
         {
             "title": "Query Analytics",
@@ -707,7 +707,7 @@
                         {
                             "name": "Time Range",
                             "type": "click",
-                            "selector": ".css-132xth5"
+                            "selector": "[aria-label='TimePicker Open Button']"
                         },
                         {
                             "name": "Wait for Dimension selector to disappear",
@@ -779,13 +779,13 @@
             "title": "Settings Percona Platform",
             "uid": "settings",
             "url": "graph/settings/percona-platform",
-            "viewport": {
-                "width": 1280,
-                "height": 600
-            },
             "operations": [
                 {
                     "name": "",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 600
+                    },
                     "steps": [
                         {
                             "name": "Login",
@@ -1331,10 +1331,12 @@
                     "name": "Search",
                     "steps": [
                         {
-                            "name": "Click",
-                            "type": "click",
-                            "comment": "Fragile selector path",
-                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369"
+                            "name": "",
+                            "type": "press",
+                            "value": [
+                                "s",
+                                "o"
+                            ]
                         },
                         {
                             "name": "wait for load",
@@ -1347,9 +1349,19 @@
                         },
                         {
                             "name": "String",
-                            "type": "text",
-                            "selector": "body > grafana-app > search-wrapper > div > div > div.css-pmp369",
-                            "value": "Instances"
+                            "type": "press",
+                            "comment": "Type search string ('instances'). Assumes focus remains on just-opened search.",
+                            "value": [
+                                "i",
+                                "n",
+                                "s",
+                                "t",
+                                "a",
+                                "n",
+                                "c",
+                                "e",
+                                "s"
+                            ]
                         },
                         {
                             "name": "wait for load",

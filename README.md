@@ -115,7 +115,7 @@ You should then load the target PMM instance in a browser, navigate to the page 
 
 These contain an option to select an element to find its selector and compare it with that defined in the `dashboards-pmmX.json` file.
 
-Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`).
+Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). (On PMM, press `h` to see Grafana's built-in keyboard shortcuts.)
 
 Ask developers to allocate static names to frequently used elements. (This is already done occasionally with the `data-qa` ID, some of which are used by this tool.)
 

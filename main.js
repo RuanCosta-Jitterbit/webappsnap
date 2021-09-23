@@ -54,10 +54,6 @@ if (argv.debug) { config.debug = argv.debug; }
         else { console.log(`  Snapping selected (--uid): ${selected_dashboards.join(' ')}`); }
     }
 
-    // TODO broken since 2.12.0
-    //await util.check_versions();
-
-
     const browser = await webkit.launch({
         headless: config.headless,
         slowMo: config.slowmo
@@ -82,6 +78,12 @@ if (argv.debug) { config.debug = argv.debug; }
             console.error(`Can't login: ${err}`);
         }
     }
+
+
+    // TODO broken since 2.12.0 - Needs authentication
+//    await util.check_versions();
+//    console.log(await util.get_version());
+
 
     /*************************************************************************************
      * A loop through all dashboards in dashboards config file (e.g. ./cfg/dashboards.json):

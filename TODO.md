@@ -14,6 +14,7 @@
 - [ ] Avoid image overwrite when `SNAP_IMG_SEQ` is off
 - [ ] How to inject custom text strings as form values
 - [ ] Option to skip version checking
+- [ ] Set up authentication needed for accessing Swagger `/v1/version`
 - [ ] Easier handling of `/graph/d/vagent` paths
 - [x] Allow configurable slowmo value when `headless=false`
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
@@ -21,3 +22,4 @@
 - [ ] Add `--skip-uid` flag as inverse of `--uid` to exclude named items
 - [ ] Allow choice of browser technology `{chromium|webkit|firefox}`
 - [ ] Allow skipping/selecting operations/steps per UID
+- [ ] Solve unreliable snapping of QAN 'Main Metric Sparkline'
