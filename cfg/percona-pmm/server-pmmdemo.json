@@ -1,10 +1,14 @@
 {
   "name": "pmmdemo",
   "server": "https://pmmdemo.percona.com",
-  "p1": "graph",
-  "p2": "d",
-  "p3": "",
+  "a": "graph",
+  "b": "d",
+  "c": "",
+  "d": "",
+  "e": "",
+  "f": "",
   "login": "graph/login",
+  "single_login_page": true,
   "wait": 60000,
   "pause": 6000
 }
