@@ -68,7 +68,11 @@ if (argv.debug) { config.debug = argv.debug; }
 
     // Attempt login if configured
     if (config.log_in) {
-        await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`);
+        const login_page = [
+            server_cfg.server,
+            server_cfg.login
+        ].join(path.sep);
+        await util.load(page, login_page);
         await page.waitForTimeout(server_cfg.pause); // extra time for background to load/render
         await util.snap(page, 'Login', img_dir);
         try {

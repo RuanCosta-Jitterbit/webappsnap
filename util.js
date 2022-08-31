@@ -89,8 +89,7 @@ async function load(page, url, wait = config.server_cfg.wait) {
                 timeout: wait
             }
         );
-        // Remove pesky cookie confirmation (from pmmdemo.percona.com)
-        await eat(page); // TODO only for pmmdemo
+        await eat(page); // TODO remove cookie
     } catch (e) {
         console.error(`Can't load ${url} - skipping (${e})`);
     }
@@ -121,7 +120,7 @@ async function viewport(page, viewport, reload = false) {
 }
 
 /*
-** Handle PMM login page
+** Handle login page
 ** TODO Some apps have user/pass on same page
 ** Others on separate pages
 */
@@ -133,19 +132,14 @@ async function login(page, wait) {
     await page.waitForTimeout(wait); // Wait for login
 
     // TODO intercept and report 'invalid username or password' dialog
-
-    // to clear user/pass fields:
-    // await page.$eval('div.login-form:nth-child(1) > input:nth-child(1)', el => el.value = '');
-    // await page.$eval('#inputPassword', el => el.value = '');
-
-    try {
-        const skip_button = config.defaults.login_skip_elem;
-        await page.waitForSelector(skip_button, { visible: true, timeout: config.server_cfg.pause });
-        await page.click(skip_button);
-        await page.waitForTimeout(wait);
-    } catch (err) {
-        console.log("Didn't find password change skip button");
-    }
+    // try {
+    //     const skip_button = config.defaults.login_skip_elem;
+    //     await page.waitForSelector(skip_button, { visible: true, timeout: config.server_cfg.pause });
+    //     await page.click(skip_button);
+    //     await page.waitForTimeout(wait);
+    // } catch (err) {
+    //     console.log("Didn't find a password change skip button");
+    // }
 }
 
 /*

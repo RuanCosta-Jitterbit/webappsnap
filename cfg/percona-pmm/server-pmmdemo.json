@@ -4,6 +4,7 @@
   "p1": "graph",
   "p2": "d",
   "p3": "",
+  "login": "graph/login",
   "wait": 60000,
   "pause": 6000
 }

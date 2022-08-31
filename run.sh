@@ -28,7 +28,7 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
+# SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 
 ## Server credentials
 # Username.
@@ -48,7 +48,7 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 
 ## Log in and snap the login screen.
 # Default: 'log_in' field in defaults file
-SNAP_LOG_IN=false
+# SNAP_LOG_IN=false
 
 ## Server config file.
 # Default: 'config_file' in defaults file
@@ -75,7 +75,7 @@ SNAP_LOG_IN=false
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
-SNAP_IMG_SEQ=true
+# SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file
