@@ -50,13 +50,14 @@ To create screenshots for your own application:
 2. Edit this new file and set values for the fields:
 
    - `"name"`: A free-form name for your app. (Snapped images will be saved in a subdirectory with this name.)
+
    - `"server"`: The HTTPS server IP or hostname.
-   - `"graph"`: For PMM2 instances, the word `"graph"`. For PMM1, an empty value (`""`)
+
+   - `"p1"`, `"p2"`, `"p3"`: General-purpose prefixes, tokens that may come between the server base URL and the page.
+      For example, on [PMM Demo], set them to `"graph"` and `"d"` (tokens that don't exist on PMM1 URLs).
+
    - `"wait"`: The number of milliseconds to wait for a page to load. (10000 to 20000 for local instances, 30000 or more for remote instances.)
 
-   These fields are configurable but don't need changing:
-
-   - `dshbd` is `"d"` for both PMM1 and PMM2.
    - `"pause"` is a shorter wait interval used when snapping mouse-over tooltips. 1000-5000ms is enough.
 
 3. Set values for environment variables (in your shell, or in `run.sh` where examples and explanations are given).
@@ -68,13 +69,20 @@ To create screenshots for your own application:
    Optional:
 
    - `SNAP_IMG_WIDTH`: The snap image width (in pixels). Default: 1280
+
    - `SNAP_IMG_HEIGHT`: The snap image height (in pixels). Default: 720
+
    - `SNAP_JPG_QUALITY`: For JPG format, the image quality (a percent value) can help reduce file size. Default: 100
+
    - `SNAP_IMG_EXT`: Set to `.png` for PNG format images. Default: `.jpg`
+
    - `SNAP_IMG_SEQ`: Set to `true` to prefix image filenames with a sequence number. Useful for testing and identifying images. Default: `false`
-   - `SNAP_IMG_PFX`: After the optional sequence number, a secondary prefix is added to the filename. Default: `PMM`
+
+   - `SNAP_IMG_PFX`: After the optional sequence number, a secondary prefix is added to the filename.
+
    - `SNAP_IMG_DIR`: Where to save images. Default: `./images`. This is the base directory within which two additional subdirectories are created: `<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHT`. E.g `./images/myserver/1920x1080/`
-   - `SNAP_LOG_IN`: Set to true to snap the login page, log in, and click the 'skip password change' button. Default: true.
+
+   - `SNAP_LOG_IN`: Set to true to snap the login page, log in.
 
 4. Run the wrapper script:
 
@@ -136,11 +144,17 @@ One or more pages
 - An operation is a group of steps. Except for 'wait', a selector specifies the CSS selector to move to, click on, enter text into, blur (to obscure it), or snap. A step's type is one of:
 
     - `move`: move to (hover over) a selector;
+
     - `text`: enter text into the selector;
+
     - `click`: click the selector;
+
     - `press`: perform one or more keystrokes;
+
     - `blur`: blur (make fuzzy) the element specified by selector;
+
     - `wait`: explicitly wait for the specified period (in ms);
+
     - `snap`: Explicitly snap the the specified selector or the whole viewport.
 
 - If no operations are specified, a page entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements (using the `selector` field).
@@ -171,7 +185,9 @@ Functions for common operations, the most important of which are:
 A brief description of other functions:
 
 - `mkdir()`: Creates the image save directories.
+
 - `login()`: Handles the special case of the main login page.
+
 - `eat()`: Removes an 'accept cookies' pop-up dialogue. (Added for [PMM Demo](https://pmmdemo.percona.com/).)
 
 #### config.js
@@ -356,12 +372,19 @@ The image file path is made up of the directory and the filename.
 The directory path is a hierarchy constructed in `main.js`. It is made up of:
 
 - Defaults file `img_dir` (or `SNAP_IMG_DIR` if set)
+
 - System path separator (e.g. "/" on Linux).
+
 - Server configuration file `name`
+
 - System path separator.
+
 - Defaults file `img_width` (or `SNAP_IMG_WIDTH` if set)
+
 - "x"
+
 - Defaults file `img_height` (or `SNAP_IMG_HEIGHT` if set)
+
 - System path separator.
 
 **Note:** The purpose of a hierarchy is to separate images made with different servers and viewport sizes.
@@ -369,12 +392,19 @@ The directory path is a hierarchy constructed in `main.js`. It is made up of:
 The file name is constructed in `snap()` in `util.js` and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore ("_").
 
 - (Optional primary prefix) If `img_seq` or `SNAP_IMG_SEQ` is true, a zero-padded integer, incremented for each image.
+
 - (Optional secondary prefix) The value of `img_pfx` or `SNAP_IMG_PFX`
+
 - `pages.title`
+
 - (If operations)
+
   - `pages.operations.name`
+
   - `pages.operations.steps.name`
+
 - (If not operations and `--full` option is set) "_full"
+
 - `img_ext` or `SNAP_IMG_EXT` (file extension)
 
 
@@ -415,3 +445,4 @@ There are two ways to shorten the time spent using this tool.
 - The height of `_full` images is determined by each page's default container size.
 
 [Playwright]: https://playwright.dev
+[PMM Demo]: https://pmmdemo.percona.com
