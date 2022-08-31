@@ -237,6 +237,7 @@
             "uid": "proxysql-instance-summary"
         },
         {
+            "skip": "true",
             "title": "Add Instance",
             "uid": "add-instance",
             "url": "graph/add-instance",
@@ -246,6 +247,7 @@
             }
         },
         {
+            "skip": "true",
             "title": "Add",
             "uid": "add-instance",
             "url": "graph/add-instance",
@@ -369,16 +371,19 @@
             ]
         },
         {
+            "skip": "true",
             "title": "Database Checks",
             "uid": "pmm-database-checks",
             "url": "graph/pmm-database-checks"
         },
         {
+            "skip": "true",
             "title": "Inventory",
             "uid": "inventory",
             "url": "graph/inventory"
         },
         {
+            "skip": "true",
             "title": "Inventory",
             "uid": "inventory",
             "url": "graph/inventory",
@@ -1445,6 +1450,7 @@
             ]
         },
         {
+            "skip": "true",
             "title": "Swagger API",
             "uid": "swagger",
             "url": "swagger/",

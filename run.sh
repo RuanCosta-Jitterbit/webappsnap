@@ -88,6 +88,6 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode
 # Default: 'slowmo' in defaults file
-#SNAP_SLOW_MO=500
+# SNAP_SLOW_MO=500
 
 node main.js --unhandled-rejections=strict "$@"

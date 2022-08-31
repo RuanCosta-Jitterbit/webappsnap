@@ -3,7 +3,7 @@ This program lets you automate the task of taking screenshots of web application
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a /selector/).
 
-If you only want to take snaps of pages, you need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you need to know the element's selector. Use a browser's development tools to discover these.
+If you only want to take snaps of pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
 
 ** Install (Pre-requirements)
 :PROPERTIES:
@@ -261,6 +261,61 @@ You must create configuration files for your own application.
 
   You can set login credentials (on the command line or in =run.sh=) with the variables =SNAP_USER= and =SNAP_PASS=.
 
+- *Commenting out pages*
+
+  JSON doesn't have a system for commenting out portions of a file. To skip snapping certain pages, add ="skip":"true"= to the page entry.
+
+** Problems and Troubleshooting
+:PROPERTIES:
+:CUSTOM_ID: problems-and-troubleshooting
+:END:
+This tool was made to make it easier to repeat screenshots for an app's technical documentation. However, the configuration needs constant nurturing and updating. Every change to an app usually means a change to configuration files, and sometimes the code.
+
+- *Server URL*
+
+  The server URL (=server= in =server.json=) has no trailing forward slash (=https://server=, not =https://server/=).
+
+- *Changed CSS selectors*
+
+  Use your browser's developer's mode to inspect the element causing trouble. Check that the CSS selector matches that specified. This tool uses CSS selectors but xpaths also work.
+
+- *Time-outs or blank snaps*
+
+  Some pages take longer to load than others. Panels in some snaps will show they are still loading, or portions will be blank. For these, extend the loading time with the per-page wait value.
+
+- *Page load wait time*
+
+  This tool strives for flexibility over speed, allowing each page snap to be resized, and allowing for partial snaps illustrating particular features or emphasising specific panels. This means the window size (viewport) has to be reset for every snap. In Playwright, that means you must reload the page and wait for it after each viewport change. Consequently, snapping all pages takes around an hour with default settings.
+
+  There are two ways to shorten the time spent using this tool.
+
+  1. Reduce the default page wait time. This can speed things up but some pages won't finish loading before the snap is taken.
+
+  2. Use the =--uid= option to snap specific pages.
+
+  3. Don't use the =--full= option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
+
+- *Images are not the size I expected*
+
+  - Check the values for =SNAP_IMG_WIDTH=, =SNAP_IMG_HEIGHT=
+
+  - Check whether the viewport is set (overriding the default) for the page or step.
+
+  - The height of =_full= images is determined by each page's default container size.
+
+- *Choice of browser*
+
+  In =main.js=, locate the code:
+
+  #+begin_src js
+    const browser = await chromium.launch({
+        headless: config.headless,
+        slowMo: config.slowmo
+    });
+  #+end_src
+
+  Change =chromium= to either =firefox= or =webkit=.
+
 ** How it works
 :PROPERTIES:
 :CUSTOM_ID: how-it-works
@@ -380,44 +435,6 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 #+begin_quote
 *Note:* Spaces, back slashes (=\=), forward slashes ('/'), and dots (=.=) in titles and names are replaced with underscores (in =util.snap()=).
 #+end_quote
-
-** Problems and Troubleshooting
-:PROPERTIES:
-:CUSTOM_ID: problems-and-troubleshooting
-:END:
-This tool was made to make it easier to repeat screenshots for an app's technical documentation. However, the configuration needs constant nurturing and updating. Every change to an app usually means a change to configuration files, and sometimes the code.
-
-- *Server URL*
-
-  The server URL (=server= in =server.json=) has no trailing forward slash (=https://server=, not =https://server/=).
-
-- *Changed CSS selectors*
-
-  Use your browser's developer's mode to inspect the element causing trouble. Check that the CSS selector matches that specified. This tool uses CSS selectors but xpaths also work.
-
-- *Time-outs or blank snaps*
-
-  Some pages take longer to load than others. Panels in some snaps will show they are still loading, or portions will be blank. For these, extend the loading time with the per-page wait value.
-
-- *Page load wait time*
-
-  This tool strives for flexibility over speed, allowing each page snap to be resized, and allowing for partial snaps illustrating particular features or emphasising specific panels. This means the window size (viewport) has to be reset for every snap. In Playwright, that means you must reload the page and wait for it after each viewport change. Consequently, snapping all pages takes around an hour with default settings.
-
-  There are two ways to shorten the time spent using this tool.
-
-  1. Reduce the default page wait time. This can speed things up but some pages won't finish loading before the snap is taken.
-
-  2. Use the =--uid= option to snap specific pages.
-
-  3. Don't use the =--full= option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
-
-- *Images are not the size I expected*
-
-  - Check the values for =SNAP_IMG_WIDTH=, =SNAP_IMG_HEIGHT=
-
-  - Check whether the viewport is set (overriding the default) for the page or step.
-
-  - The height of =_full= images is determined by each page's default container size.
 
 ** TODO [0/19]
 :PROPERTIES:
