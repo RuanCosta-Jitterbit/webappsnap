@@ -79,17 +79,21 @@ function pad(n, w = 3, z = '0') { // number, width, padding char
 /*
 ** Convenience wrapper for loading pages with logging and standard load wait time
 */
-async function load(page, url, wait = config.server_cfg.wait) {
+async function load(page, url, wait = config.server_cfg.wait, force_wait = false) {
     try {
         console.log(`Loading ${url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
 
         await page.goto(url,
             {
-                waitUntil: 'networkidle', // TODO what's best? load, domcontentloaded, networkidle?
-                timeout: wait
+                waitUntil: 'networkidle'
+                ,timeout: wait
             }
         );
-        await eat(page); // TODO remove cookie
+        if (force_wait) {
+            await page.waitForTimeout(wait); // Force Wait before snap
+        }
+
+        //await eat(page); // TODO remove cookie
     } catch (e) {
         console.error(`Can't load ${url} - skipping (${e})`);
     }
@@ -111,8 +115,7 @@ async function viewport(page, viewport, reload = false) {
                 waitUntil: 'load',
                 timeout: config.server_cfg.wait
             });
-            // Remove pesky cookie confirmation (from pmmdemo.percona.com)
-            await eat(page); // TODO only for pmmdemo
+            //await eat(page); // TODO
         }
     } catch (e) {
         console.error(`Failed setting viewport - ${e}`);
@@ -125,11 +128,18 @@ async function viewport(page, viewport, reload = false) {
 ** Others on separate pages
 */
 async function login(page, wait) {
-    // Type in username and password and press Enter
+    // Single or dual login page?
+
     await page.type(config.defaults.login_user_elem, config.user);
-    await page.type(config.defaults.login_pass_elem, config.pass);
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(wait); // Wait for login
+    if (config.server_cfg.single_login_page) {
+        await page.type(config.defaults.login_pass_elem, config.pass);
+        await page.keyboard.press('Enter');
+    } else {
+        await page.keyboard.press('Enter');
+        await page.type(config.defaults.login_pass_elem, config.pass);
+        await page.keyboard.press('Enter');
+    }
+    await page.waitForTimeout(wait);
 
     // TODO intercept and report 'invalid username or password' dialog
     // try {

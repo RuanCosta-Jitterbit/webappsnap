@@ -1,10 +1,14 @@
 {
   "name": "test",
   "server": "https://X.X.X.X",
-  "p1": "",
-  "p2": "",
-  "p3": "",
+  "a": "",
+  "b": "",
+  "c": "",
+  "d": "",
+  "e": "",
+  "f": "",
   "login": "",
+  "single_login_page": false,
   "wait": 40000,
   "pause": 6000
 }

@@ -54,7 +54,8 @@ if (argv.debug) { config.debug = argv.debug; }
         else { console.log(`  Snapping selected (--uid): ${selected_pages.join(' ')}`); }
     }
 
-    const browser = await webkit.launch({
+    // TODO User select browser type
+    const browser = await chromium.launch({
         headless: config.headless,
         slowMo: config.slowmo
     });
@@ -72,7 +73,7 @@ if (argv.debug) { config.debug = argv.debug; }
             server_cfg.server,
             server_cfg.login
         ].join(path.sep);
-        await util.load(page, login_page);
+        await util.load(page, login_page, server_cfg.wait);
         await page.waitForTimeout(server_cfg.pause); // extra time for background to load/render
         await util.snap(page, 'Login', img_dir);
         try {
@@ -80,6 +81,8 @@ if (argv.debug) { config.debug = argv.debug; }
             await util.login(page, server_cfg.wait);
         } catch (err) {
             console.error(`Can't login: ${err}`);
+            // TODO handle this better
+            return;
         }
     }
 
@@ -102,11 +105,14 @@ if (argv.debug) { config.debug = argv.debug; }
      * Part 6: If operations/steps, process them sequentially
      */
 
-    // Can specify up to 3 custom page prefixes
+    // Can specify up to  custom page prefixes
      const server_url_prefixes = [
-        server_cfg.p1 ? server_cfg.p1 : null,
-        server_cfg.p2 ? server_cfg.p2 : null,
-        server_cfg.p3 ? server_cfg.p3 : null
+        server_cfg.a ? server_cfg.a : null,
+        server_cfg.b ? server_cfg.b : null,
+        server_cfg.c ? server_cfg.c : null,
+        server_cfg.d ? server_cfg.d : null,
+        server_cfg.e ? server_cfg.e : null,
+        server_cfg.f ? server_cfg.f : null
     ];
 
     for (var d in pages) {
@@ -160,7 +166,7 @@ if (argv.debug) { config.debug = argv.debug; }
         var operation_viewport = default_dashboard_viewport;
 
         // PART 3 - Load URL
-        await util.load(page, server_url, wait);
+        await util.load(page, server_url, wait, true);
 
         if (pg.viewport) {
             console.log(`Viewport ${pg.viewport.width}x${pg.viewport.height} for dashboard`);
@@ -171,8 +177,9 @@ if (argv.debug) { config.debug = argv.debug; }
         // TODO Reliable way of knowing when page has completed loading
 
         // PART 4 - Remove unwanted elements
-        await util.erase(page, defaults.cookie_popup_elem);
-        await util.erase(page, defaults.breadcrumb_container);
+        // TODO detect if needed
+//        await util.erase(page, defaults.cookie_popup_elem);
+ //       await util.erase(page, defaults.breadcrumb_container);
 
         // PART 5 - Dashboard-level snap (no operations)
         if (!pg.operations) {
