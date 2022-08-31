@@ -1,7 +1,6 @@
 {
-    "COMMENT": "Default values for settings. Many can be overridden via envvars or on the command line",
     "version": "0.1",
-    "config_file": "./cfg/server-test.json",
+    "config_file": "./cfg/server.json",
     "pages_file": "./cfg/pages.json",
     "user": "",
     "pass": "",
