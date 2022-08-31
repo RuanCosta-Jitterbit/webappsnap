@@ -9,6 +9,6 @@
   "f": "",
   "login": "graph/login",
   "single_login_page": true,
-  "wait": 60000,
-  "pause": 6000
+  "wait": 10000,
+  "pause": 5000
 }

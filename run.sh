@@ -39,7 +39,7 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 # SNAP_PASS=
 
 ## Image base directory.
-# Default: 'img_dir' in defaults file ("./images")
+# Default: 'img_dir' in defaults file
 # Note: Within this directory, images are saved to a directory named:
 # <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/
 # E.g. "./images/<server name>/1280x720x1/"
@@ -60,17 +60,17 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 # SNAP_PAGES_FILE=./cfg/
 
 ## Snap viewport.
-# Default: 'img_width' and 'img_height' in defaults file (1280, 1280)
+# Default: 'img_width' and 'img_height' in defaults file
 # Note: Can be overridden per dashboard or per step
 # SNAP_IMG_WIDTH=1280
 # SNAP_IMG_HEIGHT=720
 
 ## JPG Quality (% value).
-# Default: 'jpg_quality' in defaults file (75)
+# Default: 'jpg_quality' in defaults file
 # SNAP_JPG_QUALITY=100
 
 ## Image filetype (.jpg or .png).
-# Default: .jpg (from 'img_ext' in defaults file)
+# Default: 'img_ext' in defaults file
 # SNAP_IMG_EXT=.png
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.

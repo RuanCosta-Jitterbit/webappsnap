@@ -41,7 +41,7 @@ This section uses configuration created for Percona's [[https://www.percona.com/
    ./run.sh
    #+end_src
 
-   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes
+   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around an hour. Images are saved to =images/pmmdemo/1280x1280=.
 
    To snap specific pages:
 
@@ -247,7 +247,9 @@ You must create configuration files for your own application.
 :END:
 - *Changing selectors (IDs of UI elements)*
 
-  Because apps are built to different standards, there is a lot of logging to show what is happening and what is being snapped. For example, if the logs will show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the =pages.json= file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use =press= instead of =click=). Ask developers to allocate static names to frequently used elements.
+  Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
+
+  If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the =pages.json= file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use =press= instead of =click=). Ask developers to allocate static names to frequently used elements.
 
 - *Multiple runs*
 
