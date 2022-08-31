@@ -28,7 +28,7 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-# SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
+SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 
 ## Server credentials
 # Username.
