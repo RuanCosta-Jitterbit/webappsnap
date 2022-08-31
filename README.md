@@ -49,16 +49,20 @@ To create screenshots for your own application:
 
 2. Edit this new file and set values for the fields:
 
-   - `"name"`: A free-form name for your app. (Snapped images will be saved in a subdirectory with this name.)
+   - `name`: A free-form name for your app. (Snapped images will be saved in a subdirectory with this name.)
 
-   - `"server"`: The HTTPS server IP or hostname.
+   - `server`: The HTTPS server IP or hostname.
 
-   - `"p1"`, `"p2"`, `"p3"`: General-purpose prefixes, tokens that may come between the server base URL and the page.
-      For example, on [PMM Demo], set them to `"graph"` and `"d"` (tokens that don't exist on PMM1 URLs).
+   - `a` to `f`: General-purpose prefixes, tokens that may come between the server base URL and the page.
+      For example, on [PMM Demo], set `a` to `graph` and `b` to `d` (tokens that don't exist on PMM1 URLs).
 
-   - `"wait"`: The number of milliseconds to wait for a page to load. (10000 to 20000 for local instances, 30000 or more for remote instances.)
+   - `login`: The app's login path (relative to `server`).
 
-   - `"pause"` is a shorter wait interval used when snapping mouse-over tooltips. 1000-5000ms is enough.
+   - `single_login_page`: `true` or `false`. True means the selectors specified for `login_user_elem` and `login_pass_elem` in `defaults.json` are on the same page. False means they are on subsequent pages.
+
+   - `wait`: The number of milliseconds to wait for a page to load.
+
+   - `pause` is a shorter wait interval used when snapping mouse-over tooltips. 1000-5000ms is enough.
 
 3. Set values for environment variables (in your shell, or in `run.sh` where examples and explanations are given).
 
