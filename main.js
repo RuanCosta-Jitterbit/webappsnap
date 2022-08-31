@@ -84,7 +84,7 @@ if (argv.debug) { config.debug = argv.debug; }
     }
 
 
-    // TODO broken since 2.12.0 - Needs authentication
+    // TODO Check app's version (if offered via swagger) and compare with configs
 //    await util.check_versions();
 //    console.log(await util.get_version());
 
