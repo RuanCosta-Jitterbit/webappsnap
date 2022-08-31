@@ -122,6 +122,8 @@ async function viewport(page, viewport, reload = false) {
 
 /*
 ** Handle PMM login page
+** TODO Some apps have user/pass on same page
+** Others on separate pages
 */
 async function login(page, wait) {
     // Type in username and password and press Enter
@@ -147,7 +149,7 @@ async function login(page, wait) {
 }
 
 /*
-** Delete cookie popup element extant on pmmdemo
+** Delete cookie popup elements
 */
 async function eat(page) {
     const cookie_popup = config.defaults.cookie_popup_elem;
@@ -206,10 +208,10 @@ async function check_versions() {
         function (response) {
             if (response.version == config.defaults.version
                 &&
-                response.version == config.dashboards_version) {
+                response.version == config.pages_version) {
                 console.log("Versions match");
             } else {
-                console.error(`WARNING: Configuration/server version mismatch - Defaults (${config.defaults.version}), Dashboards (${config.dashboards_version}), PMM Server (${response.version})`);
+                console.error(`WARNING: Configuration/server version mismatch - Defaults (${config.defaults.version}), Dashboards (${config.pages_version}), PMM Server (${response.version})`);
             }
         }
     );

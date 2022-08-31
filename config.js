@@ -1,5 +1,5 @@
 /*
-** Common configuration for PMM Screenshot
+** Common configuration
 */
 var uf = require('url');
 
@@ -7,15 +7,15 @@ var uf = require('url');
 const defaults_file_name = process.env.SNAP_DEFAULTS_FILE || './cfg/defaults.json';
 const defaults = require(defaults_file_name);
 
-// Dashboards
-const dashboards_file_name = process.env.SNAP_DASHBOARDS_FILE || defaults.dashboards_file;
-const dashboards = require(dashboards_file_name);
+// Pages
+const pages_file_name = process.env.SNAP_PAGES_FILE || defaults.pages_file;
+const pages = require(pages_file_name);
 
 // Per-server configuration values (cfg/server-*.json)
 const cfg_file_name = process.env.SNAP_SRV_CFG_FILE || defaults.config_file;
 const server_cfg = require(cfg_file_name);
 
-const hostname = uf.parse(server_cfg.server).hostname; // The PMM URL/server/IP
+const hostname = uf.parse(server_cfg.server).hostname; // The app URL/server/IP
 
 // Override defaults.json values with env vars, if set
 var jpg_quality = Number(process.env.SNAP_JPG_QUALITY) || defaults.jpg_quality; // jpg only
@@ -51,14 +51,14 @@ const img_dir = process.env.SNAP_IMG_DIR || defaults.img_dir;
 
 // EXPORTS
 //   Data structures
-module.exports.dashboards = dashboards.dashboards;
+module.exports.pages = pages.pages;
 module.exports.defaults = defaults;
 //   Values
-module.exports.dashboards_version = dashboards.version;
+//module.exports.pages_version = pages.version;
 module.exports.server_cfg = server_cfg;
 module.exports.cfg_file_name = cfg_file_name;
 module.exports.defaults_file_name = defaults_file_name;
-module.exports.dashboards_file_name = dashboards_file_name;
+module.exports.pages_file_name = pages_file_name;
 module.exports.hostname = hostname;
 module.exports.user = user;
 module.exports.pass = pass;

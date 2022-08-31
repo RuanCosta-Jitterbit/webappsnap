@@ -1,6 +1,6 @@
 {
     "version": "2.18.0",
-    "dashboards": [
+    "pages": [
         {
             "title": "CPU Utilization Details",
             "uid": "node-cpu"

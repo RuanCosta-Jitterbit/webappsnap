@@ -6,7 +6,6 @@
 - [ ] handle `net::ERR_INTERNET_DISCONNECTED` (in `util.load`)
 - [ ] Find more reliable way to know when page is fully loaded, rather than using `waitFor` with fixed value for all pages (`util.load`)
 - [ ] Compute additional container padding needed for `_full` images rather than using absolute value
-- [ ] Skip `util.eat` if not on pmmdemo
 - [ ] Consider whether `--full` option should also be specified via env var
 - [ ] Rationalize and relocate directory creation code
 - [ ] Check that supplied UIDs exist
@@ -15,11 +14,8 @@
 - [ ] How to inject custom text strings as form values
 - [ ] Option to skip version checking
 - [ ] Set up authentication needed for accessing Swagger `/v1/version`
-- [ ] Easier handling of `/graph/d/vagent` paths
-- [x] Allow configurable slowmo value when `headless=false`
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 - [ ] Write settings file in images directory (to know what were used for that snap set)
 - [ ] Add `--skip-uid` flag as inverse of `--uid` to exclude named items
-- [ ] Allow choice of browser technology `{chromium|webkit|firefox}`
+- [ ] Allow command line choice of browser technology `{chromium|webkit|firefox}`
 - [ ] Allow skipping/selecting operations/steps per UID
-- [ ] Solve unreliable snapping of QAN 'Main Metric Sparkline'

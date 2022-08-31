@@ -1,8 +1,0 @@
-{
-  "name": "pmm2stage",
-  "server": "https://pmm2stage.percona.com",
-  "graph": "graph",
-  "dshbd": "d",
-  "wait": 25000,
-  "pause": 6000
-}

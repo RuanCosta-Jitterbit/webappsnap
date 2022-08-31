@@ -1,6 +1,6 @@
 {
     "version": "1.17.4",
-    "dashboards": [
+    "pages": [
         {
             "title": "Advanced Data Exploration",
             "uid": "000000033"

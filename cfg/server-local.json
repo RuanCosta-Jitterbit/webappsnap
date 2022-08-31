@@ -1,8 +1,0 @@
-{
-  "name": "local",
-  "server": "https://localhost",
-  "graph": "graph",
-  "dshbd": "d",
-  "wait": 25000,
-  "pause": 3000
-}

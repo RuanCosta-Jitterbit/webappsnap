@@ -1,4 +1,4 @@
-// Connects to PMM instance to take screenshots of each dashboard
+// Connects to app to take screenshots of each page defined in config
 'use strict';
 const { chromium, firefox, webkit } = require('playwright');
 const { argv } = require('yargs');
@@ -7,12 +7,12 @@ const util = require('./util.js'); // Utility functions: snapping, loading URLs
 const config = require('./config.js'); // Start-up vs default configuration value handling
 const { exit } = require('process');
 const defaults = config.defaults; // Default config values
-const dashboards = config.dashboards; // Dashboards definitions
+const pages = config.pages; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
-const server_cfg = config.server_cfg; // Config file specific to a PMM server
+const server_cfg = config.server_cfg; // Config file specific to an app
 
-if (argv.list) { // List dashboard UIDs and exit
-    console.log(Array.from(new Set(dashboards.map(e1 => e1.uid).sort())).join("\n"));
+if (argv.list) { // List page UIDs and exit
+    console.log(Array.from(new Set(pages.map(e1 => e1.uid).sort())).join("\n"));
     return;
 }
 
@@ -22,8 +22,8 @@ var img_dir = path.join(config.img_dir, server_cfg.name,
 
 util.mkdir(img_dir);    // Create image save directory TODO move to snap function
 
-// Option for specifying dashboards to snap
-const selected_dashboards = ((argv.uid) ? argv.uid.split(',') : []);
+// Option for specifying pages to snap
+const selected_pages = ((argv.uid) ? argv.uid.split(',') : []);
 
 // TODO Better debug/logging/usage options
 if (argv.debug) { config.debug = argv.debug; }
@@ -33,9 +33,9 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`Server: ${config.hostname}`);
         console.log("Files");
         console.log(`  Image base directory (SNAP_IMG_DIR): ${img_dir}`)
-        console.log(`  Server configuration file (SNAP_SRV_CFG_FILE): ${config.cfg_file_name}`);
-        console.log(`  Dashboards configuration file (SNAP_DASHBOARDS_FILE): ${config.dashboards_file_name}`);
         console.log(`  Defaults file (SNAP_DEFAULTS_FILE): ${config.defaults_file_name}`);
+        console.log(`  Server configuration file (SNAP_SRV_CFG_FILE): ${config.cfg_file_name}`);
+        console.log(`  Pages configuration file (SNAP_PAGES_FILE): ${config.pages_file_name}`);
         console.log("Images");
         console.log(`  Viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT): ${config.img_width}x${config.img_height}`);
         console.log(`  Image filename sequence numbers (SNAP_IMG_SEQ): ${Boolean(config.img_seq)}`);
@@ -50,8 +50,8 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
         console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
-        if (!argv.uid) { console.log("  Snapping all dashboards"); }
-        else { console.log(`  Snapping selected (--uid): ${selected_dashboards.join(' ')}`); }
+        if (!argv.uid) { console.log("  Snapping all pages"); }
+        else { console.log(`  Snapping selected (--uid): ${selected_pages.join(' ')}`); }
     }
 
     const browser = await webkit.launch({
@@ -66,7 +66,7 @@ if (argv.debug) { config.debug = argv.debug; }
         height: config.img_height
     });
 
-    // Attempt login if configured (necessary for access to some dashboards)
+    // Attempt login if configured
     if (config.log_in) {
         await util.load(page, `${server_cfg.server}/${server_cfg.graph}/login`);
         await page.waitForTimeout(server_cfg.pause); // extra time for background to load/render
@@ -86,7 +86,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
 
     /*************************************************************************************
-     * A loop through all dashboards in dashboards config file (e.g. ./cfg/dashboards.json):
+     * A loop through all pages in pages config file (e.g. ./cfg/pages.json):
      *
      * Part 1: Build URL
      * Part 2: Define viewport
@@ -97,43 +97,56 @@ if (argv.debug) { config.debug = argv.debug; }
      * Part 5: If no operations, snap the viewport and optionally (--full) unconstrained container
      * Part 6: If operations/steps, process them sequentially
      */
-    for (var d in dashboards) {
-        var dash = dashboards[d]; // convenience handle
+
+    // Can specify up to 3 custom page prefixes
+     const server_url_prefixes = [
+        server_cfg.p1 ? server_cfg.p1 : null,
+        server_cfg.p2 ? server_cfg.p2 : null,
+        server_cfg.p3 ? server_cfg.p3 : null
+    ];
+
+    for (var d in pages) {
+        var pg = pages[d]; // convenience handle
 
         // If specific dashboard UIDs given, skip all but them (--dash=uid,...)
         // TODO Check that supplied UIDs exist
-        if (selected_dashboards.length > 0 && !selected_dashboards.includes(dash.uid)) {
+        if (selected_pages.length > 0 && !selected_pages.includes(pg.uid)) {
             continue;
         }
 
-        // Dashboards can be skipped by adding "skip": true in dashboards config
-        if (dash.skip) {
-            console.log(`Skipping ${dash.uid}`)
+        // Pages can be skipped by adding "skip": true in pages config
+        if (pg.skip) {
+            console.log(`Skipping ${pg.uid}`)
             continue;
         }
 
         page.setDefaultTimeout(server_cfg.wait);
-        const wait = (dash.wait ? dash.wait : server_cfg.wait); // Dashboard waits override default
+        const wait = (pg.wait ? pg.wait : server_cfg.wait); // Per-page waits override the default
 
         // PART 1 - Build URL
+        // TODO Need a way to configure app page URL patterns
         // Create option string if needed
-
-        // Most are dashboards with URLs built from config as SERVER/graph/d/UID
-        // Exceptions (using 'url'):
-        // - SERVER/swagger
-        // - SERVER/graph/login
-        // - SERVER/alerting/list
-        // - SERVER/alerting/notifications
-        // - SERVER/settings
         var server_url;
         var option_string = "";
-        if (dash.options) { option_string = "?" + dash.options.join('&'); }
+        if (pg.options) { option_string = "?" + pg.options.join('&'); }
 
-        if (dash.url) {
-            server_url = `${server_cfg.server}/${dash.url}${(dash.options) ? option_string : ''}`;
+        // Construct the page's URL or use the override value
+        if (pg.url) {
+            server_url = [
+                server_cfg.server
+                ,pg.url
+            ].join(path.sep);
         } else {
-            server_url = `${server_cfg.server}/${server_cfg.graph}/${server_cfg.dshbd}/${dash.uid}${(dash.options) ? option_string : ''}`;
+            server_url =
+            [
+                server_cfg.server
+                // filter as not all prefixes may be set
+               ,server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join(path.sep)
+               ,pg.uid
+            ]
+            .join(path.sep);
         }
+        server_url = `${server_url}${option_string}`
 
         // PART 2 - Viewport
         // Default when none specified
@@ -145,10 +158,10 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 3 - Load URL
         await util.load(page, server_url, wait);
 
-        if (dash.viewport) {
-            console.log(`Viewport ${dash.viewport.width}x${dash.viewport.height} for dashboard`);
-            await util.viewport(page, dash.viewport);
-            dashboard_viewport = dash.viewport;
+        if (pg.viewport) {
+            console.log(`Viewport ${pg.viewport.width}x${pg.viewport.height} for dashboard`);
+            await util.viewport(page, pg.viewport);
+            dashboard_viewport = pg.viewport;
         }
 
         // TODO Reliable way of knowing when page has completed loading
@@ -158,12 +171,12 @@ if (argv.debug) { config.debug = argv.debug; }
         await util.erase(page, defaults.breadcrumb_container);
 
         // PART 5 - Dashboard-level snap (no operations)
-        if (!dash.operations) {
-            await util.snap(page, dash.title, img_dir);
+        if (!pg.operations) {
+            await util.snap(page, pg.title, img_dir);
 
             // Snap container without cropping at viewport
             // Skip any using 'url' element as these are outside of grafana
-            if (argv.full && !dash.url) {
+            if (argv.full && !pg.url) {
                 try {
                     // Get height of container
                     const elem = await page.waitForSelector(defaults.container, { visible: true });
@@ -171,7 +184,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     // Resize viewport to container height plus padding
                     const vp = { width: config.img_width, height: bx.height + 150 };
                     await util.viewport(page, vp, true);
-                    await util.snap(page, dash.title + "_full", img_dir, true);
+                    await util.snap(page, pg.title + "_full", img_dir, true);
                 }
                 catch (e) {
                     console.log(`${e}...Skipping full snap`);
@@ -193,8 +206,8 @@ if (argv.debug) { config.debug = argv.debug; }
         // With no operations, a dashboard is automatically snapped.
         // If operations are used, dedicate at least one step to a full-window snap,
         // or add another dashboard entry with no operations.
-        for (var o in dash.operations) {
-            const operation = dash.operations[o]; // Convenience handle
+        for (var o in pg.operations) {
+            const operation = pg.operations[o]; // Convenience handle
             console.log(`Operation: ${o}: ${operation.name}`);
 
             // Viewport per operation
@@ -251,7 +264,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                             const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                             process.stdout.write("    "); // Indent log message in snap function
-                            await util.snap(selector, [dash.title, operation.name, step.name].filter(String).join("_"), img_dir);
+                            await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join("_"), img_dir);
                             console.log(`    Viewport reset to: ${operation_viewport.width}x${operation_viewport.height}`);
                             await util.viewport(page, operation_viewport); // Reset to operation viewport
                             break;
@@ -263,7 +276,7 @@ if (argv.debug) { config.debug = argv.debug; }
             await util.viewport(page, dashboard_viewport); // Reset to dashboard viewport
         } // for operations
         await util.viewport(page, default_dashboard_viewport); // Reset to default viewport
-    } // for dashboards
+    } // for pages
     await browser.close();
 
 })();

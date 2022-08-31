@@ -1,8 +1,9 @@
 {
   "name": "test",
   "server": "https://X.X.X.X",
-  "graph": "graph",
-  "dshbd": "d",
+  "p1": "",
+  "p2": "",
+  "p3": "",
   "wait": 40000,
   "pause": 6000
 }
