@@ -257,7 +257,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             await page.click(step.selector);
                             break;
                         case "blur":
-                            await page.addStyleTag({ content: `${step.selector} { filter: blur(2px); }` });
+                            await page.addStyleTag({ content: `${step.selector} { filter: blur(5px); }` });
                             break;
                         case "highlight":
                             await page.addStyleTag({ content: `${step.selector} { border: ${defaults.highlight_style} }` });
