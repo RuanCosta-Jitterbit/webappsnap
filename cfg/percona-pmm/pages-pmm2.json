@@ -448,6 +448,8 @@
             "wait": 120000
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "options": [
@@ -514,6 +516,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "options": [
@@ -554,6 +558,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "options": [
@@ -588,6 +594,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "options": [
@@ -622,6 +630,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "options": [
@@ -656,6 +666,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "options": [
@@ -690,6 +702,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "title": "Query Analytics",
             "uid": "pmm-qan",
             "viewport": {
@@ -728,6 +742,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings",
             "uid": "settings",
             "url": "graph/settings/",
@@ -745,6 +761,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Metrics Resolution",
             "uid": "settings",
             "url": "graph/settings/metrics-resolution",
@@ -754,6 +772,8 @@
             }
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Advanced Settings",
             "uid": "settings",
             "url": "graph/settings/advanced-settings",
@@ -763,6 +783,8 @@
             }
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings SSH Key",
             "uid": "settings",
             "url": "graph/settings/ssh-key",
@@ -772,6 +794,8 @@
             }
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Alertmanager Integration",
             "uid": "settings",
             "url": "graph/settings/am-integration",
@@ -781,6 +805,8 @@
             }
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Percona Platform",
             "uid": "settings",
             "url": "graph/settings/percona-platform",
@@ -810,6 +836,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Advanced",
             "uid": "settings",
             "url": "graph/settings/advanced-settings",
@@ -842,6 +870,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Advanced",
             "uid": "settings",
             "url": "graph/settings/advanced-settings",
@@ -874,6 +904,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Settings Communication",
             "uid": "settings",
             "url": "graph/settings/communication",
@@ -1490,6 +1522,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Integrated Alerting",
             "uid": "integrated-alerting",
             "url": "graph/integrated-alerting",
@@ -1544,6 +1578,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Integrated Alerting",
             "uid": "integrated-alerting",
             "url": "graph/integrated-alerting",
@@ -1584,6 +1620,8 @@
             ]
         },
         {
+            "skip": "true",
+            "comment": "Restricted",
             "title": "Integrated Alerting",
             "uid": "integrated-alerting",
             "url": "graph/integrated-alerting",

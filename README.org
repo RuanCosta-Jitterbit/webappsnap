@@ -41,7 +41,7 @@ This section uses configuration created for Percona's [[https://www.percona.com/
    ./run.sh
    #+end_src
 
-   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around an hour. Images are saved to =images/pmmdemo/1280x1280=.
+   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around 45 minutes. Around 80 images are saved to =images/pmmdemo/1280x1280=.
 
    To snap specific pages:
 
