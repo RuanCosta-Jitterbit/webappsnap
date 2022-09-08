@@ -68,6 +68,10 @@ SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 # Default: 'img_pfx' in defaults file
 # SNAP_IMG_PFX=''
 
+## Replace spaces and dots in filenames with this character
+# Default: 'img_filename_sep' in defaults file
+# SNAP_IMG_FILENAME_SEP="_"
+
 ## Headless mode. Whether to hide browser while snapping.
 # Default: 'headless' in defaults file
 # SNAP_HEADLESS=false

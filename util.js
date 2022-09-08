@@ -32,7 +32,7 @@ function mkdir(dir) {
 */
 async function snap(page, title = "", dir, full = false) {
     const sep = config.defaults.img_filename_sep;
-    // Replace space, dot, slash with dash
+    // Replace space, dot, slash with sep char
     title = title.replace(/[\. \\\/]/g, sep);
 
     // Array of two (possibly empty) prefixes joined with title and extension

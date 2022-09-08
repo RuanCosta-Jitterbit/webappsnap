@@ -87,6 +87,8 @@ You must create configuration files for your own application.
 
      - =img_pfx=: The secondary file name prefix for each snap file. (=SNAP_IMG_PFX=)
 
+     - =img_filename_sep=: Replace slash, space, or dot in final image filenames with this character. (=SNAP_IMG_FILENAME_SEP=)
+
      - =img_ext=: File name extension, either =.png= or =.jpg=. (=SNAP_IMG_EXT=)
 
      - =img_width=: The image width, in pixels, for full screen snaps. (=SNAP_IMG_WIDTH=)
