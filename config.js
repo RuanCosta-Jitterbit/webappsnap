@@ -38,8 +38,6 @@ var img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
 
 var slowmo      = Number(process.env.SNAP_SLOW_MO) || defaults.slowmo;
 
-var user        = process.env.SNAP_USER || defaults.user;
-var pass        = process.env.SNAP_PASS || defaults.pass;
 // Binary options
 var img_seq     = ((process.env.SNAP_IMG_SEQ) ? (process.env.SNAP_IMG_SEQ == 'true') : (defaults.img_seq === true));
 var headless    = ((process.env.SNAP_HEADLESS) ? (process.env.SNAP_HEADLESS == 'true') : (defaults.headless === true));

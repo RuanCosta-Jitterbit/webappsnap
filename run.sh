@@ -28,15 +28,7 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
-
-## Server credentials
-# Username.
-# Default: 'user' field in defaults file
-# SNAP_USER=
-# Password.
-# Default: 'pass' field in defaults file
-# SNAP_PASS=
+SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 
 ## Image base directory.
 # Default: 'img_dir' in defaults file
@@ -46,14 +38,9 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 # (See snap() in utils.js for subdirectory and file naming.)
 # SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
-## Log in and snap the login screen.
-# Default: 'log_in' field in defaults file
-# SNAP_LOG_IN=false
-
 ## Server config file.
 # Default: 'config_file' in defaults file
 # SNAP_SRV_CFG_FILE=./cfg/server-test.json
-# SNAP_SRV_CFG_FILE=./cfg/server-local.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file

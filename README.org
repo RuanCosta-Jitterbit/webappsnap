@@ -81,10 +81,6 @@ You must create configuration files for your own application.
 
      - =pages_file=: Path to default pages configuration file. (=SNAP_PAGES_FILE=)
 
-     - =user=: App user's login name. (=SNAP_USER=)
-
-     - =pass=: App user's password. (=SNAP_PASS=)
-
      - =img_dir=: Where to save images. (=SNAP_IMG_DIR=)
 
      - =img_seq=: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number. (=SNAP_IMG_SEQ=)
@@ -211,8 +207,6 @@ You must create configuration files for your own application.
 
    - =SNAP_SRV_CFG_FILE=: The path to the =server.json= file. Default is the value of =config_file= in the defaults file.
 
-   - =SNAP_USER=, =SNAP_PASS=: If your app has a log-in step, set these. *CAUTION* The password must remain in plain text. (A big TODO.) Defaults are the values of =user= and =pass= in the defaults file.
-
    Optional:
 
    - =SNAP_IMG_WIDTH=, =SNAP_IMG_HEIGHT=: Snap image width and height (in pixels). Defaults are the values of =img_width= and =img_height= in the defaults file.
@@ -256,10 +250,6 @@ You must create configuration files for your own application.
   By default, image filenames don't include a sequence number prefix. When debugging or testing this tool, edit =run.sh= and set =SNAP_IMG_SEQ=true=. This will create images numbered by their order in the app's =pages.json= specification file.
 
   You can also use the =SNAP_IMG_PFX= and =SNAP_IMG_DIR= environment variables in =run.sh= to separate runs of the tool.
-
-- *Login problems*
-
-  You can set login credentials (on the command line or in =run.sh=) with the variables =SNAP_USER= and =SNAP_PASS=.
 
 - *Commenting out pages*
 
