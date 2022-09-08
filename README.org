@@ -179,7 +179,7 @@ You must create configuration files for your own application.
 
              - =move=: Move to (hover over) the element specified by =selector=. (Uses [[https://playwright.dev/docs/api/class-page#pagehoverselector-options][=page.hover()=]] which finds the first CSS selector ID and positions the mouse in the center of it.)
 
-             - =text=: Enter =value= text into element =selector=.
+             - =text=: Enter =value= text into element =selector=. If =value= is the word =RANDOM=, a random 5-digit hex string (10 characters) is entered.
 
              - =press=: Press each of the keys in the =value= array.
 
@@ -432,7 +432,7 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 :PROPERTIES:
 :CUSTOM_ID: todo
 :END:
-- [ ] Add configuration to specify filename separator character currently hard-coded to underscore (=_=).
+- [X] Add configuration to specify filename separator character currently hard-coded to underscore (=_=).
 - [ ] Improve debug/logging facility
 - [ ] intercept and report 'invalid username or password' dialog (util.login)
 - [ ] handle =net::ERR_INTERNET_DISCONNECTED= (in =util.load=)
@@ -444,10 +444,10 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 - [ ] Img dir doesn't need to be arg of =snap()=
 - [ ] Avoid image overwrite when =SNAP_IMG_SEQ= is off
 - [ ] How to inject custom text strings as form values
-- [ ] Option to skip version checking
 - [ ] Set up authentication needed for accessing Swagger =/v1/version=
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 - [ ] Write settings file in images directory (to know what were used for that snap set)
 - [ ] Add =--skip-uid= flag as inverse of =--uid= to exclude named items
 - [ ] Allow command line choice of browser technology ={chromium|webkit|firefox}=
 - [ ] Allow skipping/selecting operations/steps per UID
+- [ ] Safe way to send username/password to app without saving in config files
