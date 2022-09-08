@@ -32,6 +32,7 @@ if (typeof process.env.SNAP_IMG_PFX === 'undefined') {
     console.log("SNAP_IMG_PFX can't be set");
 }
 
+var img_filename_sep = process.env.SNAP_IMG_FILENAME_SEP || defaults.img_filename_sep;
 var img_ext     = process.env.SNAP_IMG_EXT || defaults.img_ext;
 var img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 var img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
@@ -68,6 +69,7 @@ module.exports.img_height = img_height;
 module.exports.img_width = img_width;
 module.exports.img_pfx = img_pfx;
 module.exports.img_seq = img_seq;
+module.exports.img_filename_sep = img_filename_sep;
 module.exports.jpg_quality = jpg_quality;
 module.exports.img_ext = img_ext;
 module.exports.img_dir = img_dir;

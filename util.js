@@ -31,8 +31,9 @@ function mkdir(dir) {
 ** Convenience wrapper for screenshots, and where the image filename is built
 */
 async function snap(page, title = "", dir, full = false) {
-    // Replace space, dot, slash with underscore
-    title = title.replace(/[\. \\\/]/g, "_");
+    const sep = config.defaults.img_filename_sep;
+    // Replace space, dot, slash with dash
+    title = title.replace(/[\. \\\/]/g, sep);
 
     // Array of two (possibly empty) prefixes joined with title and extension
     const filename = [
@@ -40,7 +41,7 @@ async function snap(page, title = "", dir, full = false) {
         (config.img_pfx ? config.img_pfx : null),
         title
     ]
-        .filter(function (a) { return a != null; }).join('_') + config.img_ext;
+        .filter(function (a) { return a != null; }).join(sep) + config.img_ext;
 
     const filepath = path.join(dir, filename);
     process.stdout.write(`Saving ${filepath} ... `);
@@ -123,36 +124,6 @@ async function viewport(page, viewport, reload = false) {
 }
 
 /*
-** Handle login page
-** TODO Some apps have user/pass on same page
-** Others on separate pages
-*/
-async function login(page, wait) {
-    // Single or dual login page?
-
-    await page.type(config.defaults.login_user_elem, config.user);
-    if (config.server_cfg.single_login_page) {
-        await page.type(config.defaults.login_pass_elem, config.pass);
-        await page.keyboard.press('Enter');
-    } else {
-        await page.keyboard.press('Enter');
-        await page.type(config.defaults.login_pass_elem, config.pass);
-        await page.keyboard.press('Enter');
-    }
-    await page.waitForTimeout(wait);
-
-    // TODO intercept and report 'invalid username or password' dialog
-    // try {
-    //     const skip_button = config.defaults.login_skip_elem;
-    //     await page.waitForSelector(skip_button, { visible: true, timeout: config.server_cfg.pause });
-    //     await page.click(skip_button);
-    //     await page.waitForTimeout(wait);
-    // } catch (err) {
-    //     console.log("Didn't find a password change skip button");
-    // }
-}
-
-/*
 ** Delete cookie popup elements
 */
 async function eat(page) {
@@ -232,7 +203,6 @@ async function get_version() {
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
 module.exports.load = load;
-module.exports.login = login;
 module.exports.eat = eat;
 module.exports.erase = erase;
 module.exports.viewport = viewport;

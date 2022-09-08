@@ -6,6 +6,7 @@ const path = require('path');
 const util = require('./util.js'); // Utility functions: snapping, loading URLs
 const config = require('./config.js'); // Start-up vs default configuration value handling
 const { exit } = require('process');
+var crypto = require("crypto");
 const defaults = config.defaults; // Default config values
 const pages = config.pages; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
@@ -48,7 +49,6 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  SlowMo value (SNAP_SLOW_MO): ${config.slowmo / 1000} seconds`);
         console.log("Options");
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
-        console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all pages"); }
         else { console.log(`  Snapping selected (--uid): ${selected_pages.join(' ')}`); }
@@ -66,31 +66,6 @@ if (argv.debug) { config.debug = argv.debug; }
         width: config.img_width,
         height: config.img_height
     });
-
-    // Attempt login if configured
-    if (config.log_in) {
-        const login_page = [
-            server_cfg.server,
-            server_cfg.login
-        ].join(path.sep);
-        await util.load(page, login_page, server_cfg.wait);
-        await page.waitForTimeout(server_cfg.pause); // extra time for background to load/render
-        await util.snap(page, 'Login', img_dir);
-        try {
-            console.info("Logging in");
-            await util.login(page, server_cfg.wait);
-        } catch (err) {
-            console.error(`Can't login: ${err}`);
-            // TODO handle this better
-            return;
-        }
-    }
-
-
-    // TODO Check app's version (if offered via swagger) and compare with configs
-//    await util.check_versions();
-//    console.log(await util.get_version());
-
 
     /*************************************************************************************
      * A loop through all pages in pages config file (e.g. ./cfg/pages.json):
@@ -244,6 +219,9 @@ if (argv.debug) { config.debug = argv.debug; }
                             await page.hover(step.selector);
                             break;
                         case "text":
+                            if (step.value == "RANDOM") {
+                                step.value = crypto.randomBytes(5).toString('hex');
+                            }
                             await page.type(step.selector, String(step.value));
                             break;
                         case "press":
@@ -265,6 +243,10 @@ if (argv.debug) { config.debug = argv.debug; }
                         case "unhighlight":
                             await page.addStyleTag({ content: `${step.selector} { border: none }` });
                             break;
+                        case "hide":
+                            console.log(`    Hiding selector: ${step.selector}`);
+                            await page.addStyleTag({ content: `${step.selector} { visibility: hidden; }` });
+                            break;
                         case "snap":
                             // Viewport per step
                             if (step.viewport) {
@@ -275,7 +257,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                             const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                             process.stdout.write("    "); // Indent log message in snap function
-                            await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join("_"), img_dir);
+                            await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join(config.img_filename_sep), img_dir);
                             console.log(`    Viewport reset to: ${operation_viewport.width}x${operation_viewport.height}`);
                             await util.viewport(page, operation_viewport); // Reset to operation viewport
                             break;
