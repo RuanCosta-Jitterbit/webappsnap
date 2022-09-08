@@ -253,7 +253,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                             const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                             process.stdout.write("    "); // Indent log message in snap function
-                            await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join("_"), img_dir);
+                            await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join(config.img_filename_sep), img_dir);
                             console.log(`    Viewport reset to: ${operation_viewport.width}x${operation_viewport.height}`);
                             await util.viewport(page, operation_viewport); // Reset to operation viewport
                             break;
