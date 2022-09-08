@@ -6,6 +6,7 @@ const path = require('path');
 const util = require('./util.js'); // Utility functions: snapping, loading URLs
 const config = require('./config.js'); // Start-up vs default configuration value handling
 const { exit } = require('process');
+var crypto = require("crypto");
 const defaults = config.defaults; // Default config values
 const pages = config.pages; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
@@ -218,6 +219,9 @@ if (argv.debug) { config.debug = argv.debug; }
                             await page.hover(step.selector);
                             break;
                         case "text":
+                            if (step.value == "RANDOM") {
+                                step.value = crypto.randomBytes(5).toString('hex');
+                            }
                             await page.type(step.selector, String(step.value));
                             break;
                         case "press":
