@@ -48,7 +48,6 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  SlowMo value (SNAP_SLOW_MO): ${config.slowmo / 1000} seconds`);
         console.log("Options");
         console.log(`  Headless mode (SNAP_HEADLESS): ${Boolean(config.headless)}`);
-        console.log(`  Snap login page and log in (SNAP_LOG_IN): ${Boolean(config.log_in)}`);
         console.log(`  Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`); // TODO make env var
         if (!argv.uid) { console.log("  Snapping all pages"); }
         else { console.log(`  Snapping selected (--uid): ${selected_pages.join(' ')}`); }
@@ -66,31 +65,6 @@ if (argv.debug) { config.debug = argv.debug; }
         width: config.img_width,
         height: config.img_height
     });
-
-    // Attempt login if configured
-    if (config.log_in) {
-        const login_page = [
-            server_cfg.server,
-            server_cfg.login
-        ].join(path.sep);
-        await util.load(page, login_page, server_cfg.wait);
-        await page.waitForTimeout(server_cfg.pause); // extra time for background to load/render
-        await util.snap(page, 'Login', img_dir);
-        try {
-            console.info("Logging in");
-            await util.login(page, server_cfg.wait);
-        } catch (err) {
-            console.error(`Can't login: ${err}`);
-            // TODO handle this better
-            return;
-        }
-    }
-
-
-    // TODO Check app's version (if offered via swagger) and compare with configs
-//    await util.check_versions();
-//    console.log(await util.get_version());
-
 
     /*************************************************************************************
      * A loop through all pages in pages config file (e.g. ./cfg/pages.json):
@@ -264,6 +238,10 @@ if (argv.debug) { config.debug = argv.debug; }
                             break;
                         case "unhighlight":
                             await page.addStyleTag({ content: `${step.selector} { border: none }` });
+                            break;
+                        case "hide":
+                            console.log(`    Hiding selector: ${step.selector}`);
+                            await page.addStyleTag({ content: `${step.selector} { visibility: hidden; }` });
                             break;
                         case "snap":
                             // Viewport per step

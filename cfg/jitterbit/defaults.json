@@ -1,0 +1,20 @@
+{
+    "COMMENT": "Default values for settings. Many can be overridden via envvars or on the command line",
+    "version": "",
+    "config_file": "./cfg/jitterbit/server.json",
+    "pages_file": "./cfg/jitterbit/pages.json",
+    "user": "user@example.com",
+    "pass": "nopassword",
+    "img_dir": "./images",
+    "img_seq": true,
+    "img_pfx": "app-builder",
+    "img_ext": ".png",
+    "img_filename_sep": "-",
+    "img_width": 1200,
+    "img_height": 768,
+    "jpg_quality": 75,
+    "headless": true,
+    "slowmo": 0,
+    "debug": false,
+    "highlight_style": "2px dashed yellow"
+}
