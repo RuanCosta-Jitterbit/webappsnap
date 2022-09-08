@@ -103,16 +103,6 @@ You must create configuration files for your own application.
 
      - =debug=: When =true=, program prints operating parameters. (=--debug=)
 
-     - =login_user_elem=: The CSS selector ID for the app's login screen user input text field.
-
-     - =login_pass_elem=: The CSS selector ID for the app's login screen password input text field.
-
-     - =login_skip_elem=: The CSS selector ID for any password change 'Skip' button (specific to PMM).
-
-     - =cookie_popup_elem=: The CSS selector ID for any 'Accept cookies' dialogue (which is removed before snapping).
-
-     - =container=: The CSS selector ID for the page body, excluding left and top menu bars. This is used by the =--full= option to snap the entire page beyond the specified viewport.
-
    - =server.json=
 
      This file defines an individual app. If you have the same app on different hostnames, use a different file for each.
@@ -128,12 +118,6 @@ You must create configuration files for your own application.
        =https://pmmdemo.percona.com/graph/d/<page UID>=
 
        Since the configuration only needs to list the page UIDs, set =a= to =graph= and =b= to =d=.
-
-     - =login=: The app's login path (relative to =server=).
-
-       Examples: =login=, =landing/login=
-
-     - =single_login_page=: =true= or =false=. True means the selectors specified for =login_user_elem= and =login_pass_elem= in the defaults file are on the same page. False means they are on subsequent pages.
 
      - =wait=: The number of milliseconds to wait for a page to load. Increase this if the app loads slowly and snaps happen before a page is fully loaded. Decrease it to spend less time waiting when snapping many pages.
 
@@ -222,8 +206,6 @@ You must create configuration files for your own application.
    - =SNAP_IMG_PFX=: Image filename prefix. After the optional sequence number, a secondary prefix is added to the filename. Default is the value for =img_pfx= in the defaults file.
 
    - =SNAP_IMG_DIR=: Where to save images, the base directory within which two additional subdirectories are created: =<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHT=. E.g =./images/myserver/1920x1080/= Default is the value for =img_dir= in the defaults file.
-
-   - =SNAP_LOG_IN=: Set to =true= to snap the login page, then log in. Default is the value for =log_in= in the defaults file.
 
 4. Run the wrapper script:
 
@@ -370,15 +352,7 @@ There are three Node.js files.
 
   - =load(page, url, wait)=: Loads =url= into browser's =page= and waits =wait= milliseconds.
 
-  A brief description of other functions:
-
-  - =mkdir()=: Creates the image save directories.
-
-  - =login()=: Handles the special case of the main login page.
-
-  - =eat()=: Removes an 'accept cookies' pop-up dialogue. (Added for [[https://pmmdemo.percona.com/][PMM Demo]].)
-
-  - =config.js=: Loads and provides a common access to page and defaults configuration files.
+- =config.js=: Loads and provides a common access to page and defaults configuration files.
 
 ** Image file names
 :PROPERTIES:
@@ -434,7 +408,6 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 :END:
 - [X] Add configuration to specify filename separator character currently hard-coded to underscore (=_=).
 - [ ] Improve debug/logging facility
-- [ ] intercept and report 'invalid username or password' dialog (util.login)
 - [ ] handle =net::ERR_INTERNET_DISCONNECTED= (in =util.load=)
 - [ ] Find more reliable way to know when page is fully loaded, rather than using =waitFor= with fixed value for all pages (=util.load=)
 - [ ] Compute additional container padding needed for =_full= images rather than using absolute value
