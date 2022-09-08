@@ -6,6 +6,7 @@
     "img_dir": "./images",
     "img_seq": true,
     "img_pfx": "PMM",
+    "img_filename_sep": "-",
     "img_ext": ".jpg",
     "img_width": 1280,
     "img_height": 1280,

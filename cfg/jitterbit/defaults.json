@@ -1,6 +1,4 @@
 {
-    "COMMENT": "Default values for settings. Many can be overridden via envvars or on the command line",
-    "version": "",
     "config_file": "./cfg/jitterbit/server.json",
     "pages_file": "./cfg/jitterbit/pages.json",
     "user": "user@example.com",
@@ -8,8 +6,8 @@
     "img_dir": "./images",
     "img_seq": true,
     "img_pfx": "",
-    "img_ext": ".png",
     "img_filename_sep": "-",
+    "img_ext": ".png",
     "img_width": 1200,
     "img_height": 768,
     "jpg_quality": 75,
