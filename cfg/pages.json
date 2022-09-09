@@ -3,6 +3,11 @@
         {
             "title": "Example",
             "uid": "example"
+        },
+        {
+            "title": "Example",
+            "uid": "example",
+            "url": "landing/login"
         }
     ]
 }
