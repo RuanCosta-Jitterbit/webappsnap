@@ -194,6 +194,11 @@
                             ]
                         },
                         {
+                            "name": "Wait",
+                            "type": "wait",
+                            "period": 500
+                        },
+                        {
                             "comment": "Another enter saves",
                             "type": "press",
                             "value": [
@@ -204,32 +209,11 @@
                             "name": "Wait",
                             "type": "wait",
                             "comment": "can take some time to create",
-                            "period": 60000
-                        }
-                    ]
-                },
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "Still Waiting",
-                            "type": "wait",
-                            "period": 60000
+                            "period": 15000
                         },
                         {
                             "name": "overview",
-                            "type": "snap",
-                            "viewport": {
-                                "comment": "Reduce height slightly but avoid cropping 'db id' toggle",
-                                "width": 1200,
-                                "height": 750
-                            }
-                        },
-                        {
-                            "name": "",
-                            "comment": "open menu",
-                            "type": "click",
-                            "selector": "a >> span >> text='Domain Model'"
+                            "type": "snap"
                         }
                     ]
                 },
@@ -241,6 +225,12 @@
                         "height": 620
                     },
                     "steps": [
+                        {
+                            "name": "",
+                            "comment": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Domain Model'"
+                        },
                         {
                             "name": "",
                             "comment": "open menu",
@@ -318,6 +308,11 @@
                 },
                 {
                     "name": "configuration",
+                    "viewport": {
+                        "comment": "Reduce height",
+                        "width": 1200,
+                        "height": 920
+                    },
                     "steps": [
                         {
                             "name": "",
@@ -457,78 +452,85 @@
                             "name": "branding custom-domain div",
                             "type": "snap",
                             "selector": "[class='custom-tabx']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Identity'"
+                        },
+                        {
+                            "name": "identity",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Email Templates'"
+                        },
+                        {
+                            "name": "email-templates",
+                            "type": "snap"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "title": "configuration identity",
-            "uid": "identity"
-        },
-        {
-            "skip": true,
-            "title": "configuration email-templates",
-            "uid": "appEmailTemplates"
-        },
-        {
-            "skip": true,
-            "title": "development collaborators",
-            "uid": "appCollaborators",
-            "viewport": {
-                "comment": "Decrease height",
-                "width": 1200,
-                "height": 575
-            },
-            "operations": [
+                },
                 {
-                    "name": "",
-                    "comment": "Open Development Menu",
+                    "name": "development",
+                    "viewport": {
+                        "comment": "Decrease height",
+                        "width": 1200,
+                        "height": 575
+                    },
                     "steps": [
                         {
                             "name": "",
                             "type": "click",
                             "selector": "[data-title='Development']"
-                        }
-                    ]
-                },
-                {
-                    "name": "",
-                    "comment": "Hide Email Addresses",
-                    "steps": [
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Collaborators'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 5000
+                        },
                         {
                             "name": "Blur",
                             "type": "blur",
                             "selector": "[class='user-info']"
                         },
                         {
+                            "name": "collaborators",
+                            "type": "snap"
+                        },
+                        {
                             "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Packages'"
+                        },
+                        {
+                            "name": "packages",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Releases'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 5000
+                        },
+                        {
+                            "name": "releases",
                             "type": "snap"
                         }
                     ]
                 }
             ]
-        },
-        {
-            "skip": true,
-            "title": "development packages",
-            "uid": "packages",
-            "viewport": {
-                "comment": "Decrease height",
-                "width": 1200,
-                "height": 575
-            }
-        },
-        {
-            "skip": true,
-            "title": "development releases",
-            "uid": "releases",
-            "viewport": {
-                "comment": "Decrease height",
-                "width": 1200,
-                "height": 575
-            }
         }
     ]
 }

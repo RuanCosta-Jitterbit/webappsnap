@@ -28,15 +28,7 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
-
-## Server credentials
-# Username.
-# Default: 'user' field in defaults file
-# SNAP_USER=
-# Password.
-# Default: 'pass' field in defaults file
-# SNAP_PASS=
+SNAP_DEFAULTS_FILE=./cfg/jitterbit/defaults.json
 
 ## Image base directory.
 # Default: 'img_dir' in defaults file
@@ -44,20 +36,15 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 # <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/
 # E.g. "./images/<server name>/1280x720x1/"
 # (See snap() in utils.js for subdirectory and file naming.)
-# SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
-
-## Log in and snap the login screen.
-# Default: 'log_in' field in defaults file
-# SNAP_LOG_IN=false
+SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
 ## Server config file.
 # Default: 'config_file' in defaults file
-# SNAP_SRV_CFG_FILE=./cfg/server-test.json
-# SNAP_SRV_CFG_FILE=./cfg/server-local.json
+SNAP_SRV_CFG_FILE=./cfg/jitterbit/qa-green.server.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
-# SNAP_PAGES_FILE=./cfg/
+# SNAP_PAGES_FILE=
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -75,11 +62,15 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
-# SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file
-# SNAP_IMG_PFX=''
+# SNAP_IMG_PFX=
+
+## Spaces, dots in filenames are replaced with this character
+# Default: 'img_filename_sep' in defaults file
+# SNAP_IMG_FILENAME_SEP=
 
 ## Headless mode. Whether to hide browser while snapping.
 # Default: 'headless' in defaults file
@@ -88,6 +79,6 @@ SNAP_DEFAULTS_FILE=./cfg/percona-pmm/defaults-pmm2.json
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode
 # Default: 'slowmo' in defaults file
-# SNAP_SLOW_MO=500
+# SNAP_SLOW_MO=
 
 node main.js --unhandled-rejections=strict "$@"
