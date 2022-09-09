@@ -6,7 +6,8 @@ const path = require('path');
 const util = require('./util.js'); // Utility functions: snapping, loading URLs
 const config = require('./config.js'); // Start-up vs default configuration value handling
 const { exit } = require('process');
-var crypto = require("crypto");
+const crypto = require("crypto");
+const fs = require('fs');
 const defaults = config.defaults; // Default config values
 const pages = config.pages; // Dashboards definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
@@ -81,7 +82,7 @@ if (argv.debug) { config.debug = argv.debug; }
      */
 
     // Can specify up to  custom page prefixes
-     const server_url_prefixes = [
+    const server_url_prefixes = [
         server_cfg.a ? server_cfg.a : null,
         server_cfg.b ? server_cfg.b : null,
         server_cfg.c ? server_cfg.c : null,
@@ -119,17 +120,17 @@ if (argv.debug) { config.debug = argv.debug; }
         if (pg.url) {
             server_url = [
                 server_cfg.server
-                ,pg.url
+                , pg.url
             ].join(path.sep);
         } else {
             server_url =
-            [
-                server_cfg.server
-                // filter as not all prefixes may be set
-               ,server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join(path.sep)
-               ,pg.uid
-            ]
-            .join(path.sep);
+                [
+                    server_cfg.server
+                    // filter as not all prefixes may be set
+                    , server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join(path.sep)
+                    , pg.uid
+                ]
+                    .join(path.sep);
         }
         server_url = `${server_url}${option_string}`
 
@@ -151,10 +152,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // TODO Reliable way of knowing when page has completed loading
 
-        // PART 4 - Remove unwanted elements
-        // TODO detect if needed
-//        await util.erase(page, defaults.cookie_popup_elem);
- //       await util.erase(page, defaults.breadcrumb_container);
+        // PART 4 - No longer needed
 
         // PART 5 - Dashboard-level snap (no operations)
         if (!pg.operations) {
@@ -222,6 +220,13 @@ if (argv.debug) { config.debug = argv.debug; }
                             if (step.value == "RANDOM") {
                                 step.value = crypto.randomBytes(5).toString('hex');
                             }
+                            if (step.value == "LOGIN") {
+                                step.value = fs.readFileSync('.login', 'utf8');
+                            }
+                            if (step.value == "PASSWORD") {
+                                step.value = fs.readFileSync('.password', 'utf8');
+                            }
+                            console.log(`    Value ${step.value}`);
                             await page.type(step.selector, String(step.value));
                             break;
                         case "press":
