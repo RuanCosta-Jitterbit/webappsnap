@@ -7,7 +7,7 @@
     "pass": "nopassword",
     "img_dir": "./images",
     "img_seq": true,
-    "img_pfx": "app-builder",
+    "img_pfx": "",
     "img_ext": ".png",
     "img_filename_sep": "_",
     "img_width": 1200,
