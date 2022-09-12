@@ -1,5 +1,5 @@
 {
-    "config_file": "./cfg/percona/pmm/server-pmmdemo.json",
+    "config_file": "./cfg/percona/pmm/server.json",
     "pages_file": "./cfg/percona/pmm/pages.json",
     "user": "",
     "pass": "",
