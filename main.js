@@ -217,9 +217,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             await page.hover(step.selector);
                             break;
                         case "text":
-                            if (step.value == "RANDOM") {
-                                step.value = crypto.randomBytes(5).toString('hex');
-                            }
+                            step.value = step.value.replace("RANDOM", crypto.randomBytes(5).toString('hex'));
                             if (step.value == "LOGIN") {
                                 step.value = fs.readFileSync('.login', 'utf8');
                             }
