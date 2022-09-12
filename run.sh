@@ -44,7 +44,7 @@ SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
-# SNAP_PAGES_FILE=./cfg/
+# SNAP_PAGES_FILE=
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -62,11 +62,15 @@ SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
-# SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file
-# SNAP_IMG_PFX=''
+# SNAP_IMG_PFX=
+
+## Spaces, dots in filenames are replaced with this character
+# Default: 'img_filename_sep' in defaults file
+# SNAP_IMG_FILENAME_SEP=
 
 ## Replace spaces and dots in filenames with this character
 # Default: 'img_filename_sep' in defaults file
@@ -79,6 +83,6 @@ SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode
 # Default: 'slowmo' in defaults file
-# SNAP_SLOW_MO=500
+# SNAP_SLOW_MO=
 
 node main.js --unhandled-rejections=strict "$@"

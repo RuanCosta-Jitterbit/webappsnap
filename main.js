@@ -152,10 +152,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // TODO Reliable way of knowing when page has completed loading
 
-        // PART 4 - Remove unwanted elements
-        // TODO detect if needed
-        //        await util.erase(page, defaults.cookie_popup_elem);
-        //       await util.erase(page, defaults.breadcrumb_container);
+        // PART 4 - No longer needed
 
         // PART 5 - Dashboard-level snap (no operations)
         if (!pg.operations) {
@@ -224,12 +221,12 @@ if (argv.debug) { config.debug = argv.debug; }
                                 step.value = crypto.randomBytes(5).toString('hex');
                             }
                             if (step.value == "LOGIN") {
-                                step.value = fs.readFileSync('.login', 'utf8')
+                                step.value = fs.readFileSync('.login', 'utf8');
                             }
                             if (step.value == "PASSWORD") {
-                                step.value = fs.readFileSync('.password', 'utf8')
+                                step.value = fs.readFileSync('.password', 'utf8');
                             }
-                            console.log(`    ${step.value}`);
+                            console.log(`    Value ${step.value}`);
                             await page.type(step.selector, String(step.value));
                             break;
                         case "press":

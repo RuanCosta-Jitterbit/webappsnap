@@ -1,0 +1,12 @@
+{
+  "name": "AppBuilder",
+  "server": "https://apps.na-east.jitterbit.com",
+  "a": "app-builder",
+  "b": "#",
+  "c": "org",
+  "d": "",
+  "e": "app",
+  "f": "",
+  "wait": 10000,
+  "pause": 6000
+}
