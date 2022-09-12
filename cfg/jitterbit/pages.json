@@ -16,7 +16,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 1000
+                            "period": 2000
                         },
                         {
                             "name": "Close cookie consent",
@@ -114,15 +114,11 @@
         },
         {
             "comment": "App Builder home page (may or may not be empty)",
-            "title": "apps",
+            "title": "",
             "uid": "",
             "operations": [
                 {
-                    "name": "",
-                    "viewport": {
-                        "width": 1040,
-                        "height": 550
-                    },
+                    "name": "apps",
                     "steps": [
                         {
                             "name": "Wait",
@@ -137,10 +133,6 @@
                 },
                 {
                     "name": "create-new",
-                    "viewport": {
-                        "width": 1040,
-                        "height": 750
-                    },
                     "steps": [
                         {
                             "name": "",
@@ -156,7 +148,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 1000
+                            "period": 2000
                         },
                         {
                             "comment": "blur subdomain",
@@ -172,7 +164,7 @@
                             "comment": "Enter name for app (focus already on name field) - NAMES CANNOT BE REUSED",
                             "type": "text",
                             "selector": "[name='label']",
-                            "value": "RANDOM"
+                            "value": "App RANDOM"
                         },
                         {
                             "comment": "Enter description for app",
@@ -218,6 +210,7 @@
                     ]
                 },
                 {
+                    "comment": "################################################### DOMAIN MODEL",
                     "name": "domain-model",
                     "viewport": {
                         "comment": "Reduce height",
@@ -274,9 +267,9 @@
                     ]
                 },
                 {
+                    "comment": "################################################### APPLICATION LOGIC",
                     "name": "application-logic",
                     "viewport": {
-                        "comment": "Reduce height",
                         "width": 1200,
                         "height": 525
                     },
@@ -307,11 +300,11 @@
                     ]
                 },
                 {
+                    "comment": "################################################### CONFIGURATION",
                     "name": "configuration",
                     "viewport": {
-                        "comment": "Reduce height",
                         "width": 1200,
-                        "height": 920
+                        "height": 820
                     },
                     "steps": [
                         {
@@ -374,61 +367,179 @@
                             "type": "snap"
                         },
                         {
+                            "comment": "################################################### CONFIGURATION > Branding",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Branding'"
                         },
                         {
+                            "name": "wait for branding page load",
+                            "type": "wait",
+                            "period": "5000"
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > Public Page",
                             "name": "branding public-page",
                             "type": "snap"
                         },
                         {
-                            "comment": "snap pane",
-                            "name": "branding public-page div",
-                            "type": "snap",
-                            "selector": "[class='custom-tabx']"
+                            "name": "Alter tooltip fadeout time",
+                            "type": "style",
+                            "content": ".am-fade {-webkit-animation-duration: 10.0s; animation-duration: 10.0s; }"
                         },
                         {
-                            "name": "Open app page tab",
-                            "type": "click",
-                            "selector": "li >> text='App Page'"
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='1'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='2'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='3'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='4'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='5'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='6'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='7'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "span >> text='8'"
+                        },
+                        {
+                            "name": "branding public-page labeled",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "branding public-page tab labeled",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         },
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 1000
+                            "period": 2000
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > App Page",
+                            "name": "select app page tab",
+                            "type": "click",
+                            "selector": "li >> text='App Page'"
+                        },
+                        {
+                            "name": "wait for app page load",
+                            "type": "wait",
+                            "period": 2000
                         },
                         {
                             "name": "branding app-page",
                             "type": "snap"
                         },
                         {
-                            "comment": "snap pane",
-                            "name": "branding app-page div",
-                            "type": "snap",
-                            "selector": "[class='custom-tabx']"
+                            "name": "Alter tooltip fadeout time",
+                            "type": "style",
+                            "content": ".am-fade {-webkit-animation-duration: 10.0s; animation-duration: 10.0s; }"
                         },
                         {
-                            "name": "Open app page tab",
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='1'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='2'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='3'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='4'"
+                        },
+                        {
+                            "name": "branding app-page labeled",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "branding app-page tab labeled",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > Mobile",
+                            "name": "mobile tab",
                             "type": "click",
                             "selector": "li >> text='Mobile'"
                         },
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 1000
+                            "period": 20000
                         },
                         {
                             "name": "branding mobile",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 850
+                            }
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='1'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='2'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='3'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='4'"
+                        },
+                        {
+                            "name": "branding mobile labeled",
                             "type": "snap"
                         },
                         {
-                            "comment": "snap pane",
-                            "name": "branding mobile div",
+                            "name": "branding mobile tab labeled",
                             "type": "snap",
-                            "selector": "[class='custom-tabx']"
+                            "selector": "[class='content-in2']"
                         },
                         {
+                            "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
                             "name": "Open app page tab",
                             "type": "click",
                             "selector": "li >> text='Custom Domain'"
@@ -436,7 +547,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 1000
+                            "period": 2000
                         },
                         {
                             "name": "blur",
@@ -445,15 +556,24 @@
                         },
                         {
                             "name": "branding custom-domain",
-                            "type": "snap"
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 940
+                            }
                         },
                         {
                             "comment": "snap pane",
-                            "name": "branding custom-domain div",
+                            "name": "branding custom-domain tab",
                             "type": "snap",
-                            "selector": "[class='custom-tabx']"
+                            "selector": "[class='content-in2']",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 940
+                            }
                         },
                         {
+                            "comment": "################################################### CONFIGURATION > Identity",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Identity'"
@@ -474,6 +594,7 @@
                     ]
                 },
                 {
+                    "comment": "################################################### DEVELOPMENT",
                     "name": "development",
                     "viewport": {
                         "comment": "Decrease height",
