@@ -87,6 +87,8 @@ You must create configuration files for your own application.
 
      - =img_pfx=: The secondary file name prefix for each snap file. (=SNAP_IMG_PFX=)
 
+     - =img_filename_sep=: Replace slash, space, or dot in final image filenames with this character. (=SNAP_IMG_FILENAME_SEP=)
+
      - =img_ext=: File name extension, either =.png= or =.jpg=. (=SNAP_IMG_EXT=)
 
      - =img_width=: The image width, in pixels, for full screen snaps. (=SNAP_IMG_WIDTH=)
@@ -114,12 +116,6 @@ You must create configuration files for your own application.
        =https://pmmdemo.percona.com/graph/d/<page UID>=
 
        Since the configuration only needs to list the page UIDs, set =a= to =graph= and =b= to =d=.
-
-     - =login=: The app's login path (relative to =server=).
-
-       Examples: =login=, =landing/login=
-
-     - =single_login_page=: =true= or =false=. True means the selectors specified for =login_user_elem= and =login_pass_elem= in the defaults file are on the same page. False means they are on subsequent pages.
 
      - =wait=: The number of milliseconds to wait for a page to load. Increase this if the app loads slowly and snaps happen before a page is fully loaded. Decrease it to spend less time waiting when snapping many pages.
 
@@ -165,7 +161,7 @@ You must create configuration files for your own application.
 
              - =move=: Move to (hover over) the element specified by =selector=. (Uses [[https://playwright.dev/docs/api/class-page#pagehoverselector-options][=page.hover()=]] which finds the first CSS selector ID and positions the mouse in the center of it.)
 
-             - =text=: Enter =value= text into element =selector=.
+             - =text=: Enter =value= text into element =selector=. If =value= is the word =RANDOM=, a random 5-digit hex string (10 characters) is entered.
 
              - =press=: Press each of the keys in the =value= array.
 
@@ -195,8 +191,6 @@ You must create configuration files for your own application.
 
    - =SNAP_SRV_CFG_FILE=: The path to the =server.json= file. Default is the value of =config_file= in the defaults file.
 
-   - =SNAP_USER=, =SNAP_PASS=: If your app has a log-in step, set these. *CAUTION* The password must remain in plain text. (A big TODO.) Defaults are the values of =user= and =pass= in the defaults file.
-
    Optional:
 
    - =SNAP_IMG_WIDTH=, =SNAP_IMG_HEIGHT=: Snap image width and height (in pixels). Defaults are the values of =img_width= and =img_height= in the defaults file.
@@ -210,8 +204,6 @@ You must create configuration files for your own application.
    - =SNAP_IMG_PFX=: Image filename prefix. After the optional sequence number, a secondary prefix is added to the filename. Default is the value for =img_pfx= in the defaults file.
 
    - =SNAP_IMG_DIR=: Where to save images, the base directory within which two additional subdirectories are created: =<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHT=. E.g =./images/myserver/1920x1080/= Default is the value for =img_dir= in the defaults file.
-
-   - =SNAP_LOG_IN=: Set to =true= to snap the login page, then log in. Default is the value for =log_in= in the defaults file.
 
 4. Run the wrapper script:
 
@@ -240,10 +232,6 @@ You must create configuration files for your own application.
   By default, image filenames don't include a sequence number prefix. When debugging or testing this tool, edit =run.sh= and set =SNAP_IMG_SEQ=true=. This will create images numbered by their order in the app's =pages.json= specification file.
 
   You can also use the =SNAP_IMG_PFX= and =SNAP_IMG_DIR= environment variables in =run.sh= to separate runs of the tool.
-
-- *Login problems*
-
-  You can set login credentials (on the command line or in =run.sh=) with the variables =SNAP_USER= and =SNAP_PASS=.
 
 - *Commenting out pages*
 
@@ -362,15 +350,7 @@ There are three Node.js files.
 
   - =load(page, url, wait)=: Loads =url= into browser's =page= and waits =wait= milliseconds.
 
-  A brief description of other functions:
-
-  - =mkdir()=: Creates the image save directories.
-
-  - =login()=: Handles the special case of the main login page.
-
-  - =eat()=: Removes an 'accept cookies' pop-up dialogue. (Added for [[https://pmmdemo.percona.com/][PMM Demo]].)
-
-  - =config.js=: Loads and provides a common access to page and defaults configuration files.
+- =config.js=: Loads and provides a common access to page and defaults configuration files.
 
 ** Image file names
 :PROPERTIES:
@@ -424,9 +404,8 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 :PROPERTIES:
 :CUSTOM_ID: todo
 :END:
-- [ ] Add configuration to specify filename separator character currently hard-coded to underscore (=_=).
+- [X] Add configuration to specify filename separator character currently hard-coded to underscore (=_=).
 - [ ] Improve debug/logging facility
-- [ ] intercept and report 'invalid username or password' dialog (util.login)
 - [ ] handle =net::ERR_INTERNET_DISCONNECTED= (in =util.load=)
 - [ ] Find more reliable way to know when page is fully loaded, rather than using =waitFor= with fixed value for all pages (=util.load=)
 - [ ] Compute additional container padding needed for =_full= images rather than using absolute value
@@ -436,10 +415,10 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 - [ ] Img dir doesn't need to be arg of =snap()=
 - [ ] Avoid image overwrite when =SNAP_IMG_SEQ= is off
 - [ ] How to inject custom text strings as form values
-- [ ] Option to skip version checking
 - [ ] Set up authentication needed for accessing Swagger =/v1/version=
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 - [ ] Write settings file in images directory (to know what were used for that snap set)
 - [ ] Add =--skip-uid= flag as inverse of =--uid= to exclude named items
 - [ ] Allow command line choice of browser technology ={chromium|webkit|firefox}=
 - [ ] Allow skipping/selecting operations/steps per UID
+- [ ] Safe way to send username/password to app without saving in config files

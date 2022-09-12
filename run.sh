@@ -28,7 +28,7 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/jitterbit/defaults.json
+SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 
 ## Image base directory.
 # Default: 'img_dir' in defaults file
@@ -36,11 +36,11 @@ SNAP_DEFAULTS_FILE=./cfg/jitterbit/defaults.json
 # <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/
 # E.g. "./images/<server name>/1280x720x1/"
 # (See snap() in utils.js for subdirectory and file naming.)
-SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
+# SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
 
 ## Server config file.
 # Default: 'config_file' in defaults file
-SNAP_SRV_CFG_FILE=./cfg/jitterbit/qa-green.server.json
+# SNAP_SRV_CFG_FILE=./cfg/server-test.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
@@ -71,6 +71,10 @@ SNAP_IMG_SEQ=true
 ## Spaces, dots in filenames are replaced with this character
 # Default: 'img_filename_sep' in defaults file
 # SNAP_IMG_FILENAME_SEP=
+
+## Replace spaces and dots in filenames with this character
+# Default: 'img_filename_sep' in defaults file
+# SNAP_IMG_FILENAME_SEP="_"
 
 ## Headless mode. Whether to hide browser while snapping.
 # Default: 'headless' in defaults file

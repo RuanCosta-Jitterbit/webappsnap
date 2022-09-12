@@ -1,6 +1,4 @@
 {
-    "COMMENT": "Default values for settings. Many can be overridden via envvars or on the command line",
-    "version": "",
     "config_file": "./cfg/jitterbit/server.json",
     "pages_file": "./cfg/jitterbit/pages.json",
     "img_dir": "./images",

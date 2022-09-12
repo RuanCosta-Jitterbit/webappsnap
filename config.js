@@ -39,8 +39,6 @@ var img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
 
 var slowmo      = Number(process.env.SNAP_SLOW_MO) || defaults.slowmo;
 
-var user        = process.env.SNAP_USER || defaults.user;
-var pass        = process.env.SNAP_PASS || defaults.pass;
 // Binary options
 var img_seq     = ((process.env.SNAP_IMG_SEQ) ? (process.env.SNAP_IMG_SEQ == 'true') : (defaults.img_seq === true));
 var headless    = ((process.env.SNAP_HEADLESS) ? (process.env.SNAP_HEADLESS == 'true') : (defaults.headless === true));
@@ -61,9 +59,6 @@ module.exports.cfg_file_name = cfg_file_name;
 module.exports.defaults_file_name = defaults_file_name;
 module.exports.pages_file_name = pages_file_name;
 module.exports.hostname = hostname;
-module.exports.user = user;
-module.exports.pass = pass;
-module.exports.log_in = log_in;
 module.exports.debug = debug;
 module.exports.headless = headless;
 module.exports.slowmo = slowmo;
