@@ -5,10 +5,6 @@
             "title": "login",
             "uid": "",
             "url": "identity/login",
-            "viewport": {
-                "width": 1040,
-                "height": 768
-            },
             "operations": [
                 {
                     "name": "",
@@ -68,13 +64,9 @@
             "title": "landing",
             "uid": "",
             "url": "identity/landing",
-            "viewport": {
-                "width": 1040,
-                "height": 550
-            },
             "operations": [
                 {
-                    "name": "select-tile",
+                    "name": "tile",
                     "steps": [
                         {
                             "name": "Wait",
@@ -84,9 +76,6 @@
                         {
                             "name": "Remove Pendo",
                             "type": "hide",
-                            "comment": "[data-layout='bottomBannerBlank']",
-                            "comment2": "[class='_pendo-step-container']",
-                            "comment3": "not working",
                             "selector": "[id='pendo-base']"
                         },
                         {
@@ -105,8 +94,9 @@
                             "period": 500
                         },
                         {
-                            "name": "",
-                            "type": "snap"
+                            "name": "pane",
+                            "type": "snap",
+                            "selector": "platform-menu"
                         }
                     ]
                 }
@@ -123,7 +113,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 30000
+                            "period": 15000
                         },
                         {
                             "name": "",
@@ -132,7 +122,11 @@
                     ]
                 },
                 {
-                    "name": "create-new",
+                    "name": "create-new-app",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 820
+                    },
                     "steps": [
                         {
                             "name": "",
@@ -151,14 +145,22 @@
                             "period": 2000
                         },
                         {
-                            "comment": "blur subdomain",
-                            "name": "",
+                            "name": "blur subdomain",
                             "type": "blur",
                             "selector": "#subdomaintwo"
                         },
                         {
                             "name": "",
                             "type": "snap"
+                        },
+                        {
+                            "name": "pane",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 735
+                            }
                         },
                         {
                             "comment": "Enter name for app (focus already on name field) - NAMES CANNOT BE REUSED",
@@ -212,11 +214,6 @@
                 {
                     "comment": "################################################### DOMAIN MODEL",
                     "name": "domain-model",
-                    "viewport": {
-                        "comment": "Reduce height",
-                        "width": 1200,
-                        "height": 620
-                    },
                     "steps": [
                         {
                             "name": "",
@@ -229,6 +226,11 @@
                             "comment": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Modules'"
+                        },
+                        {
+                            "name": "modules pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         },
                         {
                             "name": "modules",
@@ -245,6 +247,11 @@
                             "type": "snap"
                         },
                         {
+                            "name": "relations pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
                             "name": "",
                             "comment": "open menu",
                             "type": "click",
@@ -255,6 +262,11 @@
                             "type": "snap"
                         },
                         {
+                            "name": "dropdowns pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
                             "name": "",
                             "comment": "open menu",
                             "type": "click",
@@ -263,6 +275,11 @@
                         {
                             "name": "dependencies",
                             "type": "snap"
+                        },
+                        {
+                            "name": "dependencies pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         }
                     ]
                 },
@@ -304,7 +321,7 @@
                     "name": "configuration",
                     "viewport": {
                         "width": 1200,
-                        "height": 820
+                        "height": 920
                     },
                     "steps": [
                         {
@@ -322,6 +339,11 @@
                             "type": "snap"
                         },
                         {
+                            "name": "general pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Parameters'"
@@ -329,6 +351,11 @@
                         {
                             "name": "parameters",
                             "type": "snap"
+                        },
+                        {
+                            "name": "parameters pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         },
                         {
                             "name": "",
@@ -340,6 +367,11 @@
                             "type": "snap"
                         },
                         {
+                            "name": "menus pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='User Guides'"
@@ -347,6 +379,11 @@
                         {
                             "name": "user-guides",
                             "type": "snap"
+                        },
+                        {
+                            "name": "user-guides pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         },
                         {
                             "name": "",
@@ -358,6 +395,11 @@
                             "type": "snap"
                         },
                         {
+                            "name": "localizations pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Globalization'"
@@ -365,6 +407,11 @@
                         {
                             "name": "globalization",
                             "type": "snap"
+                        },
+                        {
+                            "name": "globalization pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         },
                         {
                             "comment": "################################################### CONFIGURATION > Branding",
@@ -503,11 +550,7 @@
                         },
                         {
                             "name": "branding mobile",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 850
-                            }
+                            "type": "snap"
                         },
                         {
                             "name": "",
@@ -556,18 +599,14 @@
                         },
                         {
                             "name": "branding custom-domain",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 940
-                            }
+                            "type": "snap"
                         },
                         {
                             "comment": "snap pane",
                             "name": "branding custom-domain tab",
                             "type": "snap",
                             "selector": "[class='content-in2']",
-                            "viewport": {
+                            "Xviewport": {
                                 "width": 1200,
                                 "height": 940
                             }
@@ -583,13 +622,58 @@
                             "type": "snap"
                         },
                         {
+                            "name": "wait for email templates to load",
+                            "type": "wait",
+                            "period": 1000
+                        },
+                        {
+                            "name": "identity pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Email Templates",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Email Templates'"
                         },
                         {
+                            "name": "wait for email templates to load",
+                            "type": "wait",
+                            "period": 5000
+                        },
+                        {
                             "name": "email-templates",
                             "type": "snap"
+                        },
+                        {
+                            "name": "email-templates pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='New Email Template'"
+                        },
+                        {
+                            "name": "wait for new email template to open",
+                            "type": "wait",
+                            "period": 5000
+                        },
+                        {
+                            "name": "email-templates new-email-template",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "email-templates new-email-template pane",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
                         }
                     ]
                 },
@@ -597,7 +681,6 @@
                     "comment": "################################################### DEVELOPMENT",
                     "name": "development",
                     "viewport": {
-                        "comment": "Decrease height",
                         "width": 1200,
                         "height": 575
                     },
@@ -608,6 +691,7 @@
                             "selector": "[data-title='Development']"
                         },
                         {
+                            "comment": "################################################### DEVELOPMENT > Collaborators",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Collaborators'"
@@ -627,15 +711,32 @@
                             "type": "snap"
                         },
                         {
+                            "name": "collaborators pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "comment": "################################################### DEVELOPMENT > Packages",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Packages'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "period": 3000
                         },
                         {
                             "name": "packages",
                             "type": "snap"
                         },
                         {
+                            "name": "packages pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "comment": "################################################### DEVELOPMENT > Releases",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Releases'"
@@ -643,11 +744,16 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 5000
+                            "period": 3000
                         },
                         {
                             "name": "releases",
                             "type": "snap"
+                        },
+                        {
+                            "name": "releases pane",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
                         }
                     ]
                 }

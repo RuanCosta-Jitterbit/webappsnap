@@ -7,7 +7,7 @@
     "img_ext": ".png",
     "img_filename_sep": "_",
     "img_width": 1200,
-    "img_height": 820,
+    "img_height": 920,
     "jpg_quality": 75,
     "headless": true,
     "slowmo": 0,
