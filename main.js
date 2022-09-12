@@ -213,11 +213,15 @@ if (argv.debug) { config.debug = argv.debug; }
                             console.log(`    ${step.period} ms`);
                             await page.waitForTimeout(step.period);
                             break;
+                        case "waitfor":
+                            console.log(`    Wait for ${step.selector}`);
+                            await page.waitForSelector(step.selector, { visible: true });
+                            break;
                         case "move":
                             await page.hover(step.selector);
                             break;
                         case "text":
-                            step.value = step.value.replace("RANDOM", crypto.randomBytes(5).toString('hex'));
+                            step.value = step.value.replace("RANDOM", crypto.randomBytes(2).toString('hex'));
                             if (step.value == "LOGIN") {
                                 step.value = fs.readFileSync('.login', 'utf8');
                             }
@@ -246,6 +250,10 @@ if (argv.debug) { config.debug = argv.debug; }
                         case "unhighlight":
                             await page.addStyleTag({ content: `${step.selector} { border: none }` });
                             break;
+                        case "style":
+                            console.log(`    Adding style: ${step.content}`);
+                            await page.addStyleTag({ content: step.content });
+                            break;
                         case "hide":
                             console.log(`    Hiding selector: ${step.selector}`);
                             await page.addStyleTag({ content: `${step.selector} { visibility: hidden; }` });
@@ -254,14 +262,14 @@ if (argv.debug) { config.debug = argv.debug; }
                             // Viewport per step
                             if (step.viewport) {
                                 console.log(`    Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
-                                await util.viewport(page, step.viewport, true);
+                                await util.viewport(page, step.viewport);
                             }
                             // If selector defined, snap only it, otherwise snap page
                             console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                             const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                             process.stdout.write("    "); // Indent log message in snap function
                             await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join(config.img_filename_sep), img_dir);
-                            console.log(`    Viewport reset to: ${operation_viewport.width}x${operation_viewport.height}`);
+                            console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
                             await util.viewport(page, operation_viewport); // Reset to operation viewport
                             break;
                     }
