@@ -7,8 +7,6 @@
   "d": "",
   "e": "app",
   "f": "",
-  "login": "landing/login",
-  "single_login_page": false,
   "wait": 10000,
   "pause": 6000
 }
