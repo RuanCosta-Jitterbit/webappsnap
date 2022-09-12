@@ -4,3 +4,4 @@ package-lock.json
 **/\.DS_Store
 .login
 .password
+package.json
