@@ -81,10 +81,6 @@ You must create configuration files for your own application.
 
      - =pages_file=: Path to default pages configuration file. (=SNAP_PAGES_FILE=)
 
-     - =user=: App user's login name. (=SNAP_USER=)
-
-     - =pass=: App user's password. (=SNAP_PASS=)
-
      - =img_dir=: Where to save images. (=SNAP_IMG_DIR=)
 
      - =img_seq=: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number. (=SNAP_IMG_SEQ=)
@@ -99,21 +95,9 @@ You must create configuration files for your own application.
 
      - =jpg_quality=: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy. (=SNAP_JPG_QUALITY=)
 
-     - =log_in=: Whether to attempt logging in using =user= and =pass= values. (=SNAP_LOG_IN=)
-
      - =headless=: When =true=, Playwright uses a headless (invisible) web browser. If =false=, the web browser is made visible. Useful for debugging (or simply entertainment). (=SNAP_HEADLESS=)
 
      - =debug=: When =true=, program prints operating parameters. (=--debug=)
-
-     - =login_user_elem=: The CSS selector ID for the app's login screen user input text field.
-
-     - =login_pass_elem=: The CSS selector ID for the app's login screen password input text field.
-
-     - =login_skip_elem=: The CSS selector ID for any password change 'Skip' button (specific to PMM).
-
-     - =cookie_popup_elem=: The CSS selector ID for any 'Accept cookies' dialogue (which is removed before snapping).
-
-     - =container=: The CSS selector ID for the page body, excluding left and top menu bars. This is used by the =--full= option to snap the entire page beyond the specified viewport.
 
    - =server.json=
 
