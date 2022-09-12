@@ -3,7 +3,7 @@ This program lets you automate the task of taking screenshots of web application
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a /selector/).
 
-If you only want to take snaps of pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
+To snap of pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
 
 ** Install (Pre-requirements)
 :PROPERTIES:
@@ -96,8 +96,6 @@ You must create configuration files for your own application.
      - =img_height=: The image height, in pixels, for full screen snaps. (=SNAP_IMG_HEIGHT=)
 
      - =jpg_quality=: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy. (=SNAP_JPG_QUALITY=)
-
-     - =log_in=: Whether to attempt logging in using =user= and =pass= values. (=SNAP_LOG_IN=)
 
      - =headless=: When =true=, Playwright uses a headless (invisible) web browser. If =false=, the web browser is made visible. Useful for debugging (or simply entertainment). (=SNAP_HEADLESS=)
 
