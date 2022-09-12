@@ -3,7 +3,7 @@ This program lets you automate the task of taking screenshots of web application
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a /selector/).
 
-To snap of pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
+To snap pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
 
 ** Install (Pre-requirements)
 :PROPERTIES:
@@ -17,7 +17,7 @@ To snap of pages, you only need to know their URLs. To interact with buttons, me
 Once Node.js is installed, install the remaining components with this command:
 
 #+begin_src sh
-npm i playwright yargs axios
+  npm i playwright yargs axios
 #+end_src
 
 ** Quick Start
@@ -33,12 +33,10 @@ This section uses configuration created for Percona's [[https://www.percona.com/
 
 2. In a terminal, change directory to where you cloned it.
 
-3. Edit =run.sh=, uncomment the line for =SNAP_DEFAULTS_FILE=, save it.
-
-4. Run the script:
+3. Run the script:
 
    #+begin_src sh
-   ./run.sh
+     ./run.sh
    #+end_src
 
    This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around 45 minutes. Around 80 images are saved to =images/pmmdemo/1280x1280=.
