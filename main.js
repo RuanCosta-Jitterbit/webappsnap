@@ -19,8 +19,7 @@ if (argv.list) { // List page UIDs and exit
 }
 
 // Images save path
-var img_dir = path.join(config.img_dir, server_cfg.name,
-    `${String(config.img_width)}x${String(config.img_height)}`);
+var img_dir = path.join(config.img_dir, server_cfg.name);
 
 util.mkdir(img_dir);    // Create image save directory TODO move to snap function
 
@@ -178,7 +177,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // PART 6 - Operations - Any number of groups of steps, each step being an array of one of:
         // - back: return to previous page
-        // - wait: explicitly wait for the specified period (in ms);
+        // - wait: explicitly wait for the specified value (in ms);
         // - move: move to (hover over) a selector;
         // - text: enter text into the selector;
         // - press: press keys listed in array;
@@ -204,14 +203,17 @@ if (argv.debug) { config.debug = argv.debug; }
             for (var s in operation.steps) {
                 const step = operation.steps[s]; // Convenience handle
                 try {
-                    console.log(`  Step ${s}: ${step.name} (${step.type})`);
+                    console.log(`  Step ${s}: ${step.type} (${step.name})`);
                     switch (step.type) {
+                        case "quit":
+                            browser.close();
+                            process.exit(0);
                         case "back":
                             await page.goBack();
                             break;
                         case "wait":
-                            console.log(`    ${step.period} ms`);
-                            await page.waitForTimeout(step.period);
+                            console.log(`    Value: ${step.value} ms`);
+                            await page.waitForTimeout(step.value);
                             break;
                         case "waitfor":
                             console.log(`    Wait for ${step.selector}`);
@@ -229,7 +231,7 @@ if (argv.debug) { config.debug = argv.debug; }
                                 step.value = fs.readFileSync('.password', 'utf8');
                             }
                             console.log(`    Value ${step.value}`);
-                            await page.type(step.selector, String(step.value));
+                            await page.fill(step.selector, String(step.value));
                             break;
                         case "press":
                             for (var k in step.value) {
