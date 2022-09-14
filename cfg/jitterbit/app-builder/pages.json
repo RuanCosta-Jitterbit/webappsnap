@@ -15,6 +15,7 @@
                             "value": 2000
                         },
                         {
+                            "name": "cookie-consent",
                             "type": "snap"
                         },
                         {
@@ -23,6 +24,7 @@
                             "selector": "button:has-text('Do not show this message again')"
                         },
                         {
+                            "name": "no-cookie-consent",
                             "type": "snap"
                         },
                         {
@@ -165,8 +167,8 @@
                         },
                         {
                             "name": "blur subdomain",
-                            "type": "blur",
-                            "selector": "#subdomaintwo"
+                            "type": "style",
+                            "content": "#subdomaintwo { filter: blur{5px}; }"
                         },
                         {
                             "name": "",
@@ -259,6 +261,11 @@
                             "selector": "a >> span >> text='Domain Model'"
                         },
                         {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
                             "name": "modules",
                             "type": "click",
                             "selector": "a >> span >> text='Modules'"
@@ -309,10 +316,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -375,10 +378,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -441,10 +440,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -502,10 +497,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -521,6 +512,11 @@
                             "name": "expand menu",
                             "type": "click",
                             "selector": "[data-title='Application Logic']"
+                        },
+                        {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
                         },
                         {
                             "name": "",
@@ -582,10 +578,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -647,10 +639,22 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION",
+                    "name": "configuration",
+                    "steps": [
+                        {
+                            "name": "expand menu",
+                            "type": "click",
+                            "selector": "[data-title='Configuration']"
                         },
                         {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
                         }
                     ]
                 },
@@ -662,11 +666,6 @@
                         "height": 820
                     },
                     "steps": [
-                        {
-                            "name": "expand menu",
-                            "type": "click",
-                            "selector": "[data-title='Configuration']"
-                        },
                         {
                             "name": "select general page",
                             "type": "click",
@@ -737,10 +736,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -794,10 +789,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -844,9 +835,8 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 735
+                                "height": 550
                             }
-
                         },
                         {
                             "name": "Cancel new module introduction",
@@ -873,7 +863,7 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 520
+                                "height": 550
                             }
                         },
                         {
@@ -885,10 +875,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -1215,10 +1201,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -1236,6 +1218,11 @@
                             "selector": "[data-title='Development']"
                         },
                         {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Collaborators'"
@@ -1246,9 +1233,9 @@
                             "value": 5000
                         },
                         {
-                            "name": "Blur",
-                            "type": "blur",
-                            "selector": "[class='user-info']"
+                            "name": "blur collaborator email",
+                            "type": "style",
+                            "content": ".user-info { filter: blur(5px); }]"
                         },
                         {
                             "name": "collaborators",
@@ -1320,10 +1307,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 10000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -1386,10 +1369,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 10000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 }
