@@ -241,6 +241,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             }
                             break;
                         case "click":
+                            console.log(`    Selector: ${step.selector}`);
                             await page.click(step.selector);
                             break;
                         case "blur":
