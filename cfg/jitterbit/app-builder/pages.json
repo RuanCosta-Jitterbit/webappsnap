@@ -261,10 +261,21 @@
                             "selector": "a >> span >> text='Domain Model'"
                         },
                         {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 5px red; }"
+                        },
+                        {
                             "name": "menu",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
                         },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                        },
+
                         {
                             "name": "modules",
                             "type": "click",
@@ -645,11 +656,20 @@
                 {
                     "comment": "################################################### CONFIGURATION",
                     "name": "configuration",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 820
+                    },
                     "steps": [
                         {
                             "name": "expand menu",
                             "type": "click",
                             "selector": "[data-title='Configuration']"
+                        },
+                        {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 5px red; }"
                         },
                         {
                             "name": "menu",
