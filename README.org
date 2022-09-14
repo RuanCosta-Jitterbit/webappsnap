@@ -165,12 +165,6 @@ You must create configuration files for your own application.
 
              - =click=: Click the element =selector=.
 
-             - =blur=: Blur (make illegible) the element =selector=.
-
-             - =highlight=: Draw a yellow dotted line around =selector=.
-
-             - =unhighlight=: Remove the yellow dotted line around =selector=.
-
              - =style=: Insert the CSS code provided by the =content= field.
 
              - =snap=: Snap the window. If a =selector= is given, snap only it. If =viewport= is given, adjust the window to that size before snapping.

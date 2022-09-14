@@ -177,9 +177,6 @@ if (argv.debug) { config.debug = argv.debug; }
         // - text: enter text into the selector;
         // - press: press keys listed in array;
         // - click: click the selector;
-        // - blur: blur (make fuzzy) the element specified by selector;
-        // - highlight: draw yellow border around element;
-        // - unhighlight: remove yellow border from element;
         // - snap: Explicitly snap the the specified selector or the whole viewport.
         // With no operations, a dashboard is automatically snapped.
         // If operations are used, dedicate at least one step to a full-window snap,
@@ -239,18 +236,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             break;
                         case "click":
                             console.log(`    Selector: ${step.selector}`);
-                            //const locator = page.locator(step.selector);
                             await loc.click(step.selector);
-//                            await page.click(step.selector);
-                            break;
-                        case "blur":
-                            await page.addStyleTag({ content: `${step.selector} { filter: blur(5px); }` });
-                            break;
-                        case "highlight":
-                            await page.addStyleTag({ content: `${step.selector} { border: ${defaults.highlight_style} }` });
-                            break;
-                        case "unhighlight":
-                            await page.addStyleTag({ content: `${step.selector} { border: none }` });
                             break;
                         case "style":
                             console.log(`    Adding style: ${step.content}`);
