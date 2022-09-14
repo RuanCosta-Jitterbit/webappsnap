@@ -154,7 +154,7 @@
                         {
                             "name": "Wait for system summary panel to load",
                             "type": "wait",
-                            "period": 5000
+                            "value": 5000
                         },
                         {
                             "name": "",
@@ -471,7 +471,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 500
+                            "value": 500
                         },
                         {
                             "name": "Main Metric Sparkline",
@@ -494,7 +494,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Metric Tooltip",
@@ -582,7 +582,7 @@
                         {
                             "name": "Wait for panel load",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Details",
@@ -618,7 +618,7 @@
                         {
                             "name": "Wait for panel load",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Examples",
@@ -654,7 +654,7 @@
                         {
                             "name": "Wait for panel load",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Explain",
@@ -690,7 +690,7 @@
                         {
                             "name": "Wait for panel load",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Tables",
@@ -730,7 +730,7 @@
                         {
                             "name": "Wait for Dimension selector to disappear",
                             "type": "wait",
-                            "period": 2000
+                            "value": 2000
                         },
                         {
                             "name": "Time Range",
@@ -858,7 +858,7 @@
                         {
                             "name": "wait",
                             "type": "wait",
-                            "period": 6000
+                            "value": 6000
                         },
                         {
                             "name": "Active",
@@ -892,7 +892,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Active",
@@ -991,7 +991,7 @@
                         {
                             "name": "Wait for Kubernetes cluster creation",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Added2",
@@ -1018,7 +1018,7 @@
                         {
                             "name": "Wait for load",
                             "type": "wait",
-                            "period": 5000
+                            "value": 5000
                         },
                         {
                             "name": "Panel",
@@ -1074,7 +1074,7 @@
                             "name": "Wait",
                             "comment": "Wait for creation (Snap in next section after page refresh)",
                             "type": "wait",
-                            "period": 900000
+                            "value": 900000
                         }
                     ]
                 }
@@ -1096,7 +1096,7 @@
                         {
                             "name": "Wait for load",
                             "type": "wait",
-                            "period": 5000
+                            "value": 5000
                         },
                         {
                             "name": "Created",
@@ -1122,7 +1122,7 @@
                         {
                             "name": "Wait for load",
                             "type": "wait",
-                            "period": 5000
+                            "value": 5000
                         },
                         {
                             "name": "Delete",
@@ -1141,7 +1141,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 3000
+                            "value": 3000
                         },
                         {
                             "name": "Deleting",
@@ -1151,7 +1151,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 60000
+                            "value": 60000
                         },
                         {
                             "name": "Deleted",
@@ -1377,7 +1377,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": "5000"
+                            "value": "5000"
                         },
                         {
                             "name": "",
@@ -1402,7 +1402,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": "5000"
+                            "value": "5000"
                         },
                         {
                             "name": "String",
@@ -1496,7 +1496,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "View",
@@ -1510,7 +1510,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "period": 10000
+                            "value": 10000
                         },
                         {
                             "name": "Execute",
@@ -1547,7 +1547,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 3000
+                            "value": 3000
                         },
                         {
                             "name": "",
@@ -1566,7 +1566,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 1000
+                            "value": 1000
                         },
                         {
                             "name": "Add Form",
@@ -1594,7 +1594,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 3000
+                            "value": 3000
                         },
                         {
                             "name": "",
@@ -1608,7 +1608,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 1000
+                            "value": 1000
                         },
                         {
                             "name": "Add Form",
@@ -1636,7 +1636,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 3000
+                            "value": 3000
                         },
                         {
                             "name": "",
@@ -1650,7 +1650,7 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "period": 1000
+                            "value": 1000
                         },
                         {
                             "name": "Add Form",

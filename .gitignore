@@ -2,6 +2,6 @@ images/*
 node_modules/*
 package-lock.json
 **/\.DS_Store
-.login
-.password
+.login*
+.password*
 package.json

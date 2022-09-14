@@ -1,0 +1,1399 @@
+{
+    "pages": [
+        {
+            "comment": "Login page, remove overlay",
+            "title": "login",
+            "uid": "",
+            "url": "identity/login",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Close cookie consent",
+                            "type": "click",
+                            "selector": "button:has-text('Do not show this message again')"
+                        },
+                        {
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 500
+                        },
+                        {
+                            "name": "Username",
+                            "type": "text",
+                            "selector": "#email",
+                            "value": "LOGIN"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Password",
+                            "type": "text",
+                            "selector": "body > identity > div > div:nth-child(3) > login > div > div > div > harmony-credential > div.login-section_form_input > form > div > password-input > div > input",
+                            "value": "PASSWORD"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 5000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "comment": "Jitterbit Harmony landing page, hover on App Builder to highlight tile",
+            "title": "landing",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
+                {
+                    "comment": "Snap with and without Jitterbit menu",
+                    "name": "tile",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 577
+                    },
+                    "steps": [
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "Remove Pendo",
+                            "type": "hide",
+                            "selector": "[id='pendo-base']"
+                        },
+                        {
+                            "name": "Close pendo",
+                            "type": "click",
+                            "selector": "[aria-label='Close']"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "selector": "[class='app-builder-icon']"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 500
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 500
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "platform-menu"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "comment": "App Builder home page (may or may not be empty)",
+            "title": "",
+            "uid": "",
+            "operations": [
+                {
+                    "name": "apps",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 730
+                    },
+                    "steps": [
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 15000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "create-new-app",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 740
+                    },
+                    "steps": [
+                        {
+                            "name": "",
+                            "comment": "Click anything that starts with 'Create '.",
+                            "type": "click",
+                            "selector": "button >> text=/Create\\s*/"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "blur subdomain",
+                            "type": "blur",
+                            "selector": "#subdomaintwo"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
+                        },
+                        {
+                            "name": "App name - CANNOT BE REUSED",
+                            "type": "text",
+                            "selector": "[name='label']",
+                            "value": "Demo App RANDOM"
+                        },
+                        {
+                            "name": "App description",
+                            "type": "text",
+                            "selector": "[name='description']",
+                            "value": "Description for My New App"
+                        },
+                        {
+                            "name": "Open environment menu",
+                            "type": "click",
+                            "selector": "[name='environment']"
+                        },
+                        {
+                            "name": "Select default env",
+                            "type": "press",
+                            "value": [
+                                "d"
+                            ]
+                        },
+                        {
+                            "name": "Open icons",
+                            "type": "click",
+                            "selector": "div.icon-search-list"
+                        },
+                        {
+                            "name": "Find icon",
+                            "type": "press",
+                            "value": [
+                                "b",
+                                "o",
+                                "o",
+                                "k",
+                                "m",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "pick color",
+                            "type": "click",
+                            "selector": ".appcolor >> span >> nth=3"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "Save new app",
+                            "type": "click",
+                            "selector": "button >> text='Save'"
+                        },
+                        {
+                            "name": "wait for app creation",
+                            "type": "wait",
+                            "value": 15000
+                        },
+                        {
+                            "name": "overview",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DOMAIN MODEL > Modules",
+                    "name": "domain-model",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 620
+                    },
+                    "steps": [
+                        {
+                            "name": "",
+                            "comment": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Domain Model'"
+                        },
+                        {
+                            "name": "modules",
+                            "type": "click",
+                            "selector": "a >> span >> text='Modules'"
+                        },
+                        {
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "modules",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "modules detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new module",
+                            "type": "click",
+                            "selector": "button >> text='New Module'"
+                        },
+                        {
+                            "name": "wait for settings",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "modules new-module",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "modules new-module detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 450
+                            }
+                        },
+                        {
+                            "name": "Cancel new module",
+                            "type": "click",
+                            "selector": "button:has-text('Cancel')"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DOMAIN MODEL > Relations",
+                    "name": "domain-model",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 620
+                    },
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Relations'"
+                        },
+                        {
+                            "name": "wait for relations page",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "relations",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "relations detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new relation",
+                            "type": "click",
+                            "selector": "button >> text='New Relation'"
+                        },
+                        {
+                            "name": "wait for settings",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "relations new-relation",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "relations new-relation detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 380
+                            }
+                        },
+                        {
+                            "name": "Cancel new relation",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DOMAIN MODEL > Dropdowns",
+                    "name": "domain-model",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 620
+                    },
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "span:has-text('Dropdowns')"
+                        },
+                        {
+                            "name": "wait for dropdowns",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "dropdowns",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "dropdowns detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new dropdown",
+                            "type": "click",
+                            "selector": "button >> text='New Dropdown'"
+                        },
+                        {
+                            "name": "wait for 'New Dropdown' dialog",
+                            "type": "wait",
+                            "value": 15000
+                        },
+                        {
+                            "name": "dropdowns new-dropdown",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "dropdowns new-dropdown detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 375
+                            }
+                        },
+                        {
+                            "name": "Cancel new dropdown",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DOMAIN MODEL > Dependencies",
+                    "name": "domain-model",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 620
+                    },
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Dependencies'"
+                        },
+                        {
+                            "name": "dependencies",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "dependencies detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new dependency",
+                            "type": "click",
+                            "selector": "button >> text='New Dependency'"
+                        },
+                        {
+                            "name": "wait for settings",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "dependencies new-dependency",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "dependencies new-dependency detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 230
+                            }
+                        },
+                        {
+                            "name": "Cancel new dependency",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### APPLICATION LOGIC > Microflows",
+                    "name": "application-logic",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 525
+                    },
+                    "steps": [
+                        {
+                            "name": "expand menu",
+                            "type": "click",
+                            "selector": "[data-title='Application Logic']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Microflows'"
+                        },
+                        {
+                            "name": "wait for microflows",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "microflows",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 540
+                            }
+                        },
+                        {
+                            "name": "microflows detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new microflow",
+                            "type": "click",
+                            "selector": "button >> text='New Microflow'"
+                        },
+                        {
+                            "name": "wait for microflow settings",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "microflows microflow-settings",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 700
+                            }
+                        },
+                        {
+                            "name": "microflows microflow-settings detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 700
+                            }
+                        },
+                        {
+                            "name": "Cancel new microflow",
+                            "type": "click",
+                            "Xselector": "button >> text='Cancel'",
+                            "selector": "#MicroflowEditorController >> div.modal-header >> button >> 'Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### APPLICATION LOGIC > UI Flows",
+                    "name": "application-logic",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 525
+                    },
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='UI Flows'"
+                        },
+                        {
+                            "name": "ui-flows",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "ui-flows detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new ui-flow",
+                            "type": "click",
+                            "selector": "button >> text='New UI Flow'"
+                        },
+                        {
+                            "name": "wait for ui-flow-settings",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "ui-flows ui-flow-settings",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 640
+                            }
+                        },
+                        {
+                            "name": "ui-flows ui-flow-settings detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 640
+                            }
+                        },
+                        {
+                            "name": "Cancel new ui-flow",
+                            "type": "click",
+                            "selector": "#UIflowEditorController >> button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > General",
+                    "name": "configuration general",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 820
+                    },
+                    "steps": [
+                        {
+                            "name": "expand menu",
+                            "type": "click",
+                            "selector": "[data-title='Configuration']"
+                        },
+                        {
+                            "name": "select general page",
+                            "type": "click",
+                            "selector": "a >> span >> text='General'"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Parameters",
+                    "name": "configuration parameters",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 820
+                    },
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Parameters'"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new parameter",
+                            "type": "click",
+                            "selector": "button >> text='New Parameter'"
+                        },
+                        {
+                            "name": "wait for parameter settings",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "parameter",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "parameter detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 360
+                            }
+                        },
+                        {
+                            "name": "Cancel new parameter",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Menus",
+                    "name": "configuration menus",
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Menus'"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "new menu",
+                            "type": "click",
+                            "selector": "button >> text='New Menu'"
+                        },
+                        {
+                            "name": "wait for menu settings",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "new-menu",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "new-menu detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 440
+                            }
+                        },
+                        {
+                            "name": "Cancel new menu",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > User Guides",
+                    "name": "configuration user-guides",
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='User Guides'"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "new introduction",
+                            "type": "click",
+                            "selector": "div.content-in2 >> li> button >> 'New Introduction'"
+                        },
+                        {
+                            "name": "wait for new module introduction",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "new-module-introduction",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "new-module-introduction detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 735
+                            }
+
+                        },
+                        {
+                            "name": "Cancel new module introduction",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "new help page",
+                            "type": "click",
+                            "selector": "div.content-in2 >> button >> text='New Help Page'"
+                        },
+                        {
+                            "name": "wait for new help page",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "new-help-page",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "new-help-page detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 520
+                            }
+                        },
+                        {
+                            "name": "Cancel new help page",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Localizations",
+                    "name": "configuration localizations",
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Localizations'"
+                        },
+                        {
+                            "name": "localizations",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "localizations detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Globalization",
+                    "name": "configuration globalization",
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Globalization'"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Branding",
+                    "name": "configuration branding",
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "selector": "a >> span >> text='Branding'"
+                        },
+                        {
+                            "name": "wait for branding page load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > Public Page",
+                            "name": "public-page",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Alter tooltip fadeout time",
+                            "type": "style",
+                            "content": ".am-fade {-webkit-animation-duration: 10.0s; animation-duration: 10.0s; }"
+                        },
+                        {
+                            "name": "show tooltip 1",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='1'"
+                        },
+                        {
+                            "name": "show tooltip 2",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='2'"
+                        },
+                        {
+                            "name": "show tooltip 3",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='3'"
+                        },
+                        {
+                            "name": "show tooltip 4",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='4'"
+                        },
+                        {
+                            "name": "show tooltip 5",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='5'"
+                        },
+                        {
+                            "name": "show tooltip 6",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='6'"
+                        },
+                        {
+                            "name": "show tooltip 7",
+                            "type": "move",
+                            "selector": "[data-title='Public Page'] >> span >> text='7'"
+                        },
+                        {
+                            "name": "show tooltip 8",
+                            "type": "move",
+                            "selector": "span >> text='8'"
+                        },
+                        {
+                            "name": "public-page labeled",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "public-page tab labeled",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > App Page",
+                            "name": "select app page tab",
+                            "type": "click",
+                            "selector": "li >> text='App Page'"
+                        },
+                        {
+                            "name": "wait for app page load",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "app-page",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Alter tooltip fadeout time",
+                            "type": "style",
+                            "content": ".am-fade {-webkit-animation-duration: 10.0s; animation-duration: 10.0s; }"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='1'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='2'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='3'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='App Page'] >> span >> text='4'"
+                        },
+                        {
+                            "name": "app-page labeled",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "app-page tab labeled",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > Mobile",
+                            "name": "mobile tab",
+                            "type": "click",
+                            "selector": "li >> text='Mobile'"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 20000
+                        },
+                        {
+                            "name": "mobile",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='1'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='2'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='3'"
+                        },
+                        {
+                            "name": "",
+                            "type": "move",
+                            "selector": "[data-title='Mobile'] >> span >> text='4'"
+                        },
+                        {
+                            "name": "mobile labeled",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "mobile tab labeled",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
+                            "name": "Open app page tab",
+                            "type": "click",
+                            "selector": "li >> text='Custom Domain'"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "blur",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.tab-content.branding.ng-scope > div > div > div > div.custom-domain.ng-scope.tab-pane.am-fade.active > div > div > div > div.host-block > span.bold.ng-binding { filter: blur(5px); }"
+                        },
+                        {
+                            "name": "custom-domain",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 920
+                            }
+                        },
+                        {
+                            "comment": "snap detail",
+                            "name": "custom-domain tab",
+                            "type": "snap",
+                            "selector": "[class='content-in2']",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 920
+                            }
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Identity",
+                    "name": "configuration identity",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Identity'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Email Templates",
+                    "name": "configuration email-templates",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Email Templates'"
+                        },
+                        {
+                            "name": "wait for email templates to load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='New Email Template'"
+                        },
+                        {
+                            "name": "wait for new email template to open",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "new-email-template",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "new-email-template detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DEVELOPMENT > Collaborators",
+                    "name": "development",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 575
+                    },
+                    "steps": [
+                        {
+                            "name": "expand menu",
+                            "type": "click",
+                            "selector": "[data-title='Development']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Collaborators'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "Blur",
+                            "type": "blur",
+                            "selector": "[class='user-info']"
+                        },
+                        {
+                            "name": "collaborators",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "collaborators detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DEVELOPMENT > Packages",
+                    "name": "developent packages",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 575
+                    },
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Packages'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='New Package'"
+                        },
+                        {
+                            "name": "wait for 'create new package!' to open",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "create-new-package",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "create-new-package detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 275
+                            }
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DEVELOPMENT > Releases",
+                    "name": "development releases",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 575
+                    },
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "a >> span >> text='Releases'"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='New Release'"
+                        },
+                        {
+                            "name": "wait for 'new release' to open",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "new-release",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "new-release detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 415
+                            }
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

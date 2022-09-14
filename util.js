@@ -58,9 +58,6 @@ async function snap(page, title = "", dir, full = false) {
     // https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#pagescreenshotoptions
     if (full) { options.fullPage = true; }
 
-    // TEST can this option affect sparkline tooltip capture?
-    //    options.omitBackground = true;
-
     try {
         await page.screenshot(options);
         process.stdout.write("Done\n");
@@ -86,15 +83,13 @@ async function load(page, url, wait = config.server_cfg.wait, force_wait = false
 
         await page.goto(url,
             {
-                waitUntil: 'networkidle'
-                ,timeout: wait
+                waitUntil: 'networkidle',
+                timeout: wait
             }
         );
         if (force_wait) {
             await page.waitForTimeout(wait); // Force Wait before snap
         }
-
-        //await eat(page); // TODO remove cookie
     } catch (e) {
         console.error(`Can't load ${url} - skipping (${e})`);
     }
@@ -102,7 +97,7 @@ async function load(page, url, wait = config.server_cfg.wait, force_wait = false
 }
 
 /*
-** Convenience viewport setter (with reload)
+** Convenience viewport setter (with reload option)
 */
 async function viewport(page, viewport, reload = false) {
     try {
@@ -116,96 +111,13 @@ async function viewport(page, viewport, reload = false) {
                 waitUntil: 'load',
                 timeout: config.server_cfg.wait
             });
-            //await eat(page); // TODO
         }
     } catch (e) {
         console.error(`Failed setting viewport - ${e}`);
     }
 }
 
-/*
-** Delete cookie popup elements
-*/
-async function eat(page) {
-    const cookie_popup = config.defaults.cookie_popup_elem;
-    try {
-        await page.$(cookie_popup, {
-            timeout: config.server_cfg.pause,
-            visible: true
-        });
-        await page.evaluate((sel) => {
-            var elements = document.querySelectorAll(sel);
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].parentNode.removeChild(elements[i]);
-            }
-        }, cookie_popup);
-    } catch (err) { console.log("No cookie popup to remove: " + err + "\n"); }
-}
-
-/*
-** Remove element from page
-*/
-async function erase(page, element) {
-    try {
-        await page.$(element, {
-            timeout: config.server_cfg.pause,
-            visible: true
-        });
-        await page.evaluate((sel) => {
-            var elements = document.querySelectorAll(sel);
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].parentNode.removeChild(elements[i]);
-            }
-        }, element);
-    } catch (err) { console.log("Can't remove element" + err + "\n"); }
-}
-
-/*
-** GET via Swagger API
-*/
-async function swagger(url, callback) {
-    try {
-        var ret = await axios.get(url, {
-            auth: {
-                username: config.user,
-                password: config.pass
-            }
-        });
-        return callback(ret.data);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-// Check versions TODO
-async function check_versions() {
-    swagger('http://' + config.hostname + '/v1/version',
-        function (response) {
-            if (response.version == config.defaults.version
-                &&
-                response.version == config.pages_version) {
-                console.log("Versions match");
-            } else {
-                console.error(`WARNING: Configuration/server version mismatch - Defaults (${config.defaults.version}), Dashboards (${config.pages_version}), PMM Server (${response.version})`);
-            }
-        }
-    );
-}
-// TODO
-async function get_version() {
-    swagger('http://' + config.hostname + '/v1/version',
-        function (response) {
-            return response.version;
-        }
-    );
-}
-
 module.exports.snap = snap;
 module.exports.mkdir = mkdir;
 module.exports.load = load;
-module.exports.eat = eat;
-module.exports.erase = erase;
 module.exports.viewport = viewport;
-module.exports.swagger = swagger;
-module.exports.check_versions = check_versions;
-module.exports.get_version = get_version;

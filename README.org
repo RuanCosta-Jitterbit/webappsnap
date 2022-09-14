@@ -155,11 +155,11 @@ You must create configuration files for your own application.
 
              - =back=: Return to the previous page.
 
-             - =wait=: Wait for =period= milliseconds.
+             - =wait=: Wait for =value= milliseconds.
 
              - =move=: Move to (hover over) the element specified by =selector=. (Uses [[https://playwright.dev/docs/api/class-page#pagehoverselector-options][=page.hover()=]] which finds the first CSS selector ID and positions the mouse in the center of it.)
 
-             - =text=: Enter =value= text into element =selector=. If =value= is the word =RANDOM=, a random 5-digit hex string (10 characters) is entered.
+             - =text=: Enter =value= text into element =selector=. If =value= is the word =RANDOM=, a random 5-digit hex string (10 characters) is entered. If the word =LOGIN=, value is taken from the contents of a =.login= file. If =PASSWORD=, value is taken from =.password=.
 
              - =press=: Press each of the keys in the =value= array.
 
@@ -171,6 +171,8 @@ You must create configuration files for your own application.
 
              - =unhighlight=: Remove the yellow dotted line around =selector=.
 
+             - =style=: Insert the CSS code provided by the =content= field.
+
              - =snap=: Snap the window. If a =selector= is given, snap only it. If =viewport= is given, adjust the window to that size before snapping.
 
            These can be set for most steps.
@@ -180,8 +182,6 @@ You must create configuration files for your own application.
            - =viewport=: Each step can specify its own viewport which overrides either the outer page or default viewport.
 
              - =width=, =height=: Width and height (in pixels) for this step's viewport (if snapped).
-
-     Some entries have a =comment= field. This is ignored, as are any other fields not mentioned above.
 
 3. Set values for the following environment variables. Do it in your shell, or in =run.sh=, where examples and explanations are given.
 
@@ -304,21 +304,7 @@ One or more pages
 
 - You can specify one or more operations to define what should happen prior to a snap. For example, you can hover over something to reveal a tooltip, select an item in a list, enter text into a field, or go through the step-by-step process of adding, editing and deleting something. You can snap the whole window or an HTML element as specified by its CSS selector.
 
-- An operation is a group of steps. Except for 'wait', a selector specifies the CSS selector to move to, click on, enter text into, blur (to obscure it), or snap. A step's type is one of:
-
-  - =move=: move to (hover over) a selector;
-
-  - =text=: enter text into the selector;
-
-  - =click=: click the selector;
-
-  - =press=: perform one or more keystrokes;
-
-  - =blur=: blur (make fuzzy) the element specified by selector;
-
-  - =wait=: explicitly wait for the specified period (in ms);
-
-  - =snap=: Explicitly snap the the specified selector or the whole viewport.
+- An operation is a group of steps. Except for 'wait', a selector specifies the CSS selector to operate on.
 
 - If no operations are specified, a page entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements (using the =selector= field).
 
@@ -356,25 +342,13 @@ There are three Node.js files.
 :END:
 The image file path is made up of the directory and the filename.
 
-The directory path is a hierarchy constructed in =main.js=. It is made up of:
+The directory path is a hierarchy constructed in =main.js=. It is:
 
 - Defaults file =img_dir= (or =SNAP_IMG_DIR= if set)
 
 - System path separator (e.g. =/= on Linux).
 
-- Server configuration file =name=
-
-- System path separator.
-
-- Defaults file =img_width= (or =SNAP_IMG_WIDTH= if set)
-
-- =x=
-
-- Defaults file =img_height= (or =SNAP_IMG_HEIGHT= if set)
-
-- System path separator.
-
-The purpose of the hierarchy is to separate images made with different servers and viewport sizes.
+- Server configuration file =name=.
 
 The file name is constructed in =snap()= in =util.js= and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (=_=).
 
