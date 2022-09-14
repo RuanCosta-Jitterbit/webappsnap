@@ -15,9 +15,15 @@
                             "value": 2000
                         },
                         {
+                            "type": "snap"
+                        },
+                        {
                             "name": "Close cookie consent",
                             "type": "click",
-                            "selector": "button >> text='Do not show this message again'"
+                            "selector": "button:has-text('Do not show this message again')"
+                        },
+                        {
+                            "type": "snap"
                         },
                         {
                             "name": "Wait",
@@ -64,14 +70,14 @@
             "title": "landing",
             "uid": "",
             "url": "identity/landing",
-            "viewport": {
-                "width": 1200,
-                "height": 575
-            },
             "operations": [
                 {
                     "comment": "Snap with and without Jitterbit menu",
                     "name": "tile",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 577
+                    },
                     "steps": [
                         {
                             "name": "Wait",
@@ -103,7 +109,12 @@
                             "type": "snap"
                         },
                         {
-                            "name": "pane",
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 500
+                        },
+                        {
+                            "name": "detail",
                             "type": "snap",
                             "selector": "platform-menu"
                         }
@@ -143,14 +154,9 @@
                     "steps": [
                         {
                             "name": "",
-                            "comment": "If no apps. Times out if not found.",
+                            "comment": "Click anything that starts with 'Create '.",
                             "type": "click",
-                            "selector": "button >> text='Create your first app'"
-                        },
-                        {
-                            "name": "",
-                            "type": "click",
-                            "selector": "button >> text='Create New App'"
+                            "selector": "button >> text=/Create\\s*/"
                         },
                         {
                             "name": "Wait",
@@ -167,7 +173,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
@@ -215,7 +221,7 @@
                         {
                             "name": "pick color",
                             "type": "click",
-                            "selector": "div.iconandcolor > div > div > div.appcolor > span"
+                            "selector": ".appcolor >> span >> nth=3"
                         },
                         {
                             "name": "wait",
@@ -239,7 +245,7 @@
                     ]
                 },
                 {
-                    "comment": "################################################### DOMAIN MODEL",
+                    "comment": "################################################### DOMAIN MODEL > Modules",
                     "name": "domain-model",
                     "viewport": {
                         "width": 1200,
@@ -253,7 +259,6 @@
                             "selector": "a >> span >> text='Domain Model'"
                         },
                         {
-                            "comment": "################################################### DOMAIN MODEL > Modules",
                             "name": "modules",
                             "type": "click",
                             "selector": "a >> span >> text='Modules'"
@@ -268,7 +273,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "modules pane",
+                            "name": "modules detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -287,18 +292,32 @@
                             "type": "snap"
                         },
                         {
-                            "name": "modules new-module pane",
+                            "name": "modules new-module detail",
                             "type": "snap",
-                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 450
+                            }
                         },
                         {
                             "name": "Cancel new module",
                             "type": "click",
-                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > form > div.modal-header > div > div > ul > li:nth-child(1) > button"
+                            "selector": "button:has-text('Cancel')"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
                         }
                     ]
                 },
                 {
+                    "comment": "################################################### DOMAIN MODEL > Relations",
                     "name": "domain-model",
                     "viewport": {
                         "width": 1200,
@@ -306,8 +325,7 @@
                     },
                     "steps": [
                         {
-                            "comment": "################################################### DOMAIN MODEL > Relations",
-                            "name": "",
+                            "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Relations'"
                         },
@@ -321,14 +339,14 @@
                             "type": "snap"
                         },
                         {
-                            "name": "relations pane",
+                            "name": "relations detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
                         {
                             "name": "new relation",
                             "type": "click",
-                            "selector": "div.content-in2 >> button >> text='New Relation'"
+                            "selector": "button >> text='New Relation'"
                         },
                         {
                             "name": "wait for settings",
@@ -340,7 +358,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "relations new-relation pane",
+                            "name": "relations new-relation detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -354,30 +372,40 @@
                             "selector": "button >> text='Cancel'"
                         },
                         {
-                            "name": "quit",
-                            "type": "quit"
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
                         }
                     ]
                 },
                 {
+                    "comment": "################################################### DOMAIN MODEL > Dropdowns",
                     "name": "domain-model",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 620
+                    },
                     "steps": [
                         {
-                            "comment": "################################################### DOMAIN MODEL > Dropdowns",
-                            "name": "",
+                            "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Dropdowns'"
+                            "selector": "span:has-text('Dropdowns')"
+                        },
+                        {
+                            "name": "wait for dropdowns",
+                            "type": "wait",
+                            "value": 5000
                         },
                         {
                             "name": "dropdowns",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 620
-                            }
+                            "type": "snap"
                         },
                         {
-                            "name": "dropdowns pane",
+                            "name": "dropdowns detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -387,25 +415,21 @@
                             "selector": "button >> text='New Dropdown'"
                         },
                         {
-                            "name": "wait for settings",
+                            "name": "wait for 'New Dropdown' dialog",
                             "type": "wait",
-                            "value": 2000
+                            "value": 15000
                         },
                         {
                             "name": "dropdowns new-dropdown",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 620
-                            }
+                            "type": "snap"
                         },
                         {
-                            "name": "dropdowns new-dropdown pane",
+                            "name": "dropdowns new-dropdown detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 390
+                                "height": 375
                             }
                         },
                         {
@@ -414,21 +438,35 @@
                             "selector": "button >> text='Cancel'"
                         },
                         {
-                            "comment": "################################################### DOMAIN MODEL > Dependencies",
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DOMAIN MODEL > Dependencies",
+                    "name": "domain-model",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 620
+                    },
+                    "steps": [
+                        {
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Dependencies'"
                         },
                         {
                             "name": "dependencies",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 620
-                            }
+                            "type": "snap"
                         },
                         {
-                            "name": "dependencies pane",
+                            "name": "dependencies detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -444,14 +482,10 @@
                         },
                         {
                             "name": "dependencies new-dependency",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 620
-                            }
+                            "type": "snap"
                         },
                         {
-                            "name": "dependencies new-dependency pane",
+                            "name": "dependencies new-dependency detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -463,11 +497,20 @@
                             "name": "Cancel new dependency",
                             "type": "click",
                             "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
                         }
                     ]
                 },
                 {
-                    "comment": "################################################### APPLICATION LOGIC",
+                    "comment": "################################################### APPLICATION LOGIC > Microflows",
                     "name": "application-logic",
                     "viewport": {
                         "width": 1200,
@@ -475,8 +518,7 @@
                     },
                     "steps": [
                         {
-                            "comment": "################################################### APPLICATION LOGIC > Microflows",
-                            "name": "",
+                            "name": "expand menu",
                             "type": "click",
                             "selector": "[data-title='Application Logic']"
                         },
@@ -484,6 +526,11 @@
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Microflows'"
+                        },
+                        {
+                            "name": "wait for microflows",
+                            "type": "wait",
+                            "value": 10000
                         },
                         {
                             "name": "microflows",
@@ -494,7 +541,7 @@
                             }
                         },
                         {
-                            "name": "microflows pane",
+                            "name": "microflows detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -506,7 +553,7 @@
                         {
                             "name": "wait for microflow settings",
                             "type": "wait",
-                            "value": 2000
+                            "value": 5000
                         },
                         {
                             "name": "microflows microflow-settings",
@@ -517,7 +564,7 @@
                             }
                         },
                         {
-                            "name": "microflows microflow-settings pane",
+                            "name": "microflows microflow-settings detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -529,35 +576,40 @@
                             "name": "Cancel new microflow",
                             "type": "click",
                             "Xselector": "button >> text='Cancel'",
-                            "selector": "#MicroflowEditorController > div.modal-header > div > div > ul > li:nth-child(1) > button"
+                            "selector": "#MicroflowEditorController >> div.modal-header >> button >> 'Cancel'"
                         },
                         {
-                            "name": "wait for microflow settings closure",
+                            "name": "wait for cancel",
                             "type": "wait",
-                            "value": 2000
+                            "value": 5000
                         },
                         {
-                            "comment": "################################################### APPLICATION LOGIC > UI Flows",
-                            "name": "",
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### APPLICATION LOGIC > UI Flows",
+                    "name": "application-logic",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 525
+                    },
+                    "steps": [
+                        {
+                            "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='UI Flows'"
                         },
                         {
                             "name": "ui-flows",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 700
-                            }
+                            "type": "snap"
                         },
                         {
-                            "name": "ui-flows pane",
+                            "name": "ui-flows detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 700
-                            }
+                            "selector": "[class='content-in2']"
                         },
                         {
                             "name": "new ui-flow",
@@ -567,73 +619,89 @@
                         {
                             "name": "wait for ui-flow-settings",
                             "type": "wait",
-                            "value": 2000
+                            "value": 5000
                         },
                         {
                             "name": "ui-flows ui-flow-settings",
                             "type": "snap",
                             "viewport": {
                                 "width": 1200,
-                                "height": 700
+                                "height": 640
                             }
                         },
                         {
-                            "name": "ui-flows ui-flow-settings pane",
+                            "name": "ui-flows ui-flow-settings detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 700
+                                "height": 640
                             }
                         },
                         {
                             "name": "Cancel new ui-flow",
                             "type": "click",
-                            "Xselector": "button >> text='Cancel'",
-                            "selector": "#UIflowEditorController > div.modal-header > div > div > ul > li:nth-child(1) > button >> text='Cancel'"
+                            "selector": "#UIflowEditorController >> button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
                         }
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION",
-                    "name": "configuration",
+                    "comment": "################################################### CONFIGURATION > General",
+                    "name": "configuration general",
                     "viewport": {
                         "width": 1200,
-                        "height": 920
+                        "height": 820
                     },
                     "steps": [
                         {
-                            "name": "",
+                            "name": "expand menu",
                             "type": "click",
                             "selector": "[data-title='Configuration']"
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > General",
-                            "name": "open menu",
+                            "name": "select general page",
                             "type": "click",
                             "selector": "a >> span >> text='General'"
                         },
                         {
-                            "name": "general",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "general pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Parameters",
+                    "name": "configuration parameters",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 820
+                    },
+                    "steps": [
                         {
-                            "comment": "################################################### CONFIGURATION > Parameters",
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Parameters'"
                         },
                         {
-                            "name": "parameters",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "parameters pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -648,11 +716,11 @@
                             "value": 2000
                         },
                         {
-                            "name": "parameters parameter",
+                            "name": "parameter",
                             "type": "snap"
                         },
                         {
-                            "name": "parameters parameter pane",
+                            "name": "parameter detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -666,17 +734,31 @@
                             "selector": "button >> text='Cancel'"
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > Menus",
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Menus",
+                    "name": "configuration menus",
+                    "steps": [
+                        {
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Menus'"
                         },
                         {
-                            "name": "menus",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "menus pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -691,11 +773,11 @@
                             "value": 2000
                         },
                         {
-                            "name": "menus new menu",
+                            "name": "new-menu",
                             "type": "snap"
                         },
                         {
-                            "name": "menus new menu pane",
+                            "name": "new-menu detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -709,42 +791,62 @@
                             "selector": "button >> text='Cancel'"
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > User Guides",
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > User Guides",
+                    "name": "configuration user-guides",
+                    "steps": [
+                        {
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='User Guides'"
                         },
                         {
-                            "name": "user-guides",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "user-guides pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
                         {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
                             "name": "new introduction",
                             "type": "click",
-                            "selector": "button >> text='New Introduction'"
+                            "selector": "div.content-in2 >> li> button >> 'New Introduction'"
                         },
                         {
                             "name": "wait for new module introduction",
                             "type": "wait",
-                            "value": 2000
+                            "value": 10000
                         },
                         {
-                            "name": "user-guides new-module-introduction",
+                            "name": "new-module-introduction",
                             "type": "snap"
                         },
                         {
-                            "name": "user-guides new-module-introduction pane",
+                            "name": "new-module-introduction detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 520
+                                "height": 735
                             }
+
                         },
                         {
                             "name": "Cancel new module introduction",
@@ -754,7 +856,7 @@
                         {
                             "name": "new help page",
                             "type": "click",
-                            "selector": "button >> text='New Help Page'"
+                            "selector": "div.content-in2 >> button >> text='New Help Page'"
                         },
                         {
                             "name": "wait for new help page",
@@ -762,11 +864,11 @@
                             "value": 2000
                         },
                         {
-                            "name": "user-guides new-help-page",
+                            "name": "new-help-page",
                             "type": "snap"
                         },
                         {
-                            "name": "user-guides new-help-page pane",
+                            "name": "new-help-page detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -780,7 +882,21 @@
                             "selector": "button >> text='Cancel'"
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > Localizations",
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Localizations",
+                    "name": "configuration localizations",
+                    "steps": [
+                        {
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Localizations'"
@@ -790,27 +906,37 @@
                             "type": "snap"
                         },
                         {
-                            "name": "localizations pane",
+                            "name": "localizations detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Globalization",
+                    "name": "configuration globalization",
+                    "steps": [
                         {
-                            "comment": "################################################### CONFIGURATION > Globalization",
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Globalization'"
                         },
                         {
-                            "name": "globalization",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "globalization pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Branding",
+                    "name": "configuration branding",
+                    "steps": [
                         {
-                            "comment": "################################################### CONFIGURATION > Branding",
                             "name": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Branding'"
@@ -818,11 +944,11 @@
                         {
                             "name": "wait for branding page load",
                             "type": "wait",
-                            "value": "5000"
+                            "value": 5000
                         },
                         {
                             "comment": "################################################### CONFIGURATION > Branding > Public Page",
-                            "name": "branding public-page",
+                            "name": "public-page",
                             "type": "snap"
                         },
                         {
@@ -871,11 +997,11 @@
                             "selector": "span >> text='8'"
                         },
                         {
-                            "name": "branding public-page labeled",
+                            "name": "public-page labeled",
                             "type": "snap"
                         },
                         {
-                            "name": "branding public-page tab labeled",
+                            "name": "public-page tab labeled",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -896,7 +1022,7 @@
                             "value": 2000
                         },
                         {
-                            "name": "branding app-page",
+                            "name": "app-page",
                             "type": "snap"
                         },
                         {
@@ -925,11 +1051,11 @@
                             "selector": "[data-title='App Page'] >> span >> text='4'"
                         },
                         {
-                            "name": "branding app-page labeled",
+                            "name": "app-page labeled",
                             "type": "snap"
                         },
                         {
-                            "name": "branding app-page tab labeled",
+                            "name": "app-page tab labeled",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -945,7 +1071,7 @@
                             "value": 20000
                         },
                         {
-                            "name": "branding mobile",
+                            "name": "mobile",
                             "type": "snap"
                         },
                         {
@@ -969,11 +1095,11 @@
                             "selector": "[data-title='Mobile'] >> span >> text='4'"
                         },
                         {
-                            "name": "branding mobile labeled",
+                            "name": "mobile labeled",
                             "type": "snap"
                         },
                         {
-                            "name": "branding mobile tab labeled",
+                            "name": "mobile tab labeled",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -989,51 +1115,60 @@
                             "value": 2000
                         },
                         {
-                            "Xname": "blur",
-                            "Xtype": "blur",
-                            "Xselector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.tab-content.branding.ng-scope > div > div > div > div.custom-domain.ng-scope.tab-pane.am-fade.active > div > div > div > div.host-block > span.bold.ng-binding"
-                        },
-                        {
-                            "name": "blur via style",
+                            "name": "blur",
                             "type": "style",
                             "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.tab-content.branding.ng-scope > div > div > div > div.custom-domain.ng-scope.tab-pane.am-fade.active > div > div > div > div.host-block > span.bold.ng-binding { filter: blur(5px); }"
                         },
                         {
-                            "name": "branding custom-domain",
-                            "type": "snap"
-                        },
-                        {
-                            "comment": "snap pane",
-                            "name": "branding custom-domain tab",
+                            "name": "custom-domain",
                             "type": "snap",
-                            "selector": "[class='content-in2']",
-                            "Xviewport": {
+                            "viewport": {
                                 "width": 1200,
-                                "height": 940
+                                "height": 920
                             }
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > Identity",
+                            "comment": "snap detail",
+                            "name": "custom-domain tab",
+                            "type": "snap",
+                            "selector": "[class='content-in2']",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 920
+                            }
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Identity",
+                    "name": "configuration identity",
+                    "steps": [
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Identity'"
                         },
                         {
-                            "name": "identity",
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "wait for email templates to load",
-                            "type": "wait",
-                            "value": 1000
-                        },
-                        {
-                            "name": "identity pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION > Email Templates",
+                    "name": "configuration email-templates",
+                    "steps": [
                         {
-                            "comment": "################################################### CONFIGURATION > Email Templates",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Email Templates'"
@@ -1044,11 +1179,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "email-templates",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "email-templates pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
@@ -1063,11 +1198,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "email-templates new-email-template",
+                            "name": "new-email-template",
                             "type": "snap"
                         },
                         {
-                            "name": "email-templates new-email-template pane",
+                            "name": "new-email-template detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
@@ -1075,11 +1210,20 @@
                             "name": "",
                             "type": "click",
                             "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
                         }
                     ]
                 },
                 {
-                    "comment": "################################################### DEVELOPMENT",
+                    "comment": "################################################### DEVELOPMENT > Collaborators",
                     "name": "development",
                     "viewport": {
                         "width": 1200,
@@ -1087,12 +1231,11 @@
                     },
                     "steps": [
                         {
-                            "name": "",
+                            "name": "expand menu",
                             "type": "click",
                             "selector": "[data-title='Development']"
                         },
                         {
-                            "comment": "################################################### DEVELOPMENT > Collaborators",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Collaborators'"
@@ -1112,12 +1255,21 @@
                             "type": "snap"
                         },
                         {
-                            "name": "collaborators pane",
+                            "name": "collaborators detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DEVELOPMENT > Packages",
+                    "name": "developent packages",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 575
+                    },
+                    "steps": [
                         {
-                            "comment": "################################################### DEVELOPMENT > Packages",
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Packages'"
@@ -1125,19 +1277,65 @@
                         {
                             "name": "wait for load",
                             "type": "wait",
-                            "value": 3000
+                            "value": 10000
                         },
                         {
-                            "name": "packages",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "packages pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
                         },
                         {
-                            "comment": "################################################### DEVELOPMENT > Releases",
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='New Package'"
+                        },
+                        {
+                            "name": "wait for 'create new package!' to open",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "create-new-package",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "create-new-package detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 275
+                            }
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### DEVELOPMENT > Releases",
+                    "name": "development releases",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 575
+                    },
+                    "steps": [
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Releases'"
@@ -1148,13 +1346,50 @@
                             "value": 3000
                         },
                         {
-                            "name": "releases",
+                            "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "releases pane",
+                            "name": "detail",
                             "type": "snap",
                             "selector": "[class='content-in2']"
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='New Release'"
+                        },
+                        {
+                            "name": "wait for 'new release' to open",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "new-release",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "new-release detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 415
+                            }
+                        },
+                        {
+                            "name": "",
+                            "type": "click",
+                            "selector": "button >> text='Cancel'"
+                        },
+                        {
+                            "name": "wait for cancel",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "AFTER CANCEL",
+                            "type": "snap"
                         }
                     ]
                 }

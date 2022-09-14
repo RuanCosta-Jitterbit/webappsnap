@@ -73,11 +73,8 @@ if (argv.debug) { config.debug = argv.debug; }
      * Part 1: Build URL
      * Part 2: Define viewport
      * Part 3: Load the page
-     * Part 4: Remove any unwanted page elements:
-     *   - 'cookie confirm' dialogue
-     *
-     * Part 5: If no operations, snap the viewport and optionally (--full) unconstrained container
-     * Part 6: If operations/steps, process them sequentially
+     * Part 4: If no operations, snap the viewport and optionally (--full) unconstrained container
+     * Part 5: If operations/steps, process them sequentially
      */
 
     // Can specify up to  custom page prefixes
@@ -135,10 +132,10 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // PART 2 - Viewport
         // Default when none specified
-        const default_dashboard_viewport = { width: config.img_width, height: config.img_height };
+        const default_page_viewport = { width: config.img_width, height: config.img_height };
         // Used to reset after loop
-        var dashboard_viewport = default_dashboard_viewport;
-        var operation_viewport = default_dashboard_viewport;
+        var page_viewport = default_page_viewport;
+        var operation_viewport = default_page_viewport;
 
         // PART 3 - Load URL
         await util.load(page, server_url, wait, true);
@@ -146,14 +143,12 @@ if (argv.debug) { config.debug = argv.debug; }
         if (pg.viewport) {
             console.log(`Viewport ${pg.viewport.width}x${pg.viewport.height} for dashboard`);
             await util.viewport(page, pg.viewport);
-            dashboard_viewport = pg.viewport;
+            page_viewport = pg.viewport;
         }
 
         // TODO Reliable way of knowing when page has completed loading
 
-        // PART 4 - No longer needed
-
-        // PART 5 - Dashboard-level snap (no operations)
+        // PART 4 - Dashboard-level snap (no operations)
         if (!pg.operations) {
             await util.snap(page, pg.title, img_dir);
 
@@ -175,7 +170,7 @@ if (argv.debug) { config.debug = argv.debug; }
             }
         }
 
-        // PART 6 - Operations - Any number of groups of steps, each step being an array of one of:
+        // PART 5 - Operations - Any number of groups of steps, each step being an array of one of:
         // - back: return to previous page
         // - wait: explicitly wait for the specified value (in ms);
         // - move: move to (hover over) a selector;
@@ -190,18 +185,20 @@ if (argv.debug) { config.debug = argv.debug; }
         // If operations are used, dedicate at least one step to a full-window snap,
         // or add another dashboard entry with no operations.
         for (var o in pg.operations) {
-            const operation = pg.operations[o]; // Convenience handle
-            console.log(`Operation: ${o}: ${operation.name}`);
+            const op = pg.operations[o]; // Convenience handle
+            console.log(`Operation: ${o}: ${op.name}`);
 
             // Viewport per operation
-            if (operation.viewport) {
-                console.log(`  Viewport for operation: ${operation.viewport.width}x${operation.viewport.height}`);
-                await util.viewport(page, operation.viewport);
-                operation_viewport = operation.viewport;
+            if (op.viewport) {
+                console.log(`  Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
+                await util.viewport(page, op.viewport);
+                operation_viewport = op.viewport;
             }
 
-            for (var s in operation.steps) {
-                const step = operation.steps[s]; // Convenience handle
+            for (var s in op.steps) {
+                const step = op.steps[s]; // Convenience handle
+                // Use locators
+                const loc = (step.selector) ? page.locator(step.selector) : null;
                 try {
                     console.log(`  Step ${s}: ${step.type} (${step.name})`);
                     switch (step.type) {
@@ -242,7 +239,9 @@ if (argv.debug) { config.debug = argv.debug; }
                             break;
                         case "click":
                             console.log(`    Selector: ${step.selector}`);
-                            await page.click(step.selector);
+                            //const locator = page.locator(step.selector);
+                            await loc.click(step.selector);
+//                            await page.click(step.selector);
                             break;
                         case "blur":
                             await page.addStyleTag({ content: `${step.selector} { filter: blur(5px); }` });
@@ -271,18 +270,20 @@ if (argv.debug) { config.debug = argv.debug; }
                             console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                             const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                             process.stdout.write("    "); // Indent log message in snap function
-                            await util.snap(selector, [pg.title, operation.name, step.name].filter(String).join(config.img_filename_sep), img_dir);
-                            console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
-                            await util.viewport(page, operation_viewport); // Reset to operation viewport
+                            await util.snap(selector, [pg.title, op.name, step.name].filter(String).join(config.img_filename_sep), img_dir);
                             break;
+                        }
+                    } catch (e) {
+                        console.log(`Skipping: ${e}`);
                     }
-                } catch (e) {
-                    console.log(`Skipping: ${e}`);
-                }
+                    console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
+                    await util.viewport(page, operation_viewport); // Reset to operation viewport
             } // for step
-            await util.viewport(page, dashboard_viewport); // Reset to dashboard viewport
+            console.log(`    Viewport reset to page level: ${page_viewport.width}x${page_viewport.height}`);
+            await util.viewport(page, page_viewport); // Reset to page viewport
         } // for operations
-        await util.viewport(page, default_dashboard_viewport); // Reset to default viewport
+        console.log(`    Viewport reset to default: ${default_page_viewport.width}x${default_page_viewport.height}`);
+        await util.viewport(page, default_page_viewport); // Reset to default viewport
     } // for pages
     await browser.close();
 

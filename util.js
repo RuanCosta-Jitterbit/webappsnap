@@ -97,7 +97,7 @@ async function load(page, url, wait = config.server_cfg.wait, force_wait = false
 }
 
 /*
-** Convenience viewport setter (with reload)
+** Convenience viewport setter (with reload option)
 */
 async function viewport(page, viewport, reload = false) {
     try {

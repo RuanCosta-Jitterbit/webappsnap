@@ -1,0 +1,13 @@
+{
+  "name": "AppBuilder-QAGreen",
+  "server": "https://apps.qa-green.jitterbit.com",
+  "Xserver": "https://apps.na-east.jitterbit.com",
+  "a": "app-builder",
+  "b": "",
+  "c": "",
+  "d": "",
+  "e": "",
+  "f": "",
+  "wait": 20000,
+  "pause": 6000
+}
