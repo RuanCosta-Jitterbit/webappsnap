@@ -15,8 +15,9 @@
                             "value": 2000
                         },
                         {
-                            "name": "cookie-consent",
-                            "type": "snap"
+                            "comment": "check cookie consent popup is present",
+                            "Xname": "cookie-consent",
+                            "Xtype": "snap"
                         },
                         {
                             "name": "Close cookie consent",
@@ -125,12 +126,11 @@
             ]
         },
         {
-            "comment": "App Builder home page (may or may not be empty)",
             "title": "",
             "uid": "",
             "operations": [
                 {
-                    "name": "apps",
+                    "name": "",
                     "viewport": {
                         "width": 1200,
                         "height": 730
@@ -142,13 +142,19 @@
                             "value": 15000
                         },
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div"
                         }
                     ]
                 },
                 {
                     "name": "create-new-app",
+                    "loop": 4,
                     "viewport": {
                         "width": 1200,
                         "height": 740
@@ -156,7 +162,7 @@
                     "steps": [
                         {
                             "name": "",
-                            "comment": "Click anything that starts with 'Create '.",
+                            "comment": "Click anything that starts with 'Create '",
                             "type": "click",
                             "selector": "button >> text=/Create\\s*/"
                         },
@@ -183,7 +189,7 @@
                             "name": "App name - CANNOT BE REUSED",
                             "type": "text",
                             "selector": "[name='label']",
-                            "value": "Demo App RANDOM"
+                            "value": "Demo-RANDOM"
                         },
                         {
                             "name": "App description",
@@ -223,17 +229,18 @@
                         {
                             "name": "pick color",
                             "type": "click",
+                            "comment": "pick 3rd color on first row",
                             "selector": ".appcolor >> span >> nth=3"
                         },
                         {
                             "name": "wait",
                             "type": "wait",
-                            "value": 3000
+                            "value": 5000
                         },
                         {
                             "name": "Save new app",
                             "type": "click",
-                            "selector": "button >> text='Save'"
+                            "selector": "[type='Submit']"
                         },
                         {
                             "name": "wait for app creation",
@@ -241,8 +248,44 @@
                             "value": 15000
                         },
                         {
-                            "name": "overview",
+                            "name": "return to app list",
+                            "type": "click",
+                            "selector": "h5 >> 'App Builder'"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### APPS",
+                    "name": "apps",
+                    "steps": [
+                        {
+                            "name": "wait for app list",
+                            "type": "wait",
+                            "value": 15000
+                        },
+                        {
+                            "name": "",
                             "type": "snap"
+                        },
+                        {
+                            "name": "hover to open app controls",
+                            "type": "move",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "edit first app",
+                            "type": "click",
+                            "selector": "button >> 'View / Edit' >> nth=0"
+                        },
+                        {
+                            "name": "wait for app to load",
+                            "type": "wait",
+                            "value": 20000
                         }
                     ]
                 },
@@ -263,7 +306,7 @@
                         {
                             "name": "highlight menu",
                             "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 5px red; }"
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
                         },
                         {
                             "name": "menu",
@@ -275,7 +318,6 @@
                             "type": "style",
                             "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         },
-
                         {
                             "name": "modules",
                             "type": "click",
@@ -525,9 +567,19 @@
                             "selector": "[data-title='Application Logic']"
                         },
                         {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                        },
+                        {
                             "name": "menu",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         },
                         {
                             "name": "",
@@ -669,12 +721,17 @@
                         {
                             "name": "highlight menu",
                             "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 5px red; }"
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
                         },
                         {
                             "name": "menu",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         }
                     ]
                 },
@@ -1238,9 +1295,19 @@
                             "selector": "[data-title='Development']"
                         },
                         {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                        },
+                        {
                             "name": "menu",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         },
                         {
                             "name": "",
@@ -1389,6 +1456,71 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 10000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "comment": "delete app",
+            "title": "delete",
+            "uid": "",
+            "operations": [
+                {
+                    "name": "",
+                    "loop": 4,
+                    "steps": [
+                        {
+                            "name": "hover to open pane",
+                            "type": "move",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "app tools",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "select settings",
+                            "type": "click",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2) > div > div.more-info > div.secondbox > div > div > span > i"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "edit-form",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "delete",
+                            "type": "click",
+                            "selector": "button >> 'Delete This App'"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "confirm-delete",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "confirm delete",
+                            "type": "click",
+                            "selector": "button >> 'Yes'"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
                         }
                     ]
                 }
