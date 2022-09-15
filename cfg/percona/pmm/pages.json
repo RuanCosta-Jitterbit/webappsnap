@@ -1220,8 +1220,8 @@
                     "steps": [
                         {
                             "name": "Highlight",
-                            "type": "highlight",
-                            "selector": ".navbar"
+                            "type": "style",
+                            "content": ".navbar { border: 2px dashed yellow; }"
                         },
                         {
                             "name": "Navbar",
@@ -1229,13 +1229,13 @@
                         },
                         {
                             "name": "Highlight",
-                            "type": "unhighlight",
-                            "selector": ".navbar"
+                            "type": "style",
+                            "content": ".navbar { border: none; }"
                         },
                         {
                             "name": "Highlight",
-                            "type": "highlight",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls"
+                            "type": "style",
+                            "content": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls { border: 2px dashed yellow; }"
                         },
                         {
                             "name": "Submenu",
@@ -1243,50 +1243,50 @@
                         },
                         {
                             "name": "Highlight",
-                            "type": "unhighlight",
-                            "selector": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls"
+                            "type": "style",
+                            "content": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls { border: none; }"
                         },
                         {
                             "name": "Highlight",
-                            "type": "highlight",
-                            "selector": ".sidemenu"
+                            "type": "style",
+                            "content": ".sidemenu { border: 2px dashed yellow; }"
                         },
                         {
                             "name": "Sidemenu",
                             "type": "snap"
                         },
                         {
-                            "name": "Highlight",
-                            "type": "unhighlight",
-                            "selector": ".sidemenu"
+                            "name": "Unhighlight",
+                            "type": "style",
+                            "content": ".sidemenu { border: none; }"
                         },
                         {
                             "name": "Highlight",
-                            "type": "highlight",
-                            "selector": "#panel-1381"
+                            "type": "style",
+                            "content": "#panel-1381 { border: 2px dashed yellow; }"
                         },
                         {
                             "name": "Failed Security Checks",
                             "type": "snap"
                         },
                         {
-                            "name": "Highlight",
-                            "type": "unhighlight",
-                            "selector": "#panel-1381"
+                            "name": "Unhighlight",
+                            "type": "style",
+                            "content": "#panel-1381 { border: none; }"
                         },
                         {
                             "name": "Highlight",
-                            "type": "highlight",
-                            "selector": "#panel-1337"
+                            "type": "style",
+                            "content": "#panel-1337 { border: 2px dashed yellow; }"
                         },
                         {
                             "name": "Upgrade",
                             "type": "snap"
                         },
                         {
-                            "name": "Highlight",
-                            "type": "unhighlight",
-                            "selector": "#panel-1337"
+                            "name": "Unhighlight",
+                            "type": "style",
+                            "content": "#panel-1337 { border: none; }"
                         }
                     ]
                 }
@@ -1435,7 +1435,7 @@
                         {
                             "name": "Annotation Toggle",
                             "type": "snap",
-                            "selector": "[for='1']"
+                            "selector": "[for='switch-1']"
                         }
                     ]
                 },
@@ -1450,7 +1450,7 @@
                         {
                             "name": "",
                             "type": "snap",
-                            "selector": "[class='dropdown-menu dropdown-menu--menu panel-menu']"
+                            "selector": "[aria-label='Dashboard submenu']"
                         },
                         {
                             "name": "Share",
@@ -1463,8 +1463,8 @@
                         },
                         {
                             "name": "Hide URL",
-                            "type": "blur",
-                            "selector": "[class='css-1w5c5dq-input-inputWrapper']"
+                            "type": "style",
+                            "content": ".css-1w5c5dq-input-inputWrapper { filter: blur(3px) }"
                         },
                         {
                             "name": "Share",
