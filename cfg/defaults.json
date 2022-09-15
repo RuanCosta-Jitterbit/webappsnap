@@ -13,5 +13,6 @@
     "jpg_quality": 75,
     "headless": true,
     "slowmo": 0,
-    "debug": false
+    "debug": false,
+    "randlen": 6
 }
