@@ -38,12 +38,13 @@ var img_width   = Number(process.env.SNAP_IMG_WIDTH) || defaults.img_width;
 var img_height  = Number(process.env.SNAP_IMG_HEIGHT) || defaults.img_height;
 
 var slowmo      = Number(process.env.SNAP_SLOW_MO) || defaults.slowmo;
+var randlen     = Number(process.env.SNAP_RANDLEN) || defaults.randlen;
 
 // Binary options
 var img_seq     = ((process.env.SNAP_IMG_SEQ) ? (process.env.SNAP_IMG_SEQ == 'true') : (defaults.img_seq === true));
 var headless    = ((process.env.SNAP_HEADLESS) ? (process.env.SNAP_HEADLESS == 'true') : (defaults.headless === true));
-var log_in      = ((process.env.SNAP_LOG_IN) ? (process.env.SNAP_LOG_IN == 'true') : (defaults.log_in === true));
 var debug       = ((process.env.SNAP_DEBUG) ? (process.env.SNAP_DEBUG == 'true') : (defaults.debug === true));
+
 
 // Base dir for images
 const img_dir = process.env.SNAP_IMG_DIR || defaults.img_dir;
@@ -62,6 +63,7 @@ module.exports.hostname = hostname;
 module.exports.debug = debug;
 module.exports.headless = headless;
 module.exports.slowmo = slowmo;
+module.exports.randlen = randlen;
 module.exports.img_height = img_height;
 module.exports.img_width = img_width;
 module.exports.img_pfx = img_pfx;

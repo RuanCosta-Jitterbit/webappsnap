@@ -15,7 +15,9 @@
                             "value": 2000
                         },
                         {
-                            "type": "snap"
+                            "comment": "check cookie consent popup is present",
+                            "Xname": "cookie-consent",
+                            "Xtype": "snap"
                         },
                         {
                             "name": "Close cookie consent",
@@ -23,6 +25,7 @@
                             "selector": "button:has-text('Do not show this message again')"
                         },
                         {
+                            "name": "no-cookie-consent",
                             "type": "snap"
                         },
                         {
@@ -123,12 +126,11 @@
             ]
         },
         {
-            "comment": "App Builder home page (may or may not be empty)",
             "title": "",
             "uid": "",
             "operations": [
                 {
-                    "name": "apps",
+                    "name": "",
                     "viewport": {
                         "width": 1200,
                         "height": 730
@@ -140,13 +142,19 @@
                             "value": 15000
                         },
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
+                        },
+                        {
+                            "name": "detail",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div"
                         }
                     ]
                 },
                 {
                     "name": "create-new-app",
+                    "loop": 4,
                     "viewport": {
                         "width": 1200,
                         "height": 740
@@ -154,7 +162,7 @@
                     "steps": [
                         {
                             "name": "",
-                            "comment": "Click anything that starts with 'Create '.",
+                            "comment": "Click anything that starts with 'Create '",
                             "type": "click",
                             "selector": "button >> text=/Create\\s*/"
                         },
@@ -165,8 +173,8 @@
                         },
                         {
                             "name": "blur subdomain",
-                            "type": "blur",
-                            "selector": "#subdomaintwo"
+                            "type": "style",
+                            "content": "#subdomaintwo { filter: blur{5px}; }"
                         },
                         {
                             "name": "",
@@ -181,7 +189,7 @@
                             "name": "App name - CANNOT BE REUSED",
                             "type": "text",
                             "selector": "[name='label']",
-                            "value": "Demo App RANDOM"
+                            "value": "Demo-RANDOM"
                         },
                         {
                             "name": "App description",
@@ -221,17 +229,18 @@
                         {
                             "name": "pick color",
                             "type": "click",
+                            "comment": "pick 3rd color on first row",
                             "selector": ".appcolor >> span >> nth=3"
                         },
                         {
                             "name": "wait",
                             "type": "wait",
-                            "value": 3000
+                            "value": 5000
                         },
                         {
                             "name": "Save new app",
                             "type": "click",
-                            "selector": "button >> text='Save'"
+                            "selector": "[type='Submit']"
                         },
                         {
                             "name": "wait for app creation",
@@ -239,8 +248,44 @@
                             "value": 15000
                         },
                         {
-                            "name": "overview",
+                            "name": "return to app list",
+                            "type": "click",
+                            "selector": "h5 >> 'App Builder'"
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### APPS",
+                    "name": "apps",
+                    "steps": [
+                        {
+                            "name": "wait for app list",
+                            "type": "wait",
+                            "value": 15000
+                        },
+                        {
+                            "name": "",
                             "type": "snap"
+                        },
+                        {
+                            "name": "hover to open app controls",
+                            "type": "move",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "edit first app",
+                            "type": "click",
+                            "selector": "button >> 'View / Edit' >> nth=0"
+                        },
+                        {
+                            "name": "wait for app to load",
+                            "type": "wait",
+                            "value": 20000
                         }
                     ]
                 },
@@ -257,6 +302,21 @@
                             "comment": "open menu",
                             "type": "click",
                             "selector": "a >> span >> text='Domain Model'"
+                        },
+                        {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                        },
+                        {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         },
                         {
                             "name": "modules",
@@ -309,10 +369,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -375,10 +431,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -441,10 +493,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -502,10 +550,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -521,6 +565,21 @@
                             "name": "expand menu",
                             "type": "click",
                             "selector": "[data-title='Application Logic']"
+                        },
+                        {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                        },
+                        {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         },
                         {
                             "name": "",
@@ -582,10 +641,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -647,10 +702,36 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
+                        }
+                    ]
+                },
+                {
+                    "comment": "################################################### CONFIGURATION",
+                    "name": "configuration",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 820
+                    },
+                    "steps": [
+                        {
+                            "name": "expand menu",
+                            "type": "click",
+                            "selector": "[data-title='Configuration']"
                         },
                         {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                        },
+                        {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
                         }
                     ]
                 },
@@ -662,11 +743,6 @@
                         "height": 820
                     },
                     "steps": [
-                        {
-                            "name": "expand menu",
-                            "type": "click",
-                            "selector": "[data-title='Configuration']"
-                        },
                         {
                             "name": "select general page",
                             "type": "click",
@@ -737,10 +813,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -794,10 +866,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -844,9 +912,8 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 735
+                                "height": 550
                             }
-
                         },
                         {
                             "name": "Cancel new module introduction",
@@ -873,7 +940,7 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 520
+                                "height": 550
                             }
                         },
                         {
@@ -885,10 +952,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -1215,10 +1278,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 5000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -1236,6 +1295,21 @@
                             "selector": "[data-title='Development']"
                         },
                         {
+                            "name": "highlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                        },
+                        {
+                            "name": "menu",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "unhighlight menu",
+                            "type": "style",
+                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                        },
+                        {
                             "name": "",
                             "type": "click",
                             "selector": "a >> span >> text='Collaborators'"
@@ -1246,9 +1320,9 @@
                             "value": 5000
                         },
                         {
-                            "name": "Blur",
-                            "type": "blur",
-                            "selector": "[class='user-info']"
+                            "name": "blur collaborator email",
+                            "type": "style",
+                            "content": ".user-info { filter: blur(5px); }]"
                         },
                         {
                             "name": "collaborators",
@@ -1320,10 +1394,6 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 10000
-                        },
-                        {
-                            "name": "AFTER CANCEL",
-                            "type": "snap"
                         }
                     ]
                 },
@@ -1386,10 +1456,71 @@
                             "name": "wait for cancel",
                             "type": "wait",
                             "value": 10000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "comment": "delete app",
+            "title": "delete",
+            "uid": "",
+            "operations": [
+                {
+                    "name": "",
+                    "loop": 4,
+                    "steps": [
+                        {
+                            "name": "hover to open pane",
+                            "type": "move",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
                         },
                         {
-                            "name": "AFTER CANCEL",
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "app tools",
                             "type": "snap"
+                        },
+                        {
+                            "name": "select settings",
+                            "type": "click",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2) > div > div.more-info > div.secondbox > div > div > span > i"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "edit-form",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "delete",
+                            "type": "click",
+                            "selector": "button >> 'Delete This App'"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "confirm-delete",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "confirm delete",
+                            "type": "click",
+                            "selector": "button >> 'Yes'"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 2000
                         }
                     ]
                 }

@@ -141,11 +141,13 @@ You must create configuration files for your own application.
 
        - =options= (optional): An array of URL option strings appended to the page load URL.
 
-       - =operations= (optional): A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If =operations= is present, pages and page elements must be explicitly snapped using a ="type": "snap"= element, usually as the last of a =step= element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
+       - =operations= (optional): A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If =operations= is present, pages and page elements must be explicitly snapped using a ="type": "snap"= element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
 
          - =name=: A name for this operation (group of steps). Included in image filename.
 
          - =viewport=: A viewport for this operation.
+
+         - =loop= (Optional) Repeat this operation's steps =loop= times. (Default is 1.)
 
          - =steps=: An array of individual steps.
 
@@ -370,21 +372,17 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 :PROPERTIES:
 :CUSTOM_ID: todo
 :END:
-- [X] Add configuration to specify filename separator character currently hard-coded to underscore (=_=).
 - [ ] Improve debug/logging facility
 - [ ] handle =net::ERR_INTERNET_DISCONNECTED= (in =util.load=)
 - [ ] Find more reliable way to know when page is fully loaded, rather than using =waitFor= with fixed value for all pages (=util.load=)
 - [ ] Compute additional container padding needed for =_full= images rather than using absolute value
 - [ ] Consider whether =--full= option should also be specified via env var
 - [ ] Rationalize and relocate directory creation code
-- [ ] Check that supplied UIDs exist
 - [ ] Img dir doesn't need to be arg of =snap()=
 - [ ] Avoid image overwrite when =SNAP_IMG_SEQ= is off
 - [ ] How to inject custom text strings as form values
-- [ ] Set up authentication needed for accessing Swagger =/v1/version=
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 - [ ] Write settings file in images directory (to know what were used for that snap set)
 - [ ] Add =--skip-uid= flag as inverse of =--uid= to exclude named items
 - [ ] Allow command line choice of browser technology ={chromium|webkit|firefox}=
 - [ ] Allow skipping/selecting operations/steps per UID
-- [ ] Safe way to send username/password to app without saving in config files
