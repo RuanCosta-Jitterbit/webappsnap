@@ -9,7 +9,7 @@ const { exit } = require('process');
 const { randomBytes } = require('node:crypto');
 const fs = require('fs')
 const defaults = config.defaults; // Default config values
-const pages = config.pages; // Dashboards definitions
+const pages = config.pages; // Page definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to an app
 
@@ -205,6 +205,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     var loc = (step.selector) ? page.locator(step.selector) : null;
                     try {
                         console.log(`  Step ${s}: ${step.type} (${step.name})`);
+                        await page.waitForTimeout(server_cfg.pause);
                         switch (step.type) {
                             case "quit":
                                 browser.close();
@@ -227,10 +228,10 @@ if (argv.debug) { config.debug = argv.debug; }
                                 var value = step.value;
                                 value = value.replace("RANDOM", randomBytes(defaults.randlen).toString('hex'));
                                 if (value == "LOGIN") {
-                                    value = fs.readFileSync('.login', 'utf8');
+                                    value = fs.readFileSync(server_cfg.login_filename, 'utf8');
                                 }
                                 if (value == "PASSWORD") {
-                                    value = fs.readFileSync('.password', 'utf8');
+                                    value = fs.readFileSync(server_cfg.password_filename, 'utf8');
                                 }
                                 console.log(`    Value: ${value}`);
                                 await page.fill(step.selector, String(value));
@@ -246,22 +247,9 @@ if (argv.debug) { config.debug = argv.debug; }
                                 console.log(`    Selector: ${step.selector}`);
                                 await loc.click(step.selector);
                                 break;
-                            case "blur":
-                                await page.addStyleTag({ content: `${step.selector} { filter: blur(5px); }` });
-                                break;
-                            case "highlight":
-                                await page.addStyleTag({ content: `${step.selector} { border: ${defaults.highlight_style} }` });
-                                break;
-                            case "unhighlight":
-                                await page.addStyleTag({ content: `${step.selector} { border: none }` });
-                                break;
                             case "style":
                                 console.log(`    Adding style: ${step.content}`);
                                 await page.addStyleTag({ content: step.content });
-                                break;
-                            case "hide":
-                                console.log(`    Hiding selector: ${step.selector}`);
-                                await page.addStyleTag({ content: `${step.selector} { visibility: hidden; }` });
                                 break;
                             case "snap":
                                 // Viewport per step
@@ -273,14 +261,14 @@ if (argv.debug) { config.debug = argv.debug; }
                                 console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                                 const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                                 process.stdout.write("    "); // Indent log message in snap function
-                                await util.snap(selector, [pg.title, op.name, step.name, (n > 1) ? n : ""].filter(String).join(config.img_filename_sep), img_dir);
+                                await util.snap(selector, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
+                                await util.viewport(page, operation_viewport); // Reset to operation viewport
+                                console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
                                 break;
                         }
                     } catch (e) {
                         console.log(`Skipping: ${e}`);
                     }
-                    console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
-                    await util.viewport(page, operation_viewport); // Reset to operation viewport
                 } // for step
                 console.log(`    Viewport reset to page level: ${page_viewport.width}x${page_viewport.height}`);
                 await util.viewport(page, page_viewport); // Reset to page viewport
