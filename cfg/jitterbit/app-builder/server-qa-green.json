@@ -1,7 +1,6 @@
 {
   "name": "AppBuilder-QAGreen",
   "server": "https://apps.qa-green.jitterbit.com",
-  "Xserver": "https://apps.na-east.jitterbit.com",
   "a": "app-builder",
   "b": "",
   "c": "",
@@ -9,5 +8,7 @@
   "e": "",
   "f": "",
   "wait": 20000,
-  "pause": 6000
+  "pause": 500,
+  "login_file": ".login-qag",
+  "password_file": ".password-qag"
 }

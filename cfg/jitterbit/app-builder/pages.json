@@ -15,18 +15,9 @@
                             "value": 2000
                         },
                         {
-                            "comment": "check cookie consent popup is present",
-                            "Xname": "cookie-consent",
-                            "Xtype": "snap"
-                        },
-                        {
                             "name": "Close cookie consent",
                             "type": "click",
                             "selector": "button:has-text('Do not show this message again')"
-                        },
-                        {
-                            "name": "no-cookie-consent",
-                            "type": "snap"
                         },
                         {
                             "name": "Wait",
@@ -69,7 +60,7 @@
             ]
         },
         {
-            "comment": "Jitterbit Harmony landing page, hover on App Builder to highlight tile",
+            "comment": "Jitterbit Harmony landing page, hover on App Builder to show tile label",
             "title": "landing",
             "uid": "",
             "url": "identity/landing",
@@ -154,7 +145,7 @@
                 },
                 {
                     "name": "create-new-app",
-                    "loop": 4,
+                    "loop": 2,
                     "viewport": {
                         "width": 1200,
                         "height": 740
@@ -174,7 +165,7 @@
                         {
                             "name": "blur subdomain",
                             "type": "style",
-                            "content": "#subdomaintwo { filter: blur{5px}; }"
+                            "content": "#subdomaintwo > span.ng-binding { filter: blur{3px} }"
                         },
                         {
                             "name": "",
@@ -229,7 +220,7 @@
                         {
                             "name": "pick color",
                             "type": "click",
-                            "comment": "pick 3rd color on first row",
+                            "comment": "pick 4th color on first row",
                             "selector": ".appcolor >> span >> nth=3"
                         },
                         {
@@ -304,19 +295,14 @@
                             "selector": "a >> span >> text='Domain Model'"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
                             "name": "modules",
@@ -335,7 +321,8 @@
                         {
                             "name": "modules detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "Xselector": "[class='content-in2']",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new module",
@@ -361,14 +348,74 @@
                             }
                         },
                         {
-                            "name": "Cancel new module",
+                            "name": "save new module",
                             "type": "click",
-                            "selector": "button:has-text('Cancel')"
+                            "Xselector": ".setup-model >> button >> 'Save'",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > form > div.modal-header > div > div > ul > li:nth-child(2) > button"
                         },
                         {
-                            "name": "wait for cancel",
+                            "name": "wait for save",
                             "type": "wait",
                             "value": 5000
+                        },
+                        {
+                            "name": "modules new-module edit",
+                            "type": "snap",
+                            "viewport": {
+                                "comment": "minimum size to see all fields and labels without truncating",
+                                "width": 1870,
+                                "height": 945
+                            }
+                        },
+                        {
+                            "name": "section",
+                            "type": "click",
+                            "selector": "div.content-in2 >> div.row.module-designer.ng-scope >> div.add-new-section.text-center >> span >> 'New Section'"
+                        },
+                        {
+                            "name": "wait for section",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "create-section",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 620
+                            }
+                        },
+                        {
+                            "name": "create-section detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 330
+                            }
+                        },
+                        {
+                            "name": "cancel create section",
+                            "type": "click",
+                            "Xselector": "div.modal-header >> button >> 'Cancel'",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > form > div.modal-header > div > div > ul > li:nth-child(1) > button"
+                        },
+                        {
+                            "name": "for cancel section",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "save new module",
+                            "type": "click",
+                            "Xselector": "div.content-in2 >> div.row.module-designer-header.ng-scope >> ul >> a >> 'Cancel'",
+                            "comment": "canceling invokes browser's popup which is impossible to interact with",
+                            "selector": "div.content-in2 >> button >> 'Save'"
+                        },
+                        {
+                            "name": "for module save",
+                            "type": "wait",
+                            "value": 10000
                         }
                     ]
                 },
@@ -397,7 +444,8 @@
                         {
                             "name": "relations detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "Xselector": "[class='content-in2']",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new relation",
@@ -459,7 +507,7 @@
                         {
                             "name": "dropdowns detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new dropdown",
@@ -516,7 +564,8 @@
                         {
                             "name": "dependencies detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "Xselector": "[class='content-in2']",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new dependency",
@@ -567,19 +616,14 @@
                             "selector": "[data-title='Application Logic']"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
                             "name": "",
@@ -602,8 +646,14 @@
                         {
                             "name": "microflows detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
-                        },
+                            "Xselector": "[class='content-in2']",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
+                        }
+                    ]
+                },
+                {
+                    "name": "application-logic microflows",
+                    "steps": [
                         {
                             "name": "new microflow",
                             "type": "click",
@@ -615,32 +665,91 @@
                             "value": 5000
                         },
                         {
-                            "name": "microflows microflow-settings",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 700
-                            }
+                            "name": "microflow-settings",
+                            "type": "snap"
                         },
                         {
-                            "name": "microflows microflow-settings detail",
+                            "name": "microflow-settings detail",
                             "type": "snap",
-                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 700
-                            }
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
+                        }
+                    ]
+                },
+                {
+                    "name": "microflows",
+                    "viewport": {
+                        "width": 1300,
+                        "height": 730
+                    },
+                    "steps": [
+                        {
+                            "name": "enter name",
+                            "type": "text",
+                            "value": "Sample Microflow",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.relative > input"
                         },
                         {
-                            "name": "Cancel new microflow",
+                            "name": "open module list",
                             "type": "click",
-                            "Xselector": "button >> text='Cancel'",
-                            "selector": "#MicroflowEditorController >> div.modal-header >> button >> 'Cancel'"
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div > div > select"
                         },
                         {
-                            "name": "wait for cancel",
+                            "name": "select module",
+                            "type": "press",
+                            "comment": "select Employees module",
+                            "value": [
+                                "E",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "enter record",
+                            "type": "text",
+                            "value": "Record",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div.form-group.ng-scope > input"
+                        },
+                        {
+                            "name": "select record operation",
+                            "type": "click",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(3) > div:nth-child(1) > tags-input"
+                        },
+                        {
+                            "type": "wait",
+                            "name": "for open",
+                            "value": 1000
+                        },
+                        {
+                            "name": "select operation",
+                            "type": "press",
+                            "comment": "select first operation",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Save new microflow",
+                            "type": "click",
+                            "selector": "div[role='dialog'] button:has-text('Save')",
+                            "XXselector": "button >> text='Save'",
+                            "Xselector": "#MicroflowEditorController >> div.modal-header >> button >> 'Cancel'"
+                        },
+                        {
+                            "name": "wait for save",
                             "type": "wait",
                             "value": 5000
+                        },
+                        {
+                            "name": "design",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "steps",
+                            "type": "snap",
+                            "selector": "#MicroflowEditorController > div.col-sm-3 > div"
+                        },
+                        {
+                            "name": "quit",
+                            "type": "quit"
                         }
                     ]
                 },
@@ -719,19 +828,14 @@
                             "selector": "[data-title='Configuration']"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         }
                     ]
                 },
@@ -1167,6 +1271,11 @@
                             "selector": "[class='content-in2']"
                         },
                         {
+                            "name": "reset tooltip fadeout time",
+                            "type": "style",
+                            "content": ".am-fade {-webkit-animation-duration: 0.1s; animation-duration: 0.1s; }"
+                        },
+                        {
                             "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
                             "name": "Open app page tab",
                             "type": "click",
@@ -1295,19 +1404,14 @@
                             "selector": "[data-title='Development']"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
                             "name": "",
@@ -1468,7 +1572,7 @@
             "operations": [
                 {
                     "name": "",
-                    "loop": 4,
+                    "loop": 2,
                     "steps": [
                         {
                             "name": "hover to open pane",
