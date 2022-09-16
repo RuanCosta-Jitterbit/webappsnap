@@ -11,11 +11,13 @@ const defaults = require(defaults_file_name);
 const pages_file_name = process.env.SNAP_PAGES_FILE || defaults.pages_file;
 const pages = require(pages_file_name);
 
-// Per-server configuration values (cfg/server-*.json)
+// Per-server configuration values
 const cfg_file_name = process.env.SNAP_SRV_CFG_FILE || defaults.config_file;
 const server_cfg = require(cfg_file_name);
 
 const hostname = uf.parse(server_cfg.server).hostname; // The app URL/server/IP
+const login_filename = server_cfg.login_filename;
+const password_filename = server_cfg.password_filename
 
 // Override defaults.json values with env vars, if set
 var jpg_quality = Number(process.env.SNAP_JPG_QUALITY) || defaults.jpg_quality; // jpg only
@@ -60,6 +62,8 @@ module.exports.cfg_file_name = cfg_file_name;
 module.exports.defaults_file_name = defaults_file_name;
 module.exports.pages_file_name = pages_file_name;
 module.exports.hostname = hostname;
+module.exports.login_filename = login_filename;
+module.exports.password_filename = password_filename;
 module.exports.debug = debug;
 module.exports.headless = headless;
 module.exports.slowmo = slowmo;
