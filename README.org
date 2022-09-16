@@ -39,18 +39,18 @@ This section uses configuration created for Percona's [[https://www.percona.com/
      ./run.sh
    #+end_src
 
-   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around 45 minutes. Around 80 images are saved to =images/pmmdemo/1280x1280=.
+   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around 45 minutes. The images are saved in =images/pmmdemo=.
 
-   To snap specific pages:
+   To snap specific pages (known as /dashboards/ in PMM):
 
    #+begin_src sh
-   ./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
+     ./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
    #+end_src
 
-   To see a list of available page UIDs:
+   To see a list of available pages:
 
    #+begin_src sh
-   ./run.sh --list
+     ./run.sh --list
    #+end_src
 
 ** Usage
@@ -72,8 +72,6 @@ You must create configuration files for your own application.
    - =defaults.json=
 
      This file contains default values, many of which can be overridden with environment variables (shown in parentheses) or command line options in the =run.sh= wrapper script.
-
-     - =version=: Not currently used. (Intended to be the version of the app for which these defaults apply.)
 
      - =config_file=: Path to default server configuration file. (=SNAP_SRV_CFG_FILE=)
 
@@ -99,6 +97,8 @@ You must create configuration files for your own application.
 
      - =debug=: When =true=, program prints operating parameters. (=--debug=)
 
+     - =randlen=: How many bytes of random data to replace the token =RANDOM= in text values. (=SNAP_RANDLEN=)
+
    - =server.json=
 
      This file defines an individual app. If you have the same app on different hostnames, use a different file for each.
@@ -121,13 +121,7 @@ You must create configuration files for your own application.
 
    - =pages.json=
 
-     This file defines what to do with your app and what to snap. It is a JSON file with a single node consisting of an array of pages. Pages are identified by their =uid=, the last part of the URL.
-
-     (Look in =cfg/percona-pmm/pages-pmm2.json= for examples.)
-
-     Snaps happen in the order listed in this file.
-
-     - =versions=: Not currently used. (List of app versions for which this configuration works.)
+     This file defines what to do with your app and what to snap. It is a JSON file with a single node consisting of an array of pages. Pages are identified by their =uid=, the last part of the URL. Snaps happen in the order listed in this file.
 
      - =pages=: Array of items, each representing a page with optional items.
 
@@ -202,7 +196,7 @@ You must create configuration files for your own application.
 4. Run the wrapper script:
 
    #+begin_src sh
-   ./run.sh
+     ./run.sh
    #+end_src
 
    Optional arguments:
@@ -286,7 +280,7 @@ This tool was made to make it easier to repeat screenshots for an app's technica
 :PROPERTIES:
 :CUSTOM_ID: how-it-works
 :END:
-=main.js= loops through entries in the defined pages configuration file (default =./cfg/pages.json=), processing each page, its operations and steps, one by one.
+=main.js= loops through entries in the defined pages configuration file (default =./cfg/pages.json=), processing each page, its operations and steps, one by one. If an operation has a =loop= value, that operation's steps are repeated as many times as the value of =loop=.
 
 The basic structure of a pages configuration file is:
 
