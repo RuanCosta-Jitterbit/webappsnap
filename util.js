@@ -49,13 +49,12 @@ async function snap(page, title = "", dir, full = false) {
     // Set up options for snap
     var options = {};
     options.path = filepath;
+    options.scale = 'css';
+//    options.animations = 'disabled';
     if (config.img_ext == '.jpg') {
         options.type = 'jpeg';
         options.quality = config.defaults.jpg_quality;
     }
-
-    // Doesn't work as expected - needs viewport set to full size of container
-    // https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#pagescreenshotoptions
     if (full) { options.fullPage = true; }
 
     try {

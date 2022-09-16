@@ -1,5 +1,5 @@
 {
-    "config_file": "./cfg/jitterbit/app-builder/server.json",
+    "config_file": "./cfg/jitterbit/app-builder/server-na-east.json",
     "pages_file": "./cfg/jitterbit/app-builder/pages.json",
     "img_dir": "./images",
     "img_seq": false,

@@ -15,18 +15,9 @@
                             "value": 2000
                         },
                         {
-                            "comment": "check cookie consent popup is present",
-                            "Xname": "cookie-consent",
-                            "Xtype": "snap"
-                        },
-                        {
                             "name": "Close cookie consent",
                             "type": "click",
                             "selector": "button:has-text('Do not show this message again')"
-                        },
-                        {
-                            "name": "no-cookie-consent",
-                            "type": "snap"
                         },
                         {
                             "name": "Wait",
@@ -69,8 +60,8 @@
             ]
         },
         {
-            "comment": "Jitterbit Harmony landing page, hover on App Builder to highlight tile",
-            "title": "landing",
+            "comment": "Jitterbit Harmony landing page, hover on App Builder to show tile label",
+            "title": "harmony",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -132,8 +123,8 @@
                 {
                     "name": "",
                     "viewport": {
-                        "width": 1200,
-                        "height": 730
+                        "width": 1000,
+                        "height": 450
                     },
                     "steps": [
                         {
@@ -142,11 +133,11 @@
                             "value": 15000
                         },
                         {
-                            "name": "page",
+                            "name": "app-list",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "app-list detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div"
                         }
@@ -154,7 +145,7 @@
                 },
                 {
                     "name": "create-new-app",
-                    "loop": 4,
+                    "loop": 2,
                     "viewport": {
                         "width": 1200,
                         "height": 740
@@ -174,7 +165,7 @@
                         {
                             "name": "blur subdomain",
                             "type": "style",
-                            "content": "#subdomaintwo { filter: blur{5px}; }"
+                            "content": "#subdomaintwo > span { filter: blur(3px) }"
                         },
                         {
                             "name": "",
@@ -229,7 +220,7 @@
                         {
                             "name": "pick color",
                             "type": "click",
-                            "comment": "pick 3rd color on first row",
+                            "comment": "pick 4th color on first row",
                             "selector": ".appcolor >> span >> nth=3"
                         },
                         {
@@ -286,6 +277,10 @@
                             "name": "wait for app to load",
                             "type": "wait",
                             "value": 20000
+                        },
+                        {
+                            "name": "overview",
+                            "type": "snap"
                         }
                     ]
                 },
@@ -304,19 +299,14 @@
                             "selector": "a >> span >> text='Domain Model'"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
                             "name": "modules",
@@ -335,7 +325,7 @@
                         {
                             "name": "modules detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new module",
@@ -361,14 +351,81 @@
                             }
                         },
                         {
-                            "name": "Cancel new module",
+                            "name": "save new module",
                             "type": "click",
-                            "selector": "button:has-text('Cancel')"
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > form > div.modal-header > div > div > ul > li:nth-child(2) > button"
                         },
                         {
-                            "name": "wait for cancel",
+                            "name": "wait for save",
                             "type": "wait",
                             "value": 5000
+                        },
+                        {
+                            "name": "modules new-module edit",
+                            "type": "snap",
+                            "viewport": {
+                                "comment": "minimum size to see all fields and labels without truncating",
+                                "width": 1870,
+                                "height": 945
+                            }
+                        },
+                        {
+                            "name": "modules new-module fields",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.module-designer.ng-scope > div.col-sm-3.template-field.all-fields",
+                            "viewport": {
+                                "comment": "minimum size to see all fields and labels without truncating",
+                                "width": 1870,
+                                "height": 945
+                            }
+                        },
+                        {
+                            "name": "section",
+                            "type": "click",
+                            "selector": "div.content-in2 >> div.row.module-designer.ng-scope >> div.add-new-section.text-center >> span >> 'New Section'"
+                        },
+                        {
+                            "name": "wait for section",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "create-section",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 620
+                            }
+                        },
+                        {
+                            "name": "create-section detail",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 330
+                            }
+                        },
+                        {
+                            "name": "cancel create section",
+                            "type": "click",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > form > div.modal-header > div > div > ul > li:nth-child(1) > button"
+                        },
+                        {
+                            "name": "for cancel section",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "save new module",
+                            "type": "click",
+                            "comment": "canceling invokes browser's popup which is impossible to interact with",
+                            "selector": "div.content-in2 >> button >> 'Save'"
+                        },
+                        {
+                            "name": "for module save",
+                            "type": "wait",
+                            "value": 10000
                         }
                     ]
                 },
@@ -397,7 +454,7 @@
                         {
                             "name": "relations detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new relation",
@@ -459,7 +516,7 @@
                         {
                             "name": "dropdowns detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new dropdown",
@@ -516,7 +573,7 @@
                         {
                             "name": "dependencies detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new dependency",
@@ -567,19 +624,14 @@
                             "selector": "[data-title='Application Logic']"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
                             "name": "",
@@ -602,8 +654,17 @@
                         {
                             "name": "microflows detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
-                        },
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
+                        }
+                    ]
+                },
+                {
+                    "name": "application-logic microflows",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 700
+                    },
+                    "steps": [
                         {
                             "name": "new microflow",
                             "type": "click",
@@ -615,32 +676,91 @@
                             "value": 5000
                         },
                         {
-                            "name": "microflows microflow-settings",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 700
-                            }
+                            "name": "microflow-settings",
+                            "type": "snap"
                         },
                         {
-                            "name": "microflows microflow-settings detail",
+                            "name": "microflow-settings detail",
                             "type": "snap",
-                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 700
-                            }
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
+                        }
+                    ]
+                },
+                {
+                    "name": "application-logic microflows",
+                    "viewport": {
+                        "width": 1300,
+                        "height": 730
+                    },
+                    "steps": [
+                        {
+                            "name": "enter name",
+                            "type": "text",
+                            "value": "Sample Microflow",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.relative > input"
                         },
                         {
-                            "name": "Cancel new microflow",
+                            "name": "open module list",
                             "type": "click",
-                            "Xselector": "button >> text='Cancel'",
-                            "selector": "#MicroflowEditorController >> div.modal-header >> button >> 'Cancel'"
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div > div > select"
                         },
                         {
-                            "name": "wait for cancel",
+                            "name": "select module",
+                            "type": "press",
+                            "comment": "select Employees module",
+                            "value": [
+                                "E",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "enter record",
+                            "type": "text",
+                            "value": "Record",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div.form-group.ng-scope > input"
+                        },
+                        {
+                            "name": "select record operation",
+                            "type": "click",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(3) > div:nth-child(1) > tags-input"
+                        },
+                        {
+                            "type": "wait",
+                            "name": "for open",
+                            "value": 1000
+                        },
+                        {
+                            "name": "select operation",
+                            "type": "press",
+                            "comment": "select first operation",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Save new microflow",
+                            "type": "click",
+                            "selector": "div[role='dialog'] button:has-text('Save')"
+                        },
+                        {
+                            "name": "wait for save",
                             "type": "wait",
                             "value": 5000
+                        },
+                        {
+                            "name": "design",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "steps",
+                            "type": "snap",
+                            "selector": "#MicroflowEditorController > div.col-sm-3 > div"
+                        },
+                        {
+                            "name": "cancel microflow",
+                            "type": "click",
+                            "comment": "cancels without confirmation",
+                            "selector": "button >> 'Cancel'"
                         }
                     ]
                 },
@@ -664,7 +784,7 @@
                         {
                             "name": "ui-flows detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new ui-flow",
@@ -692,16 +812,93 @@
                                 "width": 1200,
                                 "height": 640
                             }
+                        }
+                    ]
+                },
+                {
+                    "name": "application-logic ui-flows",
+                    "viewport": {
+                        "width": 1300,
+                        "height": 730
+                    },
+                    "steps": [
+                        {
+                            "name": "enter UI Flow name",
+                            "type": "text",
+                            "value": "Sample UI Flow",
+                            "selector": "#UIflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.relative > input"
                         },
                         {
-                            "name": "Cancel new ui-flow",
+                            "name": "open module list",
                             "type": "click",
-                            "selector": "#UIflowEditorController >> button >> text='Cancel'"
+                            "selector": "[name='module']"
                         },
                         {
-                            "name": "wait for cancel",
+                            "name": "select module",
+                            "type": "press",
+                            "comment": "select Employees module",
+                            "value": [
+                                "E",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "open view list",
+                            "type": "click",
+                            "selector": "#UIflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div:nth-child(5) > div > select"
+                        },
+                        {
+                            "name": "select view",
+                            "type": "press",
+                            "comment": "select Detail View",
+                            "value": [
+                                "D",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "open event list",
+                            "type": "click",
+                            "selector": "#UIflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.ng-scope > div > select"
+                        },
+                        {
+                            "name": "select event",
+                            "type": "press",
+                            "comment": "select easiest event",
+                            "value": [
+                                "B",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "type": "wait",
+                            "name": "for open",
+                            "value": 1000
+                        },
+                        {
+                            "name": "Save new ui flow",
+                            "type": "click",
+                            "selector": "[type='Submit']"
+                        },
+                        {
+                            "name": "wait for save",
                             "type": "wait",
                             "value": 5000
+                        },
+                        {
+                            "name": "design",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "steps",
+                            "type": "snap",
+                            "selector": "#UIflowEditorController > div.col-sm-3 > div"
+                        },
+                        {
+                            "name": "cancel UI flow",
+                            "type": "click",
+                            "comment": "cancels without confirmation",
+                            "selector": "button >> 'Cancel'"
                         }
                     ]
                 },
@@ -719,19 +916,14 @@
                             "selector": "[data-title='Configuration']"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         }
                     ]
                 },
@@ -755,7 +947,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
@@ -779,7 +971,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new parameter",
@@ -832,7 +1024,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new menu",
@@ -854,7 +1046,7 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 440
+                                "height": 475
                             }
                         },
                         {
@@ -885,7 +1077,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "wait for load",
@@ -971,7 +1163,7 @@
                         {
                             "name": "localizations detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
@@ -991,7 +1183,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
@@ -1017,7 +1209,7 @@
                         {
                             "name": "Alter tooltip fadeout time",
                             "type": "style",
-                            "content": ".am-fade {-webkit-animation-duration: 10.0s; animation-duration: 10.0s; }"
+                            "content": ".am-fade {-webkit-animation-duration: 20.0s; animation-duration: 20.0s; }"
                         },
                         {
                             "name": "show tooltip 1",
@@ -1066,7 +1258,7 @@
                         {
                             "name": "public-page tab labeled",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "Wait",
@@ -1091,7 +1283,7 @@
                         {
                             "name": "Alter tooltip fadeout time",
                             "type": "style",
-                            "content": ".am-fade {-webkit-animation-duration: 10.0s; animation-duration: 10.0s; }"
+                            "content": ".am-fade {-webkit-animation-duration: 20.0s; animation-duration: 20.0s; }"
                         },
                         {
                             "name": "",
@@ -1118,9 +1310,9 @@
                             "type": "snap"
                         },
                         {
-                            "name": "app-page tab labeled",
+                            "name": "app-page labeled detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "comment": "################################################### CONFIGURATION > Branding > Mobile",
@@ -1162,9 +1354,18 @@
                             "type": "snap"
                         },
                         {
-                            "name": "mobile tab labeled",
+                            "name": "mobile labeled detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "reset tooltip fadeout time",
+                            "type": "style",
+                            "content": ".am-fade {-webkit-animation-duration: 0.1s; animation-duration: 0.1s; }"
                         },
                         {
                             "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
@@ -1191,10 +1392,9 @@
                             }
                         },
                         {
-                            "comment": "snap detail",
-                            "name": "custom-domain tab",
+                            "name": "custom-domain detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2",
                             "viewport": {
                                 "width": 1200,
                                 "height": 920
@@ -1223,7 +1423,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
@@ -1248,7 +1448,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "",
@@ -1295,19 +1495,14 @@
                             "selector": "[data-title='Development']"
                         },
                         {
-                            "name": "highlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: solid 2px red; }"
+                            "name": "wait for menu to open",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "menu",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
-                        },
-                        {
-                            "name": "unhighlight menu",
-                            "type": "style",
-                            "content": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open > ul { border: none; }"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
                             "name": "",
@@ -1331,7 +1526,7 @@
                         {
                             "name": "collaborators detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
@@ -1360,7 +1555,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "",
@@ -1422,7 +1617,7 @@
                         {
                             "name": "detail",
                             "type": "snap",
-                            "selector": "[class='content-in2']"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "",
@@ -1465,10 +1660,14 @@
             "comment": "delete app",
             "title": "delete",
             "uid": "",
+            "viewport": {
+                "width": 1200,
+                "height": 775
+            },
             "operations": [
                 {
                     "name": "",
-                    "loop": 4,
+                    "loop": 2,
                     "steps": [
                         {
                             "name": "hover to open pane",
@@ -1511,6 +1710,11 @@
                         {
                             "name": "confirm-delete",
                             "type": "snap"
+                        },
+                        {
+                            "name": "confirm-delete detail",
+                            "type": "snap",
+                            "selector": "body > div.swal-overlay.swal-overlay--show-modal > div"
                         },
                         {
                             "name": "confirm delete",
