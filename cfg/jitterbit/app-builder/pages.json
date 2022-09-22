@@ -64,24 +64,19 @@
             "title": "harmony",
             "uid": "",
             "url": "identity/landing",
+            "viewport": {
+                "width": 880,
+                "height": 595
+            },
             "operations": [
                 {
                     "comment": "Snap with and without Jitterbit menu",
                     "name": "tile",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 577
-                    },
                     "steps": [
                         {
                             "name": "Wait",
                             "type": "wait",
                             "value": 2000
-                        },
-                        {
-                            "name": "Remove Pendo",
-                            "type": "hide",
-                            "selector": "[id='pendo-base']"
                         },
                         {
                             "name": "Close pendo",
@@ -106,24 +101,21 @@
                             "name": "Wait",
                             "type": "wait",
                             "value": 500
-                        },
-                        {
-                            "name": "detail",
-                            "type": "snap",
-                            "selector": "platform-menu"
                         }
                     ]
                 }
             ]
         },
         {
-            "title": "",
+            "comment": "empty apps page and common menu",
+            "title": "apps",
             "uid": "",
             "operations": [
                 {
                     "name": "",
                     "viewport": {
-                        "width": 1000,
+                        "comment": "min width before toggle to responsive mode",
+                        "width": 992,
                         "height": 450
                     },
                     "steps": [
@@ -133,18 +125,24 @@
                             "value": 15000
                         },
                         {
-                            "name": "app-list",
+                            "name": "empty",
                             "type": "snap"
                         },
                         {
-                            "name": "app-list detail",
+                            "name": "harmony-portal-header",
                             "type": "snap",
-                            "selector": "#wrapper > div > div"
+                            "selector": "body > div.layout.ng-scope > div.app-studio-wrapper.ng-scope > div"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "title": "create",
+            "uid": "",
+            "operations": [
                 {
-                    "name": "create-new-app",
+                    "name": "new",
                     "loop": 2,
                     "viewport": {
                         "width": 1200,
@@ -152,27 +150,26 @@
                     },
                     "steps": [
                         {
-                            "name": "",
-                            "comment": "Click anything that starts with 'Create '",
+                            "name": "anything that starts with 'Create '",
                             "type": "click",
                             "selector": "button >> text=/Create\\s*/"
                         },
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "value": 2000
+                            "value": 5000
                         },
                         {
                             "name": "blur subdomain",
                             "type": "style",
-                            "content": "#subdomaintwo > span { filter: blur(3px) }"
+                            "content": "#subdomaintwo > span { filter: blur(3px); }"
                         },
                         {
-                            "name": "",
+                            "name": "settings",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "settings detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
@@ -186,7 +183,7 @@
                             "name": "App description",
                             "type": "text",
                             "selector": "[name='description']",
-                            "value": "Description for My New App"
+                            "value": "Description for Demo App"
                         },
                         {
                             "name": "Open environment menu",
@@ -220,8 +217,7 @@
                         {
                             "name": "pick color",
                             "type": "click",
-                            "comment": "pick 4th color on first row",
-                            "selector": ".appcolor >> span >> nth=3"
+                            "selector": ".appcolor >> span >> nth=0"
                         },
                         {
                             "name": "wait",
@@ -236,28 +232,39 @@
                         {
                             "name": "wait for app creation",
                             "type": "wait",
-                            "value": 15000
+                            "value": 20000
                         },
                         {
                             "name": "return to app list",
                             "type": "click",
                             "selector": "h5 >> 'App Builder'"
-                        }
-                    ]
-                },
-                {
-                    "comment": "################################################### APPS",
-                    "name": "apps",
-                    "steps": [
+                        },
                         {
                             "name": "wait for app list",
                             "type": "wait",
-                            "value": 15000
+                            "value": 20000
                         },
                         {
-                            "name": "",
-                            "type": "snap"
-                        },
+                            "name": "saved",
+                            "type": "snap",
+                            "viewport": {
+                                "comment": "smallest width possible before switch to responsive mode",
+                                "width": 820,
+                                "height": 450
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "develop",
+            "uid": "",
+            "operations": [
+                {
+                    "comment": "################################################### APPS",
+                    "name": "",
+                    "steps": [
                         {
                             "name": "hover to open app controls",
                             "type": "move",
@@ -269,6 +276,17 @@
                             "value": 1000
                         },
                         {
+                            "comment": "snap tools and info revealed on tile hover",
+                            "name": "apps tools",
+                            "type": "snap",
+                            "viewport": {
+                                "comment": "smallest width possible before switch to responsive mode",
+                                "width": 820,
+                                "height": 450
+                            }
+                        },
+                        {
+                            "comment": "assumes previous app creation operations were successful, or there is at least one app listed",
                             "name": "edit first app",
                             "type": "click",
                             "selector": "button >> 'View / Edit' >> nth=0"
@@ -281,6 +299,39 @@
                         {
                             "name": "overview",
                             "type": "snap"
+                        },
+                        {
+                            "name": "preview button wide",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > button"
+                        },
+                        {
+                            "name": "preview button narrow",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > button",
+                            "viewport": {
+                                "width": 1199,
+                                "height": 740
+                            }
+                        },
+                        {
+                            "name": "menu wide",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                        },
+                        {
+                            "name": "menu narrow",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include",
+                            "viewport": {
+                                "width": 1199,
+                                "height": 740
+                            }
+                        },
+                        {
+                            "name": "menu-open-close",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen"
                         }
                     ]
                 },
@@ -296,7 +347,7 @@
                             "name": "",
                             "comment": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Domain Model'"
+                            "selector": "a >> span >> 'Domain Model'"
                         },
                         {
                             "name": "wait for menu to open",
@@ -311,7 +362,7 @@
                         {
                             "name": "modules",
                             "type": "click",
-                            "selector": "a >> span >> text='Modules'"
+                            "selector": "a >> span >> 'Modules'"
                         },
                         {
                             "name": "wait for menu to open",
@@ -330,7 +381,7 @@
                         {
                             "name": "new module",
                             "type": "click",
-                            "selector": "button >> text='New Module'"
+                            "selector": "button >> 'New Module'"
                         },
                         {
                             "name": "wait for settings",
@@ -364,9 +415,9 @@
                             "name": "modules new-module edit",
                             "type": "snap",
                             "viewport": {
-                                "comment": "minimum size to see all fields and labels without truncating",
-                                "width": 1870,
-                                "height": 945
+                                "comment": "minimum size to see all fields, labels, and 'new section' button",
+                                "width": 1400,
+                                "height": 1250
                             }
                         },
                         {
@@ -374,9 +425,8 @@
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.module-designer.ng-scope > div.col-sm-3.template-field.all-fields",
                             "viewport": {
-                                "comment": "minimum size to see all fields and labels without truncating",
-                                "width": 1870,
-                                "height": 945
+                                "width": 1400,
+                                "height": 1250
                             }
                         },
                         {
@@ -440,7 +490,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Relations'"
+                            "selector": "a >> span >> 'Relations'"
                         },
                         {
                             "name": "wait for relations page",
@@ -459,7 +509,7 @@
                         {
                             "name": "new relation",
                             "type": "click",
-                            "selector": "button >> text='New Relation'"
+                            "selector": "button >> 'New Relation'"
                         },
                         {
                             "name": "wait for settings",
@@ -482,7 +532,7 @@
                         {
                             "name": "Cancel new relation",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -521,7 +571,7 @@
                         {
                             "name": "new dropdown",
                             "type": "click",
-                            "selector": "button >> text='New Dropdown'"
+                            "selector": "button >> 'New Dropdown'"
                         },
                         {
                             "name": "wait for 'New Dropdown' dialog",
@@ -544,12 +594,19 @@
                         {
                             "name": "Cancel new dropdown",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel' >> nth=0"
                         },
                         {
-                            "name": "wait for cancel",
-                            "type": "wait",
-                            "value": 5000
+                            "name": "for dialog",
+                            "type": "waitfor",
+                            "selector": "body > div.swal-overlay.swal-overlay--show-modal > div"
+                        },
+                        {
+                            "name": "confirm unsaved changes",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
                         }
                     ]
                 },
@@ -564,7 +621,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Dependencies'"
+                            "selector": "a >> span >> 'Dependencies'"
                         },
                         {
                             "name": "dependencies",
@@ -578,7 +635,7 @@
                         {
                             "name": "new dependency",
                             "type": "click",
-                            "selector": "button >> text='New Dependency'"
+                            "selector": "button >> 'New Dependency'"
                         },
                         {
                             "name": "wait for settings",
@@ -601,7 +658,7 @@
                         {
                             "name": "Cancel new dependency",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -636,7 +693,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "a >> span >> text='Microflows'"
+                            "selector": "a >> span >> 'Microflows'"
                         },
                         {
                             "name": "wait for microflows",
@@ -668,7 +725,7 @@
                         {
                             "name": "new microflow",
                             "type": "click",
-                            "selector": "button >> text='New Microflow'"
+                            "selector": "button >> 'New Microflow'"
                         },
                         {
                             "name": "wait for microflow settings",
@@ -727,7 +784,7 @@
                         {
                             "type": "wait",
                             "name": "for open",
-                            "value": 1000
+                            "value": 3000
                         },
                         {
                             "name": "select operation",
@@ -743,7 +800,7 @@
                             "selector": "div[role='dialog'] button:has-text('Save')"
                         },
                         {
-                            "name": "wait for save",
+                            "name": "for save",
                             "type": "wait",
                             "value": 5000
                         },
@@ -759,8 +816,20 @@
                         {
                             "name": "cancel microflow",
                             "type": "click",
-                            "comment": "cancels without confirmation",
-                            "selector": "button >> 'Cancel'"
+                            "comment": "sometimes cancels without confirmation",
+                            "selector": "button >> 'Cancel'  >> nth=0"
+                        },
+                        {
+                            "name": "for dialog",
+                            "type": "waitfor",
+                            "selector": "body > div.swal-overlay.swal-overlay--show-modal > div"
+                        },
+                        {
+                            "name": "confirm unsaved changes",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
                         }
                     ]
                 },
@@ -775,7 +844,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='UI Flows'"
+                            "selector": "a >> span >> 'UI Flows'"
                         },
                         {
                             "name": "ui-flows",
@@ -787,9 +856,9 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
-                            "name": "new ui-flow",
+                            "name": "ui-flows new",
                             "type": "click",
-                            "selector": "button >> text='New UI Flow'"
+                            "selector": "button >> 'New UI Flow'"
                         },
                         {
                             "name": "wait for ui-flow-settings",
@@ -797,7 +866,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "ui-flows ui-flow-settings",
+                            "name": "ui-flows new settings",
                             "type": "snap",
                             "viewport": {
                                 "width": 1200,
@@ -805,7 +874,7 @@
                             }
                         },
                         {
-                            "name": "ui-flows ui-flow-settings detail",
+                            "name": "ui-flows new settings detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -850,7 +919,6 @@
                         {
                             "name": "select view",
                             "type": "press",
-                            "comment": "select Detail View",
                             "value": [
                                 "D",
                                 "Enter"
@@ -892,13 +960,29 @@
                         {
                             "name": "steps",
                             "type": "snap",
-                            "selector": "#UIflowEditorController > div.col-sm-3 > div"
+                            "selector": "#UIflowEditorController > div.col-sm-3 > div",
+                            "viewport": {
+                                "width": 1300,
+                                "height": 610
+                            }
                         },
                         {
                             "name": "cancel UI flow",
                             "type": "click",
-                            "comment": "cancels without confirmation",
-                            "selector": "button >> 'Cancel'"
+                            "comment": "sometimes cancels without confirmation",
+                            "selector": "button >> 'Cancel' >> nth=0"
+                        },
+                        {
+                            "name": "for dialog",
+                            "type": "waitfor",
+                            "selector": "body > div.swal-overlay.swal-overlay--show-modal > div"
+                        },
+                        {
+                            "name": "confirm unsaved changes",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
                         }
                     ]
                 },
@@ -938,7 +1022,7 @@
                         {
                             "name": "select general page",
                             "type": "click",
-                            "selector": "a >> span >> text='General'"
+                            "selector": "a >> span >> 'General'"
                         },
                         {
                             "name": "",
@@ -962,7 +1046,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Parameters'"
+                            "selector": "a >> span >> 'Parameters'"
                         },
                         {
                             "name": "",
@@ -976,7 +1060,7 @@
                         {
                             "name": "new parameter",
                             "type": "click",
-                            "selector": "button >> text='New Parameter'"
+                            "selector": "button >> 'New Parameter'"
                         },
                         {
                             "name": "wait for parameter settings",
@@ -999,7 +1083,7 @@
                         {
                             "name": "Cancel new parameter",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -1015,7 +1099,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Menus'"
+                            "selector": "a >> span >> 'Menus'"
                         },
                         {
                             "name": "",
@@ -1029,7 +1113,7 @@
                         {
                             "name": "new menu",
                             "type": "click",
-                            "selector": "button >> text='New Menu'"
+                            "selector": "button >> 'New Menu'"
                         },
                         {
                             "name": "wait for menu settings",
@@ -1052,7 +1136,7 @@
                         {
                             "name": "Cancel new menu",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -1068,7 +1152,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='User Guides'"
+                            "selector": "a >> span >> 'User Guides'"
                         },
                         {
                             "name": "",
@@ -1110,12 +1194,12 @@
                         {
                             "name": "Cancel new module introduction",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "new help page",
                             "type": "click",
-                            "selector": "div.content-in2 >> button >> text='New Help Page'"
+                            "selector": "div.content-in2 >> button >> 'New Help Page'"
                         },
                         {
                             "name": "wait for new help page",
@@ -1138,7 +1222,7 @@
                         {
                             "name": "Cancel new help page",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -1154,7 +1238,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Localizations'"
+                            "selector": "a >> span >> 'Localizations'"
                         },
                         {
                             "name": "localizations",
@@ -1174,7 +1258,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Globalization'"
+                            "selector": "a >> span >> 'Globalization'"
                         },
                         {
                             "name": "",
@@ -1194,7 +1278,7 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> text='Branding'"
+                            "selector": "a >> span >> 'Branding'"
                         },
                         {
                             "name": "wait for branding page load",
@@ -1214,42 +1298,42 @@
                         {
                             "name": "show tooltip 1",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='1'"
+                            "selector": "[data-title='Public Page'] >> span >> '1'"
                         },
                         {
                             "name": "show tooltip 2",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='2'"
+                            "selector": "[data-title='Public Page'] >> span >> '2'"
                         },
                         {
                             "name": "show tooltip 3",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='3'"
+                            "selector": "[data-title='Public Page'] >> span >> '3'"
                         },
                         {
                             "name": "show tooltip 4",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='4'"
+                            "selector": "[data-title='Public Page'] >> span >> '4'"
                         },
                         {
                             "name": "show tooltip 5",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='5'"
+                            "selector": "[data-title='Public Page'] >> span >> '5'"
                         },
                         {
                             "name": "show tooltip 6",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='6'"
+                            "selector": "[data-title='Public Page'] >> span >> '6'"
                         },
                         {
                             "name": "show tooltip 7",
                             "type": "move",
-                            "selector": "[data-title='Public Page'] >> span >> text='7'"
+                            "selector": "[data-title='Public Page'] >> span >> '7'"
                         },
                         {
                             "name": "show tooltip 8",
                             "type": "move",
-                            "selector": "span >> text='8'"
+                            "selector": "span >> '8'"
                         },
                         {
                             "name": "public-page labeled",
@@ -1269,7 +1353,7 @@
                             "comment": "################################################### CONFIGURATION > Branding > App Page",
                             "name": "select app page tab",
                             "type": "click",
-                            "selector": "li >> text='App Page'"
+                            "selector": "li >> 'App Page'"
                         },
                         {
                             "name": "wait for app page load",
@@ -1288,22 +1372,22 @@
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='App Page'] >> span >> text='1'"
+                            "selector": "[data-title='App Page'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='App Page'] >> span >> text='2'"
+                            "selector": "[data-title='App Page'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='App Page'] >> span >> text='3'"
+                            "selector": "[data-title='App Page'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='App Page'] >> span >> text='4'"
+                            "selector": "[data-title='App Page'] >> span >> '4'"
                         },
                         {
                             "name": "app-page labeled",
@@ -1318,7 +1402,7 @@
                             "comment": "################################################### CONFIGURATION > Branding > Mobile",
                             "name": "mobile tab",
                             "type": "click",
-                            "selector": "li >> text='Mobile'"
+                            "selector": "li >> 'Mobile'"
                         },
                         {
                             "name": "Wait",
@@ -1332,22 +1416,22 @@
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='Mobile'] >> span >> text='1'"
+                            "selector": "[data-title='Mobile'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='Mobile'] >> span >> text='2'"
+                            "selector": "[data-title='Mobile'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='Mobile'] >> span >> text='3'"
+                            "selector": "[data-title='Mobile'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
-                            "selector": "[data-title='Mobile'] >> span >> text='4'"
+                            "selector": "[data-title='Mobile'] >> span >> '4'"
                         },
                         {
                             "name": "mobile labeled",
@@ -1371,7 +1455,7 @@
                             "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
                             "name": "Open app page tab",
                             "type": "click",
-                            "selector": "li >> text='Custom Domain'"
+                            "selector": "li >> 'Custom Domain'"
                         },
                         {
                             "name": "Wait",
@@ -1409,7 +1493,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "a >> span >> text='Identity'"
+                            "selector": "a >> span >> 'Identity'"
                         },
                         {
                             "name": "wait for load",
@@ -1424,6 +1508,9 @@
                             "name": "detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
+                        },
+                        {
+                            "comment": "TODO open and snap Okta config"
                         }
                     ]
                 },
@@ -1434,7 +1521,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "a >> span >> text='Email Templates'"
+                            "selector": "a >> span >> 'Email Templates'"
                         },
                         {
                             "name": "wait for email templates to load",
@@ -1453,7 +1540,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "button >> text='New Email Template'"
+                            "selector": "button >> 'New Email Template'"
                         },
                         {
                             "name": "wait for new email template to open",
@@ -1472,7 +1559,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -1507,7 +1594,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "a >> span >> text='Collaborators'"
+                            "selector": "a >> span >> 'Collaborators'"
                         },
                         {
                             "name": "wait for load",
@@ -1532,7 +1619,7 @@
                 },
                 {
                     "comment": "################################################### DEVELOPMENT > Packages",
-                    "name": "developent packages",
+                    "name": "development packages",
                     "viewport": {
                         "width": 1200,
                         "height": 575
@@ -1541,7 +1628,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "a >> span >> text='Packages'"
+                            "selector": "a >> span >> 'Packages'"
                         },
                         {
                             "name": "wait for load",
@@ -1560,7 +1647,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "button >> text='New Package'"
+                            "selector": "button >> 'New Package'"
                         },
                         {
                             "name": "wait for 'create new package!' to open",
@@ -1583,7 +1670,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -1603,7 +1690,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "a >> span >> text='Releases'"
+                            "selector": "a >> span >> 'Releases'"
                         },
                         {
                             "name": "wait for load",
@@ -1622,7 +1709,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "button >> text='New Release'"
+                            "selector": "button >> 'New Release'"
                         },
                         {
                             "name": "wait for 'new release' to open",
@@ -1645,7 +1732,7 @@
                         {
                             "name": "",
                             "type": "click",
-                            "selector": "button >> text='Cancel'"
+                            "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "wait for cancel",
@@ -1660,17 +1747,13 @@
             "comment": "delete app",
             "title": "delete",
             "uid": "",
-            "viewport": {
-                "width": 1200,
-                "height": 775
-            },
             "operations": [
                 {
                     "name": "",
                     "loop": 2,
                     "steps": [
                         {
-                            "name": "hover to open pane",
+                            "name": "to open pane",
                             "type": "move",
                             "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
                         },
@@ -1680,18 +1763,14 @@
                             "value": 2000
                         },
                         {
-                            "name": "app tools",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "select settings",
+                            "name": "settings",
                             "type": "click",
                             "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2) > div > div.more-info > div.secondbox > div > div > span > i"
                         },
                         {
-                            "name": "wait",
+                            "name": "for settings to open",
                             "type": "wait",
-                            "value": 2000
+                            "value": 4000
                         },
                         {
                             "name": "edit-form",
