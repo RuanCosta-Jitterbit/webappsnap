@@ -65,7 +65,7 @@
             "uid": "",
             "url": "identity/landing",
             "viewport": {
-                "width": 880,
+                "width": 1200,
                 "height": 595
             },
             "operations": [
@@ -143,9 +143,9 @@
             "operations": [
                 {
                     "name": "new",
-                    "loop": 2,
+                    "loop": 4,
                     "viewport": {
-                        "width": 1200,
+                        "width": 992,
                         "height": 740
                     },
                     "steps": [
@@ -248,8 +248,7 @@
                             "name": "saved",
                             "type": "snap",
                             "viewport": {
-                                "comment": "smallest width possible before switch to responsive mode",
-                                "width": 820,
+                                "width": 992,
                                 "height": 450
                             }
                         }
@@ -284,6 +283,12 @@
                                 "width": 820,
                                 "height": 450
                             }
+                        },
+                        {
+                            "comment": "snap card only",
+                            "name": "app tools card",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
                         },
                         {
                             "comment": "assumes previous app creation operations were successful, or there is at least one app listed",
@@ -329,9 +334,18 @@
                             }
                         },
                         {
-                            "name": "menu-open-close",
+                            "name": "menu-open-close left",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen"
+                        },
+                        {
+                            "name": "menu-open-close right",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen",
+                            "viewport": {
+                                "width": 1199,
+                                "height": 740
+                            }
                         }
                     ]
                 },
@@ -1750,7 +1764,7 @@
             "operations": [
                 {
                     "name": "",
-                    "loop": 2,
+                    "loop": 4,
                     "steps": [
                         {
                             "name": "to open pane",
