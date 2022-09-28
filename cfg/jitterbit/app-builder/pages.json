@@ -421,9 +421,9 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > form > div.modal-header > div > div > ul > li:nth-child(2) > button"
                         },
                         {
-                            "name": "wait for save",
-                            "type": "wait",
-                            "value": 5000
+                            "name": "wait for field pane",
+                            "type": "waitfor",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.module-designer.ng-scope > div.col-sm-4.template-fields-sticky > div:nth-child(1)"
                         },
                         {
                             "name": "modules new-module edit",
@@ -437,7 +437,7 @@
                         {
                             "name": "modules new-module fields",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.module-designer.ng-scope > div.col-sm-3.template-field.all-fields",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.module-designer.ng-scope > div.col-sm-4.template-fields-sticky > div:nth-child(1)",
                             "viewport": {
                                 "width": 1400,
                                 "height": 1250
@@ -602,8 +602,14 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 375
+                                "height": 410
                             }
+                        },
+                        {
+                            "name": "dropdowns new-dropdown heading",
+                            "type": "snap",
+                            "comment": "needs added border",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div"
                         },
                         {
                             "name": "Cancel new dropdown",
@@ -715,7 +721,7 @@
                             "value": 10000
                         },
                         {
-                            "name": "microflows",
+                            "name": "microflows table",
                             "type": "snap",
                             "viewport": {
                                 "width": 1200,
@@ -723,9 +729,24 @@
                             }
                         },
                         {
-                            "name": "microflows detail",
+                            "name": "microflows table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
+                        },
+                        {
+                            "name": "open first filter dialog",
+                            "type": "click",
+                            "selector": "div.k-grid >> thead >> span.k-icon.k-i-filter >> nth=0 "
+                        },
+                        {
+                            "name": "wait for microflows filter",
+                            "type": "waitfor",
+                            "selector": "body > div.k-animation-container > form > div.k-filter-menu-container"
+                        },
+                        {
+                            "name": "microflows table filter-dialog",
+                            "type": "snap",
+                            "selector": "body > div.k-animation-container > form > div.k-filter-menu-container"
                         }
                     ]
                 },
