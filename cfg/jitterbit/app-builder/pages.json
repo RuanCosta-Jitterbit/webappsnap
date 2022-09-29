@@ -746,7 +746,7 @@
                         {
                             "name": "microflows table filter-dialog",
                             "type": "snap",
-                            "selector": "body > div.k-animation-container > form > div.k-filter-menu-container"
+                            "selector": "body > div.k-animation-container"
                         }
                     ]
                 },
