@@ -8,5 +8,7 @@
   "e": "",
   "f": "",
   "wait": 40000,
-  "pause": 6000
+  "pause": 6000,
+  "login_filename": ".login",
+  "password_filename": ".password"
 }

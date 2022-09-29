@@ -259,9 +259,14 @@ if (argv.debug) { config.debug = argv.debug; }
                                 }
                                 // If selector defined, snap only it, otherwise snap page
                                 console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
-                                const selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
+                                var selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
                                 process.stdout.write("    "); // Indent log message in snap function
+
+                                //TODO add/remove border
+//                                await page.addStyleTag({ content: `${selector} { border-style: solid; }` });
                                 await util.snap(selector, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
+//                                await page.addStyleTag({ content: `${selector} { border-style: none; }` });
+
                                 await util.viewport(page, operation_viewport); // Reset to operation viewport
                                 console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
                                 break;

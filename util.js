@@ -40,8 +40,7 @@ async function snap(page, title = "", dir, full = false) {
         (config.img_seq ? pad(idx++) : null),
         (config.img_pfx ? config.img_pfx : null),
         title
-    ]
-        .filter(function (a) { return a != null; }).join(sep) + config.img_ext;
+    ].filter(function (a) { return a != null; }).join(sep) + config.img_ext;
 
     const filepath = path.join(dir, filename);
     process.stdout.write(`Saving ${filepath} ... `);
