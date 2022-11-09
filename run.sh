@@ -28,23 +28,22 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
+SNAP_DEFAULTS_FILE=./cfg/jitterbit/app-builder/defaults.json
 
 ## Image base directory.
 # Default: 'img_dir' in defaults file
-# Note: Within this directory, images are saved to a directory named:
-# <server config 'name' field>/${SNAP_IMG_WIDTH}x${SNAP_IMG_HEIGHT}/
-# E.g. "./images/<server name>/1280x720x1/"
-# (See snap() in utils.js for subdirectory and file naming.)
-# SNAP_IMG_DIR="images/$(date +%Y%m%d)/"
+# Note: Within this directory, images are saved to a directory named <server config 'name' field>.
+SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Server config file.
 # Default: 'config_file' in defaults file
 # SNAP_SRV_CFG_FILE=./cfg/server-test.json
+SNAP_SRV_CFG_FILE=./cfg/jitterbit/app-builder/server-qa-green.json
+
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
-# SNAP_PAGES_FILE=
+# SNAP_PAGES_FILE=./cfg/jitterbit/app-builder/pages-delete-apps.json
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -62,7 +61,7 @@ SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
-SNAP_IMG_SEQ=true
+# SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file
@@ -83,6 +82,6 @@ SNAP_IMG_SEQ=true
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode
 # Default: 'slowmo' in defaults file
-# SNAP_SLOW_MO=
+# SNAP_SLOW_MO=10
 
 node main.js --unhandled-rejections=strict "$@"
