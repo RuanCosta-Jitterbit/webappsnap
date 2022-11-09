@@ -419,7 +419,7 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 530
+                                "height": 300
                             }
                         },
                         {
