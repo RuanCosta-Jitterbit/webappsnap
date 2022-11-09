@@ -116,7 +116,7 @@
                     "viewport": {
                         "comment": "min width before toggle to responsive mode",
                         "width": 992,
-                        "height": 450
+                        "height": 530
                     },
                     "steps": [
                         {
@@ -146,7 +146,7 @@
                     "loop": 4,
                     "viewport": {
                         "width": 992,
-                        "height": 740
+                        "height": 800
                     },
                     "steps": [
                         {
@@ -188,7 +188,7 @@
                         {
                             "name": "Open environment menu",
                             "type": "click",
-                            "selector": "[name='environment']"
+                            "selector": "#field-form-body > div > div:nth-child(4) > div > select"
                         },
                         {
                             "name": "Select default env",
@@ -249,7 +249,7 @@
                             "type": "snap",
                             "viewport": {
                                 "width": 992,
-                                "height": 450
+                                "height": 530
                             }
                         }
                     ]
@@ -267,7 +267,7 @@
                         {
                             "name": "hover to open app controls",
                             "type": "move",
-                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
+                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div > div"
                         },
                         {
                             "name": "wait",
@@ -276,19 +276,14 @@
                         },
                         {
                             "comment": "snap tools and info revealed on tile hover",
-                            "name": "apps tools",
-                            "type": "snap",
-                            "viewport": {
-                                "comment": "smallest width possible before switch to responsive mode",
-                                "width": 820,
-                                "height": 450
-                            }
+                            "name": "app tools",
+                            "type": "snap"
                         },
                         {
                             "comment": "snap card only",
                             "name": "app tools card",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2)"
+                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div > div"
                         },
                         {
                             "comment": "assumes previous app creation operations were successful, or there is at least one app listed",
@@ -308,7 +303,11 @@
                         {
                             "name": "preview button wide",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > button"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > button",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 800
+                            }
                         },
                         {
                             "name": "preview button narrow",
@@ -316,13 +315,17 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > button",
                             "viewport": {
                                 "width": 1199,
-                                "height": 740
+                                "height": 800
                             }
                         },
                         {
                             "name": "menu wide",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 800
+                            }
                         },
                         {
                             "name": "menu narrow",
@@ -330,13 +333,17 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include",
                             "viewport": {
                                 "width": 1199,
-                                "height": 740
+                                "height": 800
                             }
                         },
                         {
                             "name": "menu-open-close left",
                             "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 800
+                            }
                         },
                         {
                             "name": "menu-open-close right",
@@ -344,7 +351,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen",
                             "viewport": {
                                 "width": 1199,
-                                "height": 740
+                                "height": 800
                             }
                         }
                     ]
@@ -388,7 +395,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "modules detail",
+                            "name": "modules table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -412,7 +419,7 @@
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
-                                "height": 450
+                                "height": 530
                             }
                         },
                         {
@@ -516,7 +523,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "relations detail",
+                            "name": "relations table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -578,7 +585,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "dropdowns detail",
+                            "name": "dropdowns table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -608,8 +615,7 @@
                         {
                             "name": "dropdowns new-dropdown heading",
                             "type": "snap",
-                            "comment": "needs added border",
-                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div"
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div > div > ul"
                         },
                         {
                             "name": "Cancel new dropdown",
@@ -648,7 +654,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "dependencies detail",
+                            "name": "dependencies table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -692,7 +698,7 @@
                     "name": "application-logic",
                     "viewport": {
                         "width": 1200,
-                        "height": 525
+                        "height": 530
                     },
                     "steps": [
                         {
@@ -768,11 +774,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "microflow-settings",
+                            "name": "settings",
                             "type": "snap"
                         },
                         {
-                            "name": "microflow-settings detail",
+                            "name": "settings detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         }
@@ -782,7 +788,7 @@
                     "name": "application-logic microflows",
                     "viewport": {
                         "width": 1300,
-                        "height": 730
+                        "height": 800
                     },
                     "steps": [
                         {
@@ -840,13 +846,56 @@
                             "value": 5000
                         },
                         {
-                            "name": "design",
+                            "name": "editor",
                             "type": "snap"
                         },
                         {
                             "name": "steps",
                             "type": "snap",
-                            "selector": "#MicroflowEditorController > div.col-sm-3 > div"
+                            "selector": "#MicroflowEditorController > div.col-sm-3 > div",
+                            "viewport": {
+                                "width": 1300,
+                                "height": 700
+                            }
+                        },
+                        {
+                            "name": "toolbar",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div.col-sm-9 > div > div > ul"
+                        },
+                        {
+                            "name": "canvas",
+                            "type": "snap",
+                            "selector": "#MicroflowEditorController > div.col-sm-9 > div"
+                        },
+                        {
+                            "name": "parameters",
+                            "type": "click",
+                            "selector": "button >> 'Parameters' >> nth=0"
+                        },
+                        {
+                            "name": "for parameters",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "parameters",
+                            "type": "snap",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 400
+                            }
+                        },
+                        {
+                            "name": "cancel parameters",
+                            "type": "click",
+                            "selector": "#MicroflowEditorController >> button >> 'Cancel'  >> nth=0"
+                        },
+                        {
+                            "name": "for parameter cancel",
+                            "type": "wait",
+                            "value": 3000
                         },
                         {
                             "name": "cancel microflow",
@@ -873,7 +922,7 @@
                     "name": "application-logic",
                     "viewport": {
                         "width": 1200,
-                        "height": 525
+                        "height": 530
                     },
                     "steps": [
                         {
@@ -886,7 +935,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "ui-flows detail",
+                            "name": "ui-flows table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -901,7 +950,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "ui-flows new settings",
+                            "name": "ui-flows settings",
                             "type": "snap",
                             "viewport": {
                                 "width": 1200,
@@ -923,7 +972,7 @@
                     "name": "application-logic ui-flows",
                     "viewport": {
                         "width": 1300,
-                        "height": 730
+                        "height": 800
                     },
                     "steps": [
                         {
@@ -989,7 +1038,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "design",
+                            "name": "editor",
                             "type": "snap"
                         },
                         {
@@ -998,8 +1047,18 @@
                             "selector": "#UIflowEditorController > div.col-sm-3 > div",
                             "viewport": {
                                 "width": 1300,
-                                "height": 610
+                                "height": 800
                             }
+                        },
+                        {
+                            "name": "toolbar",
+                            "type": "snap",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div:nth-child(1) > div.col-sm-9 > div > div > ul"
+                        },
+                        {
+                            "name": "canvas",
+                            "type": "snap",
+                            "selector": "#UIflowEditorController > div.col-sm-9 > div"
                         },
                         {
                             "name": "cancel UI flow",
@@ -1072,7 +1131,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > Parameters",
-                    "name": "configuration parameters",
+                    "name": "configuration",
                     "viewport": {
                         "width": 1200,
                         "height": 820
@@ -1084,11 +1143,11 @@
                             "selector": "a >> span >> 'Parameters'"
                         },
                         {
-                            "name": "",
+                            "name": "parameters",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "parameters table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -1103,11 +1162,11 @@
                             "value": 2000
                         },
                         {
-                            "name": "parameter",
+                            "name": "parameters parameter",
                             "type": "snap"
                         },
                         {
-                            "name": "parameter detail",
+                            "name": "parameters parameter detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1182,7 +1241,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > User Guides",
-                    "name": "configuration user-guides",
+                    "name": "configuration",
                     "steps": [
                         {
                             "name": "open menu",
@@ -1190,11 +1249,11 @@
                             "selector": "a >> span >> 'User Guides'"
                         },
                         {
-                            "name": "",
+                            "name": "user-guides",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "user-guides table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -1214,11 +1273,11 @@
                             "value": 10000
                         },
                         {
-                            "name": "new-module-introduction",
+                            "name": "user-guides new-module-introduction",
                             "type": "snap"
                         },
                         {
-                            "name": "new-module-introduction detail",
+                            "name": "user-guides new-module-introduction detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1242,11 +1301,11 @@
                             "value": 2000
                         },
                         {
-                            "name": "new-help-page",
+                            "name": "user-guides new-help-page",
                             "type": "snap"
                         },
                         {
-                            "name": "new-help-page detail",
+                            "name": "user-guides new-help-page detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1268,7 +1327,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > Localizations",
-                    "name": "configuration localizations",
+                    "name": "configuration ",
                     "steps": [
                         {
                             "name": "open menu",
@@ -1280,7 +1339,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "localizations detail",
+                            "name": "localizations table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
@@ -1288,7 +1347,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > Globalization",
-                    "name": "configuration globalization",
+                    "name": "configuration",
                     "steps": [
                         {
                             "name": "open menu",
@@ -1296,11 +1355,11 @@
                             "selector": "a >> span >> 'Globalization'"
                         },
                         {
-                            "name": "",
+                            "name": "globalization",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "globalization table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
@@ -1328,7 +1387,7 @@
                         {
                             "name": "Alter tooltip fadeout time",
                             "type": "style",
-                            "content": ".am-fade {-webkit-animation-duration: 20.0s; animation-duration: 20.0s; }"
+                            "content": ".am-fade {-webkit-animation-duration: 30.0s; animation-duration: 30.0s; }"
                         },
                         {
                             "name": "show tooltip 1",
@@ -1402,7 +1461,7 @@
                         {
                             "name": "Alter tooltip fadeout time",
                             "type": "style",
-                            "content": ".am-fade {-webkit-animation-duration: 20.0s; animation-duration: 20.0s; }"
+                            "content": ".am-fade {-webkit-animation-duration: 30.0s; animation-duration: 30.0s; }"
                         },
                         {
                             "name": "",
@@ -1551,7 +1610,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > Email Templates",
-                    "name": "configuration email-templates",
+                    "name": "configuration",
                     "steps": [
                         {
                             "name": "",
@@ -1564,11 +1623,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "",
+                            "name": "email-templates",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "email-templates table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -1583,11 +1642,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "new-email-template",
+                            "name": "email-templates new-email-template",
                             "type": "snap"
                         },
                         {
-                            "name": "new-email-template detail",
+                            "name": "email-templates new-email-template detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
@@ -1604,7 +1663,7 @@
                     ]
                 },
                 {
-                    "comment": "################################################### DEVELOPMENT > Collaborators",
+                    "comment": "################################################### DEVELOPMENT > Packages",
                     "name": "development",
                     "viewport": {
                         "width": 1200,
@@ -1622,46 +1681,12 @@
                             "value": 2000
                         },
                         {
-                            "name": "menu",
+                            "name": "packages menu",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
-                            "name": "",
-                            "type": "click",
-                            "selector": "a >> span >> 'Collaborators'"
-                        },
-                        {
-                            "name": "wait for load",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "name": "blur collaborator email",
-                            "type": "style",
-                            "content": ".user-info { filter: blur(5px); }]"
-                        },
-                        {
-                            "name": "collaborators",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "collaborators detail",
-                            "type": "snap",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
-                        }
-                    ]
-                },
-                {
-                    "comment": "################################################### DEVELOPMENT > Packages",
-                    "name": "development packages",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 575
-                    },
-                    "steps": [
-                        {
-                            "name": "",
+                            "name": "packages",
                             "type": "click",
                             "selector": "a >> span >> 'Packages'"
                         },
@@ -1671,11 +1696,11 @@
                             "value": 10000
                         },
                         {
-                            "name": "",
+                            "name": "packages",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "packages table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -1690,11 +1715,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "create-new-package",
+                            "name": "packages create-new-package",
                             "type": "snap"
                         },
                         {
-                            "name": "create-new-package detail",
+                            "name": "packages create-new-package detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade",
                             "viewport": {
@@ -1716,7 +1741,7 @@
                 },
                 {
                     "comment": "################################################### DEVELOPMENT > Releases",
-                    "name": "development releases",
+                    "name": "development",
                     "viewport": {
                         "width": 1200,
                         "height": 575
@@ -1733,11 +1758,11 @@
                             "value": 3000
                         },
                         {
-                            "name": "",
+                            "name": "releases",
                             "type": "snap"
                         },
                         {
-                            "name": "detail",
+                            "name": "releases table detail",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -1752,11 +1777,11 @@
                             "value": 5000
                         },
                         {
-                            "name": "new-release",
+                            "name": "releases new-release",
                             "type": "snap"
                         },
                         {
-                            "name": "new-release detail",
+                            "name": "releases new-release detail",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade",
                             "viewport": {
@@ -1800,7 +1825,7 @@
                         {
                             "name": "settings",
                             "type": "click",
-                            "selector": "#wrapper > div > div > div > div > div > div > div:nth-child(2) > div > div.more-info > div.secondbox > div > div > span > i"
+                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div:nth-child(1) > div > div.more-info > div.secondbox > div > div > span > i"
                         },
                         {
                             "name": "for settings to open",
