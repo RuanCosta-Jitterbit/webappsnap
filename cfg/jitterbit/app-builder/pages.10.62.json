@@ -146,7 +146,7 @@
                     "loop": 4,
                     "viewport": {
                         "width": 992,
-                        "height": 800
+                        "height": 740
                     },
                     "steps": [
                         {
@@ -284,6 +284,15 @@
                             "name": "app tools card",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div > div > div > div.row > div > div"
+                        },
+                        {
+                            "name": "app grid toolbar",
+                            "type": "snap",
+                            "selector": "[class='filter-area']",
+                            "viewport": {
+                                "width": 900,
+                                "height": 800
+                            }
                         },
                         {
                             "comment": "assumes previous app creation operations were successful, or there is at least one app listed",
@@ -972,7 +981,7 @@
                     "name": "application-logic ui-flows",
                     "viewport": {
                         "width": 1300,
-                        "height": 800
+                        "height": 910
                     },
                     "steps": [
                         {
@@ -1047,7 +1056,7 @@
                             "selector": "#UIflowEditorController > div.col-sm-3 > div",
                             "viewport": {
                                 "width": 1300,
-                                "height": 800
+                                "height": 910
                             }
                         },
                         {
@@ -1327,7 +1336,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > Localizations",
-                    "name": "configuration ",
+                    "name": "configuration",
                     "steps": [
                         {
                             "name": "open menu",
@@ -1667,7 +1676,8 @@
                     "name": "development",
                     "viewport": {
                         "width": 1200,
-                        "height": 575
+                        "height": 580
+
                     },
                     "steps": [
                         {
@@ -1744,7 +1754,7 @@
                     "name": "development",
                     "viewport": {
                         "width": 1200,
-                        "height": 575
+                        "height": 580
                     },
                     "steps": [
                         {
@@ -1807,6 +1817,10 @@
             "comment": "delete app",
             "title": "delete",
             "uid": "",
+            "viewport": {
+                "width": 1200,
+                "height": 755
+            },
             "operations": [
                 {
                     "name": "",
