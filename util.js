@@ -43,7 +43,7 @@ async function snap(page, title = "", dir, full = false) {
     ].filter(function (a) { return a != null; }).join(sep) + config.img_ext;
 
     const filepath = path.join(dir, filename);
-    process.stdout.write(`Saving ${filepath} ... `);
+//    process.stdout.write(`Saving ${filepath} ... `);
 
     // Set up options for snap
     var options = {};
@@ -58,9 +58,10 @@ async function snap(page, title = "", dir, full = false) {
 
     try {
         await page.screenshot(options);
-        process.stdout.write("Done\n");
+//        process.stdout.write("Done\n");
     } catch (err) {
-        process.stderr.write("Failed: " + err + "\n");
+//        process.stderr.write("Failed to save image " + err + "\n");
+        console.error(`Failed to save image ${err}`);
     }
 }
 
@@ -77,11 +78,11 @@ function pad(n, w = 3, z = '0') { // number, width, padding char
 */
 async function load(page, url, wait = config.server_cfg.wait, force_wait = false) {
     try {
-        console.log(`Loading ${url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
+        console.log(`  Loading ${url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
 
         await page.goto(url,
             {
-                waitUntil: 'networkidle',
+//                waitUntil: 'networkidle',
                 timeout: wait
             }
         );

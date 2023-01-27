@@ -43,7 +43,7 @@ SNAP_SRV_CFG_FILE=./cfg/jitterbit/app-builder/server-qa-green.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
-SNAP_PAGES_FILE=./cfg/jitterbit/app-builder/pages.11.json
+# SNAP_PAGES_FILE=./cfg/jitterbit/app-builder/pages.json
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -61,7 +61,7 @@ SNAP_PAGES_FILE=./cfg/jitterbit/app-builder/pages.11.json
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
-# SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file

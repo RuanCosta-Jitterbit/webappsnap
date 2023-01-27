@@ -12,6 +12,7 @@ const defaults = config.defaults; // Default config values
 const pages = config.pages; // Page definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to an app
+const prompt = require('prompt-sync')(); // Get input
 
 if (argv.list) { // List page UIDs and exit
     console.log(Array.from(new Set(pages.map(e1 => e1.uid).sort())).join("\n"));
@@ -94,9 +95,10 @@ if (argv.debug) { config.debug = argv.debug; }
             continue;
         }
 
-        // Pages can be skipped by adding "skip": true in pages config
+        // Pages, operations, and steps can be skipped with "skip": true
+        console.log(`Page ${d}: ${pg.comment}`);
         if (pg.skip) {
-            console.log(`Skipping ${pg.uid}`)
+            console.log(`  SKIPPED`);
             continue;
         }
 
@@ -139,7 +141,7 @@ if (argv.debug) { config.debug = argv.debug; }
         await util.load(page, server_url, wait, true);
 
         if (pg.viewport) {
-            console.log(`Viewport ${pg.viewport.width}x${pg.viewport.height} for dashboard`);
+//            console.log(`  Viewport ${pg.viewport.width}x${pg.viewport.height} for dashboard`);
             await util.viewport(page, pg.viewport);
             page_viewport = pg.viewport;
         }
@@ -163,7 +165,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     await util.snap(page, pg.title + "_full", img_dir, true);
                 }
                 catch (e) {
-                    console.log(`${e}...Skipping full snap`);
+                    console.log(`  ${e}...Skipping full snap`);
                 }
             }
         }
@@ -182,50 +184,76 @@ if (argv.debug) { config.debug = argv.debug; }
         // or add another dashboard entry with no operations.
         for (var o in pg.operations) {
             var op = pg.operations[o]; // Convenience handle
-            console.log(`Operation: ${o}: ${op.name}`);
+            console.log(`  Operation: ${o}: ${op.name}`);
+            if (op.skip) {
+                console.log("    SKIPPED");
+                continue;
+            }
 
             // Repeat operations if loop is set
             var loop = (op.loop > 1) ? op.loop : 1;
-
-            if (loop > 1) { console.log(`  Operation loop count: ${loop}`); }
+            if (loop > 1) { console.log(`    Operation loop count: ${loop}`); }
 
             for (let n = 0; n < loop; n++) {
+                console.log(`    Operation loop: ${n+1} of ${loop}`);
 
                 // Viewport per operation
                 if (op.viewport) {
-                    console.log(`  Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
+//                    console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
                     await util.viewport(page, op.viewport);
                     operation_viewport = op.viewport;
                 }
 
                 for (var s in op.steps) {
                     var step = op.steps[s]; // Convenience handle
+                    console.log(`    Step ${s}: ${step.type} (${step.name}) - Selector (${step.locator}): ${step.selector} - Value: ${step.value}`);
 
-                    // Use locators
-                    var loc = (step.selector) ? page.locator(step.selector) : null;
+                    if (step.skip) {
+                        console.log("      SKIPPED");
+                        continue;
+                    }
+
+                    // Use locators of various types.
+                    // https://playwright.dev/docs/locators
+                    var loc;
+                    switch (step.locator) {
+                        case "css":
+                            loc = page.locator(step.selector);
+                            break;
+                        case "label":
+                            loc = page.getByLabel(step.selector);
+                            break;
+                        case "placeholder":
+                            loc = page.getByPlaceholder(step.selector);
+                            break;
+                        case "getbytext":
+                            loc = page.getByText(step.selector, { exact: true }).first(); // Usually
+                            break;
+                        case "getbyrole":
+                            loc = page.getByRole(step.selector);
+                            break;
+                        default:
+                            loc = page;
+                            break;
+                    }
+
                     try {
-                        console.log(`  Step ${s}: ${step.type} (${step.name})`);
                         await page.waitForTimeout(server_cfg.pause);
                         switch (step.type) {
+                            // Flow control
                             case "quit":
                                 browser.close();
                                 process.exit(0);
-                            case "back":
-                                await page.goBack();
+                                break; // fwiw
+
+                            // User Input
+                            case "click":
+                                await loc.click();
                                 break;
-                            case "wait":
-                                console.log(`    Value: ${step.value} ms`);
-                                await page.waitForTimeout(step.value);
-                                break;
-                            case "waitfor":
-                                console.log(`    Wait for ${step.selector}`);
-                                await page.waitForSelector(step.selector, { visible: true });
-                                break;
-                            case "move":
-                                await page.hover(step.selector);
-                                break;
+
                             case "text":
                                 var value = step.value;
+                                // Process special tokens
                                 value = value.replace("RANDOM", randomBytes(defaults.randlen).toString('hex'));
                                 if (value == "LOGIN") {
                                     value = fs.readFileSync(server_cfg.login_filename, 'utf8');
@@ -233,55 +261,88 @@ if (argv.debug) { config.debug = argv.debug; }
                                 if (value == "PASSWORD") {
                                     value = fs.readFileSync(server_cfg.password_filename, 'utf8');
                                 }
-                                console.log(`    Value: ${value}`);
-                                await page.fill(step.selector, String(value));
+//                                console.log(`      Value: ${value}`);
+                                await loc.fill(String(value));
                                 break;
+
                             case "press":
                                 for (var k in step.value) {
                                     var key = String(step.value[k]);
-                                    console.log(`    Pressing: ${key}`);
+//                                    console.log(`      Pressing: ${key}`);
                                     await page.press('body', key);
+                                    await page.waitForTimeout(server_cfg.pause);
                                 }
                                 break;
-                            case "click":
-                                console.log(`    Selector: ${step.selector}`);
-                                await loc.click(step.selector);
+
+                            //  Movement
+                            case "move":
+                                await loc.hover();
                                 break;
+
+                            case "focus":
+                                await loc.focus();
+                                break;
+
+                            case "back":
+                                await page.goBack();
+                                break;
+
+                            case "ask":
+                                var value = prompt('Enter Value: ');
+                                await loc.fill(String(value));
+                                break;
+
+                            case "wait":
+                                if (step.selector) {
+                                    await loc.isVisible();
+                                } else {
+                                    await page.waitForTimeout(step.value);
+                                }
+                                break;
+
+                            case "waitfor":
+                                await loc.isVisible();
+                                break;
+
+                            // Actions
                             case "style":
-                                console.log(`    Adding style: ${step.content}`);
-                                await page.addStyleTag({ content: step.content });
+                                await page.addStyleTag({ content: step.value });
                                 break;
+
                             case "snap":
                                 // Viewport per step
                                 if (step.viewport) {
-                                    console.log(`    Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
+//                                    console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
                                     await util.viewport(page, step.viewport);
                                 }
                                 // If selector defined, snap only it, otherwise snap page
-                                console.log(`    Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
-                                var selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
-                                process.stdout.write("    "); // Indent log message in snap function
+//                                console.log(`      Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
+                                //                                var selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
+//                                process.stdout.write("    "); // Indent log message in snap function
 
                                 //TODO add/remove border
-//                                await page.addStyleTag({ content: `${selector} { border-style: solid; }` });
-                                await util.snap(selector, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
-//                                await page.addStyleTag({ content: `${selector} { border-style: none; }` });
+                                //                                await page.addStyleTag({ content: `${selector} { border-style: solid; }` });
+                                await util.snap(loc, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
+                                //                                await page.addStyleTag({ content: `${selector} { border-style: none; }` });
 
                                 await util.viewport(page, operation_viewport); // Reset to operation viewport
-                                console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
+//                                console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
+                                break;
+
+                            default:
+                                console.log(`    Skipping: Step type '${step.type}' not recognized`);
                                 break;
                         }
                     } catch (e) {
                         console.log(`Skipping: ${e}`);
                     }
                 } // for step
-                console.log(`    Viewport reset to page level: ${page_viewport.width}x${page_viewport.height}`);
+//                console.log(`    Viewport reset to page level: ${page_viewport.width}x${page_viewport.height}`);
                 await util.viewport(page, page_viewport); // Reset to page viewport
             }
         } // for operations
-        console.log(`    Viewport reset to default: ${default_page_viewport.width}x${default_page_viewport.height}`);
+//        console.log(`    Viewport reset to default: ${default_page_viewport.width}x${default_page_viewport.height}`);
         await util.viewport(page, default_page_viewport); // Reset to default viewport
     } // for pages
     await browser.close();
-
 })();

@@ -1,9 +1,21 @@
 * webappsnap - Automated Web App Screenshots
-This program lets you automate the task of taking screenshots of web applications. It uses [[https://playwright.dev][Playwright]] to programmatically run a set of actions in a Chromium, Firefox or Webkit-based web browser.
+This program lets you automate the task
+of taking screenshots of web applications.
+It uses [[https://playwright.dev][Playwright]]
+to programmatically run a set of actions
+in a Chromium, Firefox or Webkit-based web browser.
 
-You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a /selector/).
+You define the actions in a JSON file
+as a list of pages to load,
+and operations and steps to perform on each page.
+You can snap whole pages, parts of pages, buttons, menus, etc.,
+so long as they can be consistently identified (via a /selector/).
 
-To snap pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
+To snap pages, you only need to know their URLs.
+To interact with buttons, menus, or text fields,
+or any elements of a web page,
+you also need to know the element's selector.
+Use a browser's development tools to discover these.
 
 ** Install (Pre-requirements)
 :PROPERTIES:
@@ -17,7 +29,7 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 Once Node.js is installed, install the remaining components with this command:
 
 #+begin_src sh
-  npm i playwright yargs axios
+  npm i playwright yargs axios prompt-sync
 #+end_src
 
 ** Quick Start
