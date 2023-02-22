@@ -55,7 +55,8 @@ if (argv.debug) { config.debug = argv.debug; }
         else { console.log(`  Snapping selected (--uid): ${selected_pages.join(' ')}`); }
     }
 
-    // TODO User select browser type
+    // TODO User select browser type: chromium, firefox, webkit
+//    const browser = await chromium.launch({
     const browser = await chromium.launch({
         headless: config.headless,
         slowMo: config.slowmo
@@ -298,10 +299,6 @@ if (argv.debug) { config.debug = argv.debug; }
                                 } else {
                                     await page.waitForTimeout(step.value);
                                 }
-                                break;
-
-                            case "waitfor":
-                                await loc.isVisible();
                                 break;
 
                             // Actions

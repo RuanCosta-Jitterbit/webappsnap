@@ -55,7 +55,7 @@
             "url": "identity/landing",
             "viewport": {
                 "width": 1200,
-                "height": 595
+                "height": 530
             },
             "operations": [
                 {
@@ -65,8 +65,8 @@
                         {
                             "name": "Close pendo",
                             "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "Close"
+                            "locator": "css",
+                            "selector": "[aria-label='Close']"
                         },
                         {
                             "name": "Hover",
@@ -127,13 +127,8 @@
             "uid": "",
             "operations": [
                 {
-                    "skip": false,
                     "comment": "create app from template",
                     "name": "apps page",
-                    "viewport": {
-                        "width": 992,
-                        "height": 740
-                    },
                     "steps": [
                         {
                             "name": "create new app",
@@ -142,41 +137,25 @@
                             "selector": "Create New App"
                         },
                         {
+                            "name": "create new from marketplace dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "div.modal-content.padding-0"
+                        },
+                        {
                             "name": "from template",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "From Template"
                         },
                         {
-                            "name": "create new app from template dialog",
+                            "name": "create new from template dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
                         },
                         {
-                            "name": "cancel",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Cancel"
-                        }
-                    ]
-                },
-                {
-                    "comment": "create app from scratch",
-                    "name": "apps page",
-                    "viewport": {
-                        "width": 992,
-                        "height": 740
-                    },
-                    "steps": [
-                        {
-                            "name": "Create new app",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create New App"
-                        },
-                        {
-                            "name": "from scratch",
+                            "name": "from template",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "From Scratch"
@@ -187,7 +166,7 @@
                             "value": "#subdomaintwo > span { filter: blur(5px); }"
                         },
                         {
-                            "name": "create new app from scratch dialog",
+                            "name": "create new from scratch dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -211,10 +190,6 @@
                 {
                     "name": "apps page",
                     "loop": 2,
-                    "viewport": {
-                        "width": 992,
-                        "height": 740
-                    },
                     "steps": [
                         {
                             "name": "create new app",
@@ -257,14 +232,15 @@
                             ]
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "comment": "use default icon",
                             "name": "open icons",
                             "type": "click",
+                            "locator": "css",
                             "selector": "div.icon-search-list"
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "find icon",
                             "type": "press",
                             "value": [
@@ -286,12 +262,12 @@
                             "name": "create",
                             "type": "click",
                             "locator": "getbytext",
-                            "selector": "Create"
+                            "selector": "Create "
                         },
                         {
                             "name": "for app creation",
                             "type": "wait",
-                            "value": 10000
+                            "value": 20000
                         },
                         {
                             "name": "return to app list",
@@ -303,7 +279,7 @@
                             "TODO": "how to know apps page is done loading",
                             "name": "for app list",
                             "type": "wait",
-                            "value": 10000
+                            "value": 20000
                         },
                         {
                             "name": "create saved",
@@ -371,7 +347,7 @@
                             "value": 500
                         },
                         {
-                            "name": "app tools detail",
+                            "name": "app tools tile",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='app-studio'] >> nth=0"
@@ -406,29 +382,28 @@
                             "selector": "View / Edit"
                         },
                         {
-                            "name": "button - publish",
+                            "name": "for app load",
                             "type": "wait",
-                            "locator": "getbytext",
-                            "selector": "Publish"
+                            "value": 5000
                         },
                         {
                             "name": "",
                             "type": "snap"
                         },
                         {
-                            "name": "summary",
+                            "name": "summary pane",
                             "type": "snap",
                             "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(2)"
                         },
                         {
-                            "name": "api access and support",
+                            "name": "api access and support pane",
                             "type": "snap",
                             "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(3)"
                         },
                         {
-                            "name": "latest releases",
+                            "name": "latest releases pane",
                             "type": "snap",
                             "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(4)"
@@ -523,7 +498,7 @@
             ]
         },
         {
-            "skip": true,
+            "skip": false,
             "comment": "App edit - Publish (First time - Unknown admin)",
             "title": "develop",
             "uid": "",
@@ -545,7 +520,7 @@
                             "selector": "Publish"
                         },
                         {
-                            "name": "environment choose detail",
+                            "name": "environment choose dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -569,7 +544,7 @@
                             ]
                         },
                         {
-                            "name": "environment chosen detail",
+                            "name": "environment chosen dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -581,7 +556,7 @@
                             "selector": "Next"
                         },
                         {
-                            "name": "create admin account detail",
+                            "name": "create admin account dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -597,10 +572,16 @@
                             "name": "next (not a button)",
                             "type": "click",
                             "locator": "css",
-                            "selector": "#field-form-body >> span:has-text('Next')"
+                            "selector": "#field-form-body > div > ng-include:nth-child(2) > div.btn.btn-radius.btn-blue.btn-with-icon.ng-scope.ladda-button > span.ladda-label > span"
                         },
                         {
-                            "name": "verify email address detail",
+                            "name": "for verification code",
+                            "type": "wait",
+                            "locator": "css",
+                            "selector": "#verificationCode"
+                        },
+                        {
+                            "name": "verify email address dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -618,7 +599,7 @@
                             "selector": "Verify"
                         },
                         {
-                            "name": "new account detail",
+                            "name": "new account dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -632,8 +613,8 @@
                     ]
                 },
                 {
-                    "skip": true,
-                    "comment": "###### PUBLISH (FIRST TIME - KNOWN [EXISTING] ADMIN)",
+                    "skip": false,
+                    "comment": "###### PUBLISH (FIRST TIME - EXISTING ADMIN)",
                     "name": "publish",
                     "steps": [
                         {
@@ -692,7 +673,7 @@
                             "selector": "Verify"
                         },
                         {
-                            "name": "existing account detail",
+                            "name": "existing account dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -726,16 +707,15 @@
                             "value": 3000
                         },
                         {
-                            "name": "progress detail",
+                            "name": "progress dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
                         },
                         {
-                            "name": "your app is live",
+                            "name": "for publish to complete",
                             "type": "wait",
-                            "locator": "getbytext",
-                            "selector": "Your app is live"
+                            "value": 60000
                         },
                         {
                             "name": "hide app url",
@@ -753,53 +733,49 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Close"
-                        },
-                        {
-                            "name": "quit",
-                            "type": "quit"
                         }
                     ]
                 },
                 {
-                    "skip": true,
-                    "comment": "################################################### PUBLISH (SECOND TIME - KNOWN ADMIN)",
+                    "skip": false,
+                    "comment": "##### PUBLISH (SECOND TIME - KNOWN ADMIN)",
                     "name": "publish",
                     "steps": [
                         {
                             "name": "Publish button",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Publish'"
                         },
                         {
                             "name": "environment menu",
-                            "type": "focus",
+                            "type": "click",
+                            "locator": "css",
                             "selector": "#region"
-                        },
-                        {
-                            "name": "for environment menu focus",
-                            "type": "wait",
-                            "value": 2000
                         },
                         {
                             "name": "select environment",
                             "type": "press",
                             "value": [
-                                "D"
+                                "D",
+                                "Enter"
                             ]
-                        },
-                        {
-                            "name": "previously published detail",
-                            "type": "snap",
-                            "selector": "body > div.modal.modal-center.modal-600.ng-scope.top.am-fade > form > div > div"
                         },
                         {
                             "name": "for 'Publish' button",
                             "type": "wait",
-                            "value": 60000
+                            "value": 1000
+                        },
+                        {
+                            "name": "previously published dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "div.modal-content.padding-0"
                         },
                         {
                             "name": "close (don't publish again)",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Close'"
                         }
                     ]
@@ -821,8 +797,8 @@
                     "steps": [
                         {
                             "name": "edit first app",
-                            "locator": "getbytext",
                             "type": "click",
+                            "locator": "getbytext",
                             "selector": "View / Edit"
                         },
                         {
@@ -871,7 +847,7 @@
                             "selector": "button >> 'New Module'"
                         },
                         {
-                            "name": "modules new module detail",
+                            "name": "modules new module dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
@@ -921,7 +897,7 @@
                             "selector": "span:has-text('New Section')"
                         },
                         {
-                            "name": "create detail",
+                            "name": "create dialog",
                             "type": "snap",
                             "locator": "getbyrole",
                             "selector": "dialog",
@@ -961,7 +937,7 @@
             "uid": "",
             "operations": [
                 {
-                    "name": "domain-model",
+                    "name": "domain model",
                     "viewport": {
                         "width": 1200,
                         "height": 620
@@ -998,7 +974,7 @@
                             "selector": "New Relation"
                         },
                         {
-                            "name": "relations new-relation detail",
+                            "name": "relations new relation dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
@@ -1066,8 +1042,9 @@
                             "selector": "New Dropdown"
                         },
                         {
-                            "name": "dropdowns new-dropdown detail",
+                            "name": "dropdowns new dropdown dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1077,30 +1054,43 @@
                         {
                             "name": "Button group padding",
                             "type": "style",
-                            "value": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div > div > ul { padding: 10px; }"
+                            "value": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div > div > ul { padding: 5px; }"
                         },
                         {
-                            "name": "Cancel new dropdown",
-                            "type": "click",
-                            "selector": "button >> 'Cancel' >> nth=0"
-                        },
-                        {
-                            "name": "for dialog",
-                            "type": "wait",
+                            "name": "dropdowns new dropdown toolbar",
+                            "type": "snap",
                             "locator": "css",
-                            "selector": "body > div.swal-overlay.swal-overlay--show-modal > div"
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div > div > ul"
                         },
                         {
-                            "name": "confirm unsaved changes",
-                            "type": "press",
-                            "value": [
-                                "Enter"
-                            ]
+                            "name": "item text",
+                            "type": "text",
+                            "value": "Dropdown Item 1",
+                            "locator": "css",
+                            "selector": "#droplistContainer2 > div > div.dropdown-item-label-area.relative > input"
+                        },
+                        {
+                            "name": "Save new dropdown",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right > div.modal-header > div > div > ul > li:nth-child(7) > button"
+                        },
+                        {
+                            "name": "for dropdown save",
+                            "type": "wait",
+                            "value": 3000
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "App Edit - Domain Model > Dependencies",
+            "title": "develop",
+            "uid": "",
+            "operations": [
                 {
-                    "comment": "################################################### DOMAIN MODEL > Dependencies",
                     "name": "domain-model",
                     "viewport": {
                         "width": 1200,
@@ -1108,28 +1098,39 @@
                     },
                     "steps": [
                         {
+                            "name": "edit first app",
+                            "locator": "getbytext",
+                            "type": "click",
+                            "selector": "View / Edit"
+                        },
+                        {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'Dependencies'"
+                            "locator": "getbytext",
+                            "selector": "Domain Model"
+                        },
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Dependencies"
                         },
                         {
                             "name": "dependencies table",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new dependency",
                             "type": "click",
-                            "selector": "button >> 'New Dependency'"
+                            "locator": "getbytext",
+                            "selector": "New Dependency"
                         },
                         {
-                            "name": "for settings",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "dependencies new-dependency detail",
+                            "name": "dependencies new dependency dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1139,6 +1140,7 @@
                         {
                             "name": "Cancel new dependency",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel'"
                         },
                         {
@@ -1147,108 +1149,95 @@
                             "value": 5000
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "App edit - Application Logic > Microflows",
+            "title": "develop",
+            "uid": "",
+            "operations": [
                 {
-                    "comment": "################################################### APPLICATION LOGIC > Microflows",
-                    "name": "application-logic",
+                    "name": "application logic",
                     "viewport": {
                         "width": 1200,
-                        "height": 530
+                        "height": 780
                     },
                     "steps": [
                         {
-                            "name": "expand menu",
+                            "name": "edit first app",
+                            "locator": "getbytext",
                             "type": "click",
-                            "selector": "[data-title='Application Logic']"
+                            "selector": "View / Edit"
                         },
                         {
-                            "name": "for menu to open",
-                            "type": "wait",
-                            "value": 2000
+                            "name": "open menu",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Application Logic"
                         },
                         {
                             "name": "menu",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
                         },
                         {
-                            "name": "",
+                            "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'Microflows'"
-                        },
-                        {
-                            "name": "for microflows",
-                            "type": "wait",
-                            "value": 10000
+                            "locator": "getbytext",
+                            "selector": "Microflows"
                         },
                         {
                             "name": "microflows table",
                             "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 540
-                            }
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "open first filter dialog",
                             "type": "click",
+                            "locator": "css",
                             "selector": "div.k-grid >> thead >> span.k-icon.k-i-filter >> nth=0 "
                         },
                         {
-                            "name": "microflows table filter-dialog",
+                            "name": "microflows table filter dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.k-animation-container"
-                        }
-                    ]
-                },
-                {
-                    "name": "application-logic microflows",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 700
-                    },
-                    "steps": [
+                        },
                         {
                             "name": "new microflow",
                             "type": "click",
-                            "selector": "button >> 'New Microflow'"
+                            "locator": "getbytext",
+                            "selector": "New Microflow"
                         },
                         {
-                            "name": "for microflow settings",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "name": "settings detail",
+                            "name": "settings dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
-                        }
-                    ]
-                },
-                {
-                    "name": "application-logic microflows",
-                    "viewport": {
-                        "width": 1300,
-                        "height": 800
-                    },
-                    "steps": [
+                        },
                         {
                             "name": "enter name",
                             "type": "text",
                             "value": "Sample Microflow",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.relative > input"
                         },
                         {
                             "name": "open module list",
                             "type": "click",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div > div > select"
                         },
                         {
                             "name": "select module",
                             "type": "press",
-                            "comment": "select Employees module",
+                            "comment": "select Modules module - has fewer parameters when showing Records tab of Parameter chooser dialog",
                             "value": [
-                                "E",
+                                "M",
                                 "Enter"
                             ]
                         },
@@ -1256,11 +1245,13 @@
                             "name": "enter record",
                             "type": "text",
                             "value": "Record",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div.form-group.ng-scope > input"
                         },
                         {
                             "name": "select record operation",
                             "type": "click",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(3) > div:nth-child(1) > tags-input"
                         },
                         {
@@ -1279,6 +1270,7 @@
                         {
                             "name": "Save new microflow",
                             "type": "click",
+                            "locator": "css",
                             "selector": "div[role='dialog'] button:has-text('Save')"
                         },
                         {
@@ -1287,12 +1279,131 @@
                             "value": 5000
                         },
                         {
+                            "comment": ">>> Start of capture for 'Parameter chooser' tabs",
+                            "name": "re-open settings",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Settings"
+                        },
+                        {
+                            "name": "for settings open",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "Enable filtering",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Enable Filtering"
+                        },
+                        {
+                            "name": "add condition",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div:nth-child(1) > query-builder > div > div > div.filter-list-buttons > button.icon-btn.icon-primary"
+                        },
+                        {
+                            "name": "open left side menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#filter-field-area-list > span"
+                        },
+                        {
+                            "name": "select ID",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "ul > li.k-item.k-first > div > span"
+                        },
+                        {
+                            "name": "open right side menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#operator"
+                        },
+                        {
+                            "name": "select operator (equals)",
+                            "type": "press",
+                            "value": [
+                                "e",
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "comment": "now parameter chooser icon should be visible-click it",
+                            "name": "parameter chooser icon",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#MicroflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div:nth-child(2) > div:nth-child(1) > query-builder > div > div > div.group-conditions > div > div > div > div > div.col > div > div.col.employeeFilterButtonFlex > div > div > i"
+                        },
+                        {
+                            "name": "parameter chooser parameters",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#WorkflowEditorController > div > div > div"
+                        },
+                        {
+                            "name": "select records tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Records"
+                        },
+                        {
+                            "name": "parameter chooser records",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#WorkflowEditorController > div > div > div"
+                        },
+                        {
+                            "name": "select dropdowns tab",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#WorkflowEditorController >> a >> 'Dropdowns'"
+                        },
+                        {
+                            "name": "parameter chooser dropdown",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#WorkflowEditorController > div > div > div"
+                        },
+                        {
+                            "name": "select date and time tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Date and Time"
+                        },
+                        {
+                            "name": "parameter chooser date and time",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#WorkflowEditorController > div > div > div"
+                        },
+                        {
+                            "name": "cancel condition editor",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#WorkflowEditorController >> button >> 'Cancel'"
+                        },
+                        {
+                            "comment": "<<< End of capture for 'Parameter chooser' tabs",
+                            "name": "Disable filtering",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Enable Filtering"
+                        },
+                        {
+                            "name": "cancel settings",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#MicroflowEditorController > div.modal-header > div > div > ul > li:nth-child(1) > button >> 'Cancel'"
+                        },
+                        {
                             "name": "editor",
                             "type": "snap"
                         },
                         {
                             "name": "steps",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController > div.col-sm-3 > div",
                             "viewport": {
                                 "width": 1300,
@@ -1302,17 +1413,20 @@
                         {
                             "name": "toolbar",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div.col-sm-9 > div > div > ul"
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "canvas",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController > div.col-sm-9 > div"
                         },
                         {
                             "name": "parameters",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Parameters' >> nth=0"
                         },
                         {
@@ -1323,6 +1437,7 @@
                         {
                             "name": "parameters",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1332,6 +1447,7 @@
                         {
                             "name": "cancel parameters",
                             "type": "click",
+                            "locator": "css",
                             "selector": "#MicroflowEditorController >> button >> 'Cancel'  >> nth=0"
                         },
                         {
@@ -1342,6 +1458,7 @@
                         {
                             "name": "cancel microflow",
                             "type": "click",
+                            "locator": "css",
                             "comment": "sometimes cancels without confirmation",
                             "selector": "button >> 'Cancel'  >> nth=0"
                         },
@@ -1359,80 +1476,78 @@
                             ]
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "App edit - Application Logic > UI Flows",
+            "title": "develop",
+            "uid": "",
+            "viewport": {
+                "width": 1300,
+                "height": 1020
+            },
+            "operations": [
                 {
-                    "comment": "################################################### APPLICATION LOGIC > UI Flows",
-                    "name": "application-logic",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 530
-                    },
+                    "name": "application logic ui flows",
                     "steps": [
                         {
-                            "name": "open build page",
+                            "name": "edit first app",
+                            "locator": "getbytext",
                             "type": "click",
-                            "selector": "a >> span >> 'UI Flows'"
+                            "selector": "View / Edit"
                         },
                         {
-                            "name": "ui flows",
-                            "type": "snap"
+                            "name": "open menu",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Application Logic"
+                        },
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "UI Flows"
                         },
                         {
                             "name": "ui flows table",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
-                            "name": "ui flows new",
+                            "name": "new ui flow",
                             "type": "click",
-                            "selector": "button >> 'New UI Flow'"
+                            "locator": "getbytext",
+                            "selector": "New UI Flow"
                         },
                         {
-                            "name": "ui flows settings detail",
+                            "name": "for UI settings",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "settings dialog",
                             "type": "snap",
-                            "selector": "#UIflowEditorController",
+                            "locator": "getbyrole",
+                            "selector": "dialog",
                             "viewport": {
                                 "width": 1200,
                                 "height": 640
                             }
-                        },
-                        {
-                            "name": "ui flows settings",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 640
-                            }
-                        },
-                        {
-                            "name": "cancel",
-                            "type": "click",
-                            "selector": "#UIflowEditorController >> button >> 'Cancel'"
-                        }
-                    ]
-                },
-                {
-                    "comment": "Create a basic UI flow to snap canvas and buttons",
-                    "name": "application-logic ui-flows",
-                    "viewport": {
-                        "width": 1300,
-                        "height": 1020
-                    },
-                    "steps": [
-                        {
-                            "name": "ui flows new",
-                            "type": "click",
-                            "selector": "button >> 'New UI Flow'"
                         },
                         {
                             "name": "enter UI Flow name",
                             "type": "text",
                             "value": "Sample UI Flow",
+                            "locator": "css",
                             "selector": "#UIflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.relative > input"
                         },
                         {
                             "name": "open module list",
                             "type": "click",
+                            "locator": "css",
                             "selector": "[name='module']"
                         },
                         {
@@ -1447,6 +1562,7 @@
                         {
                             "name": "open view list",
                             "type": "click",
+                            "locator": "css",
                             "selector": "#UIflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div:nth-child(5) > div > select"
                         },
                         {
@@ -1461,6 +1577,7 @@
                         {
                             "name": "open event list",
                             "type": "click",
+                            "locator": "css",
                             "selector": "#UIflowEditorController > div.modal-dialog.scroll-style-4 > div > form > div.panel > div.form-group.ng-scope > div > select"
                         },
                         {
@@ -1480,6 +1597,7 @@
                         {
                             "name": "Save new ui flow",
                             "type": "click",
+                            "locator": "css",
                             "selector": "[type='Submit']"
                         },
                         {
@@ -1488,12 +1606,9 @@
                             "value": 5000
                         },
                         {
-                            "name": "editor",
-                            "type": "snap"
-                        },
-                        {
                             "name": "steps",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#UIflowEditorController > div.col-sm-3 > div",
                             "viewport": {
                                 "width": 1300,
@@ -1503,40 +1618,41 @@
                         {
                             "name": "toolbar",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div:nth-child(1) > div.col-sm-9 > div > div > ul"
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "canvas",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#UIflowEditorController > div.col-sm-9 > div"
                         },
                         {
                             "name": "flow parameters",
                             "type": "click",
-                            "selector": "button >> Flow Parameters"
+                            "locator": "getbytext",
+                            "selector": "Flow Parameters"
                         },
                         {
                             "name": "flow parameters dialog",
-                            "type": "wait",
-                            "locator": "css",
-                            "selector": "#UIflowEditorController"
-                        },
-                        {
-                            "name": "flow parameters detail",
                             "type": "snap",
-                            "selector": "#UIflowEditorController"
+                            "locator": "getbyrole",
+                            "selector": "dialog"
+
                         },
                         {
                             "comment": "close flow parameters dialog",
                             "name": "cancel",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel' >> nth=0"
                         },
                         {
                             "comment": "close flow editor - sometimes cancels without confirmation",
                             "name": "cancel UI flow",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel' >> nth=0"
                         },
                         {
@@ -1553,9 +1669,16 @@
                             ]
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "App edit - Configuration",
+            "title": "develop",
+            "uid": "",
+            "operations": [
                 {
-                    "comment": "################################################### CONFIGURATION",
                     "name": "configuration",
                     "viewport": {
                         "width": 1200,
@@ -1563,30 +1686,23 @@
                     },
                     "steps": [
                         {
-                            "name": "expand menu",
+                            "name": "edit first app",
+                            "locator": "getbytext",
                             "type": "click",
-                            "selector": "[data-title='Configuration']"
+                            "selector": "View / Edit"
                         },
                         {
-                            "name": "for menu to open",
-                            "type": "wait",
-                            "value": 2000
+                            "name": "open menu",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Configuration"
                         },
                         {
                             "name": "menu",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include > ul.setup-nav.scroll-style-6.ng-scope > li.active.sub-open"
-                        }
-                    ]
-                },
-                {
-                    "comment": "################################################### CONFIGURATION > General",
-                    "name": "configuration general",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 820
-                    },
-                    "steps": [
+                        },
                         {
                             "name": "select general page",
                             "type": "click",
@@ -1602,7 +1718,7 @@
                             "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > form.ng-pristine.ng-scope.ng-invalid.ng-invalid-required.ng-valid-min { padding: 0px 20px 20px 20px; }"
                         },
                         {
-                            "name": "smtp detail",
+                            "name": "smtp pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > form.ng-pristine.ng-scope.ng-invalid.ng-invalid-required.ng-valid-min"
                         },
@@ -1612,7 +1728,7 @@
                             "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > form.ng-pristine.ng-valid.ng-scope { padding: 0px 20px 20px 20px; }"
                         },
                         {
-                            "name": "google maps api key detail",
+                            "name": "google maps api key pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > form.ng-pristine.ng-valid.ng-scope"
                         }
@@ -1651,7 +1767,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "parameters parameter detail",
+                            "name": "parameters parameter dialog",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1696,7 +1812,7 @@
                             "value": 2000
                         },
                         {
-                            "name": "new-menu detail",
+                            "name": "new menu dialog",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1746,7 +1862,7 @@
                             "value": 10000
                         },
                         {
-                            "name": "user-guides new-module-introduction detail",
+                            "name": "user guides new module introduction dialog",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1770,7 +1886,7 @@
                             "value": 2000
                         },
                         {
-                            "name": "user-guides new-help-page detail",
+                            "name": "user guides new help page dialog",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
@@ -1837,7 +1953,7 @@
                             "value": 5000
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "comment": "################################################### CONFIGURATION > Branding > Public Page",
                             "name": "public page",
                             "type": "snap"
@@ -1934,7 +2050,7 @@
                             "selector": "[data-title='App Page'] >> span >> '4'"
                         },
                         {
-                            "name": "app-page labeled detail",
+                            "name": "app page labeled pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -1970,7 +2086,7 @@
                             "selector": "[data-title='Mobile'] >> span >> '4'"
                         },
                         {
-                            "name": "mobile labeled detail",
+                            "name": "mobile labeled pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2",
                             "viewport": {
@@ -2000,7 +2116,7 @@
                             "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.tab-content.branding.ng-scope > div > div > div > div.custom-domain.ng-scope.tab-pane.am-fade.active > div > div > div > div.host-block > span.bold.ng-binding { filter: blur(5px); }"
                         },
                         {
-                            "name": "custom-domain detail",
+                            "name": "custom domain pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2",
                             "viewport": {
@@ -2025,7 +2141,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "detail",
+                            "name": "pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
@@ -2059,7 +2175,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "email-templates new-email-template detail",
+                            "name": "email templates new email template dialog",
                             "type": "snap",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
@@ -2088,7 +2204,7 @@
             },
             "operations": [
                 {
-                    "name": "delete",
+                    "name": "app delete",
                     "loop": 2,
                     "steps": [
                         {
