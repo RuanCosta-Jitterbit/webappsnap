@@ -289,8 +289,10 @@ if (argv.debug) { config.debug = argv.debug; }
                                 break;
 
                             case "ask":
-                                var value = prompt('Enter Value: ');
-                                await loc.fill(String(value));
+                                var value = prompt('> ');
+                                if (value) {
+                                    await loc.fill(String(value));
+                                }
                                 break;
 
                             case "wait":
