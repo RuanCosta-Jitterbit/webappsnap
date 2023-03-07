@@ -1,0 +1,108 @@
+{
+    "pages": [
+        {
+            "comment": "Login via Harmony portal",
+            "title": "login",
+            "uid": "",
+            "url": "identity/login",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Close cookie consent",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Do not show this message again"
+                        },
+                        {
+                            "name": "Username",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Email address",
+                            "value": "LOGIN"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Password",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Password",
+                            "value": "PASSWORD"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "Jitterbit Harmony landing page, hover on EDI to show tile label",
+            "title": "config",
+            "uid": "",
+            "url": "identity/landing",
+            "viewport": {
+                "width": 1200,
+                "height": 530
+            },
+            "operations": [
+                {
+                    "comment": "Snap with and without Jitterbit menu",
+                    "name": "harmony tile",
+                    "steps": [
+                        {
+                            "name": "Close pendo",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Close']"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "EDI"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 500
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "title": "config",
+            "uid": "",
+            "url": "console/edi/admin",
+            "operations": [
+                {
+                    "name": "admin page",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
