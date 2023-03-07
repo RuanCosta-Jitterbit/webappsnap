@@ -137,25 +137,25 @@
                             "selector": "Create New App"
                         },
                         {
-                            "name": "create new from marketplace dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "from template",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "From Template"
-                        },
-                        {
                             "name": "create new from template dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
                         },
                         {
-                            "name": "from template",
+                            "name": "from file",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "From File"
+                        },
+                        {
+                            "name": "create new from file dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "div.modal-content.padding-0"
+                        },
+                        {
+                            "name": "from scratch",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "From Scratch"
@@ -368,7 +368,7 @@
         },
         {
             "skip": false,
-            "comment": "App edit - Overview page and devices",
+            "comment": "App edit - Overview page and panels",
             "title": "develop",
             "uid": "",
             "operations": [
@@ -397,16 +397,49 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(2)"
                         },
                         {
-                            "name": "api access and support pane",
+                            "name": "latest releases pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(4)"
+                        }
+                    ]
+                },
+                {
+                    "name": "overview api access and support",
+                    "steps": [
+                        {
+                            "name": "pane",
                             "type": "snap",
                             "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(3)"
                         },
                         {
-                            "name": "latest releases pane",
+                            "name": "authorize support team access",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Authorize Support Team Access"
+                        },
+                        {
+                            "name": "for dialog load",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "dialog",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(4)"
+                            "selector": "[class='modal-dialog']"
+                        },
+                        {
+                            "name": "accept authorize support team access",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Accept"
+                        },
+                        {
+                            "name": "for dialog load",
+                            "type": "wait",
+                            "value": 8000
                         }
                     ]
                 },
@@ -520,6 +553,11 @@
                             "selector": "Publish"
                         },
                         {
+                            "name": "for dialog",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
                             "name": "environment choose dialog",
                             "type": "snap",
                             "locator": "css",
@@ -587,7 +625,7 @@
                             "selector": "div.modal-content.padding-0"
                         },
                         {
-                            "name": "for verification code",
+                            "name": "Enter verification code (check email)",
                             "type": "ask",
                             "locator": "css",
                             "selector": "#verificationCode"
@@ -597,6 +635,11 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Verify"
+                        },
+                        {
+                            "name": "for verification",
+                            "type": "wait",
+                            "value": 2000
                         },
                         {
                             "name": "new account dialog",
@@ -661,7 +704,7 @@
                             "selector": "#field-form-body > div > ng-include:nth-child(2) > div.btn.btn-radius.btn-blue.btn-with-icon.ng-scope.ladda-button > span.ladda-label > span"
                         },
                         {
-                            "name": "for verification code",
+                            "name": "Enter verification code (check email)",
                             "type": "ask",
                             "locator": "css",
                             "selector": "#verificationCode"
@@ -671,6 +714,11 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Verify"
+                        },
+                        {
+                            "name": "for verification",
+                            "type": "wait",
+                            "value": 3000
                         },
                         {
                             "name": "existing account dialog",
@@ -713,9 +761,8 @@
                             "selector": "div.modal-content.padding-0"
                         },
                         {
-                            "name": "for publish to complete",
-                            "type": "wait",
-                            "value": 60000
+                            "name": "Press return when app is published (check email)",
+                            "type": "ask"
                         },
                         {
                             "name": "hide app url",
@@ -1160,10 +1207,6 @@
             "operations": [
                 {
                     "name": "application logic",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 780
-                    },
                     "steps": [
                         {
                             "name": "edit first app",
@@ -1411,13 +1454,18 @@
                             }
                         },
                         {
+                            "name": "Button group padding",
+                            "type": "style",
+                            "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div.col-sm-9 > div > div > ul { padding: 5px; }"
+                        },
+                        {
                             "name": "toolbar",
                             "type": "snap",
                             "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div.col-sm-9 > div > div > ul"
                         },
                         {
-                            "skip": false,
+                            "skip": true,
                             "name": "canvas",
                             "type": "snap",
                             "locator": "css",
@@ -1611,7 +1659,7 @@
                             "locator": "css",
                             "selector": "#UIflowEditorController > div.col-sm-3 > div",
                             "viewport": {
-                                "width": 1300,
+                                "width": 1200,
                                 "height": 1020
                             }
                         },
@@ -1638,8 +1686,11 @@
                             "name": "flow parameters dialog",
                             "type": "snap",
                             "locator": "getbyrole",
-                            "selector": "dialog"
-
+                            "selector": "dialog",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 300
+                            }
                         },
                         {
                             "comment": "close flow parameters dialog",
