@@ -19,6 +19,9 @@ if (argv.list) { // List page UIDs and exit
     return;
 }
 
+var vp = { width: config.img_width, height: config.img_height };
+const default_vp = vp;
+
 // Images save path
 var img_dir = path.join(config.img_dir, server_cfg.name);
 
@@ -56,7 +59,6 @@ if (argv.debug) { config.debug = argv.debug; }
     }
 
     // TODO User select browser type: chromium, firefox, webkit
-//    const browser = await chromium.launch({
     const browser = await chromium.launch({
         headless: config.headless,
         slowMo: config.slowmo
@@ -65,8 +67,8 @@ if (argv.debug) { config.debug = argv.debug; }
     var page = await browser.newPage({ ignoreHTTPSErrors: true });
     page.setDefaultTimeout(server_cfg.wait);
     util.viewport(page, {
-        width: config.img_width,
-        height: config.img_height
+        width: vp.width,
+        height: vp.height
     });
 
     /*************************************************************************************
@@ -79,7 +81,7 @@ if (argv.debug) { config.debug = argv.debug; }
      * Part 5: If operations/steps, process them sequentially
      */
 
-    // Can specify up to  custom page prefixes
+    // Can specify up to 6 custom page prefixes
     const server_url_prefixes = [
         server_cfg.a ? server_cfg.a : null,
         server_cfg.b ? server_cfg.b : null,
@@ -131,20 +133,12 @@ if (argv.debug) { config.debug = argv.debug; }
         }
         server_url = `${server_url}${option_string}`
 
-        // PART 2 - Viewport
-        // Default when none specified
-        const default_page_viewport = { width: config.img_width, height: config.img_height };
-        // Used to reset after loop
-        var page_viewport = default_page_viewport;
-        var operation_viewport = default_page_viewport;
-
         // PART 3 - Load URL
         await util.load(page, server_url, wait, true);
 
         if (pg.viewport) {
-//            console.log(`  Viewport ${pg.viewport.width}x${pg.viewport.height} for dashboard`);
-            await util.viewport(page, pg.viewport);
-            page_viewport = pg.viewport;
+            console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
+            vp = pg.viewport;
         }
 
         // TODO Reliable way of knowing when page has completed loading
@@ -200,9 +194,8 @@ if (argv.debug) { config.debug = argv.debug; }
 
                 // Viewport per operation
                 if (op.viewport) {
-//                    console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
-                    await util.viewport(page, op.viewport);
-                    operation_viewport = op.viewport;
+                    console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
+                    vp = op.viewport;
                 }
 
                 for (var s in op.steps) {
@@ -311,21 +304,12 @@ if (argv.debug) { config.debug = argv.debug; }
                             case "snap":
                                 // Viewport per step
                                 if (step.viewport) {
-//                                    console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
-                                    await util.viewport(page, step.viewport);
+                                    console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
+                                    vp = step.viewport;
                                 }
-                                // If selector defined, snap only it, otherwise snap page
-//                                console.log(`      Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
-                                //                                var selector = (step.selector) ? await page.waitForSelector(step.selector, { visible: true }) : page;
-//                                process.stdout.write("    "); // Indent log message in snap function
-
-                                //TODO add/remove border
-                                //                                await page.addStyleTag({ content: `${selector} { border-style: solid; }` });
+                                await util.viewport(page, vp);
+                                console.log(`      Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                                 await util.snap(loc, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
-                                //                                await page.addStyleTag({ content: `${selector} { border-style: none; }` });
-
-                                await util.viewport(page, operation_viewport); // Reset to operation viewport
-//                                console.log(`    Viewport reset to operation level: ${operation_viewport.width}x${operation_viewport.height}`);
                                 break;
 
                             default:
@@ -336,12 +320,14 @@ if (argv.debug) { config.debug = argv.debug; }
                         console.log(`Skipping: ${e}`);
                     }
                 } // for step
-//                console.log(`    Viewport reset to page level: ${page_viewport.width}x${page_viewport.height}`);
-                await util.viewport(page, page_viewport); // Reset to page viewport
+                vp = default_vp;
+                console.log(`    Viewport reset to default: ${vp.width}x${vp.height}`);
+                await util.viewport(page, vp); // Reset to default viewport
             }
         } // for operations
-//        console.log(`    Viewport reset to default: ${default_page_viewport.width}x${default_page_viewport.height}`);
-        await util.viewport(page, default_page_viewport); // Reset to default viewport
+        vp = default_vp;
+        console.log(`    Viewport reset to default: ${vp.width}x${vp.height}`);
+        await util.viewport(page, vp); // Reset to default viewport
     } // for pages
     await browser.close();
 })();

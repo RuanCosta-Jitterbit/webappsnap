@@ -48,7 +48,7 @@ async function snap(page, title = "", dir, full = false) {
     // Set up options for snap
     var options = {};
     options.path = filepath;
-    options.scale = 'css';
+//    options.scale = 'css';
 //    options.animations = 'disabled';
     if (config.img_ext == '.jpg') {
         options.type = 'jpeg';

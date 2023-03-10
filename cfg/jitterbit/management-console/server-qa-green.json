@@ -1,13 +1,13 @@
 {
-  "name": "EDI-QAGreen",
-  "server": "https://qa-green.jitterbit.com",
-  "a": "edi",
+  "name": "MC-QAGreen",
+  "server": "https://apps.qa-green.jitterbit.com",
+  "a": "",
   "b": "",
   "c": "",
   "d": "",
   "e": "",
   "f": "",
-  "wait": 20000,
+  "wait": 5000,
   "pause": 1500,
   "login_filename": ".login-qag",
   "password_filename": ".password-qag"

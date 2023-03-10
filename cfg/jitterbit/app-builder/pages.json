@@ -137,6 +137,11 @@
                             "selector": "Create New App"
                         },
                         {
+                            "name": "for template previews",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
                             "name": "create new from template dialog",
                             "type": "snap",
                             "locator": "css",
@@ -414,7 +419,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(3)"
                         },
                         {
-                            "name": "authorize support team access",
+                            "name": "authorize",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Authorize Support Team Access"
@@ -428,10 +433,10 @@
                             "name": "dialog",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='modal-dialog']"
+                            "selector": "[class='modal-content']"
                         },
                         {
-                            "name": "accept authorize support team access",
+                            "name": "accept",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Accept"
@@ -440,6 +445,35 @@
                             "name": "for dialog load",
                             "type": "wait",
                             "value": 8000
+                        },
+                        {
+                            "name": "blur",
+                            "type": "style",
+                            "value": "#generalController > div > div > div > div.modal-body.view-form > div:nth-child(2) > div > div { filter: blur(3px); }"
+                        },
+                        {
+                            "name": "ready",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='modal-content']"
+                        },
+                        {
+                            "name": "ok",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "OK"
+                        },
+                        {
+                            "name": "authorized pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(3)"
+                        },
+                        {
+                            "name": "disable authorize",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Authorize Support Team Access"
                         }
                     ]
                 },
@@ -450,41 +484,25 @@
                             "name": "preview wide",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons > button.btn.btn-radius.btn-blue.btn-preview.ng-scope.ladda-button",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 800
-                            }
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons > button.btn.btn-radius.btn-blue.btn-preview.ng-scope.ladda-button"
                         },
                         {
                             "name": "publish wide",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons > button.btn.btn-radius.btn-blue.btn-publish.ng-scope.ladda-button",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 800
-                            }
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons > button.btn.btn-radius.btn-blue.btn-publish.ng-scope.ladda-button"
                         },
                         {
                             "name": "menu wide",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 800
-                            }
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include"
                         },
                         {
                             "name": "menu-open-close left",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 800
-                            }
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen"
                         },
                         {
                             "name": "preview narrow",
@@ -493,7 +511,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons > button.btn.btn-radius.btn-blue.btn-preview.ng-scope.ladda-button",
                             "viewport": {
                                 "width": 1199,
-                                "height": 800
+                                "height": 900
                             }
                         },
                         {
@@ -503,7 +521,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons > button.btn.btn-radius.btn-blue.btn-publish.ng-scope.ladda-button",
                             "viewport": {
                                 "width": 1199,
-                                "height": 800
+                                "height": 900
                             }
                         },
                         {
@@ -513,7 +531,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > ng-include",
                             "viewport": {
                                 "width": 1199,
-                                "height": 800
+                                "height": 900
                             }
                         },
                         {
@@ -523,7 +541,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.submenu-togle.btn.btn-radius.btn-gray.backopen",
                             "viewport": {
                                 "width": 1199,
-                                "height": 800
+                                "height": 900
                             }
                         }
                     ]
@@ -531,7 +549,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App edit - Publish (First time - Unknown admin)",
             "title": "develop",
             "uid": "",
@@ -1659,8 +1677,8 @@
                             "locator": "css",
                             "selector": "#UIflowEditorController > div.col-sm-3 > div",
                             "viewport": {
-                                "width": 1200,
-                                "height": 1020
+                                "width": 1300,
+                                "height": 1040
                             }
                         },
                         {
@@ -1670,7 +1688,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div:nth-child(1) > div.col-sm-9 > div > div > ul"
                         },
                         {
-                            "skip": false,
+                            "skip": true,
                             "name": "canvas",
                             "type": "snap",
                             "locator": "css",
@@ -1697,14 +1715,14 @@
                             "name": "cancel",
                             "type": "click",
                             "locator": "css",
-                            "selector": "button >> 'Cancel' >> nth=0"
+                            "selector": "#UIflowEditorController > div.modal-header > div > div > ul > li:nth-child(1) > button"
                         },
                         {
                             "comment": "close flow editor - sometimes cancels without confirmation",
                             "name": "cancel UI flow",
                             "type": "click",
                             "locator": "css",
-                            "selector": "button >> 'Cancel' >> nth=0"
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div:nth-child(1) > div.col-sm-9 > div > div > ul > li:nth-child(1) > button"
                         },
                         {
                             "name": "for dialog",
@@ -1757,11 +1775,8 @@
                         {
                             "name": "select general page",
                             "type": "click",
+                            "locator": "css",
                             "selector": "a >> span >> 'General'"
-                        },
-                        {
-                            "name": "",
-                            "type": "snap"
                         },
                         {
                             "name": "Panel padding",
@@ -1771,6 +1786,7 @@
                         {
                             "name": "smtp pane",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > form.ng-pristine.ng-scope.ng-invalid.ng-invalid-required.ng-valid-min"
                         },
                         {
@@ -1781,12 +1797,12 @@
                         {
                             "name": "google maps api key pane",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > form.ng-pristine.ng-valid.ng-scope"
                         }
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Parameters",
                     "name": "configuration",
                     "viewport": {
                         "width": 1200,
@@ -1796,16 +1812,19 @@
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'Parameters'"
+                            "locator": "getbytext",
+                            "selector": "Parameters"
                         },
                         {
                             "name": "parameters table",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new parameter",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'New Parameter'"
                         },
                         {
@@ -1814,12 +1833,9 @@
                             "value": 2000
                         },
                         {
-                            "name": "parameters parameter",
-                            "type": "snap"
-                        },
-                        {
                             "name": "parameters parameter dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1829,6 +1845,7 @@
                         {
                             "name": "Cancel new parameter",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel'"
                         },
                         {
@@ -1839,22 +1856,24 @@
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Menus",
                     "name": "configuration menus",
                     "steps": [
                         {
                             "name": "open menu",
                             "type": "click",
+                            "locator": "css",
                             "selector": "a >> span >> 'Menus'"
                         },
                         {
                             "name": "detail",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "name": "new menu",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'New Menu'"
                         },
                         {
@@ -1865,6 +1884,7 @@
                         {
                             "name": "new menu dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1874,6 +1894,7 @@
                         {
                             "name": "Cancel new menu",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel'"
                         },
                         {
@@ -1884,17 +1905,18 @@
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > User Guides",
-                    "name": "configuration",
+                    "name": "configuration user-guides",
                     "steps": [
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'User Guides'"
+                            "locator": "getbytext",
+                            "selector": "User Guides"
                         },
                         {
-                            "name": "user-guides table",
+                            "name": "table",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
@@ -1905,6 +1927,7 @@
                         {
                             "name": "new introduction",
                             "type": "click",
+                            "locator": "css",
                             "selector": "div.content-in2 >> li> button >> 'New Introduction'"
                         },
                         {
@@ -1913,8 +1936,9 @@
                             "value": 10000
                         },
                         {
-                            "name": "user guides new module introduction dialog",
+                            "name": "new module introduction dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1924,11 +1948,13 @@
                         {
                             "name": "Cancel new module introduction",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel'"
                         },
                         {
                             "name": "new help page",
                             "type": "click",
+                            "locator": "css",
                             "selector": "div.content-in2 >> button >> 'New Help Page'"
                         },
                         {
@@ -1937,8 +1963,9 @@
                             "value": 2000
                         },
                         {
-                            "name": "user guides new help page dialog",
+                            "name": "new help page dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right",
                             "viewport": {
                                 "width": 1200,
@@ -1948,6 +1975,7 @@
                         {
                             "name": "Cancel new help page",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel'"
                         },
                         {
@@ -1958,45 +1986,47 @@
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Localizations",
-                    "name": "configuration",
+                    "name": "configuration localizations",
                     "steps": [
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'Localizations'"
+                            "locator": "getbytext",
+                            "selector": "Localizations"
                         },
                         {
-                            "name": "localizations table",
+                            "name": "table",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Globalization",
-                    "name": "configuration",
+                    "name": "configuration globalization",
                     "steps": [
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'Globalization'"
+                            "locator": "getbytext",
+                            "selector": "Globalization"
                         },
                         {
-                            "name": "globalization table",
+                            "name": "table",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         }
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Branding",
                     "name": "configuration branding",
                     "steps": [
                         {
                             "name": "open menu",
                             "type": "click",
-                            "selector": "a >> span >> 'Branding'"
+                            "locator": "getbytext",
+                            "selector": "Branding"
                         },
                         {
                             "name": "for branding page load",
@@ -2004,8 +2034,7 @@
                             "value": 5000
                         },
                         {
-                            "skip": false,
-                            "comment": "################################################### CONFIGURATION > Branding > Public Page",
+                            "skip": true,
                             "name": "public page",
                             "type": "snap"
                         },
@@ -2017,46 +2046,55 @@
                         {
                             "name": "show tooltip 1",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '1'"
                         },
                         {
                             "name": "show tooltip 2",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '2'"
                         },
                         {
                             "name": "show tooltip 3",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '3'"
                         },
                         {
                             "name": "show tooltip 4",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '4'"
                         },
                         {
                             "name": "show tooltip 5",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '5'"
                         },
                         {
                             "name": "show tooltip 6",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '6'"
                         },
                         {
                             "name": "show tooltip 7",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Public Page'] >> span >> '7'"
                         },
                         {
                             "name": "show tooltip 8",
                             "type": "move",
+                            "locator": "css",
                             "selector": "span >> '8'"
                         },
                         {
                             "name": "public page tab labeled",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
@@ -2068,6 +2106,7 @@
                             "comment": "################################################### CONFIGURATION > Branding > App Page",
                             "name": "select app page tab",
                             "type": "click",
+                            "locator": "css",
                             "selector": "li >> 'App Page'"
                         },
                         {
@@ -2083,32 +2122,38 @@
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='App Page'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='App Page'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='App Page'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='App Page'] >> span >> '4'"
                         },
                         {
                             "name": "app page labeled pane",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
                             "comment": "################################################### CONFIGURATION > Branding > Mobile",
                             "name": "mobile tab",
                             "type": "click",
+                            "locator": "css",
                             "selector": "li >> 'Mobile'"
                         },
                         {
@@ -2119,27 +2164,32 @@
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Mobile'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Mobile'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Mobile'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
+                            "locator": "css",
                             "selector": "[data-title='Mobile'] >> span >> '4'"
                         },
                         {
                             "name": "mobile labeled pane",
                             "type": "snap",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2",
+                            "locator": "css",
                             "viewport": {
                                 "width": 1200,
                                 "height": 900
@@ -2154,6 +2204,7 @@
                             "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
                             "name": "Open app page tab",
                             "type": "click",
+                            "locator": "css",
                             "selector": "li >> 'Custom Domain'"
                         },
                         {
@@ -2164,11 +2215,13 @@
                         {
                             "name": "blur",
                             "type": "style",
+                            "locator": "css",
                             "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.tab-content.branding.ng-scope > div > div > div > div.custom-domain.ng-scope.tab-pane.am-fade.active > div > div > div > div.host-block > span.bold.ng-binding { filter: blur(5px); }"
                         },
                         {
                             "name": "custom domain pane",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2",
                             "viewport": {
                                 "width": 1200,
@@ -2178,13 +2231,13 @@
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Identity",
                     "name": "configuration identity",
                     "steps": [
                         {
                             "name": "Identity",
                             "type": "click",
-                            "selector": "a >> span >> 'Identity'"
+                            "locator": "getbytext",
+                            "selector": "Identity"
                         },
                         {
                             "name": "for load",
@@ -2194,10 +2247,8 @@
                         {
                             "name": "pane",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
-                        },
-                        {
-                            "comment": "TODO open and snap Okta config"
                         }
                     ]
                 },
@@ -2208,7 +2259,8 @@
                         {
                             "name": "Email templates",
                             "type": "click",
-                            "selector": "a >> span >> 'Email Templates'"
+                            "locator": "getbytext",
+                            "selector": "Email Templates"
                         },
                         {
                             "name": "for email templates to load",
@@ -2218,6 +2270,7 @@
                         {
                             "name": "New email template",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'New Email Template'"
                         },
                         {
@@ -2228,11 +2281,13 @@
                         {
                             "name": "email templates new email template dialog",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
                         {
                             "name": "cancel new email template",
                             "type": "click",
+                            "locator": "css",
                             "selector": "button >> 'Cancel'"
                         },
                         {
