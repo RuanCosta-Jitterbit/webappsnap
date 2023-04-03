@@ -28,15 +28,17 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-# SNAP_DEFAULTS_FILE=./cfg/jitterbit/edi/defaults.json
+SNAP_DEFAULTS_FILE=./cfg/jitterbit/edi/defaults.json
 # SNAP_DEFAULTS_FILE=./cfg/jitterbit/app-builder/defaults.json
-SNAP_DEFAULTS_FILE=./cfg/jitterbit/management-console/defaults.json
+# SNAP_DEFAULTS_FILE=./cfg/jitterbit/app-builder-app/defaults.json
+# SNAP_DEFAULTS_FILE=./cfg/jitterbit/management-console/defaults.json
 
 ## Server config file.
 # Default: 'config_file' in defaults file
 # SNAP_SRV_CFG_FILE=./cfg/server-test.json
-# SNAP_SRV_CFG_FILE=./cfg/jitterbit/edi/server-qa-green.json
-SNAP_SRV_CFG_FILE=./cfg/jitterbit/management-console/server-qa-green.json
+SNAP_SRV_CFG_FILE=./cfg/jitterbit/edi/server-qa-green.json
+# SNAP_SRV_CFG_FILE=./cfg/jitterbit/app-builder-app/blankapp.json
+# SNAP_SRV_CFG_FILE=./cfg/jitterbit/management-console/server-qa-green.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
@@ -45,7 +47,7 @@ SNAP_SRV_CFG_FILE=./cfg/jitterbit/management-console/server-qa-green.json
 ## Image base directory.
 # Default: 'img_dir' in defaults file
 # Note: Within this directory, images are saved to a directory named <server config 'name' field>.
-SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
+# SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -63,7 +65,7 @@ SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
- SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file
@@ -79,7 +81,7 @@ SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Headless mode. Whether to hide browser while snapping.
 # Default: 'headless' in defaults file
-# SNAP_HEADLESS=false
+SNAP_HEADLESS=false
 
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode

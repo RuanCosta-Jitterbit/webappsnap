@@ -4,7 +4,7 @@
             "comment": "Login via Harmony portal",
             "title": "login",
             "uid": "",
-            "url": "identity/login",
+            "url": "",
             "operations": [
                 {
                     "name": "",
@@ -50,13 +50,9 @@
         {
             "skip": false,
             "comment": "Jitterbit Harmony landing page, hover on EDI to show tile label",
-            "title": "config",
+            "title": "",
             "uid": "",
             "url": "identity/landing",
-            "viewport": {
-                "width": 1200,
-                "height": 530
-            },
             "operations": [
                 {
                     "comment": "Snap with and without Jitterbit menu",
@@ -94,10 +90,58 @@
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "name": "admin page",
+                    "name": "admin",
                     "steps": [
                         {
                             "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "environment",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='environment-selector']"
+                        },
+                        {
+                            "name": "add new",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='addTradingPartner']"
+                        },
+                        {
+                            "name": "for partners load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "add trading partner",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "add partner",
+                            "type": "dblclick",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(1)"
+                        },
+                        {
+                            "name": "for partner add",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "close panel",
+                            "type": "click",
+                            "locator":"css",
+                            "selector":"[class='icon-close']"
+                        },
+                        {
+                            "name": "select first partner",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "added trading partner",
                             "type": "snap"
                         }
                     ]

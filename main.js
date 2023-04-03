@@ -127,9 +127,10 @@ if (argv.debug) { config.debug = argv.debug; }
                     server_cfg.server
                     // filter as not all prefixes may be set
                     , server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join(path.sep)
-                    , pg.uid
-                ]
-                    .join(path.sep);
+                ].join(path.sep);
+                 if (pg.uid) {
+                    server_url = [server_url, pg.uid].join(path.sep);
+                 }
         }
         server_url = `${server_url}${option_string}`
 
@@ -243,6 +244,10 @@ if (argv.debug) { config.debug = argv.debug; }
                             // User Input
                             case "click":
                                 await loc.click();
+                                break;
+
+                            case "dblclick":
+                                await loc.dblclick();
                                 break;
 
                             case "text":

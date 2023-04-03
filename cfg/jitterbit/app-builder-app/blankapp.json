@@ -1,14 +1,14 @@
 {
-  "name": "EDI-QAGreen",
-  "server": "https://apps.qa-green.jitterbit.com",
-  "a": "edi",
+  "name": "AppBuilderApp",
+  "server": "https://blankapp.apps.qa-green.lcap.jitterbit.com",
+  "a": "",
   "b": "",
   "c": "",
   "d": "",
   "e": "",
   "f": "",
   "wait": 20000,
-  "pause": 1500,
+  "pause": 500,
   "login_filename": ".login-qag",
   "password_filename": ".password-qag"
 }

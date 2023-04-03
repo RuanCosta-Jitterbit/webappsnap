@@ -1,0 +1,16 @@
+{
+    "config_file": "./cfg/jitterbit/app-builder-app/app.json",
+    "pages_file": "./cfg/jitterbit/app-builder-app/pages.json",
+    "img_dir": "./images",
+    "img_seq": false,
+    "img_pfx": "app-builder-app",
+    "img_ext": ".png",
+    "img_filename_sep": "-",
+    "img_width": 992,
+    "img_height": 620,
+    "jpg_quality": 75,
+    "headless": true,
+    "slowmo": 0,
+    "debug": false,
+    "randlen": 6
+}
