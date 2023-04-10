@@ -84,7 +84,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "title": "config",
             "uid": "",
             "url": "console/edi/admin",
@@ -131,8 +131,8 @@
                         {
                             "name": "close panel",
                             "type": "click",
-                            "locator":"css",
-                            "selector":"[class='icon-close']"
+                            "locator": "css",
+                            "selector": "[class='icon-close']"
                         },
                         {
                             "name": "select first partner",
@@ -142,6 +142,132 @@
                         },
                         {
                             "name": "added trading partner",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "title": "config",
+            "uid": "",
+            "url": "console/edi/admin",
+            "operations": [
+                {
+                    "name": "admin workflow",
+                    "steps": [
+                        {
+                            "name": "select first partner",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "add new workflow",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Add New Workflow"
+                        },
+                        {
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "add new",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Cancel"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin archive settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Archive settings"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin manage pii",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Manage PII"
+                        },
+                        {
+                            "name": "delete documents",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Purge documents"
+                        },
+                        {
+                            "name": "purge documents",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin edi settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "EDI settings"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin communication settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Communication settings"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "title": "config",
+            "uid": "",
+            "url": "console/edi/transactions",
+            "operations": [
+                {
+                    "name": "transactions",
+                    "steps": [
+                        {
+                            "name": "",
                             "type": "snap"
                         }
                     ]

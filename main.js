@@ -302,6 +302,11 @@ if (argv.debug) { config.debug = argv.debug; }
                                 break;
 
                             // Actions
+                            case "edit":
+                                const v = String(step.value);
+                                await loc.evaluate((node, v) => node.innerText = v, v);
+                                break;
+
                             case "style":
                                 await page.addStyleTag({ content: step.value });
                                 break;

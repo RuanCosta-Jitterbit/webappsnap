@@ -42,13 +42,18 @@
                             "value": [
                                 "Enter"
                             ]
+                        },
+                        {
+                            "name": "for login",
+                            "type": "wait",
+                            "value": 10000
                         }
                     ]
                 }
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Jitterbit Harmony landing page, hover on App Builder to show tile label",
             "title": "develop",
             "uid": "",
@@ -93,7 +98,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Apps page - Empty, common menu",
             "title": "develop",
             "uid": "",
@@ -166,9 +171,17 @@
                             "selector": "From Scratch"
                         },
                         {
+                            "skip": true,
                             "name": "blur subdomain",
                             "type": "style",
                             "value": "#subdomaintwo > span { filter: blur(5px); }"
+                        },
+                        {
+                            "name": "edit subdomain",
+                            "type":"edit",
+                            "locator": "css",
+                            "selector": "#subdomaintwo > span",
+                            "value": ".apps.example.com"
                         },
                         {
                             "name": "create new from scratch dialog",
@@ -187,7 +200,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Apps page - Create new from scratch (Loop)",
             "title": "develop",
             "uid": "",
@@ -299,7 +312,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Apps page - Show only released apps",
             "title": "develop",
             "uid": "",
@@ -332,7 +345,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Apps page - App management menu",
             "title": "develop",
             "uid": "",
@@ -406,6 +419,32 @@
                             "type": "snap",
                             "locator": "css",
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(4)"
+                        },
+                        {
+                            "name": "release history",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Release History"
+                        },
+                        {
+                            "name": "for pane load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "edit",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "#releaseHistoryGrid > table > tbody > tr > td.text-left > span > div > div.user-text > h2",
+                            "value": "huh@example.com"
+                        },
+                        {
+                            "name": "TEST",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "quit",
+                            "type": "quit"
                         }
                     ]
                 },
@@ -674,7 +713,7 @@
                     ]
                 },
                 {
-                    "skip": false,
+                    "skip": true,
                     "comment": "###### PUBLISH (FIRST TIME - EXISTING ADMIN)",
                     "name": "publish",
                     "steps": [
@@ -802,7 +841,7 @@
                     ]
                 },
                 {
-                    "skip": false,
+                    "skip": true,
                     "comment": "##### PUBLISH (SECOND TIME - KNOWN ADMIN)",
                     "name": "publish",
                     "steps": [
@@ -848,7 +887,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App Edit - Domain model > Modules",
             "title": "develop",
             "uid": "",
@@ -996,7 +1035,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App Edit - Domain model > Relations",
             "title": "develop",
             "uid": "",
@@ -1064,7 +1103,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App edit - Domain model > Dropdowns",
             "title": "develop",
             "uid": "",
@@ -1150,7 +1189,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App Edit - Domain Model > Dependencies",
             "title": "develop",
             "uid": "",
@@ -1218,7 +1257,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App edit - Application Logic > Microflows",
             "title": "develop",
             "uid": "",
@@ -1546,7 +1585,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "App edit - Application Logic > UI Flows",
             "title": "develop",
             "uid": "",
@@ -2254,7 +2293,7 @@
                 },
                 {
                     "comment": "################################################### CONFIGURATION > Email Templates",
-                    "name": "configuration",
+                    "name": "configuration email templates",
                     "steps": [
                         {
                             "name": "Email templates",
@@ -2268,39 +2307,36 @@
                             "value": 5000
                         },
                         {
-                            "name": "New email template",
+                            "name": "pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
+                        },
+                        {
+                            "name": "select first template",
                             "type": "click",
                             "locator": "css",
-                            "selector": "button >> 'New Email Template'"
+                            "selector": "#kendo-grid > table > tbody > tr:nth-child(1)"
                         },
                         {
-                            "name": "for new email template to open",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "name": "email templates new email template dialog",
+                            "name": "update template",
                             "type": "snap",
                             "locator": "css",
                             "selector": "body > div.modal.setup-modal.modal-600.ng-scope.top.am-fade-and-slide-right"
                         },
                         {
-                            "name": "cancel new email template",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "button >> 'Cancel'"
-                        },
-                        {
-                            "name": "for cancel new email template",
-                            "type": "wait",
-                            "value": 5000
+                            "name": "close dialog",
+                            "type": "press",
+                            "value": [
+                                "Escape"
+                            ]
                         }
                     ]
                 }
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Delete app(s)",
             "title": "develop",
             "uid": "",

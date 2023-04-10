@@ -42,7 +42,7 @@ SNAP_SRV_CFG_FILE=./cfg/jitterbit/edi/server-qa-green.json
 ## Image base directory.
 # Default: 'img_dir' in defaults file
 # Note: Within this directory, images are saved to a directory named <server config 'name' field>.
-# SNAP_IMG_DIR="images/$(date +%Y%m%d)/$(date +%H%M)/"
+SNAP_IMG_DIR="images/EDI/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -60,7 +60,7 @@ SNAP_SRV_CFG_FILE=./cfg/jitterbit/edi/server-qa-green.json
 
 ## Add zero-padded 3-digit snap sequence number prefix to image filename.
 # Default: 'img_seq' in defaults file
-# SNAP_IMG_SEQ=true
+SNAP_IMG_SEQ=true
 
 ## Secondary image filename prefix.
 # Default: 'img_pfx' in defaults file
