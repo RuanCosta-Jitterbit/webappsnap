@@ -128,9 +128,9 @@ if (argv.debug) { config.debug = argv.debug; }
                     // filter as not all prefixes may be set
                     , server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join(path.sep)
                 ].join(path.sep);
-                 if (pg.uid) {
-                    server_url = [server_url, pg.uid].join(path.sep);
-                 }
+            if (pg.uid) {
+                server_url = [server_url, pg.uid].join(path.sep);
+            }
         }
         server_url = `${server_url}${option_string}`
 
@@ -191,7 +191,7 @@ if (argv.debug) { config.debug = argv.debug; }
             if (loop > 1) { console.log(`    Operation loop count: ${loop}`); }
 
             for (let n = 0; n < loop; n++) {
-                console.log(`    Operation loop: ${n+1} of ${loop}`);
+                console.log(`    Operation loop: ${n + 1} of ${loop}`);
 
                 // Viewport per operation
                 if (op.viewport) {
@@ -207,7 +207,6 @@ if (argv.debug) { config.debug = argv.debug; }
                         console.log("      SKIPPED");
                         continue;
                     }
-
                     // Use locators of various types.
                     // https://playwright.dev/docs/locators
                     var loc;
@@ -222,7 +221,13 @@ if (argv.debug) { config.debug = argv.debug; }
                             loc = page.getByPlaceholder(step.selector);
                             break;
                         case "getbytext":
-                            loc = page.getByText(step.selector, { exact: true }).first(); // Usually
+                            //                            loc = page.getByText(step.selector, { exact: true }).first(); // Usually
+                            var options = { exact: true };
+                            if (step.options) {
+                                options = step.options;
+                            }
+
+                            loc = page.getByText(step.selector, options).first(); // Usually
                             break;
                         case "getbyrole":
                             loc = page.getByRole(step.selector);
@@ -260,14 +265,14 @@ if (argv.debug) { config.debug = argv.debug; }
                                 if (value == "PASSWORD") {
                                     value = fs.readFileSync(server_cfg.password_filename, 'utf8');
                                 }
-//                                console.log(`      Value: ${value}`);
+                                //                                console.log(`      Value: ${value}`);
                                 await loc.fill(String(value));
                                 break;
 
                             case "press":
                                 for (var k in step.value) {
                                     var key = String(step.value[k]);
-//                                    console.log(`      Pressing: ${key}`);
+                                    //                                    console.log(`      Pressing: ${key}`);
                                     await page.press('body', key);
                                     await page.waitForTimeout(server_cfg.pause);
                                 }
