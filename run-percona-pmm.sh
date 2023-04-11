@@ -28,20 +28,20 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/jitterbit/app-builder/defaults.json
+SNAP_DEFAULTS_FILE=./cfg/percona/pmm/defaults.json
 
 ## Server config file.
 # Default: 'config_file' in defaults file
-SNAP_SRV_CFG_FILE=./cfg/jitterbit/app-builder/server-qa-green.json
+# SNAP_SRV_CFG_FILE=./cfg/server-test.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
-SNAP_PAGES_FILE=./cfg/jitterbit/app-builder/pages.json
+# SNAP_PAGES_FILE=
 
 ## Image base directory.
 # Default: 'img_dir' in defaults file
 # Note: Within this directory, images are saved to a directory named <server config 'name' field>.
-SNAP_IMG_DIR="images/AppBuilder/$(date +%Y%m%d)/$(date +%H%M)/"
+SNAP_IMG_DIR="images/PMM/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file
@@ -75,7 +75,7 @@ SNAP_IMG_SEQ=true
 
 ## Headless mode. Whether to hide browser while snapping.
 # Default: 'headless' in defaults file
-# SNAP_HEADLESS=false
+SNAP_HEADLESS=false
 
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode

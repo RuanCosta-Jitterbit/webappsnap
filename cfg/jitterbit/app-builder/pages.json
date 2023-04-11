@@ -343,6 +343,13 @@
                     "name": "apps page",
                     "steps": [
                         {
+                            "name": "edit first app's name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div:nth-child(1) > div > div > div.apptext.text-center > div > h3",
+                            "value": "My App X"
+                        },
+                        {
                             "name": "hover to open app controls",
                             "type": "move",
                             "locator": "css",
@@ -547,7 +554,7 @@
                             "selector": "#field-form-body > div > ng-include:nth-child(2) > div.btn.btn-radius.btn-blue.btn-with-icon.ng-scope.ladda-button > span.ladda-label > span"
                         },
                         {
-                            "name": "Enter verification code (check email)",
+                            "name": "Enter verification code sent by email",
                             "type": "ask",
                             "locator": "css",
                             "selector": "#verificationCode"
@@ -612,7 +619,7 @@
                             "selector": "div.modal-content.padding-0"
                         },
                         {
-                            "name": "Press return when app is published (check email)",
+                            "name": "Press return when Account Activation email received",
                             "type": "ask"
                         },
                         {
@@ -698,6 +705,13 @@
                     "name": "apps page",
                     "steps": [
                         {
+                            "name": "edit first app's name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div:nth-child(1) > div > div > div.apptext.text-center > div > h3",
+                            "value": "My App X"
+                        },
+                        {
                             "name": "show only released off",
                             "type": "snap"
                         },
@@ -742,6 +756,20 @@
                             "value": 5000
                         },
                         {
+                            "name": "edit app name - banner",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > h2 > span",
+                            "value": "My App X"
+                        },
+                        {
+                            "name": "edit app name - Client ID",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div.row.ng-scope > div:nth-child(3) > div > div > div:nth-child(1) > div > input",
+                            "value": "my-app-x"
+                        },
+                        {
                             "name": "",
                             "type": "snap"
                         },
@@ -774,7 +802,7 @@
                             "type": "edit",
                             "locator": "css",
                             "selector": "#releaseHistoryGrid > table > tbody > tr:nth-child(1) > td.text-left > span > div > div.user-text > h2",
-                            "value": "bob@jbexample.com"
+                            "value": "user@jbexample.com"
                         },
                         {
                             "comment": "hide second in list",
@@ -782,11 +810,13 @@
                             "type": "edit",
                             "locator": "css",
                             "selector": "#releaseHistoryGrid > table > tbody > tr:nth-child(2) > td.text-left > span > div > div.user-text > h2",
-                            "value": "eve@jbexample.com"
+                            "value": "user@jbexample.com"
                         },
                         {
-                            "name": "release history",
-                            "type": "snap"
+                            "name": "release history dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > div.modal.setup-modal.modal-700.ng-scope.top.am-fade-and-slide-right"
                         },
                         {
                             "name": "close",
@@ -868,6 +898,11 @@
                 {
                     "name": "global controls",
                     "steps": [
+                        {
+                            "name": "add padding",
+                            "type":"style",
+                            "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.menu-buttons { padding: 5px; }"
+                        }
                         {
                             "name": "preview wide",
                             "type": "snap",
@@ -983,6 +1018,13 @@
                             "name": "for menu to open",
                             "type": "wait",
                             "value": 2000
+                        },
+                        {
+                            "name": "edit app name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > h2 > span",
+                            "value": "My App X"
                         },
                         {
                             "name": "modules",
@@ -1771,6 +1813,11 @@
                             }
                         },
                         {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2 > div > div:nth-child(1) > div.col-sm-9 > div > div > ul { padding: 5px; }"
+                        }
+                        {
                             "name": "toolbar",
                             "type": "snap",
                             "locator": "css",
@@ -2131,6 +2178,11 @@
                             "name": "Alter tooltip fadeout time",
                             "type": "style",
                             "value": ".am-fade {-webkit-animation-duration: 60.0s; animation-duration: 60.0s; }"
+                        },
+                        {
+                            "name": "Disable animation",
+                            "type": "style",
+                            "value": ".primeapps .b_loginpage span:after { animation: null; }"
                         },
                         {
                             "name": "show tooltip 1",

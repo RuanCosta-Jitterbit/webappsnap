@@ -273,6 +273,23 @@
                     ]
                 }
             ]
+        },
+        {
+            "skip": false,
+            "title": "config",
+            "uid": "",
+            "url": "console/edi/messaging",
+            "operations": [
+                {
+                    "name": "transactions",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
