@@ -78,6 +78,31 @@
                         {
                             "name": "",
                             "type": "snap"
+                        },
+                        {
+                            "name": "open portal menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "open edi menu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(7)"
+                        },
+                        {
+                            "comment": "must snap main and submenu items separately - they are not contained by a parent element",
+                            "name": "menu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "name": "submenu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(7) > ul"
                         }
                     ]
                 }
@@ -259,12 +284,99 @@
         },
         {
             "skip": false,
-            "title": "config",
+            "title": "bau",
             "uid": "",
             "url": "console/edi/transactions",
+            "viewport": {
+                "width": 1080,
+                "height": 840
+            },
             "operations": [
                 {
                     "name": "transactions",
+                    "steps": [
+                        {
+                            "name": "clear filters",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Clear All"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 15px; }"
+                        },
+                        {
+                            "name": "filter pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='filter-pane-container']"
+                        },
+                        {
+                            "name": "remove padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 0px; }"
+                        },
+                        {
+                            "name": "transactions pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='transaction-table-container']",
+                            "viewport": {
+                                "comment": "temporarily shrink window to truncate white space in element",
+                                "width": 755,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "page controls",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div:nth-child(2) > mat-paginator > div",
+                            "viewport": {
+                                "comment": "temporarily shrink window to truncate white space in element",
+                                "width": 755,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "search",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div.transaction-table-container-filters.ng-tns-c180-0 > div:nth-child(1)",
+                            "viewport": {
+                                "comment": "temporarily shrink window to truncate white space in element",
+                                "width": 901,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "actions",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div.transaction-table-container-filters.ng-tns-c180-0 > div.transaction-table-container-header.ng-tns-c180-0",
+                            "viewport": {
+                                "comment": "temporarily shrink window to truncate white space in element",
+                                "width": 620,
+                                "height": 900
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "title": "bau",
+            "uid": "",
+            "url": "console/edi/messaging",
+            "operations": [
+                {
+                    "name": "messaging",
                     "steps": [
                         {
                             "name": "",
@@ -275,13 +387,13 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "title": "config",
             "uid": "",
-            "url": "console/edi/messaging",
+            "url": "console/edi/archive",
             "operations": [
                 {
-                    "name": "transactions",
+                    "name": "archive",
                     "steps": [
                         {
                             "name": "",
