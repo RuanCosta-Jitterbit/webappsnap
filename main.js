@@ -326,7 +326,9 @@ if (argv.debug) { config.debug = argv.debug; }
                                     console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
                                     await util.viewport(page, step.viewport);
                                 }
-                                await util.snap(loc, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
+                                var fn = [pg.title, op.name, step.name].filter(String).join(config.img_filename_sep);
+                                if (op.loop) { [fn, n].join(config.img_filename_sep); }
+                                await util.snap(loc, fn, img_dir);
                                 break;
 
                             default:
