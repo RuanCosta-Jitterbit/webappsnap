@@ -19,8 +19,8 @@ if (argv.list) { // List page UIDs and exit
     return;
 }
 
-var vp = { width: config.img_width, height: config.img_height };
-const default_vp = vp;
+// Default viewport from defaults.json
+const default_vp = { width: config.img_width, height: config.img_height };
 
 // Images save path
 var img_dir = path.join(config.img_dir, server_cfg.name);
@@ -67,8 +67,8 @@ if (argv.debug) { config.debug = argv.debug; }
     var page = await browser.newPage({ ignoreHTTPSErrors: true });
     page.setDefaultTimeout(server_cfg.wait);
     util.viewport(page, {
-        width: vp.width,
-        height: vp.height
+        width: default_vp.width,
+        height: default_vp.height
     });
 
     /*************************************************************************************
@@ -137,14 +137,15 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 3 - Load URL
         await util.load(page, server_url, wait, true);
 
+        // Set per-page viewport, if any
         if (pg.viewport) {
             console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
-            vp = pg.viewport;
+            await util.viewport(page, pg.viewport, true);
         }
 
         // TODO Reliable way of knowing when page has completed loading
 
-        // PART 4 - Dashboard-level snap (no operations)
+        // PART 4 - Page-level snap (no operations)
         if (!pg.operations) {
             await util.snap(page, pg.title, img_dir);
 
@@ -181,6 +182,7 @@ if (argv.debug) { config.debug = argv.debug; }
         for (var o in pg.operations) {
             var op = pg.operations[o]; // Convenience handle
             console.log(`  Operation: ${o}: ${op.name}`);
+
             if (op.skip) {
                 console.log("    SKIPPED");
                 continue;
@@ -196,7 +198,8 @@ if (argv.debug) { config.debug = argv.debug; }
                 // Viewport per operation
                 if (op.viewport) {
                     console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
-                    vp = op.viewport;
+
+                    await util.viewport(page, op.viewport, true);
                 }
 
                 for (var s in op.steps) {
@@ -239,6 +242,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
                     try {
                         await page.waitForTimeout(server_cfg.pause);
+
                         switch (step.type) {
                             // Flow control
                             case "quit":
@@ -320,10 +324,8 @@ if (argv.debug) { config.debug = argv.debug; }
                                 // Viewport per step
                                 if (step.viewport) {
                                     console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
-                                    vp = step.viewport;
+                                    await util.viewport(page, step.viewport);
                                 }
-                                await util.viewport(page, vp);
-                                console.log(`      Viewport for snap: ${await page.viewportSize().width}x${await page.viewportSize().height}`);
                                 await util.snap(loc, [pg.title, op.name, step.name, n].filter(String).join(config.img_filename_sep), img_dir);
                                 break;
 
@@ -335,14 +337,14 @@ if (argv.debug) { config.debug = argv.debug; }
                         console.log(`Skipping: ${e}`);
                     }
                 } // for step
-                vp = default_vp;
-                console.log(`    Viewport reset to default: ${vp.width}x${vp.height}`);
-                await util.viewport(page, vp); // Reset to default viewport
+                console.log(`    Viewport reset to default: ${default_vp.width}x${default_vp.height}`);
+                await util.viewport(page, default_vp);
             }
         } // for operations
-        vp = default_vp;
-        console.log(`    Viewport reset to default: ${vp.width}x${vp.height}`);
-        await util.viewport(page, vp); // Reset to default viewport
+
+        console.log(`    Viewport reset to default: ${default_vp.width}x${default_vp.height}`);
+        await util.viewport(page, default_vp);
+
     } // for pages
     await browser.close();
 })();

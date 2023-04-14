@@ -1,9 +1,9 @@
 {
-    "config_file": "./cfg/jitterbit/edi/server-na-east.json",
-    "pages_file": "./cfg/jitterbit/edi/pages.json",
+    "config_file": "./cfg/jitterbit/harmony/server-na-east.json",
+    "pages_file": "./cfg/jitterbit/harmony/pages.json",
     "img_dir": "./images",
     "img_seq": false,
-    "img_pfx": "edi",
+    "img_pfx": "harmony",
     "img_ext": ".png",
     "img_filename_sep": "-",
     "img_width": 1200,

@@ -28,12 +28,12 @@ set -a
 
 ## Default values file.
 # Default: ./cfg/defaults.json (defined in config.js)
-SNAP_DEFAULTS_FILE=./cfg/jitterbit/edi/defaults.json
+SNAP_DEFAULTS_FILE=./cfg/jitterbit/harmony/defaults.json
 
 ## Server config file.
 # Default: 'config_file' in defaults file
 # SNAP_SRV_CFG_FILE=./cfg/server-test.json
-SNAP_SRV_CFG_FILE=./cfg/jitterbit/edi/server-qa-green.json
+SNAP_SRV_CFG_FILE=./cfg/jitterbit/harmony/server-qa-green.json
 
 ## Page definitions file.
 # Default: 'pages_file' in defaults file
@@ -42,7 +42,7 @@ SNAP_SRV_CFG_FILE=./cfg/jitterbit/edi/server-qa-green.json
 ## Image base directory.
 # Default: 'img_dir' in defaults file
 # Note: Within this directory, images are saved to a directory named <server config 'name' field>.
-SNAP_IMG_DIR="images/EDI/$(date +%Y%m%d)/$(date +%H%M)/"
+SNAP_IMG_DIR="images/Harmony/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Snap viewport.
 # Default: 'img_width' and 'img_height' in defaults file

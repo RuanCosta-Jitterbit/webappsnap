@@ -20,7 +20,7 @@ const login_filename = server_cfg.login_filename;
 const password_filename = server_cfg.password_filename
 
 // Override defaults.json values with env vars, if set
-var jpg_quality = Number(process.env.SNAP_JPG_QUALITY) || defaults.jpg_quality; // jpg only
+const jpg_quality = Number(process.env.SNAP_JPG_QUALITY) || defaults.jpg_quality; // jpg only
 
 // Prefix is special because it can be empty. Node.js can't distinguish between unset and empty.
 var img_pfx = null;
@@ -46,7 +46,6 @@ var randlen     = Number(process.env.SNAP_RANDLEN) || defaults.randlen;
 var img_seq     = ((process.env.SNAP_IMG_SEQ) ? (process.env.SNAP_IMG_SEQ == 'true') : (defaults.img_seq === true));
 var headless    = ((process.env.SNAP_HEADLESS) ? (process.env.SNAP_HEADLESS == 'true') : (defaults.headless === true));
 var debug       = ((process.env.SNAP_DEBUG) ? (process.env.SNAP_DEBUG == 'true') : (defaults.debug === true));
-
 
 // Base dir for images
 const img_dir = process.env.SNAP_IMG_DIR || defaults.img_dir;

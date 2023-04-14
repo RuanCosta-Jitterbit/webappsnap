@@ -1,0 +1,358 @@
+{
+    "pages": [
+        {
+            "title": "login",
+            "uid": "",
+            "url": "",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Close cookie consent",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Do not show this message again"
+                        },
+                        {
+                            "name": "Username",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Email address",
+                            "value": "LOGIN"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Password",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Password",
+                            "value": "PASSWORD"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "title": "tile",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
+                {
+                    "name": "",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 533
+                    },
+                    "steps": [
+                        {
+                            "skip": true,
+                            "name": "Close pendo",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Close']"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Cloud Studio"
+                        },
+                        {
+                            "name": "cloud studio",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "API Manager"
+                        },
+                        {
+                            "name": "api manager",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "App Builder"
+                        },
+                        {
+                            "name": "app builder",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Marketplace"
+                        },
+                        {
+                            "name": "marketplace",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Management Console"
+                        },
+                        {
+                            "name": "management console",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "EDI"
+                        },
+                        {
+                            "name": "edi",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "title": "menu",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "open portal menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        }
+                    ]
+                },
+                {
+                    "name": "cloud studio",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(2)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "name": "submenu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(2) > ul"
+                        }
+                    ]
+                },
+                {
+                    "name": "api manager",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(3)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "name": "submenu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(3) > ul"
+                        }
+                    ]
+                },
+                {
+                    "name": "app builder",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(4)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "comment": "no submenu"
+                        }
+                    ]
+                },
+                {
+                    "name": "marketplace",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(5)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "comment": "no submenu"
+                        }
+                    ]
+                },
+                {
+                    "name": "management console",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "name": "submenu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul"
+                        },
+                        {
+                            "name": "Management Console > Agents",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Agents"
+                        },
+                        {
+                            "name": "agents",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul"
+                        },
+                        {
+                            "name": "agents submenu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul"
+                        },
+                        {
+                            "name": "Management Console > Customizations",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Customizations"
+                        },
+                        {
+                            "name": "customizations",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul"
+                        },
+                        {
+                            "name": "customizations submenu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(11) > ul"
+                        }
+                    ]
+                },
+                {
+                    "name": "edi",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(7)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        },
+                        {
+                            "comment": "no submenu"
+                        }
+                    ]
+                },
+                {
+                    "name": "citizen integrator",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Citizen Integrator"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        }
+                    ]
+                },
+                {
+                    "name": "downloads",
+                    "steps": [
+                        {
+                            "name": "open submenu",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Downloads"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

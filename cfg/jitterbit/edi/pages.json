@@ -49,16 +49,19 @@
         },
         {
             "skip": false,
-            "comment": "Jitterbit Harmony landing page, hover on EDI to show tile label",
-            "title": "",
+            "title": "harmony",
             "uid": "",
             "url": "identity/landing",
             "operations": [
                 {
-                    "comment": "Snap with and without Jitterbit menu",
-                    "name": "harmony tile",
+                    "name": "tile",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 533
+                    },
                     "steps": [
                         {
+                            "skip": true,
                             "name": "Close pendo",
                             "type": "click",
                             "locator": "css",
@@ -73,12 +76,17 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "value": 500
+                            "value": 2000
                         },
                         {
                             "name": "",
                             "type": "snap"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "menu",
+                    "steps": [
                         {
                             "name": "open portal menu",
                             "type": "click",
@@ -93,7 +101,7 @@
                         },
                         {
                             "comment": "must snap main and submenu items separately - they are not contained by a parent element",
-                            "name": "menu",
+                            "name": "",
                             "type": "snap",
                             "locator": "css",
                             "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
@@ -109,16 +117,20 @@
             ]
         },
         {
-            "skip": true,
+            "skip": false,
             "title": "config",
             "uid": "",
             "url": "console/edi/admin",
+            "viewport": {
+                "width": 1800,
+                "height": 533
+            },
             "operations": [
                 {
                     "name": "admin",
                     "steps": [
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
                         },
                         {
@@ -143,6 +155,7 @@
                             "type": "snap"
                         },
                         {
+                            "skip": true,
                             "name": "add partner",
                             "type": "dblclick",
                             "locator": "css",
@@ -178,6 +191,10 @@
             "title": "config",
             "uid": "",
             "url": "console/edi/admin",
+            "viewport": {
+                "width": 1800,
+                "height": 900
+            },
             "operations": [
                 {
                     "name": "admin workflow",
@@ -220,7 +237,7 @@
                             "selector": "Archive settings"
                         },
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
                         }
                     ]
@@ -260,8 +277,97 @@
                             "selector": "EDI settings"
                         },
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "admin edi settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "EDI settings"
+                        },
+                        {
+                            "name": "preferred id",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Address"
+                        },
+                        {
+                            "name": "address",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Terms"
+                        },
+                        {
+                            "name": "terms",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "References"
+                        },
+                        {
+                            "name": "references",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Control number"
+                        },
+                        {
+                            "name": "control number",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Envelope"
+                        },
+                        {
+                            "name": "envelope",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Advanced"
+                        },
+                        {
+                            "name": "advanced",
+                            "type": "snap",
+                            "locator":"css",
+                            "selector": "[class='tradingPartnerDetails']"
                         }
                     ]
                 },
@@ -275,7 +381,7 @@
                             "selector": "Communication settings"
                         },
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
                         }
                     ]
@@ -287,10 +393,6 @@
             "title": "bau",
             "uid": "",
             "url": "console/edi/transactions",
-            "viewport": {
-                "width": 1080,
-                "height": 840
-            },
             "operations": [
                 {
                     "name": "transactions",
@@ -302,7 +404,7 @@
                             "selector": "Clear All"
                         },
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
                         },
                         {
@@ -327,9 +429,8 @@
                             "locator": "css",
                             "selector": "[class='transaction-table-container']",
                             "viewport": {
-                                "comment": "temporarily shrink window to truncate white space in element",
-                                "width": 755,
-                                "height": 900
+                                "width": 1200,
+                                "height": 840
                             }
                         },
                         {
@@ -338,7 +439,6 @@
                             "locator": "css",
                             "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div:nth-child(2) > mat-paginator > div",
                             "viewport": {
-                                "comment": "temporarily shrink window to truncate white space in element",
                                 "width": 755,
                                 "height": 900
                             }
@@ -379,7 +479,7 @@
                     "name": "messaging",
                     "steps": [
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
                         }
                     ]
@@ -388,7 +488,7 @@
         },
         {
             "skip": true,
-            "title": "config",
+            "title": "bau",
             "uid": "",
             "url": "console/edi/archive",
             "operations": [
@@ -396,7 +496,7 @@
                     "name": "archive",
                     "steps": [
                         {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
                         }
                     ]
