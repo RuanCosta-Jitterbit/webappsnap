@@ -3,7 +3,7 @@
     "pages_file": "./cfg/jitterbit/harmony/pages.json",
     "img_dir": "./images",
     "img_seq": false,
-    "img_pfx": "harmony",
+    "img_pfx": "",
     "img_ext": ".png",
     "img_filename_sep": "-",
     "img_width": 1200,

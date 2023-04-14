@@ -48,7 +48,7 @@
         },
         {
             "skip": false,
-            "title": "tile",
+            "title": "tiles",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -65,6 +65,31 @@
                             "type": "click",
                             "locator": "css",
                             "selector": "[aria-label='Close']"
+                        },
+                        {
+                            "name": "change username",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "[title='User']",
+                            "value": "Mario"
+                        },
+                        {
+                            "name": "change org name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "[class='org-name']",
+                            "value": "Cyberdyne Systems"
+                        },
+                        {
+                            "name": "change org number",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "value": " (12345)"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
                         },
                         {
                             "name": "Hover",
@@ -349,6 +374,55 @@
                             "type": "snap",
                             "locator": "css",
                             "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "banner when app is current",
+            "title": "banner",
+            "uid": "",
+            "url": "design-studio",
+            "operations": [
+                {
+                    "name": "cloud studio",
+                    "steps": [
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > div > cloud-studio > div > site-header > div > div > div.cs_site-header_site-menu { padding-right: 15px; }"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='cs_site-header_site-menu']"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "title": "banner",
+            "uid": "",
+            "url": "api-manager",
+            "operations": [
+                {
+                    "name": "api manager",
+                    "steps": [
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > div > api-management > div > site-header > div > div.am_site-header_site-menu { padding-right: 15px; }"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='am_site-header_site-menu']"
                         }
                     ]
                 }
