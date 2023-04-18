@@ -59,18 +59,40 @@ if (argv.debug) { config.debug = argv.debug; }
     }
 
     // TODO User select browser type: chromium, firefox, webkit
+//    const browser = await firefox.launch({
     const browser = await chromium.launch({
         headless: config.headless,
         slowMo: config.slowmo
     });
 
-    var page = await browser.newPage({ ignoreHTTPSErrors: true });
-    page.setDefaultTimeout(server_cfg.wait);
+//    var page = await browser.newPage({ ignoreHTTPSErrors: true });
+    const context = await browser.newContext({
+            deviceScaleFactor: 2,
+            viewport: {
+                width: default_vp.width,
+                height: default_vp.height
+            },
+            screen: {
+                width: 4112,
+                height: 2658
+            },
+            recordVideo: {
+                dir: img_dir,
+                width: default_vp.width,
+                height: default_vp.height
+            }
+        });
+    var page = await context.newPage({
+        deviceScaleFactor: 2
+    });
+
+//    page.setDefaultTimeout(server_cfg.wait);
+/*
     util.viewport(page, {
         width: default_vp.width,
         height: default_vp.height
     });
-
+*/
     /*************************************************************************************
      * A loop through all pages in pages config file (e.g. ./cfg/pages.json):
      *
@@ -137,7 +159,8 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 3 - Load URL
         await util.load(page, server_url, wait, true);
 
-        // Set per-page viewport, if any
+
+        // Per-page viewport
         if (pg.viewport) {
             console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
             await util.viewport(page, pg.viewport, true);
@@ -147,7 +170,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // PART 4 - Page-level snap (no operations)
         if (!pg.operations) {
-            await util.snap(page, pg.title, img_dir);
+            await util.snap(page, pg.title, img_dir, pg.options);
 
             // Snap container without cropping at viewport
             // Skip any using 'url' element
@@ -159,7 +182,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     // Resize viewport to container height plus padding
                     const vp = { width: config.img_width, height: bx.height + 150 };
                     await util.viewport(page, vp, true);
-                    await util.snap(page, pg.title + "_full", img_dir, true);
+                    await util.snap(page, pg.title + "_full", img_dir, pg.options);
                 }
                 catch (e) {
                     console.log(`  ${e}...Skipping full snap`);
@@ -195,10 +218,9 @@ if (argv.debug) { config.debug = argv.debug; }
             for (let n = 0; n < loop; n++) {
                 console.log(`    Operation loop: ${n + 1} of ${loop}`);
 
-                // Viewport per operation
+                // Per-operation viewport
                 if (op.viewport) {
                     console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
-
                     await util.viewport(page, op.viewport, true);
                 }
 
@@ -224,12 +246,10 @@ if (argv.debug) { config.debug = argv.debug; }
                             loc = page.getByPlaceholder(step.selector);
                             break;
                         case "getbytext":
-                            //                            loc = page.getByText(step.selector, { exact: true }).first(); // Usually
                             var options = { exact: true };
                             if (step.options) {
                                 options = step.options;
                             }
-
                             loc = page.getByText(step.selector, options).first(); // Usually
                             break;
                         case "getbyrole":
@@ -326,9 +346,10 @@ if (argv.debug) { config.debug = argv.debug; }
                                     console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
                                     await util.viewport(page, step.viewport);
                                 }
+
                                 var fn = [pg.title, op.name, step.name].filter(String).join(config.img_filename_sep);
                                 if (op.loop) { [fn, n].join(config.img_filename_sep); }
-                                await util.snap(loc, fn, img_dir);
+                                await util.snap(loc, fn, img_dir, step.options);
                                 break;
 
                             default:
@@ -338,8 +359,13 @@ if (argv.debug) { config.debug = argv.debug; }
                     } catch (e) {
                         console.log(`Skipping: ${e}`);
                     }
+                    if (op.viewport) {
+                        console.log(`    Reset viewport to operation level: ${op.viewport.width}x${op.viewport.height}`);
+                        await util.viewport(page, op.viewport);
+                    }
+
                 } // for step
-                console.log(`    Viewport reset to default: ${default_vp.width}x${default_vp.height}`);
+                console.log(`    Reset viewport to default: ${default_vp.width}x${default_vp.height}`);
                 await util.viewport(page, default_vp);
             }
         } // for operations
@@ -348,5 +374,6 @@ if (argv.debug) { config.debug = argv.debug; }
         await util.viewport(page, default_vp);
 
     } // for pages
+    await context.close();
     await browser.close();
 })();

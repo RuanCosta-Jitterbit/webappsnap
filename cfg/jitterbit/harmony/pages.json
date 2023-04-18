@@ -48,7 +48,7 @@
         },
         {
             "skip": false,
-            "title": "tiles",
+            "title": "",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -71,14 +71,14 @@
                             "type": "edit",
                             "locator": "css",
                             "selector": "[title='User']",
-                            "value": "Mario"
+                            "value": "Jan"
                         },
                         {
                             "name": "change org name",
                             "type": "edit",
                             "locator": "css",
                             "selector": "[class='org-name']",
-                            "value": "Cyberdyne Systems"
+                            "value": "ABC Company"
                         },
                         {
                             "name": "change org number",
@@ -88,67 +88,104 @@
                             "value": " (12345)"
                         },
                         {
-                            "name": "",
+                            "name": "organization",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div"
+                        },
+                        {
+                            "name": "open org menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
+                        },
+                        {
+                            "name": "change personal org",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li > span",
+                            "value": "123 Company"
+                        },
+                        {
+                            "name": "organization dropdown",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 1200,
+                                    "height": 100
+                                }
+                            }
+                        },
+                        {
+                            "name": "close org menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
+                        },
+                        {
+                            "name": "tiles",
                             "type": "snap"
                         },
                         {
                             "name": "Hover",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Cloud Studio"
+                            "locator": "css",
+                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(1)"
                         },
                         {
-                            "name": "cloud studio",
+                            "name": "tiles cloud studio",
                             "type": "snap"
                         },
                         {
                             "name": "Hover",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "API Manager"
+                            "locator": "css",
+                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(2)"
                         },
                         {
-                            "name": "api manager",
+                            "name": "tiles api manager",
                             "type": "snap"
                         },
                         {
                             "name": "Hover",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "App Builder"
+                            "locator": "css",
+                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(3)"
                         },
                         {
-                            "name": "app builder",
+                            "name": "tiles app builder",
                             "type": "snap"
                         },
                         {
                             "name": "Hover",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Marketplace"
+                            "locator": "css",
+                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(4)"
                         },
                         {
-                            "name": "marketplace",
+                            "name": "tiles marketplace",
                             "type": "snap"
                         },
                         {
                             "name": "Hover",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Management Console"
+                            "locator": "css",
+                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(5)"
                         },
                         {
-                            "name": "management console",
+                            "name": "tiles management console",
                             "type": "snap"
                         },
                         {
                             "name": "Hover",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "EDI"
+                            "locator": "css",
+                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(6)"
                         },
                         {
-                            "name": "edi",
+                            "name": "tiles edi",
                             "type": "snap"
                         }
                     ]
@@ -156,8 +193,9 @@
             ]
         },
         {
-            "skip": false,
-            "title": "menu",
+            "skip": true,
+            "comment": "items with no submenus",
+            "title": "",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -171,122 +209,543 @@
                             "selector": "[class='cs_site-navigation']"
                         },
                         {
-                            "name": "",
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Home"
+                        },
+                        {
+                            "name": "home",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 250,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "App Builder"
+                        },
+                        {
+                            "name": "app builder",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 250,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Marketplace"
+                        },
+                        {
+                            "name": "marketplace",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 250,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Citizen Integrator"
+                        },
+                        {
+                            "name": "citizen integrator",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 250,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Downloads"
+                        },
+                        {
+                            "name": "downloads",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 250,
+                                    "height": 463
+                                }
+                            }
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "title": "cloud studio",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
                 {
-                    "name": "cloud studio",
+                    "name": "",
                     "steps": [
                         {
-                            "name": "open submenu",
-                            "type": "move",
+                            "name": "open portal menu",
+                            "type": "click",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(2)"
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Cloud Studio"
                         },
                         {
                             "name": "",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
                         },
                         {
-                            "name": "submenu",
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Projects"
+                        },
+                        {
+                            "name": "projects",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Connector Builder"
+                        },
+                        {
+                            "name": "connector builder",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "title": "api manager",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
                 {
-                    "name": "api manager",
+                    "name": "",
                     "steps": [
                         {
-                            "name": "open submenu",
-                            "type": "move",
+                            "name": "open portal menu",
+                            "type": "click",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(3)"
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "API Manager"
                         },
                         {
                             "name": "",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
                         },
                         {
-                            "name": "submenu",
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "My APIs"
+                        },
+                        {
+                            "name": "my apis",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(3) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Portal Manager"
+                        },
+                        {
+                            "name": "portal manager",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Portal"
+                        },
+                        {
+                            "name": "portal",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "API Logs"
+                        },
+                        {
+                            "name": "api logs",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Analytics"
+                        },
+                        {
+                            "name": "analytics",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Security Profiles"
+                        },
+                        {
+                            "name": "security profiles",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Trusted IP Groups"
+                        },
+                        {
+                            "name": "trusted ip groups",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "title": "management console",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
                 {
-                    "name": "app builder",
+                    "name": "",
                     "steps": [
                         {
-                            "name": "open submenu",
-                            "type": "move",
+                            "name": "hide tiles",
+                            "type": "style",
+                            "value": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section { visibility: hidden; }"
+                        },
+                        {
+                            "name": "hide pane",
+                            "type": "style",
+                            "value": "body > identity > div > div:nth-child(3) > landing > div > div { visibility: hidden; }"
+                        },
+                        {
+                            "name": "open portal menu",
+                            "type": "click",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(4)"
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Management Console"
                         },
                         {
                             "name": "",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "comment": "no submenu"
-                        }
-                    ]
-                },
-                {
-                    "name": "marketplace",
-                    "steps": [
-                        {
-                            "name": "open submenu",
+                            "name": "hover on",
                             "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(5)"
+                            "locator": "getbytext",
+                            "selector": "Dashboard"
                         },
                         {
-                            "name": "",
+                            "name": "dashboard",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "comment": "no submenu"
-                        }
-                    ]
-                },
-                {
-                    "name": "management console",
-                    "steps": [
-                        {
-                            "name": "open submenu",
+                            "name": "hover on",
                             "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6)"
+                            "locator": "getbytext",
+                            "selector": "Access Tokens"
                         },
                         {
-                            "name": "",
+                            "name": "access tokens",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "name": "submenu",
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "User Management"
+                        },
+                        {
+                            "name": "user management",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "name": "Management Console > Agents",
+                            "name": "hover on",
+                            "type": "move",
+                            "comment": "unknown problem using getbytext = 'Projects'",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(4)"
+                        },
+                        {
+                            "name": "projects",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Activities"
+                        },
+                        {
+                            "name": "activities",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Audit Logging"
+                        },
+                        {
+                            "name": "audit logging",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Notifications"
+                        },
+                        {
+                            "name": "notifications",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Organizations"
+                        },
+                        {
+                            "name": "organizations",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Environments"
+                        },
+                        {
+                            "name": "environments",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
                             "type": "move",
                             "locator": "getbytext",
                             "selector": "Agents"
@@ -294,17 +753,53 @@
                         {
                             "name": "agents",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "name": "agents submenu",
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(1)"
+                        },
+                        {
+                            "name": "agents agent groups",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "name": "Management Console > Customizations",
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(2)"
+                        },
+                        {
+                            "name": "agents agents",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 555
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
                             "type": "move",
                             "locator": "getbytext",
                             "selector": "Customizations"
@@ -312,75 +807,57 @@
                         {
                             "name": "customizations",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 555
+                                }
+                            }
                         },
                         {
-                            "name": "customizations submenu",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(11) > ul"
-                        }
-                    ]
-                },
-                {
-                    "name": "edi",
-                    "steps": [
-                        {
-                            "name": "open submenu",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(7)"
-                        },
-                        {
-                            "name": "",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
-                        },
-                        {
-                            "comment": "no submenu"
-                        }
-                    ]
-                },
-                {
-                    "name": "citizen integrator",
-                    "steps": [
-                        {
-                            "name": "open submenu",
+                            "name": "hover on",
                             "type": "move",
                             "locator": "getbytext",
-                            "selector": "Citizen Integrator"
+                            "selector": "Plug-ins"
                         },
                         {
-                            "name": "",
+                            "name": "customizations plugins",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
-                        }
-                    ]
-                },
-                {
-                    "name": "downloads",
-                    "steps": [
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 555
+                                }
+                            }
+                        },
                         {
-                            "name": "open submenu",
+                            "name": "hover on",
                             "type": "move",
                             "locator": "getbytext",
-                            "selector": "Downloads"
+                            "selector": "Client Certificates"
                         },
                         {
-                            "name": "",
+                            "name": "customizations client certificates",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 555
+                                }
+                            }
                         }
                     ]
                 }
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "banner when app is current",
             "title": "banner",
             "uid": "",
@@ -405,7 +882,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "title": "banner",
             "uid": "",
             "url": "api-manager",

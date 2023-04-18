@@ -6,7 +6,7 @@
     "img_pfx": "edi",
     "img_ext": ".png",
     "img_filename_sep": "-",
-    "img_width": 1200,
+    "img_width": 1800,
     "img_height": 900,
     "jpg_quality": 75,
     "headless": true,

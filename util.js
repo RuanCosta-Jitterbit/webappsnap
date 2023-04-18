@@ -30,7 +30,7 @@ function mkdir(dir) {
 /*
 ** Convenience wrapper for screenshots, and where the image filename is built
 */
-async function snap(page, title = "", dir, full = false) {
+async function snap(page, title = "", dir, options = {}) {
     const sep = config.defaults.img_filename_sep;
     // Replace space, dot, slash with sep char
     title = title.replace(/[\. \\\/]/g, sep);
@@ -46,15 +46,12 @@ async function snap(page, title = "", dir, full = false) {
 //    process.stdout.write(`Saving ${filepath} ... `);
 
     // Set up options for snap
-    var options = {};
+    options.omitBackground = true;
     options.path = filepath;
-//    options.scale = 'css';
-//    options.animations = 'disabled';
     if (config.img_ext == '.jpg') {
         options.type = 'jpeg';
         options.quality = config.defaults.jpg_quality;
     }
-    if (full) { options.fullPage = true; }
 
     try {
         await page.screenshot(options);
@@ -104,7 +101,7 @@ async function viewport(page, viewport, reload = false) {
             width: viewport.width,
             height: viewport.height
         });
-        if (reload) {
+        if (reload) { // some pages need reloading after the viewport is changed
             console.log(`Reloading (timeout=${config.server_cfg.wait / 1000})`);
             await page.reload({
                 waitUntil: 'load',

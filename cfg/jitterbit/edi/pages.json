@@ -7,7 +7,7 @@
             "url": "",
             "operations": [
                 {
-                    "name": "",
+                    "name": "harmony",
                     "steps": [
                         {
                             "name": "Close cookie consent",
@@ -48,7 +48,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "title": "harmony",
             "uid": "",
             "url": "identity/landing",
@@ -121,10 +121,6 @@
             "title": "config",
             "uid": "",
             "url": "console/edi/admin",
-            "viewport": {
-                "width": 1800,
-                "height": 533
-            },
             "operations": [
                 {
                     "name": "admin",
@@ -142,8 +138,8 @@
                         {
                             "name": "add new",
                             "type": "click",
-                            "locator": "css",
-                            "selector": "[class='addTradingPartner']"
+                            "locator": "getbytext",
+                            "selector": "Add Trading Partner"
                         },
                         {
                             "name": "for partners load",
@@ -155,7 +151,7 @@
                             "type": "snap"
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "add partner",
                             "type": "dblclick",
                             "locator": "css",
@@ -183,6 +179,40 @@
                             "type": "snap"
                         }
                     ]
+                },
+                {
+                    "name": "admin",
+                    "steps": [
+                        {
+                            "name": "hover on first partner",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "to delete",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare > div"
+                        },
+                        {
+                            "name": "for dialog",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "partner delete dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='modal modal_content']"
+                        },
+                        {
+                            "name": "cancel",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Cancel"
+                        }
+                    ]
                 }
             ]
         },
@@ -191,10 +221,6 @@
             "title": "config",
             "uid": "",
             "url": "console/edi/admin",
-            "viewport": {
-                "width": 1800,
-                "height": 900
-            },
             "operations": [
                 {
                     "name": "admin workflow",
@@ -294,7 +320,7 @@
                         {
                             "name": "preferred id",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         },
                         {
@@ -306,7 +332,7 @@
                         {
                             "name": "address",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         },
                         {
@@ -318,7 +344,7 @@
                         {
                             "name": "terms",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         },
                         {
@@ -330,7 +356,7 @@
                         {
                             "name": "references",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         },
                         {
@@ -342,7 +368,7 @@
                         {
                             "name": "control number",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         },
                         {
@@ -354,7 +380,7 @@
                         {
                             "name": "envelope",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         },
                         {
@@ -366,7 +392,7 @@
                         {
                             "name": "advanced",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
                         }
                     ]
