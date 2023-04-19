@@ -2,7 +2,7 @@
     "pages": [
         {
             "comment": "Login via Harmony portal",
-            "title": "login",
+            "name": "login",
             "uid": "",
             "url": "identity/login",
             "operations": [
@@ -55,7 +55,7 @@
         {
             "skip": false,
             "comment": "Jitterbit Harmony landing page, hover on App Builder to show tile label",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "url": "identity/landing",
             "viewport": {
@@ -100,7 +100,7 @@
         {
             "skip": false,
             "comment": "Apps page - Empty, common menu",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -128,7 +128,7 @@
         {
             "skip": false,
             "comment": "Apps page - Create New",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -217,7 +217,7 @@
         {
             "skip": false,
             "comment": "Apps page - Create new from scratch (Loop)",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -336,7 +336,7 @@
         {
             "skip": false,
             "comment": "Apps page - App management menu",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -383,7 +383,7 @@
         {
             "skip": false,
             "comment": "App edit - Publish (First time - Unknown admin)",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -698,7 +698,7 @@
         {
             "skip": false,
             "comment": "Apps page - Show only released apps",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -738,7 +738,7 @@
         {
             "skip": false,
             "comment": "App edit - Overview page and panels",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -759,7 +759,7 @@
                             "name": "edit app name - banner",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > h2 > span",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-name > h2 > span",
                             "value": "My App X"
                         },
                         {
@@ -974,7 +974,7 @@
         {
             "skip": false,
             "comment": "App Edit - Domain model > Modules",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -1023,7 +1023,7 @@
                             "name": "edit app name",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > h2 > span",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-name > h2 > span",
                             "value": "My App X"
                         },
                         {
@@ -1129,7 +1129,7 @@
         {
             "skip": false,
             "comment": "App Edit - Domain model > Relations",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -1197,7 +1197,7 @@
         {
             "skip": false,
             "comment": "App edit - Domain model > Dropdowns",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -1283,7 +1283,7 @@
         {
             "skip": false,
             "comment": "App Edit - Domain Model > Dependencies",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -1351,7 +1351,7 @@
         {
             "skip": false,
             "comment": "App edit - Application Logic > Microflows",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -1679,7 +1679,7 @@
         {
             "skip": false,
             "comment": "App edit - Application Logic > UI Flows",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "viewport": {
                 "width": 1300,
@@ -1880,7 +1880,7 @@
         {
             "skip": false,
             "comment": "App edit - Configuration",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -2188,43 +2188,43 @@
                             "name": "show tooltip 1",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '1'"
+                            "selector": "[data-name='Public Page'] >> span >> '1'"
                         },
                         {
                             "name": "show tooltip 2",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '2'"
+                            "selector": "[data-name='Public Page'] >> span >> '2'"
                         },
                         {
                             "name": "show tooltip 3",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '3'"
+                            "selector": "[data-name='Public Page'] >> span >> '3'"
                         },
                         {
                             "name": "show tooltip 4",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '4'"
+                            "selector": "[data-name='Public Page'] >> span >> '4'"
                         },
                         {
                             "name": "show tooltip 5",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '5'"
+                            "selector": "[data-name='Public Page'] >> span >> '5'"
                         },
                         {
                             "name": "show tooltip 6",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '6'"
+                            "selector": "[data-name='Public Page'] >> span >> '6'"
                         },
                         {
                             "name": "show tooltip 7",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Public Page'] >> span >> '7'"
+                            "selector": "[data-name='Public Page'] >> span >> '7'"
                         },
                         {
                             "name": "show tooltip 8",
@@ -2264,25 +2264,25 @@
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='App Page'] >> span >> '1'"
+                            "selector": "[data-name='App Page'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='App Page'] >> span >> '2'"
+                            "selector": "[data-name='App Page'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='App Page'] >> span >> '3'"
+                            "selector": "[data-name='App Page'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='App Page'] >> span >> '4'"
+                            "selector": "[data-name='App Page'] >> span >> '4'"
                         },
                         {
                             "name": "app page labeled pane",
@@ -2306,25 +2306,25 @@
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Mobile'] >> span >> '1'"
+                            "selector": "[data-name='Mobile'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Mobile'] >> span >> '2'"
+                            "selector": "[data-name='Mobile'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Mobile'] >> span >> '3'"
+                            "selector": "[data-name='Mobile'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-title='Mobile'] >> span >> '4'"
+                            "selector": "[data-name='Mobile'] >> span >> '4'"
                         },
                         {
                             "name": "mobile labeled pane",
@@ -2448,7 +2448,7 @@
         {
             "skip": false,
             "comment": "Delete app(s)",
-            "title": "develop",
+            "name": "develop",
             "uid": "",
             "viewport": {
                 "width": 1200,

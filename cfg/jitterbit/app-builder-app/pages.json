@@ -2,7 +2,7 @@
     "pages": [
         {
             "comment": "Login to app",
-            "title": "login",
+            "name": "login",
             "uid": "",
             "url": "",
             "operations": [

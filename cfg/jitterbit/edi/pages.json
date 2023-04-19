@@ -2,7 +2,7 @@
     "pages": [
         {
             "comment": "Login via Harmony portal",
-            "title": "login",
+            "name": "login",
             "uid": "",
             "url": "",
             "operations": [
@@ -10,6 +10,7 @@
                     "name": "harmony",
                     "steps": [
                         {
+                            "skip": true,
                             "name": "Close cookie consent",
                             "type": "click",
                             "locator": "getbytext",
@@ -48,82 +49,14 @@
             ]
         },
         {
-            "skip": true,
-            "title": "harmony",
-            "uid": "",
-            "url": "identity/landing",
-            "operations": [
-                {
-                    "name": "tile",
-                    "viewport": {
-                        "width": 1200,
-                        "height": 533
-                    },
-                    "steps": [
-                        {
-                            "skip": true,
-                            "name": "Close pendo",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[aria-label='Close']"
-                        },
-                        {
-                            "name": "Hover",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "EDI"
-                        },
-                        {
-                            "name": "Wait",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "",
-                            "type": "snap"
-                        }
-                    ]
-                },
-                {
-                    "name": "menu",
-                    "steps": [
-                        {
-                            "name": "open portal menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='cs_site-navigation']"
-                        },
-                        {
-                            "name": "open edi menu",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(7)"
-                        },
-                        {
-                            "comment": "must snap main and submenu items separately - they are not contained by a parent element",
-                            "name": "",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul"
-                        },
-                        {
-                            "name": "submenu",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(7) > ul"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "skip": false,
-            "title": "config",
+            "comment": "Add partner",
+            "name": "admin",
             "uid": "",
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "name": "admin",
+                    "name": "",
                     "steps": [
                         {
                             "name": "page",
@@ -155,7 +88,7 @@
                             "name": "add partner",
                             "type": "dblclick",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(1)"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(3)"
                         },
                         {
                             "name": "for partner add",
@@ -181,7 +114,7 @@
                     ]
                 },
                 {
-                    "name": "admin",
+                    "name": "",
                     "steps": [
                         {
                             "name": "hover on first partner",
@@ -193,7 +126,7 @@
                             "name": "to delete",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare > div"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1) > div.tradingPartnerGridSquare > div"
                         },
                         {
                             "name": "for dialog",
@@ -207,6 +140,15 @@
                             "selector": "[class='modal modal_content']"
                         },
                         {
+                            "skip": true,
+                            "comment": "delete",
+                            "name": "confirm delete",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Continue"
+                        },
+                        {
+                            "comment": "don't delete",
                             "name": "cancel",
                             "type": "click",
                             "locator": "getbytext",
@@ -218,12 +160,85 @@
         },
         {
             "skip": false,
-            "title": "config",
+            "name": "transactions",
+            "uid": "",
+            "url": "console/edi/transactions",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "skip": true,
+                            "comment": "not normally enabled",
+                            "name": "clear filters",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Clear All"
+                        },
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 15px; }"
+                        },
+                        {
+                            "name": "filter pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='filter-pane-container']"
+                        },
+                        {
+                            "name": "remove padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 0px; }"
+                        },
+                        {
+                            "name": "transactions pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='transactions-table-container']"
+                        },
+                        {
+                            "name": "page controls",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='mat-paginator-container']",
+                            "viewport": {
+                                "width": 350,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "search",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div:nth-child(1)",
+                            "viewport": {
+                                "width": 1401,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "actions",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-23 > div.transactions-table-container-header.ng-tns-c187-23"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "name": "admin",
             "uid": "",
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "name": "admin workflow",
+                    "name": "workflow",
                     "steps": [
                         {
                             "name": "select first partner",
@@ -254,7 +269,7 @@
                     ]
                 },
                 {
-                    "name": "admin archive settings",
+                    "name": "archive settings",
                     "steps": [
                         {
                             "name": "select tab",
@@ -269,7 +284,7 @@
                     ]
                 },
                 {
-                    "name": "admin manage pii",
+                    "name": "manage pii",
                     "steps": [
                         {
                             "name": "select tab",
@@ -294,7 +309,7 @@
                     ]
                 },
                 {
-                    "name": "admin edi settings",
+                    "name": "edi settings",
                     "steps": [
                         {
                             "name": "select tab",
@@ -309,7 +324,7 @@
                     ]
                 },
                 {
-                    "name": "admin edi settings",
+                    "name": "edi settings",
                     "steps": [
                         {
                             "name": "select tab",
@@ -398,7 +413,7 @@
                     ]
                 },
                 {
-                    "name": "admin communication settings",
+                    "name": "communication settings",
                     "steps": [
                         {
                             "name": "select tab",
@@ -415,94 +430,14 @@
             ]
         },
         {
-            "skip": false,
-            "title": "bau",
-            "uid": "",
-            "url": "console/edi/transactions",
-            "operations": [
-                {
-                    "name": "transactions",
-                    "steps": [
-                        {
-                            "name": "clear filters",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Clear All"
-                        },
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "add padding",
-                            "type": "style",
-                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 15px; }"
-                        },
-                        {
-                            "name": "filter pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='filter-pane-container']"
-                        },
-                        {
-                            "name": "remove padding",
-                            "type": "style",
-                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 0px; }"
-                        },
-                        {
-                            "name": "transactions pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='transaction-table-container']",
-                            "viewport": {
-                                "width": 1200,
-                                "height": 840
-                            }
-                        },
-                        {
-                            "name": "page controls",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div:nth-child(2) > mat-paginator > div",
-                            "viewport": {
-                                "width": 755,
-                                "height": 900
-                            }
-                        },
-                        {
-                            "name": "search",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div.transaction-table-container-filters.ng-tns-c180-0 > div:nth-child(1)",
-                            "viewport": {
-                                "comment": "temporarily shrink window to truncate white space in element",
-                                "width": 901,
-                                "height": 900
-                            }
-                        },
-                        {
-                            "name": "actions",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transaction-table-container > transactions-table > div > div.transaction-table-container-filters.ng-tns-c180-0 > div.transaction-table-container-header.ng-tns-c180-0",
-                            "viewport": {
-                                "comment": "temporarily shrink window to truncate white space in element",
-                                "width": 620,
-                                "height": 900
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "skip": true,
-            "title": "bau",
+            "comment": "Not yet implemented",
+            "name": "messaging",
             "uid": "",
             "url": "console/edi/messaging",
             "operations": [
                 {
-                    "name": "messaging",
+                    "name": "",
                     "steps": [
                         {
                             "name": "page",
@@ -514,12 +449,13 @@
         },
         {
             "skip": true,
-            "title": "bau",
+            "comment": "Not yet implemented",
+            "name": "archive",
             "uid": "",
             "url": "console/edi/archive",
             "operations": [
                 {
-                    "name": "archive",
+                    "name": "",
                     "steps": [
                         {
                             "name": "page",

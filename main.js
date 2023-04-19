@@ -42,7 +42,7 @@ if (argv.debug) { config.debug = argv.debug; }
         console.log(`  Server configuration file (SNAP_SRV_CFG_FILE): ${config.cfg_file_name}`);
         console.log(`  Pages configuration file (SNAP_PAGES_FILE): ${config.pages_file_name}`);
         console.log("Images");
-        console.log(`  Viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT): ${config.img_width}x${config.img_height}`);
+        console.log(`  Default viewport (SNAP_IMG_WIDTH x SNAP_IMG_HEIGHT): ${default_vp.img_width}x${default_vp.img_height}`);
         console.log(`  Image filename sequence numbers (SNAP_IMG_SEQ): ${Boolean(config.img_seq)}`);
         console.log(`  Image filename prefix (SNAP_IMG_PFX): ${config.img_pfx}`);
         console.log(`  Image filename suffix (SNAP_IMG_EXT): ${config.img_ext}`);
@@ -78,8 +78,10 @@ if (argv.debug) { config.debug = argv.debug; }
             },
             recordVideo: {
                 dir: img_dir,
-                width: default_vp.width,
-                height: default_vp.height
+                size: {
+                    width: default_vp.width,
+                    height: default_vp.height
+                }
             }
         });
     var page = await context.newPage({
@@ -121,7 +123,7 @@ if (argv.debug) { config.debug = argv.debug; }
         }
 
         // Pages, operations, and steps can be skipped with "skip": true
-        console.log(`Page ${d}: ${pg.comment}`);
+        console.log(`Page ${d}: ${pg.name} (${pg.comment})`);
         if (pg.skip) {
             console.log(`  SKIPPED`);
             continue;
@@ -159,7 +161,6 @@ if (argv.debug) { config.debug = argv.debug; }
         // PART 3 - Load URL
         await util.load(page, server_url, wait, true);
 
-
         // Per-page viewport
         if (pg.viewport) {
             console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
@@ -170,7 +171,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
         // PART 4 - Page-level snap (no operations)
         if (!pg.operations) {
-            await util.snap(page, pg.title, img_dir, pg.options);
+            await util.snap(page, pg.name, img_dir, pg.options);
 
             // Snap container without cropping at viewport
             // Skip any using 'url' element
@@ -182,7 +183,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     // Resize viewport to container height plus padding
                     const vp = { width: config.img_width, height: bx.height + 150 };
                     await util.viewport(page, vp, true);
-                    await util.snap(page, pg.title + "_full", img_dir, pg.options);
+                    await util.snap(page, pg.name + "_full", img_dir, pg.options);
                 }
                 catch (e) {
                     console.log(`  ${e}...Skipping full snap`);
@@ -204,8 +205,7 @@ if (argv.debug) { config.debug = argv.debug; }
         // or add another dashboard entry with no operations.
         for (var o in pg.operations) {
             var op = pg.operations[o]; // Convenience handle
-            console.log(`  Operation: ${o}: ${op.name}`);
-
+            console.log(`  Operation ${o}: ${op.name} (${op.comment})`);
             if (op.skip) {
                 console.log("    SKIPPED");
                 continue;
@@ -226,8 +226,7 @@ if (argv.debug) { config.debug = argv.debug; }
 
                 for (var s in op.steps) {
                     var step = op.steps[s]; // Convenience handle
-                    console.log(`    Step ${s}: ${step.type} (${step.name}) - Selector (${step.locator}): ${step.selector} - Value: ${step.value}`);
-
+                    console.log(`    Step ${s}: ${step.type} - ${step.name} - - Selector (${step.locator}): ${step.selector} - Value: ${step.value} (${step.comment})`);
                     if (step.skip) {
                         console.log("      SKIPPED");
                         continue;
@@ -332,8 +331,13 @@ if (argv.debug) { config.debug = argv.debug; }
 
                             // Actions
                             case "edit":
-                                const v = String(step.value);
-                                await loc.evaluate((node, v) => node.innerText = v, v);
+                                const ve = String(step.value);
+                                await loc.evaluate((node, ve) => node.innerText = ve, ve);
+                                break;
+
+                            case "replace":
+                                const vr = String(step.value);
+                                await loc.evaluate((node, vr) => node = vr, vr);
                                 break;
 
                             case "style":
@@ -342,14 +346,20 @@ if (argv.debug) { config.debug = argv.debug; }
 
                             case "snap":
                                 // Viewport per step
+                                const current_vp = page.viewportSize();
                                 if (step.viewport) {
                                     console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
                                     await util.viewport(page, step.viewport);
                                 }
 
-                                var fn = [pg.title, op.name, step.name].filter(String).join(config.img_filename_sep);
+                                var fn = [pg.name, op.name, step.name].filter(String).join(config.img_filename_sep);
                                 if (op.loop) { [fn, n].join(config.img_filename_sep); }
                                 await util.snap(loc, fn, img_dir, step.options);
+
+                                if (step.viewport) {
+                                    console.log(`      Reset viewport: ${current_vp.width}x${current_vp.height}`);
+                                    await util.viewport(page, current_vp);
+                                }
                                 break;
 
                             default:

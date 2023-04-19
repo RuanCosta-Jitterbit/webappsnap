@@ -76,7 +76,7 @@ SNAP_IMG_DIR="images/Harmony/$(date +%Y%m%d)/$(date +%H%M)/"
 
 ## Headless mode. Whether to hide browser while snapping.
 # Default: 'headless' in defaults file
-# SNAP_HEADLESS=false
+SNAP_HEADLESS=false
 
 ## Slow-motion delay. How many milliseconds between each step.
 # Useful with SNAP_HEADLESS mode

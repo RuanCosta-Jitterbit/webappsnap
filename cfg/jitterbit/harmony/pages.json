@@ -1,7 +1,7 @@
 {
     "pages": [
         {
-            "title": "login",
+            "name": "login",
             "uid": "",
             "url": "",
             "operations": [
@@ -48,7 +48,7 @@
         },
         {
             "skip": false,
-            "title": "",
+            "name": "",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -70,7 +70,7 @@
                             "name": "change username",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "[title='User']",
+                            "selector": "[name='User']",
                             "value": "Jan"
                         },
                         {
@@ -100,11 +100,11 @@
                             "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
                         },
                         {
-                            "name": "change personal org",
-                            "type": "edit",
+                            "name": "change personal org name",
+                            "type": "replace",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li > span",
-                            "value": "123 Company"
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li",
+                            "value": "<span _ngcontent-aae-c78='' class='cs_site-header_app-menu_list_nav_dropdown_org-menu_scrollbar_li_span' name='paul.jacobs+xxx@jitterbit.com'>paul.jacobs+xxx@jitterbit.com</span>"
                         },
                         {
                             "name": "organization dropdown",
@@ -195,7 +195,7 @@
         {
             "skip": true,
             "comment": "items with no submenus",
-            "title": "",
+            "name": "",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -304,7 +304,7 @@
         },
         {
             "skip": true,
-            "title": "cloud studio",
+            "name": "cloud studio",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -377,7 +377,7 @@
         },
         {
             "skip": true,
-            "title": "api manager",
+            "name": "api manager",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -540,7 +540,7 @@
         },
         {
             "skip": true,
-            "title": "management console",
+            "name": "management console",
             "uid": "",
             "url": "identity/landing",
             "operations": [
@@ -857,9 +857,92 @@
             ]
         },
         {
+            "skip": false,
+            "name": "edi",
+            "uid": "",
+            "url": "identity/landing",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "hide tiles",
+                            "type": "style",
+                            "value": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section { visibility: hidden; }"
+                        },
+                        {
+                            "name": "hide pane",
+                            "type": "style",
+                            "value": "body > identity > div > div:nth-child(3) > landing > div > div { visibility: hidden; }"
+                        },
+                        {
+                            "name": "open portal menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "EDI"
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Transactions"
+                        },
+                        {
+                            "name": "transactions",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Admin"
+                        },
+                        {
+                            "name": "admin",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "skip": true,
             "comment": "banner when app is current",
-            "title": "banner",
+            "name": "banner",
             "uid": "",
             "url": "design-studio",
             "operations": [
@@ -883,7 +966,7 @@
         },
         {
             "skip": true,
-            "title": "banner",
+            "name": "banner",
             "uid": "",
             "url": "api-manager",
             "operations": [

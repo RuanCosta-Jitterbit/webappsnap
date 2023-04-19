@@ -1,11 +1,11 @@
 {
     "pages": [
         {
-            "title": "Example",
+            "name": "Example",
             "uid": "example"
         },
         {
-            "title": "Example",
+            "name": "Example",
             "uid": "example",
             "url": "landing/login"
         }
