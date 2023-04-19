@@ -8,7 +8,7 @@ const config = require('./config.js'); // Start-up vs default configuration valu
 const { exit } = require('process');
 const { randomBytes } = require('node:crypto');
 const fs = require('fs')
-const defaults = config.defaults; // Default config values
+//const defaults = config.defaults; // Default config values
 const pages = config.pages; // Page definitions
 const img_ext = config.img_ext;   // Image file extension (png/jpg)
 const server_cfg = config.server_cfg; // Config file specific to an app
@@ -19,8 +19,8 @@ if (argv.list) { // List page UIDs and exit
     return;
 }
 
-// Default viewport from defaults.json
-const default_vp = { width: config.img_width, height: config.img_height };
+// Default viewport
+var default_vp = { width: config.img_width, height: config.img_height };
 
 // Images save path
 var img_dir = path.join(config.img_dir, server_cfg.name);
@@ -59,42 +59,42 @@ if (argv.debug) { config.debug = argv.debug; }
     }
 
     // TODO User select browser type: chromium, firefox, webkit
-//    const browser = await firefox.launch({
+    //    const browser = await firefox.launch({
     const browser = await chromium.launch({
         headless: config.headless,
         slowMo: config.slowmo
     });
 
-//    var page = await browser.newPage({ ignoreHTTPSErrors: true });
+    //    var page = await browser.newPage({ ignoreHTTPSErrors: true });
     const context = await browser.newContext({
-            deviceScaleFactor: 2,
-            viewport: {
+        deviceScaleFactor: 2,
+        viewport: {
+            width: default_vp.width,
+            height: default_vp.height
+        },
+        screen: {
+            width: 4112,
+            height: 2658
+        },
+        recordVideo: {
+            dir: img_dir,
+            size: {
                 width: default_vp.width,
                 height: default_vp.height
-            },
-            screen: {
-                width: 4112,
-                height: 2658
-            },
-            recordVideo: {
-                dir: img_dir,
-                size: {
-                    width: default_vp.width,
-                    height: default_vp.height
-                }
             }
-        });
+        }
+    });
     var page = await context.newPage({
         deviceScaleFactor: 2
     });
 
-//    page.setDefaultTimeout(server_cfg.wait);
-/*
-    util.viewport(page, {
-        width: default_vp.width,
-        height: default_vp.height
-    });
-*/
+    //    page.setDefaultTimeout(server_cfg.wait);
+    /*
+        util.viewport(page, {
+            width: default_vp.width,
+            height: default_vp.height
+        });
+    */
     /*************************************************************************************
      * A loop through all pages in pages config file (e.g. ./cfg/pages.json):
      *
@@ -123,11 +123,11 @@ if (argv.debug) { config.debug = argv.debug; }
         }
 
         // Pages, operations, and steps can be skipped with "skip": true
-        console.log(`Page ${d}: ${pg.name} (${pg.comment})`);
         if (pg.skip) {
-            console.log(`  SKIPPED`);
+            console.log(`SKIPPED - Page ${d}: ${pg.name} (${pg.comment})`);
             continue;
         }
+        console.log(`Page ${d}: ${pg.name} (${pg.comment})`);
 
         page.setDefaultTimeout(server_cfg.wait);
         const wait = (pg.wait ? pg.wait : server_cfg.wait); // Per-page waits override the default
@@ -162,6 +162,7 @@ if (argv.debug) { config.debug = argv.debug; }
         await util.load(page, server_url, wait, true);
 
         // Per-page viewport
+        const current_page_vp = page.viewportSize();
         if (pg.viewport) {
             console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
             await util.viewport(page, pg.viewport, true);
@@ -178,6 +179,7 @@ if (argv.debug) { config.debug = argv.debug; }
             if (argv.full && !pg.url) {
                 try {
                     // Get height of container
+                    // TODO container not here
                     const elem = await page.waitForSelector(defaults.container, { visible: true });
                     const bx = await elem.boundingBox();
                     // Resize viewport to container height plus padding
@@ -205,11 +207,11 @@ if (argv.debug) { config.debug = argv.debug; }
         // or add another dashboard entry with no operations.
         for (var o in pg.operations) {
             var op = pg.operations[o]; // Convenience handle
-            console.log(`  Operation ${o}: ${op.name} (${op.comment})`);
             if (op.skip) {
-                console.log("    SKIPPED");
+                console.log(`  SKIPPED - Operation ${o}: ${op.name} (${op.comment})`);
                 continue;
             }
+            console.log(`  Operation ${o}: ${op.name} (${op.comment})`);
 
             // Repeat operations if loop is set
             var loop = (op.loop > 1) ? op.loop : 1;
@@ -219,6 +221,7 @@ if (argv.debug) { config.debug = argv.debug; }
                 console.log(`    Operation loop: ${n + 1} of ${loop}`);
 
                 // Per-operation viewport
+                const current_operation_vp = page.viewportSize();
                 if (op.viewport) {
                     console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
                     await util.viewport(page, op.viewport, true);
@@ -226,24 +229,33 @@ if (argv.debug) { config.debug = argv.debug; }
 
                 for (var s in op.steps) {
                     var step = op.steps[s]; // Convenience handle
-                    console.log(`    Step ${s}: ${step.type} - ${step.name} - - Selector (${step.locator}): ${step.selector} - Value: ${step.value} (${step.comment})`);
                     if (step.skip) {
-                        console.log("      SKIPPED");
+                        console.log(`      SKIPPED - Step ${s}: ${step.type} - ${step.name} (${step.comment})`);
                         continue;
                     }
-                    // Use locators of various types.
-                    // https://playwright.dev/docs/locators
+                    console.log(`      Step ${s}: ${step.type} - ${step.name} - Selector (${step.locator}): ${step.selector} - Value: ${step.value} (${step.comment})`);
+
+                    // Viewport per step
+                    const current_step_vp = page.viewportSize();
+                    if (step.viewport) {
+                        console.log(`        Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
+                        await util.viewport(page, step.viewport);
+                    }
+
                     var loc;
                     switch (step.locator) {
                         case "css":
                             loc = page.locator(step.selector);
                             break;
+
                         case "label":
                             loc = page.getByLabel(step.selector);
                             break;
+
                         case "placeholder":
                             loc = page.getByPlaceholder(step.selector);
                             break;
+
                         case "getbytext":
                             var options = { exact: true };
                             if (step.options) {
@@ -251,9 +263,11 @@ if (argv.debug) { config.debug = argv.debug; }
                             }
                             loc = page.getByText(step.selector, options).first(); // Usually
                             break;
+
                         case "getbyrole":
                             loc = page.getByRole(step.selector);
                             break;
+
                         default:
                             loc = page;
                             break;
@@ -281,7 +295,7 @@ if (argv.debug) { config.debug = argv.debug; }
                             case "text":
                                 var value = step.value;
                                 // Process special tokens
-                                value = value.replace("RANDOM", randomBytes(defaults.randlen).toString('hex'));
+                                value = value.replace("RANDOM", randomBytes(config.randlen).toString('hex'));
                                 if (value == "LOGIN") {
                                     value = fs.readFileSync(server_cfg.login_filename, 'utf8');
                                 }
@@ -345,44 +359,33 @@ if (argv.debug) { config.debug = argv.debug; }
                                 break;
 
                             case "snap":
-                                // Viewport per step
-                                const current_vp = page.viewportSize();
-                                if (step.viewport) {
-                                    console.log(`      Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
-                                    await util.viewport(page, step.viewport);
-                                }
-
                                 var fn = [pg.name, op.name, step.name].filter(String).join(config.img_filename_sep);
                                 if (op.loop) { [fn, n].join(config.img_filename_sep); }
                                 await util.snap(loc, fn, img_dir, step.options);
-
-                                if (step.viewport) {
-                                    console.log(`      Reset viewport: ${current_vp.width}x${current_vp.height}`);
-                                    await util.viewport(page, current_vp);
-                                }
                                 break;
 
                             default:
-                                console.log(`    Skipping: Step type '${step.type}' not recognized`);
+                                console.log(`      Skipping: Step type '${step.type}' not recognized`);
                                 break;
                         }
                     } catch (e) {
                         console.log(`Skipping: ${e}`);
                     }
-                    if (op.viewport) {
-                        console.log(`    Reset viewport to operation level: ${op.viewport.width}x${op.viewport.height}`);
-                        await util.viewport(page, op.viewport);
+                    if (step.viewport) {
+                        console.log(`        Reset viewport for step: ${current_step_vp.width}x${current_step_vp.height}`);
+                        await util.viewport(page, current_step_vp, true);
                     }
-
                 } // for step
-                console.log(`    Reset viewport to default: ${default_vp.width}x${default_vp.height}`);
-                await util.viewport(page, default_vp);
-            }
+                if (op.viewport) {
+                    console.log(`    Reset viewport for operation: ${current_operation_vp.width}x${current_operation_vp.height}`);
+                    await util.viewport(page, current_operation_vp, true);
+                }
+            } // operations loop
         } // for operations
-
-        console.log(`    Viewport reset to default: ${default_vp.width}x${default_vp.height}`);
-        await util.viewport(page, default_vp);
-
+        if (pg.viewport) {
+            console.log(`  Reset viewport for page: ${current_page_vp.width}x${current_page_vp.height}`);
+            await util.viewport(page, current_page_vp);
+        }
     } // for pages
     await context.close();
     await browser.close();
