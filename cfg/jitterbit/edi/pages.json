@@ -57,6 +57,7 @@
             "operations": [
                 {
                     "name": "",
+                    "loop": 1,
                     "steps": [
                         {
                             "name": "page",
@@ -84,7 +85,6 @@
                             "type": "snap"
                         },
                         {
-                            "skip": false,
                             "name": "add partner",
                             "type": "dblclick",
                             "locator": "css",
@@ -110,49 +110,6 @@
                         {
                             "name": "added trading partner",
                             "type": "snap"
-                        }
-                    ]
-                },
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "hover on first partner",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
-                        },
-                        {
-                            "name": "to delete",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1) > div.tradingPartnerGridSquare > div"
-                        },
-                        {
-                            "name": "for dialog",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "partner delete dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='modal modal_content']"
-                        },
-                        {
-                            "skip": true,
-                            "comment": "delete",
-                            "name": "confirm delete",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Continue"
-                        },
-                        {
-                            "comment": "don't delete",
-                            "name": "cancel",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Cancel"
                         }
                     ]
                 }
@@ -215,6 +172,7 @@
                             "name": "search",
                             "type": "snap",
                             "locator": "css",
+                            "comment": "Selector frequently changes on page reload",
                             "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div:nth-child(1)",
                             "viewport": {
                                 "width": 1401,
@@ -225,7 +183,11 @@
                             "name": "actions",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-23 > div.transactions-table-container-header.ng-tns-c187-23"
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div.transactions-table-container-header.ng-tns-c187-0",
+                            "viewport": {
+                                "width": 350,
+                                "height": 900
+                            }
                         }
                     ]
                 }
@@ -333,7 +295,7 @@
                             "selector": "EDI settings"
                         },
                         {
-                            "name": "preferred id",
+                            "name": "preferred id tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -345,7 +307,7 @@
                             "selector": "Address"
                         },
                         {
-                            "name": "address",
+                            "name": "address tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -357,7 +319,7 @@
                             "selector": "Terms"
                         },
                         {
-                            "name": "terms",
+                            "name": "terms tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -369,7 +331,7 @@
                             "selector": "References"
                         },
                         {
-                            "name": "references",
+                            "name": "references tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -381,7 +343,7 @@
                             "selector": "Control number"
                         },
                         {
-                            "name": "control number",
+                            "name": "control number tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -393,7 +355,7 @@
                             "selector": "Envelope"
                         },
                         {
-                            "name": "envelope",
+                            "name": "envelope tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -405,7 +367,7 @@
                             "selector": "Advanced"
                         },
                         {
-                            "name": "advanced",
+                            "name": "advanced tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -460,6 +422,51 @@
                         {
                             "name": "page",
                             "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "Delete partner(s)",
+            "name": "admin",
+            "uid": "",
+            "url": "console/edi/admin",
+            "operations": [
+                {
+                    "name": "partner",
+                    "loop": 1,
+                    "steps": [
+                        {
+                            "name": "hover on first partner",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "to delete",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1) > div.tradingPartnerGridSquare > div"
+                        },
+                        {
+                            "name": "for dialog",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "delete dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='modal modal_content']"
+                        },
+                        {
+                            "comment": "delete",
+                            "name": "confirm delete",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Continue"
                         }
                     ]
                 }
