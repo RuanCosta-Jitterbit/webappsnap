@@ -122,9 +122,9 @@ if (argv.debug) { config.debug = argv.debug; }
             continue;
         }
 
-        // Pages, operations, and steps can be skipped with "skip": true
+        // Pages, operations, and steps can use "skip": true
         if (pg.skip) {
-            console.log(`SKIPPED - Page ${d}: ${pg.name} (${pg.comment})`);
+            console.log(`Page ${d} - SKIPPED: ${pg.name} (${pg.comment})`);
             continue;
         }
         console.log(`Page ${d}: ${pg.name} (${pg.comment})`);
@@ -188,7 +188,7 @@ if (argv.debug) { config.debug = argv.debug; }
                     await util.snap(page, pg.name + "_full", img_dir, pg.options);
                 }
                 catch (e) {
-                    console.log(`  ${e}...Skipping full snap`);
+                    console.log(`  ERROR ${e}`);
                 }
             }
         }
@@ -208,7 +208,7 @@ if (argv.debug) { config.debug = argv.debug; }
         for (var o in pg.operations) {
             var op = pg.operations[o]; // Convenience handle
             if (op.skip) {
-                console.log(`  SKIPPED - Operation ${o}: ${op.name} (${op.comment})`);
+                console.log(`  Operation ${o} - SKIPPED: ${op.name} (${op.comment})`);
                 continue;
             }
             console.log(`  Operation ${o}: ${op.name} (${op.comment})`);
@@ -230,7 +230,7 @@ if (argv.debug) { config.debug = argv.debug; }
                 for (var s in op.steps) {
                     var step = op.steps[s]; // Convenience handle
                     if (step.skip) {
-                        console.log(`      SKIPPED - Step ${s}: ${step.type} - ${step.name} (${step.comment})`);
+                        console.log(`      Step ${s} - SKIPPED: ${step.type} - ${step.name} (${step.comment})`);
                         continue;
                     }
                     console.log(`      Step ${s}: ${step.type} - ${step.name} - Selector (${step.locator}): ${step.selector} - Value: ${step.value} (${step.comment})`);
@@ -365,20 +365,20 @@ if (argv.debug) { config.debug = argv.debug; }
                                 break;
 
                             default:
-                                console.log(`      Skipping: Step type '${step.type}' not recognized`);
+                                console.log(`      Step type '${step.type}' not recognized`);
                                 break;
                         }
                     } catch (e) {
-                        console.log(`Skipping: ${e}`);
+                        console.log(`ERROR: ${e}`);
                     }
                     if (step.viewport) {
                         console.log(`        Reset viewport for step: ${current_step_vp.width}x${current_step_vp.height}`);
-                        await util.viewport(page, current_step_vp, true);
+                        await util.viewport(page, current_step_vp);
                     }
                 } // for step
                 if (op.viewport) {
                     console.log(`    Reset viewport for operation: ${current_operation_vp.width}x${current_operation_vp.height}`);
-                    await util.viewport(page, current_operation_vp, true);
+                    await util.viewport(page, current_operation_vp);
                 }
             } // operations loop
         } // for operations
