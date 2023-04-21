@@ -1,0 +1,42 @@
+{
+    "settings": {
+        "img_dir": "./images",
+        "img_seq": false,
+        "img_pfx": "APPSNAP",
+        "img_filename_sep": "_",
+        "img_ext": ".png",
+        "img_width": 1280,
+        "img_height": 800,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": false,
+        "randlen": 6
+    },
+    "instance": {
+        "test": {
+            "server": "https://X.X.X.X",
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 40000,
+            "pause": 6000,
+            "login_filename": ".login",
+            "password_filename": ".password"
+        }
+    },
+    "pages": [
+        {
+            "name": "Example",
+            "uid": "example"
+        },
+        {
+            "name": "Example",
+            "uid": "example",
+            "url": "landing/login"
+        }
+    ]
+}

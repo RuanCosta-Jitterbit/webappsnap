@@ -1,4 +1,59 @@
 {
+    "settings": {
+        "img_dir": "./images/jitterbit/edi",
+        "img_seq": false,
+        "img_pfx": "edi",
+        "img_filename_sep": "-",
+        "img_ext": ".png",
+        "img_width": 1800,
+        "img_height": 945,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": true,
+        "randlen": 6
+    },
+    "instance": {
+        "qa-green": {
+            "server": "https://apps.qa-green.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 5000,
+            "login_filename": ".login-qag",
+            "password_filename": ".password-qag"
+        },
+        "qa-green-alice": {
+            "server": "https://apps.qa-green.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 5000,
+            "login_filename": ".login-alice-qag",
+            "password_filename": ".password-alice-qag"
+        },
+        "na-east": {
+            "server": "https://apps.na-east.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 500,
+            "login_filename": ".login-nae",
+            "password_filename": ".password-nae"
+        }
+    },
     "pages": [
         {
             "comment": "Login via Harmony portal",
@@ -43,6 +98,21 @@
                             "value": [
                                 "Enter"
                             ]
+                        },
+                        {
+                            "skip": true,
+                            "comment": "change org for Alice",
+                            "name": "to set org",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "organization-menu"
+                        },
+                        {
+                            "skip": true,
+                            "name": "desired org",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "123 Company"
                         }
                     ]
                 }
@@ -96,7 +166,19 @@
                             "value": 5000
                         },
                         {
-                            "name": "close panel",
+                            "skip": true,
+                            "comment": "first time only - ISA ID Generation",
+                            "name": "isa id generation",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='isa-modal show']"
+                        },
+                        {
+                            "skip": true,
+                            "type": "quit"
+                        },
+                        {
+                            "name": "close partner panel",
                             "type": "click",
                             "locator": "css",
                             "selector": "[class='icon-close']"
@@ -137,6 +219,7 @@
                             "type": "snap"
                         },
                         {
+                            "skip": true,
                             "name": "add padding",
                             "type": "style",
                             "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 15px; }"
@@ -148,6 +231,21 @@
                             "selector": "[class='filter-pane-container']"
                         },
                         {
+                            "comment": "filters collapse button not part of an element",
+                            "name": "filter pane",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 20,
+                                    "y": 140,
+                                    "width": 275,
+                                    "height": 550,
+                                    "comment": "height caters for at least one partner"
+                                }
+                            }
+                        },
+                        {
+                            "skip": true,
                             "name": "remove padding",
                             "type": "style",
                             "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 0px; }"
@@ -159,14 +257,23 @@
                             "selector": "[class='transactions-table-container']"
                         },
                         {
+                            "name": "collapse filter pane for snapping page controls",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='icon-open-close']"
+                        },
+                        {
+                            "comment": "must be manually cropped",
                             "name": "page controls",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='mat-paginator-container']",
-                            "viewport": {
-                                "width": 350,
-                                "height": 900
-                            }
+                            "selector": "[class='mat-paginator-container']"
+                        },
+                        {
+                            "name": "expand filter pane",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='icon-open-close']"
                         },
                         {
                             "name": "search",
@@ -201,6 +308,7 @@
             "operations": [
                 {
                     "name": "workflow",
+                    "comment": "don't save workflow",
                     "steps": [
                         {
                             "name": "select first partner",
@@ -227,6 +335,79 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Cancel"
+                        }
+                    ]
+                },
+                {
+                    "name": "workflow",
+                    "comment": "save workflow",
+                    "steps": [
+                        {
+                            "name": "select first partner",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "add new workflow",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Add New Workflow"
+                        },
+                        {
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "open direction menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[name='direction']"
+                        },
+                        {
+                            "name": "set direction",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Inbound"
+                        },
+                        {
+                            "name": "open document type menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[name='document type']"
+                        },
+                        {
+                            "name": "set document type",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Acknowledgement"
+                        },
+                        {
+                            "name": "open map menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[name='select map']"
+                        },
+                        {
+                            "name": "set map",
+                            "comment": "first in list",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > options-ui:nth-child(5) > ul > li:nth-child(1)"
+                        },
+                        {
+                            "name": "save workflow",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Save"
+                        },
+                        {
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "saved",
+                            "type": "snap"
                         }
                     ]
                 },
@@ -467,6 +648,15 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Continue"
+                        },
+                        {
+                            "name": "for delete",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "deleted",
+                            "type": "snap"
                         }
                     ]
                 }

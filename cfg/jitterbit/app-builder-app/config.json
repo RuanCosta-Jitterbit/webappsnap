@@ -1,4 +1,33 @@
 {
+    "settings": {
+        "img_dir": "./images/jitterbit/app-builder-app",
+        "img_seq": false,
+        "img_pfx": "app-builder-app",
+        "img_ext": ".png",
+        "img_filename_sep": "-",
+        "img_width": 992,
+        "img_height": 620,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": false,
+        "randlen": 6
+    },
+    "instance": {
+        "blankapp": {
+            "server": "https://blankapp.apps.qa-green.lcap.jitterbit.com",
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 500,
+            "login_filename": ".login-qag",
+            "password_filename": ".password-qag"
+        }
+    },
     "pages": [
         {
             "comment": "Login to app",
@@ -138,7 +167,7 @@
                         {
                             "name": "identity management",
                             "type": "snap",
-                            "locator":"css",
+                            "locator": "css",
                             "selector": "#general > form > div.container-fluid.paddingua20 > div:nth-child(2)",
                             "viewport": {
                                 "width": 992,
