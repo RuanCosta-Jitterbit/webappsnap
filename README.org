@@ -1,4 +1,5 @@
 * webappsnap - Automated Web App Screenshots
+
 This program lets you automate the task of taking screenshots of web applications. It uses [[https://playwright.dev][Playwright]] to programmatically run a set of actions in a Chromium, Firefox or Webkit-based web browser.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a /selector/).
@@ -12,12 +13,12 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 - [[https://nodejs.org/en/download/][Node.js]]
 - [[https://github.com/microsoft/playwright/][Playwright]]
 - [[https://github.com/yargs/yargs][Yargs]]
-- [[https://github.com/axios/axios][Axios]]
+- [[https://github.com/axios/axios][Axios]] (Optional)
 
 Once Node.js is installed, install the remaining components with this command:
 
 #+begin_src sh
-  npm i playwright yargs axios
+  npm i playwright yargs axios prompt-sync
 #+end_src
 
 ** Quick Start
@@ -36,22 +37,10 @@ This section uses configuration created for Percona's [[https://www.percona.com/
 3. Run the script:
 
    #+begin_src sh
-     ./run.sh
+     ./run.sh --config ./cfg/percona/pmm/config.json --instance pmmdemo
    #+end_src
 
-   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around 45 minutes. The images are saved in =images/pmmdemo=.
-
-   To snap specific pages (known as /dashboards/ in PMM):
-
-   #+begin_src sh
-     ./run.sh --uid=pmm-home,node-memory,mysql-instance-overview
-   #+end_src
-
-   To see a list of available pages:
-
-   #+begin_src sh
-     ./run.sh --list
-   #+end_src
+   This will snap all the pages on [[https://pmmdemo.percona.com][PMM Demo]]. It takes around 45 minutes. The images are saved in =images/percona/pmmdemo=.
 
 ** Usage
 :PROPERTIES:
@@ -59,51 +48,35 @@ This section uses configuration created for Percona's [[https://www.percona.com/
 :END:
 You must create configuration files for your own application.
 
-1. Make backup copies of these files.
+1. Make copy of =cfg/config.json=
 
-   - =cfg/defaults.json=
+2. Set values for these:
 
-   - =cfg/pages.json=
+   - =settings:= This section contains general settings for the snap:
 
-   - =cfg/server.json=
+     - =img_dir=: Where to save images.
 
-2. Edit your copies (or originals).
+     - =img_seq=: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number.
 
-   - =defaults.json=
+     - =img_pfx=: The secondary file name prefix for each snap file.
 
-     This file contains default values, many of which can be overridden with environment variables (shown in parentheses) or command line options in the =run.sh= wrapper script.
+     - =img_filename_sep=: Replace slash, space, or dot in final image filenames with this character.
 
-     - =config_file=: Path to default server configuration file. (=SNAP_SRV_CFG_FILE=)
+     - =img_ext=: File name extension, either =.png= or =.jpg=.
 
-     - =pages_file=: Path to default pages configuration file. (=SNAP_PAGES_FILE=)
+     - =img_width=: The image width, in pixels, for full screen snaps.
 
-     - =img_dir=: Where to save images. (=SNAP_IMG_DIR=)
+     - =img_height=: The image height, in pixels, for full screen snaps.
 
-     - =img_seq=: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number. (=SNAP_IMG_SEQ=)
+     - =jpg_quality=: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy.
 
-     - =img_pfx=: The secondary file name prefix for each snap file. (=SNAP_IMG_PFX=)
-
-     - =img_filename_sep=: Replace slash, space, or dot in final image filenames with this character. (=SNAP_IMG_FILENAME_SEP=)
-
-     - =img_ext=: File name extension, either =.png= or =.jpg=. (=SNAP_IMG_EXT=)
-
-     - =img_width=: The image width, in pixels, for full screen snaps. (=SNAP_IMG_WIDTH=)
-
-     - =img_height=: The image height, in pixels, for full screen snaps. (=SNAP_IMG_HEIGHT=)
-
-     - =jpg_quality=: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy. (=SNAP_JPG_QUALITY=)
-
-     - =headless=: When =true=, Playwright uses a headless (invisible) web browser. If =false=, the web browser is made visible. Useful for debugging (or simply entertainment). (=SNAP_HEADLESS=)
+     - =headless=: When =true=, Playwright uses a headless (invisible) web browser. If =false=, the web browser is made visible. Useful for debugging (or simply entertainment).
 
      - =debug=: When =true=, program prints operating parameters. (=--debug=)
 
-     - =randlen=: How many bytes of random data to replace the token =RANDOM= in text values. (=SNAP_RANDLEN=)
+     - =randlen=: How many bytes of random data to replace the token =RANDOM= in text values.
 
-   - =server.json=
-
-     This file defines an individual app. If you have the same app on different hostnames, use a different file for each.
-
-     - =name=: A free-form name for your app. (Snapped images will be saved in a subdirectory with this name.)
+   - =instance:= A node for every distinct instance (app) you want to snap:
 
      - =server=: The full HTTPS server IP or hostname.
 
@@ -119,91 +92,97 @@ You must create configuration files for your own application.
 
      - =pause=: A shorter wait interval used when snapping mouse-over tooltips. Set between 1000-5000ms.
 
-   - =pages.json=
+     - =login_filename=: File containing a login name.
 
-     This file defines what to do with your app and what to snap. It is a JSON file with a single node consisting of an array of pages. Pages are identified by their =uid=, the last part of the URL. Snaps happen in the order listed in this file.
+     - =password_filename=: File containing the login's password.
 
-     - =pages=: Array of items, each representing a page with optional items.
+   - =pages=: This defines what to do with your app and what to snap. It is a single node consisting of an array of pages. Pages are identified by their =uid=, the last part of the URL. Snaps happen in the order listed in this file.
 
-       - =title=: The name of the page. Included in image filename.
+     - =skip=: (optional) Set to =true= to skip this page.
 
-       - =uid=: The page's UID.
+     - =name=: (optional) The name of the page. Included in image filename.
 
-       - =url= (optional): Override the default page path. Use this if the URL can't be formed from the =server=, =a=-=f=, and page UID parts.
+     - =comment=: (optional) Commentary.
 
-       - =wait= (optional): Override the default page load wait time in the server =server.json= file. The value is in milliseconds.
+     - =uid=: The page's UID.
 
-       - =options= (optional): An array of URL option strings appended to the page load URL.
+     - =url= (optional): Override the default page path. Use this if the URL can't be formed from the =server=, =a=-=f=, and page UID parts.
 
-       - =operations= (optional): A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If =operations= is present, pages and page elements must be explicitly snapped using a ="type": "snap"= element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
+     - =wait= (optional): Override the default page load wait time in the server =server.json= file. The value is in milliseconds.
 
-         - =name=: A name for this operation (group of steps). Included in image filename.
+     - =options= (optional): An array of URL option strings appended to the page load URL.
 
-         - =viewport=: A viewport for this operation.
+     - =operations= (optional): A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If =operations= is present, pages and page elements must be explicitly snapped using a ="type": "snap"= element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
 
-         - =loop= (Optional) Repeat this operation's steps =loop= times. (Default is 1.)
+       - =skip=: (optional) Set to =true= to skip this operation.
 
-         - =steps=: An array of individual steps.
+       - =name=: A name for this operation (group of steps). Included in image filename.
 
-           - =name=: Name for this step. Included in image filename.
+       - =viewport=: A viewport for this operation.
 
-           - =type=: Type of step. One of:
+       - =loop= (Optional) Repeat this operation's steps =loop= times. (Default is 1.)
 
-             - =back=: Return to the previous page.
+       - =steps=: An array of individual steps.
 
-             - =wait=: Wait for =value= milliseconds.
+         - =skip=: (optional) Set to =true= to skip this step.
 
-             - =move=: Move to (hover over) the element specified by =selector=. (Uses [[https://playwright.dev/docs/api/class-page#pagehoverselector-options][=page.hover()=]] which finds the first CSS selector ID and positions the mouse in the center of it.)
+         - =name=: (optional) Name for this step. Included in image filename.
 
-             - =text=: Enter =value= text into element =selector=. If =value= is the word =RANDOM=, a random 5-digit hex string (10 characters) is entered. If the word =LOGIN=, value is taken from the contents of a =.login= file. If =PASSWORD=, value is taken from =.password=.
+         - =type=: Type of step. One of:
 
-             - =press=: Press each of the keys in the =value= array.
+           - =ask=: Prompt for a value to be inserted into the =selector= field.
 
-             - =click=: Click the element =selector=.
+           - =back=: Return to the previous page.
 
-             - =style=: Insert the CSS code provided by the =content= field.
+           - =click=: Click the element =selector=.
 
-             - =snap=: Snap the window. If a =selector= is given, snap only it. If =viewport= is given, adjust the window to that size before snapping.
+           - =dblclick=: Double-click the element =selector=.
+
+           - =edit=: Change the text content of =selector=.
+
+           - =focus=: Focus on the element =selector=.
+
+           - =move=: Move to (hover over) the element specified by =selector=. (Uses [[https://playwright.dev/docs/api/class-page#pagehoverselector-options][=page.hover()=]] which finds the first CSS selector ID and positions the mouse in the center of it.)
+
+           - =press=: Press each of the keys in the =value= array.
+
+           - =replace=:
+
+           - =snap=: Snap the window. If a =selector= is given, snap only it. If =viewport= is given, adjust the window to that size before snapping.
+
+           - =style=: Insert the CSS code provided by the =content= field.
+
+           - =text=: Enter =value= text into element =selector=. If =value= is the word =RANDOM=, a random 5-digit hex string (10 characters) is entered. If the word =LOGIN=, value is taken from the contents of a =instance.login_filename= file. If =PASSWORD=, value is taken from =instance.password_filename=.
+
+           - =quit=: Exit immediately.
+
+           - =wait=: Wait for =value= milliseconds.
 
            These can be set for most steps.
 
-           - =selector=: The CSS selector for the clickable item.
+           - =locator=: The locator type, one of: =css=, =getbytext=, =getbyrole=
+
+           - =selector=: The selector for the item, defined according to the locator's format.
 
            - =viewport=: Each step can specify its own viewport which overrides either the outer page or default viewport.
 
-             - =width=, =height=: Width and height (in pixels) for this step's viewport (if snapped).
+           - =width=, =height=: Width and height (in pixels) for this step's viewport (if snapped).
 
-3. Set values for the following environment variables. Do it in your shell, or in =run.sh=, where examples and explanations are given.
+           - =options=:
 
-   - =SNAP_DEFAULTS_FILE=: Path to the default values file. Default is =./cfg/defaults.json= (see =config.js=).
+             - =clip=: For full page snaps (not selectors). See https://playwright.dev/docs/api/class-page#page-screenshot-option-clip
 
-   - =SNAP_SRV_CFG_FILE=: The path to the =server.json= file. Default is the value of =config_file= in the defaults file.
-
-   Optional:
-
-   - =SNAP_IMG_WIDTH=, =SNAP_IMG_HEIGHT=: Snap image width and height (in pixels). Defaults are the values of =img_width= and =img_height= in the defaults file.
-
-   - =SNAP_JPG_QUALITY=: (Only for JPG format.) The image quality as a percent value. Default is the value for =jpg_quality= in the defaults file.
-
-   - =SNAP_IMG_EXT=: The image type, =.png= or =jpg=. Default is the value for =img_ext= in the defaults file.
-
-   - =SNAP_IMG_SEQ=: Set to =true= to add a sequence number prefix to saved image filenames. Useful for testing and identifying which page, operation or step in =pages.json= produced a particular image. Default is the value for =img_seq= in the defaults file.
-
-   - =SNAP_IMG_PFX=: Image filename prefix. After the optional sequence number, a secondary prefix is added to the filename. Default is the value for =img_pfx= in the defaults file.
-
-   - =SNAP_IMG_DIR=: Where to save images, the base directory within which two additional subdirectories are created: =<name>/SNAP_IMG_WIDTHxSNAP_IMG_HEIGHT=. E.g =./images/myserver/1920x1080/= Default is the value for =img_dir= in the defaults file.
-
-4. Run the wrapper script:
+3. Run the wrapper script:
 
    #+begin_src sh
-     ./run.sh
+     ./run.sh -- config ./cfg/path/to/config.json --instance instance-name
    #+end_src
 
    Optional arguments:
 
    - =--debug=: Show values used.
 
-   - =--full=: Also snap the full page beyond the specified viewport (=SNAP_IMG_WIDTH= x =SNAP_IMG_HEIGHT=).
+   - =--full=: Also snap the full page beyond the specified viewport.
 
 ** Tips
 :PROPERTIES:
@@ -213,13 +192,11 @@ You must create configuration files for your own application.
 
   Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
 
-  If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the =pages.json= file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use =press= instead of =click=). Ask developers to allocate static names to frequently used elements.
+  If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the =pages= section of the =config.json= file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use =press= instead of =click=). Ask developers to allocate static names to frequently used elements.
 
 - *Multiple runs*
 
-  By default, image filenames don't include a sequence number prefix. When debugging or testing this tool, edit =run.sh= and set =SNAP_IMG_SEQ=true=. This will create images numbered by their order in the app's =pages.json= specification file.
-
-  You can also use the =SNAP_IMG_PFX= and =SNAP_IMG_DIR= environment variables in =run.sh= to separate runs of the tool.
+  By default, image filenames don't include a sequence number prefix. When debugging or testing, set =settings.debug=true= in your =config.json=. This will create images numbered by their order in the =pages= node.
 
 - *Commenting out pages*
 
@@ -251,9 +228,7 @@ This tool was made to make it easier to repeat screenshots for an app's technica
 
   1. Reduce the default page wait time. This can speed things up but some pages won't finish loading before the snap is taken.
 
-  2. Use the =--uid= option to snap specific pages.
-
-  3. Don't use the =--full= option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
+  2. Don't use the =--full= option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
 
 - *Images are not the size I expected*
 
@@ -280,7 +255,7 @@ This tool was made to make it easier to repeat screenshots for an app's technica
 :PROPERTIES:
 :CUSTOM_ID: how-it-works
 :END:
-=main.js= loops through entries in the defined pages configuration file (default =./cfg/pages.json=), processing each page, its operations and steps, one by one. If an operation has a =loop= value, that operation's steps are repeated as many times as the value of =loop=.
+=main.js= loops through =pages= entries in the defined configuration file, processing each page, its operations and steps, one by one. If an operation has a =loop= value, that operation's steps are repeated as many times as the value of =loop=.
 
 The basic structure of a pages configuration file is:
 
@@ -302,15 +277,11 @@ One or more pages
 :PROPERTIES:
 :CUSTOM_ID: program-files
 :END:
-There are three Node.js files.
+There is one Node.js file.
 
 - =main.js=
 
-  The core of =main.js= loops through the pages file, processing each page entry, and looping through its operations and steps.
-
-- =util.js=
-
-  Functions for common operations, the most important of which are:
+  The core of =main.js= loops through the pages file, processing each page entry, and looping through its operations and steps. This also contains functions for common operations, the most important of which are:
 
   - =snap(page, title, dir, full)=
 
@@ -324,8 +295,6 @@ There are three Node.js files.
 
   - =load(page, url, wait)=: Loads =url= into browser's =page= and waits =wait= milliseconds.
 
-- =config.js=: Loads and provides a common access to page and defaults configuration files.
-
 ** Image file names
 :PROPERTIES:
 :CUSTOM_ID: image-file-names
@@ -334,19 +303,19 @@ The image file path is made up of the directory and the filename.
 
 The directory path is a hierarchy constructed in =main.js=. It is:
 
-- Defaults file =img_dir= (or =SNAP_IMG_DIR= if set)
+- =img_dir=
 
 - System path separator (e.g. =/= on Linux).
 
 - Server configuration file =name=.
 
-The file name is constructed in =snap()= in =util.js= and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (=_=).
+The file name is constructed in =snap()= and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (=_=).
 
-- (Optional primary prefix) If =img_seq= or =SNAP_IMG_SEQ= is true, a zero-padded integer, incremented for each image.
+- (Optional primary prefix) If =img_seq= is true, a zero-padded integer, incremented for each image.
 
-- (Optional secondary prefix) The value of =img_pfx= or =SNAP_IMG_PFX=
+- (Optional secondary prefix) The value of =img_pfx=.
 
-- =pages.title=
+- =pages.name=
 
 - (If operations)
 
@@ -356,13 +325,13 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 
 - (If not operations and =--full= option is set) =_full=
 
-- =img_ext= or =SNAP_IMG_EXT= (file extension)
+- =img_ext= (file extension)
 
 #+begin_quote
-*Note:* Spaces, back slashes (=\=), forward slashes ('/'), and dots (=.=) in titles and names are replaced with underscores (in =util.snap()=).
+*Note:* Spaces, back slashes (=\=), forward slashes ('/'), and dots (=.=) in titles and names are replaced with underscores (in =snap()=).
 #+end_quote
 
-** TODO [0/19]
+** TODO [0/10]
 :PROPERTIES:
 :CUSTOM_ID: todo
 :END:
@@ -370,13 +339,9 @@ The file name is constructed in =snap()= in =util.js= and is made of each page's
 - [ ] handle =net::ERR_INTERNET_DISCONNECTED= (in =util.load=)
 - [ ] Find more reliable way to know when page is fully loaded, rather than using =waitFor= with fixed value for all pages (=util.load=)
 - [ ] Compute additional container padding needed for =_full= images rather than using absolute value
-- [ ] Consider whether =--full= option should also be specified via env var
 - [ ] Rationalize and relocate directory creation code
 - [ ] Img dir doesn't need to be arg of =snap()=
-- [ ] Avoid image overwrite when =SNAP_IMG_SEQ= is off
-- [ ] How to inject custom text strings as form values
+- [ ] Avoid image overwrite when =img_seq= is off
 - [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 - [ ] Write settings file in images directory (to know what were used for that snap set)
-- [ ] Add =--skip-uid= flag as inverse of =--uid= to exclude named items
-- [ ] Allow command line choice of browser technology ={chromium|webkit|firefox}=
-- [ ] Allow skipping/selecting operations/steps per UID
+- [ ] Allow run-time choice of browser technology ={chromium|webkit|firefox}=

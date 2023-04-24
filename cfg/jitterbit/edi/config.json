@@ -1,0 +1,666 @@
+{
+    "settings": {
+        "img_dir": "./images/jitterbit/edi",
+        "img_seq": false,
+        "img_pfx": "edi",
+        "img_filename_sep": "-",
+        "img_ext": ".png",
+        "img_width": 1800,
+        "img_height": 945,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": true,
+        "randlen": 6
+    },
+    "instance": {
+        "qa-green": {
+            "server": "https://apps.qa-green.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 5000,
+            "login_filename": ".login-qag",
+            "password_filename": ".password-qag"
+        },
+        "qa-green-alice": {
+            "server": "https://apps.qa-green.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 5000,
+            "login_filename": ".login-alice-qag",
+            "password_filename": ".password-alice-qag"
+        },
+        "na-east": {
+            "server": "https://apps.na-east.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 500,
+            "login_filename": ".login-nae",
+            "password_filename": ".password-nae"
+        }
+    },
+    "pages": [
+        {
+            "comment": "Login via Harmony portal",
+            "name": "login",
+            "uid": "",
+            "url": "",
+            "operations": [
+                {
+                    "name": "harmony",
+                    "steps": [
+                        {
+                            "skip": true,
+                            "name": "Close cookie consent",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Do not show this message again"
+                        },
+                        {
+                            "name": "Username",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Email address",
+                            "value": "LOGIN"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Password",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Password",
+                            "value": "PASSWORD"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "skip": true,
+                            "comment": "change org for Alice",
+                            "name": "to set org",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "organization-menu"
+                        },
+                        {
+                            "skip": true,
+                            "name": "desired org",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "123 Company"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "Add partner",
+            "name": "admin",
+            "uid": "",
+            "url": "console/edi/admin",
+            "operations": [
+                {
+                    "name": "",
+                    "loop": 1,
+                    "steps": [
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "environment",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='environment-selector']"
+                        },
+                        {
+                            "name": "add new",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Add Trading Partner"
+                        },
+                        {
+                            "name": "for partners load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "add trading partner",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "add partner",
+                            "type": "dblclick",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(3)"
+                        },
+                        {
+                            "name": "for partner add",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "skip": true,
+                            "comment": "first time only - ISA ID Generation",
+                            "name": "isa id generation",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='isa-modal show']"
+                        },
+                        {
+                            "skip": true,
+                            "type": "quit"
+                        },
+                        {
+                            "name": "close partner panel",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='icon-close']"
+                        },
+                        {
+                            "name": "select first partner",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "added trading partner",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "name": "transactions",
+            "uid": "",
+            "url": "console/edi/transactions",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "skip": true,
+                            "comment": "not normally enabled",
+                            "name": "clear filters",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Clear All"
+                        },
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        },
+                        {
+                            "skip": true,
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 15px; }"
+                        },
+                        {
+                            "name": "filter pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='filter-pane-container']"
+                        },
+                        {
+                            "comment": "filters collapse button not part of an element",
+                            "name": "filter pane",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 20,
+                                    "y": 140,
+                                    "width": 275,
+                                    "height": 550,
+                                    "comment": "height caters for at least one partner"
+                                }
+                            }
+                        },
+                        {
+                            "skip": true,
+                            "name": "remove padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 0px; }"
+                        },
+                        {
+                            "name": "transactions pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='transactions-table-container']"
+                        },
+                        {
+                            "name": "collapse filter pane for snapping page controls",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='icon-open-close']"
+                        },
+                        {
+                            "comment": "must be manually cropped",
+                            "name": "page controls",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='mat-paginator-container']"
+                        },
+                        {
+                            "name": "expand filter pane",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='icon-open-close']"
+                        },
+                        {
+                            "name": "search",
+                            "type": "snap",
+                            "locator": "css",
+                            "comment": "Selector frequently changes on page reload",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div:nth-child(1)",
+                            "viewport": {
+                                "width": 1401,
+                                "height": 900
+                            }
+                        },
+                        {
+                            "name": "actions",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div.transactions-table-container-header.ng-tns-c187-0",
+                            "viewport": {
+                                "width": 350,
+                                "height": 900
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "name": "admin",
+            "uid": "",
+            "url": "console/edi/admin",
+            "operations": [
+                {
+                    "name": "workflow",
+                    "comment": "don't save workflow",
+                    "steps": [
+                        {
+                            "name": "select first partner",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "add new workflow",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Add New Workflow"
+                        },
+                        {
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "add new",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Cancel"
+                        }
+                    ]
+                },
+                {
+                    "name": "workflow",
+                    "comment": "save workflow",
+                    "steps": [
+                        {
+                            "name": "select first partner",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "add new workflow",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Add New Workflow"
+                        },
+                        {
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "open direction menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[name='direction']"
+                        },
+                        {
+                            "name": "set direction",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Inbound"
+                        },
+                        {
+                            "name": "open document type menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[name='document type']"
+                        },
+                        {
+                            "name": "set document type",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Acknowledgement"
+                        },
+                        {
+                            "name": "open map menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[name='select map']"
+                        },
+                        {
+                            "name": "set map",
+                            "comment": "first in list",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > options-ui:nth-child(5) > ul > li:nth-child(1)"
+                        },
+                        {
+                            "name": "save workflow",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Save"
+                        },
+                        {
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "saved",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "archive settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Archive settings"
+                        },
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "manage pii",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Manage PII"
+                        },
+                        {
+                            "name": "delete documents",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Purge documents"
+                        },
+                        {
+                            "name": "purge documents",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "edi settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "EDI settings"
+                        },
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "edi settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "EDI settings"
+                        },
+                        {
+                            "name": "preferred id tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Address"
+                        },
+                        {
+                            "name": "address tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Terms"
+                        },
+                        {
+                            "name": "terms tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "References"
+                        },
+                        {
+                            "name": "references tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Control number"
+                        },
+                        {
+                            "name": "control number tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Envelope"
+                        },
+                        {
+                            "name": "envelope tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Advanced"
+                        },
+                        {
+                            "name": "advanced tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        }
+                    ]
+                },
+                {
+                    "name": "communication settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Communication settings"
+                        },
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Not yet implemented",
+            "name": "messaging",
+            "uid": "",
+            "url": "console/edi/messaging",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Not yet implemented",
+            "name": "archive",
+            "uid": "",
+            "url": "console/edi/archive",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "Delete partner(s)",
+            "name": "admin",
+            "uid": "",
+            "url": "console/edi/admin",
+            "operations": [
+                {
+                    "name": "partner",
+                    "loop": 1,
+                    "steps": [
+                        {
+                            "name": "hover on first partner",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                        },
+                        {
+                            "name": "to delete",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1) > div.tradingPartnerGridSquare > div"
+                        },
+                        {
+                            "name": "for dialog",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "delete dialog",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='modal modal_content']"
+                        },
+                        {
+                            "comment": "delete",
+                            "name": "confirm delete",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Continue"
+                        },
+                        {
+                            "name": "for delete",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "deleted",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

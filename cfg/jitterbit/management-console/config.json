@@ -1,0 +1,230 @@
+{
+    "settings": {
+        "img_dir": "./images",
+        "img_seq": false,
+        "img_pfx": "mc",
+        "img_ext": ".png",
+        "img_filename_sep": "-",
+        "img_width": 1550,
+        "img_height": 835,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": false,
+        "randlen": 6
+    },
+    "instance": {
+        "management-console-qa-green": {
+            "server": "https://apps.qa-green.jitterbit.com",
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 5000,
+            "pause": 1500,
+            "login_filename": ".login-qag",
+            "password_filename": ".password-qag"
+        }
+    },
+    "pages": [
+        {
+            "comment": "Login via Harmony portal",
+            "title": "",
+            "uid": "",
+            "url": "identity/login",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Close cookie consent",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Do not show this message again"
+                        },
+                        {
+                            "name": "Username",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Email address",
+                            "value": "LOGIN"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "Password",
+                            "type": "text",
+                            "locator": "placeholder",
+                            "selector": "Password",
+                            "value": "PASSWORD"
+                        },
+                        {
+                            "name": "Enter",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "harmony tile",
+                    "steps": [
+                        {
+                            "name": "Close pendo",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Close']"
+                        },
+                        {
+                            "name": "Hover",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Management Console"
+                        },
+                        {
+                            "name": "for settle",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "viewport": {
+                                "width": 1200,
+                                "height": 530
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "audit logging",
+                    "steps": [
+                        {
+                            "name": "open menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "hover menu",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6)"
+                        },
+                        {
+                            "name": "open submenu",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Audit Logging"
+                        },
+                        {
+                            "name": "for page load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > main-view > auditlogs-view > div > div { padding: 10px; }"
+                        },
+                        {
+                            "name": "page header",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > main-view > auditlogs-view > div > div"
+                        },
+                        {
+                            "name": "remove padding",
+                            "type": "style",
+                            "value": "body > main-view > auditlogs-view > div > div { padding: 0px; }"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > main-view > auditlogs-view > div > div > search-view-auditlogs > div.row > div > div > div.audit-flex-child { padding: 10px; }"
+                        },
+                        {
+                            "name": "date",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > main-view > auditlogs-view > div > div > search-view-auditlogs > div.row > div > div > div.audit-flex-child"
+                        },
+                        {
+                            "name": "remove padding",
+                            "type": "style",
+                            "value": "body > main-view > auditlogs-view > div > div > search-view-auditlogs > div.row > div > div > div.audit-flex-child { padding: 0px; }"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > main-view > auditlogs-view > div > div > search-view-auditlogs > div.row > div > div > div.audit-flex-child-col > div > div > div.search-cell { padding: 10px; }"
+                        },
+                        {
+                            "name": "search",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='search-cell']"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "#q-datepicker_1 > div > span { padding: 2px; }"
+                        },
+                        {
+                            "name": "calendar icon",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#q-datepicker_1 > div > span"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "body > main-view > auditlogs-view > div > div > search-view-auditlogs > div.row > div > div > div.audit-flex-child > datetime:nth-child(2) > div > div.input-group.bootstrap-timepicker.timepicker > span > i { padding: 2px; }"
+                        },
+                        {
+                            "name": "clock icon",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > main-view > auditlogs-view > div > div > search-view-auditlogs > div.row > div > div > div.audit-flex-child > datetime:nth-child(2) > div > div.input-group.bootstrap-timepicker.timepicker > span > i"
+                        },
+                        {
+                            "name": "add padding",
+                            "type": "style",
+                            "value": "#audit-search { padding: 2px; }"
+                        },
+                        {
+                            "name": "search button",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#audit-search"
+                        },
+                        {
+                            "name": "column view menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[title='Choose columns to display on grid']"
+                        },
+                        {
+                            "name": "column view menu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "#columnList"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
