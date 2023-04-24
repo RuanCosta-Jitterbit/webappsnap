@@ -6,16 +6,16 @@ const uf = require('url');
 const path = require('path');
 const { randomBytes } = require('node:crypto');
 const fs = require('fs');
-//const axios = require('axios')
+//const axios = require('axios') // For swagger?
 const prompt = require('prompt-sync')(); // Get input
 //const util = require('./js'); // Utility functions: snapping, loading URLs
 
 if (!argv.config) {
-    console.log("Missing config file (--config=)");
+    console.log("Missing config file (--config <path/to/config.json>)");
     return;
 }
 if (!argv.instance) {
-    console.log("Missing instance name (--instance=)");
+    console.log("Missing instance name (--instance <instance-name>)");
     return;
 }
 // TODO check instance exists in config
@@ -43,8 +43,8 @@ if (!argv.instance) {
         console.log(`Image filename prefix: ${settings.img_pfx}`);
         console.log(`Image filename suffix: ${settings.img_ext}`);
         if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality: ${settings.jpg_quality}`); }
-        console.log(`Default page load wait: ${instance.wait / 1000} seconds`);
-        console.log(`Default page settle: ${instance.pause / 1000} ${Math.floor(instance.pause / 1000) == 1 ? "second" : "seconds"}`);
+        console.log(`Default page load: ${instance.wait / 1000} seconds`);
+        console.log(`Default step pause: ${instance.pause / 1000} ${Math.floor(instance.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log(`SlowMo value: ${settings.slowmo / 1000} seconds`);
         console.log(`Headless mode: ${Boolean(settings.headless)}`);
         console.log(`Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`);
@@ -61,7 +61,7 @@ if (!argv.instance) {
     const context = await browser.newContext({
         deviceScaleFactor: 2,
         viewport: default_viewport
-/*
+/* TODO command line option for video
         screen: {
             width: 4112,
             height: 2658

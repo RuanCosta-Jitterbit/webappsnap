@@ -48,7 +48,7 @@ This section uses configuration created for Percona's [[https://www.percona.com/
 :END:
 You must create configuration files for your own application.
 
-1. Make copy of =cfg/config.json=
+1. Make copy of =cfg/config.template.json=
 
 2. Set values for these:
 
