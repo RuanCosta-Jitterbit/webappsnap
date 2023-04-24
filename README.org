@@ -200,7 +200,7 @@ You must create configuration files for your own application.
 
 - *Commenting out pages*
 
-  JSON doesn't have a system for commenting out portions of a file. To skip snapping certain pages, add ="skip":"true"= to the page entry.
+  JSON doesn't have a system for commenting out portions of a file. To skip snapping certain pages, add ="skip": true= to the page entry.
 
 ** Problems and Troubleshooting
 :PROPERTIES:
