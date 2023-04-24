@@ -140,6 +140,38 @@
                             "selector": "[class='environment-selector']"
                         },
                         {
+                            "name": "trading partners pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnersLeftPanel']",
+                            "viewport": {
+                                "width": 1800,
+                                "height": 380
+                            }
+                        },
+                        {
+                            "name": "padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.top-name-and-view-controls { padding: 15px; }"
+                        },
+                        {
+                            "name": "trading partners top name view controls",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='top-name-and-view-controls']"
+                        },
+                        {
+                            "name": "padding",
+                            "type": "style",
+                            "value": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.tradingPartnerSearchAndAddGrid { padding: 15px; }"
+                        },
+                        {
+                            "name": "trading partners search and add",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerSearchAndAddGrid']"
+                        },
+                        {
                             "name": "add new",
                             "type": "click",
                             "locator": "getbytext",
@@ -412,6 +444,8 @@
                     ]
                 },
                 {
+                    "skip": true,
+                    "comment": "removed since 2023-04-24",
                     "name": "archive settings",
                     "steps": [
                         {
@@ -567,6 +601,74 @@
                         {
                             "name": "page",
                             "type": "snap"
+                        },
+                        {
+                            "name": "my connections",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Create new FTP"
+                        },
+                        {
+                            "name": "create new ftp",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        }
+                    ]
+                },
+                {
+                    "name": "communication settings create new ftp",
+                    "steps": [
+                        {
+                            "name": "connection information",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "FTP details"
+                        },
+                        {
+                            "name": "ftp details",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Remote details"
+                        },
+                        {
+                            "name": "remote details",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "skip": true,
+                            "comment": "inactive",
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Automation"
+                        },
+                        {
+                            "skip": true,
+                            "name": "automation",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
                         }
                     ]
                 }
