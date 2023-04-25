@@ -6,9 +6,7 @@ const uf = require('url');
 const path = require('path');
 const { randomBytes } = require('node:crypto');
 const fs = require('fs');
-//const axios = require('axios') // For swagger?
 const prompt = require('prompt-sync')(); // Get input
-//const util = require('./js'); // Utility functions: snapping, loading URLs
 
 if (!argv.config) {
     console.log("Missing config file (--config <path/to/config.json>)");

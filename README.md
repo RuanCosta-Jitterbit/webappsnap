@@ -1,6 +1,6 @@
 # webappsnap - Automated Web App Screenshots
 
-This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox or Webkit-based web browser.
+This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a *selector*).
 
@@ -11,12 +11,11 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 -   [Node.js](https://nodejs.org/en/download/)
 -   [Playwright](https://github.com/microsoft/playwright/)
 -   [Yargs](https://github.com/yargs/yargs)
--   [Axios](https://github.com/axios/axios) (Optional)
 
 Once Node.js is installed, install the remaining components with this command:
 
 ```shell
-npm i playwright yargs axios prompt-sync
+npm i playwright yargs prompt-sync
 ```
 
 ## Quick Start
@@ -29,8 +28,8 @@ npm i playwright yargs axios prompt-sync
 
 3.  Run the script:
 
-    ```shell
-    ./run.sh --config ./cfg/percona/pmm/config.json --instance pmmdemo
+    ```sh
+    ./run.sh --config ./cfg/config.percona.pmm.json --instance pmmdemo
     ```
 
     This will snap all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmmdemo`.
@@ -39,7 +38,7 @@ npm i playwright yargs axios prompt-sync
 
 You must create configuration files for your own application.
 
-1.  Make copy of `cfg/config.json`
+1.  Make copy of `cfg/config.template.json`
 
 2.  Set values for these:
 
@@ -99,7 +98,7 @@ You must create configuration files for your own application.
 
         -   `url` (optional): Override the default page path. Use this if the URL can't be formed from the `server`, `a`-`f`, and page UID parts.
 
-        -   `wait` (optional): Override the default page load wait time in the server `server.json` file. The value is in milliseconds.
+        -   `wait` (optional): Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
 
         -   `options` (optional): An array of URL option strings appended to the page load URL.
 
