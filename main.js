@@ -6,9 +6,7 @@ const uf = require('url');
 const path = require('path');
 const { randomBytes } = require('node:crypto');
 const fs = require('fs');
-//const axios = require('axios') // For swagger?
 const prompt = require('prompt-sync')(); // Get input
-//const util = require('./js'); // Utility functions: snapping, loading URLs
 
 if (!argv.config) {
     console.log("Missing config file (--config <path/to/config.json>)");
@@ -47,6 +45,7 @@ if (!argv.instance) {
         console.log(`Default step pause: ${instance.pause / 1000} ${Math.floor(instance.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log(`SlowMo value: ${settings.slowmo / 1000} seconds`);
         console.log(`Headless mode: ${Boolean(settings.headless)}`);
+        console.log(`Record video: ${Boolean(settings.video)}`);
         console.log(`Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`);
     }
 
@@ -57,29 +56,31 @@ if (!argv.instance) {
         slowMo: settings.slowmo
     });
 
-    //    var page = await browser.newPage({ ignoreHTTPSErrors: true });
-    const context = await browser.newContext({
+    var context_options = {
         deviceScaleFactor: 2,
-        viewport: default_viewport
-/* TODO command line option for video
-        screen: {
-            width: 4112,
-            height: 2658
-        },
-        */
-       /*
-        recordVideo: {
-            dir: img_dir,
-            size: default_viewport
-        }
-        */
-    });
-    var page = await context.newPage({
-        deviceScaleFactor: 2
-    });
+        viewport: default_viewport,
+    };
+    if (settings.video) {
+        context_options = {
+            ...context_options,
+            ...{
+                recordVideo: {
+                    dir: img_dir,
+                    size: default_viewport
+                },
+                screen: {
+                    width: 4112,
+                    height: 2658
+                }
+            }
+        };
+    }
+    const context = await browser.newContext(context_options);
+
+    var page = await context.newPage();
 
     /*************************************************************************************
-     * A loop through all pages in pages config file (e.g. ./cfg/pages.json):
+     * A loop through all pages:
      *
      * Part 1: Build URL
      * Part 2: Define viewport
@@ -101,7 +102,7 @@ if (!argv.instance) {
     for (var d in pages) {
         var pg = pages[d]; // convenience handle
 
-        // Pages, operations, and steps can use "skip": true
+        // Pages (and operations, and steps) can use "skip": true
         if (pg.skip) {
             console.log(`Page ${d}: SKIP - ${pg.name} (${pg.comment})`);
             continue;
@@ -144,7 +145,7 @@ if (!argv.instance) {
         const current_page_vp = page.viewportSize();
         if (pg.viewport) {
             console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
-            await viewport(page, pg.viewport, true);
+            await viewport(page, pg.viewport, instance.wait);
         }
 
         // TODO Reliable way of knowing when page has completed loading
@@ -163,7 +164,7 @@ if (!argv.instance) {
                     const bx = await elem.boundingBox();
                     // Resize viewport to container height plus padding
                     const vp = { width: settings.img_width, height: bx.height + 150 };
-                    await viewport(page, vp, true);
+                    await viewport(page, vp, instance.wait);
                     await snap(page, pg.name + "_full", img_dir, pg.options, settings);
                 }
                 catch (e) {
@@ -195,7 +196,7 @@ if (!argv.instance) {
                 const current_operation_vp = page.viewportSize();
                 if (op.viewport) {
                     console.log(`    Viewport for operation: ${op.viewport.width}x${op.viewport.height}`);
-                    await viewport(page, op.viewport, true);
+                    await viewport(page, op.viewport, instance.wait);
                 }
 
                 for (var s in op.steps) {
@@ -210,7 +211,7 @@ if (!argv.instance) {
                     const current_step_vp = page.viewportSize();
                     if (step.viewport) {
                         console.log(`        Viewport for step: ${step.viewport.width}x${step.viewport.height}`);
-                        await viewport(page, step.viewport);
+                        await viewport(page, step.viewport, instance.wait);
                     }
 
                     var loc;
@@ -321,9 +322,9 @@ if (!argv.instance) {
                                 await loc.evaluate((node, ve) => node.innerText = ve, ve);
                                 break;
 
-                            case "replace":
-                                const vr = String(step.value);
-                                await loc.evaluate((node, vr) => node = vr, vr);
+                            case "replace": //TODO
+                                const vr = step.value;
+                                await loc.evaluate((node, vr) => node.innerHTML = vr, vr);
                                 break;
 
                             case "style":
@@ -331,8 +332,8 @@ if (!argv.instance) {
                                 break;
 
                             case "snap":
-                                // build image file name from whatever "name" elements have values, separated by the sep char
-                                let fn = [pg.name, op.name, step.name].filter(String).join(settings.img_filename_sep);
+                                // Join non-empty names
+                                let fn = [pg.name, op.name, step.name].filter(String).join('');
                                 if (op.loop) { [fn, n].join(settings.img_filename_sep); }
                                 await snap(loc, fn, img_dir, step.options, settings);
                                 break;
@@ -346,18 +347,18 @@ if (!argv.instance) {
                     }
                     if (step.viewport) {
                         console.log(`        Reset viewport for step: ${current_step_vp.width}x${current_step_vp.height}`);
-                        await viewport(page, current_step_vp);
+                        await viewport(page, current_step_vp, instance.wait);
                     }
                 } // for step
                 if (op.viewport) {
                     console.log(`    Reset viewport for operation: ${current_operation_vp.width}x${current_operation_vp.height}`);
-                    await viewport(page, current_operation_vp);
+                    await viewport(page, current_operation_vp, instance.wait);
                 }
             } // operations loop
         } // for operations
         if (pg.viewport) {
             console.log(`  Reset viewport for page: ${current_page_vp.width}x${current_page_vp.height}`);
-            await viewport(page, current_page_vp);
+            await viewport(page, current_page_vp, instance.wait);
         }
     } // for pages
     await context.close();
@@ -370,11 +371,13 @@ if (!argv.instance) {
 */
 // Increment screenshot file names
 var idx = 1;
-async function snap(page, title, dir, options = {}, settings) {
+async function snap(loc, title, dir, options = {}, settings) {
     let sep = settings.img_filename_sep;
 
     // Replace space, dot, slash with sep char
-    title = title.replace(/[\. \\\/]/g, sep);
+    //    title = title.replace(/[\. \\\/]/g, sep);
+    // Replace space, dot, backslash with sep char
+    title = title.replace(/[\. \\]/g, sep);
 
     // Array of two (possibly empty) prefixes joined with title and extension
     let filename = [
@@ -385,7 +388,7 @@ async function snap(page, title, dir, options = {}, settings) {
 
     let filepath = path.join(dir, filename);
 
-//    options.omitBackground = true;
+    //    options.omitBackground = true;
     options.path = filepath;
     if (settings.img_ext == '.jpg') {
         options.type = 'jpeg';
@@ -393,7 +396,7 @@ async function snap(page, title, dir, options = {}, settings) {
     }
 
     try {
-        await page.screenshot(options);
+        await loc.screenshot(options);
     } catch (err) {
         console.error(`Failed to save image ${err}`);
     }
@@ -416,7 +419,7 @@ async function load(page, url, wait = instance.wait, force_wait = false) {
 
         await page.goto(url,
             {
-//                waitUntil: 'networkidle',
+                //                waitUntil: 'networkidle',
                 timeout: wait
             }
         );
@@ -432,17 +435,17 @@ async function load(page, url, wait = instance.wait, force_wait = false) {
 /*
 ** Convenience viewport setter (with reload option)
 */
-async function viewport(page, viewport, reload = false) {
+async function viewport(page, viewport, timeout = 0, reload = false) {
     try {
         await page.setViewportSize({
             width: viewport.width,
             height: viewport.height
         });
         if (reload) { // some pages need reloading after the viewport is changed
-            console.log(`Reloading (timeout=${instance.wait / 1000})`);
+            console.log(`Reloading (timeout=${timeout / 1000})`);
             await page.reload({
                 waitUntil: 'load',
-                timeout: instance.wait
+                timeout: timeout
             });
         }
     } catch (e) {
