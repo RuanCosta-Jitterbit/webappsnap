@@ -51,9 +51,9 @@ You must create configuration files for your own application.
 
         -   `img_pfx`: The secondary file name prefix for each snap file.
 
-        -   `img_filename_sep`: Replace slash, space, or dot in final image filenames with this character.
+        -   `sep`: Replace slash, space, or dot in final image filenames with this character.
 
-        -   `img_ext`: File name extension, either `.png` or `.jpg`.
+        -   `ext`: File name extension, either `.png` or `.jpg`.
 
         -   `img_width`: The image width, in pixels, for full screen snaps.
 
@@ -306,7 +306,7 @@ The file name is constructed in `snap()` and is made of each page's entry values
 
 -   (If not operations and `--full` option is set) `_full`
 
--   `img_ext` (file extension)
+-   `ext` (file extension)
 
 > **Note:** Spaces, back slashes (`\`), forward slashes > (`/`), and dots (`.`) in titles and names are replaced with underscores (in `snap()`).
 

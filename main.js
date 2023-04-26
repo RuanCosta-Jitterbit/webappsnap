@@ -30,7 +30,7 @@ if (!argv.instance) {
     };
     const today = new Date().toISOString();
     const img_dir = path.join(settings.img_dir, today, argv.instance); // Images save path
-    const img_ext = settings.img_ext;   // Image file extension (png/jpg)
+    const ext = settings.ext;   // Image file extension (png/jpg)
     mkdir(img_dir);    // Create image save directory TODO move to snap function
 
     if (settings.debug) {
@@ -39,8 +39,8 @@ if (!argv.instance) {
         console.log(`Default viewport: ${default_viewport.width}x${default_viewport.height}`);
         console.log(`Image filename sequence numbers: ${Boolean(settings.img_seq)}`);
         console.log(`Image filename prefix: ${settings.img_pfx}`);
-        console.log(`Image filename suffix: ${settings.img_ext}`);
-        if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality: ${settings.jpg_quality}`); }
+        console.log(`Image filename suffix: ${settings.ext}`);
+        if (ext.match(/\.jpg$/)) { console.log(`  JPG quality: ${settings.jpg_quality}`); }
         console.log(`Default page load: ${instance.wait / 1000} seconds`);
         console.log(`Default step pause: ${instance.pause / 1000} ${Math.floor(instance.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log(`SlowMo value: ${settings.slowmo / 1000} seconds`);
@@ -76,7 +76,6 @@ if (!argv.instance) {
         };
     }
     const context = await browser.newContext(context_options);
-
     var page = await context.newPage();
 
     /*************************************************************************************
@@ -152,7 +151,7 @@ if (!argv.instance) {
 
         // PART 4 - Page-level snap (no operations)
         if (!pg.operations) {
-            await snap(page, pg.name, img_dir, pg.options, settings);
+            await snap(page, path.join(img_dir, pg.name), pg.options, settings);
 
             // Snap container without cropping at viewport
             // Skip any using 'url' element
@@ -165,7 +164,7 @@ if (!argv.instance) {
                     // Resize viewport to container height plus padding
                     const vp = { width: settings.img_width, height: bx.height + 150 };
                     await viewport(page, vp, instance.wait);
-                    await snap(page, pg.name + "_full", img_dir, pg.options, settings);
+                    await snap(page, path.join(img_dir, pg.name + "_full"), pg.options, settings);
                 }
                 catch (e) {
                     console.log(`  ERROR ${e}`);
@@ -334,8 +333,8 @@ if (!argv.instance) {
                             case "snap":
                                 // Join non-empty names
                                 let fn = [pg.name, op.name, step.name].filter(String).join('');
-                                if (op.loop) { [fn, n].join(settings.img_filename_sep); }
-                                await snap(loc, fn, img_dir, step.options, settings);
+                                if (op.loop) { [fn, n].join(settings.sep); }
+                                await snap(loc, path.join(img_dir, fn), step.options, settings);
                                 break;
 
                             default:
@@ -371,26 +370,26 @@ if (!argv.instance) {
 */
 // Increment screenshot file names
 var idx = 1;
-async function snap(loc, title, dir, options = {}, settings) {
-    let sep = settings.img_filename_sep;
+async function snap(loc, full_path, options = {}, settings) {
 
-    // Replace space, dot, slash with sep char
-    //    title = title.replace(/[\. \\\/]/g, sep);
+    const directory = path.dirname(full_path);
+    let filename = path.basename(full_path);
+
+    // Attach sequence number and prefix to filename
     // Replace space, dot, backslash with sep char
-    title = title.replace(/[\. \\]/g, sep);
-
-    // Array of two (possibly empty) prefixes joined with title and extension
-    let filename = [
+    // Append extension
+    filename = [
         (settings.img_seq ? pad(idx++) : null),
         (settings.img_pfx ? settings.img_pfx : null),
-        title
-    ].filter(function (a) { return a != null; }).join(sep) + settings.img_ext;
+        filename.replace(/[\. \\]/g, settings.sep)
+    ].filter(function (a) { return a != null; })
+     .join(settings.sep) + settings.ext;
 
-    let filepath = path.join(dir, filename);
+    full_path = path.join(directory, filename);
 
     //    options.omitBackground = true;
-    options.path = filepath;
-    if (settings.img_ext == '.jpg') {
+    options.path = full_path;
+    if (settings.ext == '.jpg') {
         options.type = 'jpeg';
         options.quality = settings.jpg_quality;
     }
