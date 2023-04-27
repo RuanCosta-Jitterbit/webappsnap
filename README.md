@@ -32,12 +32,13 @@ npm i playwright yargs prompt-sync
     ./run.sh --config ./cfg/percona.pmm.json --instance pmmdemo
     ```
 
-    This will snap all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmmdemo`.
+    This snaps all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmmdemo`.
 
 ## Usage
 
 You must create configuration files for your own application.
 
+1.  Make copy of `cfg/template.json`
 1.  Make copy of `cfg/template.json`
 
 2.  Set values for these:
@@ -50,9 +51,9 @@ You must create configuration files for your own application.
 
         -   `pfx`: The secondary file name prefix for each snap file.
 
-        -   `img_filename_sep`: Replace slash, space, or dot in final image filenames with this character.
+        -   `sep`: Replace slash, space, or dot in final image filenames with this character.
 
-        -   `img_ext`: File name extension, either `.png` or `.jpg`.
+        -   `ext`: File name extension, either `.png` or `.jpg`.
 
         -   `img_width`: The image width, in pixels, for full screen snaps.
 
@@ -166,6 +167,7 @@ You must create configuration files for your own application.
 
     ```shell
     ./run.sh -- config ./cfg/my-config.json --instance instance-name
+    ./run.sh -- config ./cfg/my-config.json --instance instance-name
     ```
 
     Optional arguments:
@@ -181,9 +183,11 @@ You must create configuration files for your own application.
     Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
 
     If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
+    If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
 
 -   **Multiple runs**
 
+    By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
     By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
 
 -   **Commenting out pages**
@@ -289,7 +293,7 @@ The directory path is a hierarchy constructed in `main.js`. It is:
 
 -   Server configuration file `name`.
 
-The file name is constructed in `snap()` and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (`_`).
+The filename is constructed in `snap()` and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (`_`).
 
 -   (Optional primary prefix) If `seq` is true, a zero-padded integer, incremented for each image.
 
@@ -305,7 +309,7 @@ The file name is constructed in `snap()` and is made of each page's entry values
 
 -   (If not operations and `--full` option is set) `_full`
 
--   `img_ext` (file extension)
+-   `ext` (file extension)
 
 > **Note:** Spaces, back slashes (`\`), forward slashes > (`/`), and dots (`.`) in titles and names are replaced with underscores (in `snap()`).
 

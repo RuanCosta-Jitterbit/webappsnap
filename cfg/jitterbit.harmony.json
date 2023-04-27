@@ -1,23 +1,21 @@
 {
-    "settings":
-    {
+    "settings": {
         "img_dir": "./images/jitterbit/harmony",
         "seq": false,
         "pfx": "",
-        "img_ext": ".png",
-        "img_filename_sep": "-",
+        "ext": ".png",
+        "sep": "-",
         "img_width": 1200,
         "img_height": 900,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,
         "debug": true,
-        "randlen": 6
-
+        "randlen": 6,
+        "video": true
     },
     "instance": {
-        "qa-green":
-        {
+        "qa-green": {
             "server": "https://apps.qa-green.jitterbit.com",
             "a": "edi",
             "b": "",
@@ -29,9 +27,8 @@
             "pause": 5000,
             "login_filename": ".login-qag",
             "password_filename": ".password-qag"
-          },
-          "na-east":
-          {
+        },
+        "na-east": {
             "server": "https://apps.na-east.jitterbit.com",
             "a": "edi",
             "b": "",
@@ -43,8 +40,8 @@
             "pause": 500,
             "login_filename": ".login-nae",
             "password_filename": ".password-nae"
-          }
-    }
+        }
+    },
     "pages": [
         {
             "name": "login",
@@ -55,6 +52,7 @@
                     "name": "",
                     "steps": [
                         {
+                            "skip": true,
                             "name": "Close cookie consent",
                             "type": "click",
                             "locator": "getbytext",
@@ -94,12 +92,12 @@
         },
         {
             "skip": false,
-            "name": "",
+            "name": "hp/",
             "uid": "",
             "url": "identity/landing",
             "operations": [
                 {
-                    "name": "",
+                    "name": "header/",
                     "viewport": {
                         "width": 1200,
                         "height": 533
@@ -116,7 +114,7 @@
                             "name": "change username",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "[name='User']",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
                             "value": "Jan"
                         },
                         {
@@ -140,17 +138,26 @@
                             "selector": "body > identity > div > site-header > div > div"
                         },
                         {
+                            "skip": false,
                             "name": "open org menu",
                             "type": "click",
                             "locator": "css",
                             "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
                         },
                         {
+                            "skip": true,
                             "name": "change personal org name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li > span",
+                            "value": "XYZ Company"
+                        },
+                        {
+                            "name": "change personal org name/number",
                             "type": "replace",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li",
-                            "value": "<span _ngcontent-aae-c78='' class='cs_site-header_app-menu_list_nav_dropdown_org-menu_scrollbar_li_span' name='paul.jacobs+xxx@jitterbit.com'>paul.jacobs+xxx@jitterbit.com</span>"
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li:nth-child(1)",
+                            "value": "<span class=\"cs_site-header_app-menu_list_nav_dropdown_org-menu_scrollbar_li_span\">XYZ Company</span>&nbsp;<span style=\"align: right;\">(54321)</span>"
                         },
                         {
                             "name": "organization dropdown",
@@ -169,7 +176,16 @@
                             "type": "click",
                             "locator": "css",
                             "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "landing/",
+                    "viewport": {
+                        "width": 1200,
+                        "height": 533
+                    },
+                    "steps": [
                         {
                             "name": "tiles",
                             "type": "snap"
@@ -239,20 +255,31 @@
             ]
         },
         {
-            "skip": true,
-            "comment": "items with no submenus",
-            "name": "",
+            "skip": false,
+            "name": "hp/",
             "uid": "",
             "url": "identity/landing",
             "operations": [
                 {
-                    "name": "",
+                    "comment": "all menu items with submenus (in menu order)",
+                    "name": "menu/",
                     "steps": [
                         {
                             "name": "open portal menu",
                             "type": "click",
                             "locator": "css",
                             "selector": "[class='cs_site-navigation']"
+                        },
+                        {
+                            "name": "hide tiles",
+                            "comment": "for large menus that show background",
+                            "type": "style",
+                            "value": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section { visibility: hidden; }"
+                        },
+                        {
+                            "name": "hide pane",
+                            "type": "style",
+                            "value": "body > identity > div > div:nth-child(3) > landing > div > div { visibility: hidden; }"
                         },
                         {
                             "name": "hover on",
@@ -268,6 +295,222 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 250,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Cloud Studio"
+                        },
+                        {
+                            "name": "cloud studio",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Projects"
+                        },
+                        {
+                            "name": "cloud studio projects",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Global Connections"
+                        },
+                        {
+                            "name": "cloud studio global connections",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Connector Builder"
+                        },
+                        {
+                            "name": "cloud studio connector builder",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "API Manager"
+                        },
+                        {
+                            "name": "api manager",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "My APIs"
+                        },
+                        {
+                            "name": "api manager my apis",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Portal Manager"
+                        },
+                        {
+                            "name": "api manager portal manager",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Portal"
+                        },
+                        {
+                            "name": "api manager portal",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "API Logs"
+                        },
+                        {
+                            "name": "api manager api logs",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Analytics"
+                        },
+                        {
+                            "name": "api manager analytics",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Security Profiles"
+                        },
+                        {
+                            "name": "api manager security profiles",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Trusted IP Groups"
+                        },
+                        {
+                            "name": "api manager trusted ip groups",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
                                     "height": 463
                                 }
                             }
@@ -304,6 +547,367 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 250,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Management Console"
+                        },
+                        {
+                            "name": "management console",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Dashboard"
+                        },
+                        {
+                            "name": "management console dashboard",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Access Tokens"
+                        },
+                        {
+                            "name": "management console access tokens",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "User Management"
+                        },
+                        {
+                            "name": "management console user management",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "comment": "unknown problem using getbytext = 'Projects'",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(4)"
+                        },
+                        {
+                            "name": "management console projects",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Activities"
+                        },
+                        {
+                            "name": "management console activities",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Audit Logging"
+                        },
+                        {
+                            "name": "management console audit logging",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Notifications"
+                        },
+                        {
+                            "name": "management console notifications",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Organizations"
+                        },
+                        {
+                            "name": "management console organizations",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Environments"
+                        },
+                        {
+                            "name": "management console environments",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Agents"
+                        },
+                        {
+                            "name": "management console agents",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(1)"
+                        },
+                        {
+                            "name": "management console agents agent groups",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(2)"
+                        },
+                        {
+                            "name": "management console agents agents",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Customizations"
+                        },
+                        {
+                            "name": "management console customizations",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Plug-ins"
+                        },
+                        {
+                            "name": "management console customizations plugins",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Client Certificates"
+                        },
+                        {
+                            "name": "management console customizations client certificates",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 750,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Message Queues"
+                        },
+                        {
+                            "name": "management console message queues",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "EDI"
+                        },
+                        {
+                            "name": "edi",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Transactions"
+                        },
+                        {
+                            "name": "edi transactions",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Admin"
+                        },
+                        {
+                            "name": "edi admin",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
                                     "height": 463
                                 }
                             }
@@ -349,637 +953,65 @@
             ]
         },
         {
-            "skip": true,
-            "name": "cloud studio",
-            "uid": "",
-            "url": "identity/landing",
-            "operations": [
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "open portal menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='cs_site-navigation']"
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Cloud Studio"
-                        },
-                        {
-                            "name": "",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Projects"
-                        },
-                        {
-                            "name": "projects",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Connector Builder"
-                        },
-                        {
-                            "name": "connector builder",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "name": "api manager",
-            "uid": "",
-            "url": "identity/landing",
-            "operations": [
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "open portal menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='cs_site-navigation']"
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "API Manager"
-                        },
-                        {
-                            "name": "",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "My APIs"
-                        },
-                        {
-                            "name": "my apis",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Portal Manager"
-                        },
-                        {
-                            "name": "portal manager",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Portal"
-                        },
-                        {
-                            "name": "portal",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "API Logs"
-                        },
-                        {
-                            "name": "api logs",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Analytics"
-                        },
-                        {
-                            "name": "analytics",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Security Profiles"
-                        },
-                        {
-                            "name": "security profiles",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Trusted IP Groups"
-                        },
-                        {
-                            "name": "trusted ip groups",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "name": "management console",
-            "uid": "",
-            "url": "identity/landing",
-            "operations": [
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "hide tiles",
-                            "type": "style",
-                            "value": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section { visibility: hidden; }"
-                        },
-                        {
-                            "name": "hide pane",
-                            "type": "style",
-                            "value": "body > identity > div > div:nth-child(3) > landing > div > div { visibility: hidden; }"
-                        },
-                        {
-                            "name": "open portal menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='cs_site-navigation']"
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Management Console"
-                        },
-                        {
-                            "name": "",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Dashboard"
-                        },
-                        {
-                            "name": "dashboard",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Access Tokens"
-                        },
-                        {
-                            "name": "access tokens",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "User Management"
-                        },
-                        {
-                            "name": "user management",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "comment": "unknown problem using getbytext = 'Projects'",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(4)"
-                        },
-                        {
-                            "name": "projects",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Activities"
-                        },
-                        {
-                            "name": "activities",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Audit Logging"
-                        },
-                        {
-                            "name": "audit logging",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Notifications"
-                        },
-                        {
-                            "name": "notifications",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Organizations"
-                        },
-                        {
-                            "name": "organizations",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Environments"
-                        },
-                        {
-                            "name": "environments",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Agents"
-                        },
-                        {
-                            "name": "agents",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 750,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(1)"
-                        },
-                        {
-                            "name": "agents agent groups",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 750,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(2)"
-                        },
-                        {
-                            "name": "agents agents",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 750,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Customizations"
-                        },
-                        {
-                            "name": "customizations",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 750,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Plug-ins"
-                        },
-                        {
-                            "name": "customizations plugins",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 750,
-                                    "height": 555
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Client Certificates"
-                        },
-                        {
-                            "name": "customizations client certificates",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 750,
-                                    "height": 555
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "skip": false,
-            "name": "edi",
+            "name": "mc/",
+            "comment": "management console",
             "uid": "",
-            "url": "identity/landing",
+            "url": "console/main",
+            "viewport": {
+                "width": 1400,
+                "height": 920
+            },
             "operations": [
                 {
-                    "name": "",
+                    "name": "dashboard/",
                     "steps": [
                         {
-                            "name": "hide tiles",
-                            "type": "style",
-                            "value": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section { visibility: hidden; }"
-                        },
-                        {
-                            "name": "hide pane",
-                            "type": "style",
-                            "value": "body > identity > div > div:nth-child(3) > landing > div > div { visibility: hidden; }"
-                        },
-                        {
-                            "name": "open portal menu",
-                            "type": "click",
+                            "name": "change company",
+                            "type": "edit",
                             "locator": "css",
-                            "selector": "[class='cs_site-navigation']"
+                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > organization-list-card > div > div.organization-list-card__header > div > h2",
+                            "value": "ABC Company"
                         },
                         {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "EDI"
+                            "name": "edit id",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "[class='organization-list-card__id']",
+                            "value": "ID: 12345"
                         },
                         {
-                            "name": "",
+                            "name": "change organizations list",
+                            "type": "replace",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > organization-list-card > div > div.organization-list-card__content",
+                            "value": "<p>Your organizations</p><p>ABC Company</p><p>XYZ Company</p>"
+                        },
+                        {
+                            "name": "change login",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > recent-logins-card > div > div.recent-logins-card__content > div > span:nth-child(1)",
+                            "value": "jan@example.com"
+                        },
+                        {
+                            "name": "change last login time",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > recent-logins-card > div > div.recent-logins-card__content > div > span:nth-child(2)",
+                            "value": "3/23/23, 23:23 PM"
+                        },
+                        {
+                            "name": "dashboard landing",
                             "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
+                            "locator": "css",
+                            "selector": "dashboard"
                         },
                         {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Transactions"
-                        },
-                        {
-                            "name": "transactions",
+                            "name": "organization",
                             "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
-                        },
-                        {
-                            "name": "hover on",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Admin"
-                        },
-                        {
-                            "name": "admin",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 500,
-                                    "height": 463
-                                }
-                            }
+                            "locator": "css",
+                            "selector": "organization-list-card"
                         }
                     ]
                 }

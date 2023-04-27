@@ -2,16 +2,17 @@
     "settings": {
         "img_dir": "./images/jitterbit/edi",
         "seq": false,
-        "pfx": "edi",
-        "img_filename_sep": "-",
-        "img_ext": ".png",
+        "pfx": "",
+        "sep": "-",
+        "ext": ".png",
         "img_width": 1800,
         "img_height": 945,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,
         "debug": true,
-        "randlen": 6
+        "randlen": 6,
+        "video": true
     },
     "instance": {
         "qa-green": {
@@ -22,7 +23,7 @@
             "d": "",
             "e": "",
             "f": "",
-            "wait": 20000,
+            "wait": 25000,
             "pause": 5000,
             "login_filename": ".login-qag",
             "password_filename": ".password-qag"
@@ -121,12 +122,38 @@
         {
             "skip": false,
             "comment": "Add partner",
-            "name": "admin",
+            "name": "admin/",
             "uid": "",
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "name": "",
+                    "name": "change visible login details",
+                    "steps": [
+                        {
+                            "name": "change username",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "value": "Jan"
+                        },
+                        {
+                            "name": "change org name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span.org-name",
+                            "value": "ABC Company"
+                        },
+                        {
+                            "name": "change org number",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "value": " (12345)"
+                        }
+                    ]
+                },
+                {
+                    "name": "general/",
                     "loop": 1,
                     "steps": [
                         {
@@ -140,36 +167,40 @@
                             "selector": "[class='environment-selector']"
                         },
                         {
-                            "name": "trading partners pane",
+                            "name": "search and add",
                             "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='tradingPartnersLeftPanel']",
-                            "viewport": {
-                                "width": 1800,
-                                "height": 380
+                            "options": {
+                                "clip": {
+                                    "x": 15,
+                                    "y": 160,
+                                    "height": 50,
+                                    "width": 380
+                                }
                             }
                         },
                         {
-                            "name": "padding",
-                            "type": "style",
-                            "value": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.top-name-and-view-controls { padding: 15px; }"
-                        },
+                            "name": "top name view controls",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 15,
+                                    "y": 105,
+                                    "height": 55,
+                                    "width": 380
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "partner/",
+                    "loop": 1,
+                    "steps": [
                         {
-                            "name": "trading partners top name view controls",
+                            "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='top-name-and-view-controls']"
-                        },
-                        {
-                            "name": "padding",
-                            "type": "style",
-                            "value": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.tradingPartnerSearchAndAddGrid { padding: 15px; }"
-                        },
-                        {
-                            "name": "trading partners search and add",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='tradingPartnerSearchAndAddGrid']"
+                            "selector": "[class='tradingPartnersLeftPanel']"
                         },
                         {
                             "name": "add new",
@@ -183,7 +214,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "add trading partner",
+                            "name": "add",
                             "type": "snap"
                         },
                         {
@@ -199,15 +230,11 @@
                         },
                         {
                             "skip": true,
-                            "comment": "first time only - ISA ID Generation",
+                            "comment": "Use with alice account first time only for ISA ID Generation",
                             "name": "isa id generation",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='isa-modal show']"
-                        },
-                        {
-                            "skip": true,
-                            "type": "quit"
                         },
                         {
                             "name": "close partner panel",
@@ -222,7 +249,7 @@
                             "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
                         },
                         {
-                            "name": "added trading partner",
+                            "name": "added",
                             "type": "snap"
                         }
                     ]
@@ -231,12 +258,38 @@
         },
         {
             "skip": false,
-            "name": "transactions",
+            "name": "transactions/",
             "uid": "",
             "url": "console/edi/transactions",
             "operations": [
                 {
-                    "name": "",
+                    "name": "change visible login details",
+                    "steps": [
+                        {
+                            "name": "change username",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "value": "Jan"
+                        },
+                        {
+                            "name": "change org name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span.org-name",
+                            "value": "ABC Company"
+                        },
+                        {
+                            "name": "change org number",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "value": " (12345)"
+                        }
+                    ]
+                },
+                {
+                    "name": "general/",
                     "steps": [
                         {
                             "skip": true,
@@ -251,18 +304,6 @@
                             "type": "snap"
                         },
                         {
-                            "skip": true,
-                            "name": "add padding",
-                            "type": "style",
-                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 15px; }"
-                        },
-                        {
-                            "name": "filter pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='filter-pane-container']"
-                        },
-                        {
                             "comment": "filters collapse button not part of an element",
                             "name": "filter pane",
                             "type": "snap",
@@ -270,63 +311,74 @@
                                 "clip": {
                                     "x": 20,
                                     "y": 140,
-                                    "width": 275,
+                                    "width": 285,
                                     "height": 550,
                                     "comment": "height caters for at least one partner"
                                 }
                             }
                         },
                         {
-                            "skip": true,
-                            "name": "remove padding",
-                            "type": "style",
-                            "value": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.filter-pane-container { padding: 0px; }"
-                        },
-                        {
-                            "name": "transactions pane",
+                            "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='transactions-table-container']"
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div"
                         },
                         {
-                            "name": "collapse filter pane for snapping page controls",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='icon-open-close']"
-                        },
-                        {
-                            "comment": "must be manually cropped",
                             "name": "page controls",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='mat-paginator-container']"
                         },
                         {
-                            "name": "expand filter pane",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='icon-open-close']"
-                        },
-                        {
                             "name": "search",
                             "type": "snap",
                             "locator": "css",
-                            "comment": "Selector frequently changes on page reload",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div:nth-child(1)",
-                            "viewport": {
-                                "width": 1401,
-                                "height": 900
-                            }
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c195-0 > div:nth-child(1) > div"
                         },
                         {
                             "name": "actions",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c187-0 > div.transactions-table-container-header.ng-tns-c187-0",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c195-0 > div.transactions-table-container-header.ng-tns-c195-0"
+                        }
+                    ]
+                },
+                {
+                    "name": "detail/",
+                    "steps": [
+                        {
+                            "name": "reveal document information",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td.mat-cell.cdk-cell.cdk-column-expand.mat-column-expand.ng-tns-c195-0.ng-star-inserted > span"
+                        },
+                        {
+                            "name": "document information",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2)",
                             "viewport": {
-                                "width": 350,
-                                "height": 900
+                                "width": 1800,
+                                "height": 1100
                             }
+                        },
+                        {
+                            "name": "reveal messages",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Messages"
+                        },
+                        {
+                            "name": "messages",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2)"
+                        },
+                        {
+                            "name": "close transaction detail",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr.mat-row.cdk-row.expanded-element-row.ng-tns-c195-0.ng-star-inserted.element-expanded-row > td.mat-cell.cdk-cell.cdk-column-expand.mat-column-expand.ng-tns-c195-0.ng-star-inserted > span"
                         }
                     ]
                 }
@@ -334,12 +386,38 @@
         },
         {
             "skip": false,
-            "name": "admin",
+            "name": "admin/",
             "uid": "",
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "name": "workflow",
+                    "name": "change visible login details",
+                    "steps": [
+                        {
+                            "name": "change username",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "value": "Jan"
+                        },
+                        {
+                            "name": "change org name",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span.org-name",
+                            "value": "ABC Company"
+                        },
+                        {
+                            "name": "change org number",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "value": " (12345)"
+                        }
+                    ]
+                },
+                {
+                    "name": "workflow/",
                     "comment": "don't save workflow",
                     "steps": [
                         {
@@ -359,7 +437,7 @@
                             "value": 3000
                         },
                         {
-                            "name": "add new",
+                            "name": "add",
                             "type": "snap"
                         },
                         {
@@ -371,7 +449,7 @@
                     ]
                 },
                 {
-                    "name": "workflow",
+                    "name": "workflow/",
                     "comment": "save workflow",
                     "steps": [
                         {
@@ -461,7 +539,7 @@
                     ]
                 },
                 {
-                    "name": "manage pii",
+                    "name": "manage-pii/",
                     "steps": [
                         {
                             "name": "select tab",
@@ -486,7 +564,7 @@
                     ]
                 },
                 {
-                    "name": "edi settings",
+                    "name": "edi-settings/",
                     "steps": [
                         {
                             "name": "select tab",
@@ -501,7 +579,7 @@
                     ]
                 },
                 {
-                    "name": "edi settings",
+                    "name": "edi-settings/",
                     "steps": [
                         {
                             "name": "select tab",
@@ -590,7 +668,7 @@
                     ]
                 },
                 {
-                    "name": "communication settings",
+                    "name": "communication-settings/",
                     "steps": [
                         {
                             "name": "select tab",
@@ -603,19 +681,7 @@
                             "type": "snap"
                         },
                         {
-                            "name": "my connections",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create new FTP"
-                        },
-                        {
-                            "name": "create new ftp",
+                            "name": "my connections tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -623,10 +689,16 @@
                     ]
                 },
                 {
-                    "name": "communication settings create new ftp",
+                    "name": "communication-settings/create-new-ftp/",
                     "steps": [
                         {
-                            "name": "connection information",
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Create new FTP"
+                        },
+                        {
+                            "name": "connection information tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -638,7 +710,7 @@
                             "selector": "FTP details"
                         },
                         {
-                            "name": "ftp details",
+                            "name": "ftp details tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -650,7 +722,7 @@
                             "selector": "Remote details"
                         },
                         {
-                            "name": "remote details",
+                            "name": "remote details tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
@@ -713,12 +785,12 @@
         {
             "skip": false,
             "comment": "Delete partner(s)",
-            "name": "admin",
+            "name": "admin/",
             "uid": "",
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "name": "partner",
+                    "name": "partner/",
                     "loop": 1,
                     "steps": [
                         {
@@ -757,6 +829,7 @@
                             "value": 5000
                         },
                         {
+                            "skip": true,
                             "name": "deleted",
                             "type": "snap"
                         }
