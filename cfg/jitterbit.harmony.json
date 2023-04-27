@@ -255,7 +255,7 @@
             ]
         },
         {
-            "skip": true,
+            "skip": false,
             "name": "hp/",
             "uid": "",
             "url": "identity/landing",
@@ -325,6 +325,24 @@
                         },
                         {
                             "name": "cloud studio projects",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Global Connections"
+                        },
+                        {
+                            "name": "cloud studio global connections",
                             "type": "snap",
                             "options": {
                                 "clip": {
@@ -547,7 +565,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -565,7 +583,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -583,7 +601,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -601,7 +619,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -620,7 +638,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -638,7 +656,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -656,7 +674,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -674,7 +692,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -692,7 +710,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -710,7 +728,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 500,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -728,7 +746,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 750,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -746,7 +764,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 750,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -764,7 +782,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 750,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -782,7 +800,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 750,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -800,7 +818,7 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 750,
-                                    "height": 555
+                                    "height": 600
                                 }
                             }
                         },
@@ -818,7 +836,25 @@
                                     "x": 0,
                                     "y": 0,
                                     "width": 750,
-                                    "height": 555
+                                    "height": 600
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
+                            "selector": "Message Queues"
+                        },
+                        {
+                            "name": "management console message queues",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 600
                                 }
                             }
                         },
