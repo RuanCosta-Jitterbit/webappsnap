@@ -29,7 +29,7 @@ npm i playwright yargs prompt-sync
 3.  Run the script:
 
     ```sh
-    ./run.sh --config ./cfg/config.percona.pmm.json --instance pmmdemo
+    ./run.sh --config ./cfg/percona.pmm.json --instance pmmdemo
     ```
 
     This will snap all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmmdemo`.
@@ -38,7 +38,7 @@ npm i playwright yargs prompt-sync
 
 You must create configuration files for your own application.
 
-1.  Make copy of `cfg/config.template.json`
+1.  Make copy of `cfg/template.json`
 
 2.  Set values for these:
 
@@ -46,9 +46,9 @@ You must create configuration files for your own application.
 
         -   `img_dir`: Where to save images.
 
-        -   `img_seq`: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number.
+        -   `seq`: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number.
 
-        -   `img_pfx`: The secondary file name prefix for each snap file.
+        -   `pfx`: The secondary file name prefix for each snap file.
 
         -   `img_filename_sep`: Replace slash, space, or dot in final image filenames with this character.
 
@@ -165,7 +165,7 @@ You must create configuration files for your own application.
 3.  Run the wrapper script:
 
     ```shell
-    ./run.sh -- config ./cfg/path/to/config.json --instance instance-name
+    ./run.sh -- config ./cfg/my-config.json --instance instance-name
     ```
 
     Optional arguments:
@@ -180,11 +180,11 @@ You must create configuration files for your own application.
 
     Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
 
-    If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the `config.json` file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
+    If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
 
 -   **Multiple runs**
 
-    By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your `config.json`. This will create images numbered by their order in the `pages` node.
+    By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
 
 -   **Commenting out pages**
 
@@ -196,7 +196,7 @@ This tool was made to make it easier to repeat screenshots for an app's technica
 
 -   **Server URL**
 
-    The server URL (`server` in `server.json`) has no trailing forward slash (`https://server`, not `https://server/`).
+    The server URL (`server` in `settings` node) has no trailing forward slash (`https://server`, not `https://server/`).
 
 -   **Changed CSS selectors**
 
@@ -291,9 +291,9 @@ The directory path is a hierarchy constructed in `main.js`. It is:
 
 The file name is constructed in `snap()` and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (`_`).
 
--   (Optional primary prefix) If `img_seq` is true, a zero-padded integer, incremented for each image.
+-   (Optional primary prefix) If `seq` is true, a zero-padded integer, incremented for each image.
 
--   (Optional secondary prefix) The value of `img_pfx`.
+-   (Optional secondary prefix) The value of `pfx`.
 
 -   `pages.name`
 
@@ -317,7 +317,7 @@ The file name is constructed in `snap()` and is made of each page's entry values
 -   [ ] Compute additional container padding needed for `_full` images rather than using absolute value
 -   [ ] Rationalize and relocate directory creation code
 -   [ ] Img dir doesn't need to be arg of `snap()`
--   [ ] Avoid image overwrite when `img_seq` is off
+-   [ ] Avoid image overwrite when `seq` is off
 -   [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 -   [ ] Write settings file in images directory (to know what were used for that snap set)
 -   [ ] Allow run-time choice of browser technology `{chromium|webkit|firefox}`

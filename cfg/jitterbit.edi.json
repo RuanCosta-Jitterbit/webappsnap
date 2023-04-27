@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images/jitterbit/edi",
-        "img_seq": false,
-        "img_pfx": "edi",
+        "seq": false,
+        "pfx": "edi",
         "img_filename_sep": "-",
         "img_ext": ".png",
         "img_width": 1800,

@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images/percona/pmm",
-        "img_seq": true,
-        "img_pfx": "PMM",
+        "seq": true,
+        "pfx": "PMM",
         "img_filename_sep": "-",
         "img_ext": ".jpg",
         "img_width": 1280,
