@@ -1,6 +1,6 @@
 # webappsnap - Automated Web App Screenshots
 
-This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox or Webkit-based web browser.
+This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a *selector*).
 
@@ -15,7 +15,7 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 Once Node.js is installed, install the remaining components with this command:
 
 ```shell
-npm i playwright yargs axios prompt-sync
+npm i playwright yargs prompt-sync
 ```
 
 ## Quick Start
@@ -28,7 +28,7 @@ npm i playwright yargs axios prompt-sync
 
 3.  Run the script:
 
-    ```shell
+    ```sh
     ./run.sh --config ./cfg/percona.pmm.json --instance pmmdemo
     ```
 
@@ -39,6 +39,7 @@ npm i playwright yargs axios prompt-sync
 You must create configuration files for your own application.
 
 1.  Make copy of `cfg/template.json`
+1.  Make copy of `cfg/template.json`
 
 2.  Set values for these:
 
@@ -46,9 +47,9 @@ You must create configuration files for your own application.
 
         -   `img_dir`: Where to save images.
 
-        -   `img_seq`: Whether to add a primary filename prefix as a zero-padded 3-digit sequence number.
+        -   `seq`: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number.
 
-        -   `img_pfx`: The secondary filename prefix for each snap file.
+        -   `pfx`: The secondary file name prefix for each snap file.
 
         -   `sep`: Replace slash, space, or dot in final image filenames with this character.
 
@@ -98,7 +99,7 @@ You must create configuration files for your own application.
 
         -   `url` (optional): Override the default page path. Use this if the URL can't be formed from the `server`, `a`-`f`, and page UID parts.
 
-        -   `wait` (optional): Override the default page load wait time in the server `server.json` file. The value is in milliseconds.
+        -   `wait` (optional): Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
 
         -   `options` (optional): An array of URL option strings appended to the page load URL.
 
@@ -166,6 +167,7 @@ You must create configuration files for your own application.
 
     ```shell
     ./run.sh -- config ./cfg/my-config.json --instance instance-name
+    ./run.sh -- config ./cfg/my-config.json --instance instance-name
     ```
 
     Optional arguments:
@@ -181,9 +183,11 @@ You must create configuration files for your own application.
     Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
 
     If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
+    If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
 
 -   **Multiple runs**
 
+    By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
     By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
 
 -   **Commenting out pages**
@@ -196,7 +200,7 @@ This tool was made to make it easier to repeat screenshots for an app's technica
 
 -   **Server URL**
 
-    The server URL (`server` in `server.json`) has no trailing forward slash (`https://server`, not `https://server/`).
+    The server URL (`server` in `settings` node) has no trailing forward slash (`https://server`, not `https://server/`).
 
 -   **Changed CSS selectors**
 
@@ -291,9 +295,9 @@ The directory path is a hierarchy constructed in `main.js`. It is:
 
 The filename is constructed in `snap()` and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (`_`).
 
--   (Optional primary prefix) If `img_seq` is true, a zero-padded integer, incremented for each image.
+-   (Optional primary prefix) If `seq` is true, a zero-padded integer, incremented for each image.
 
--   (Optional secondary prefix) The value of `img_pfx`.
+-   (Optional secondary prefix) The value of `pfx`.
 
 -   `pages.name`
 
@@ -317,7 +321,7 @@ The filename is constructed in `snap()` and is made of each page's entry values 
 -   [ ] Compute additional container padding needed for `_full` images rather than using absolute value
 -   [ ] Rationalize and relocate directory creation code
 -   [ ] Img dir doesn't need to be arg of `snap()`
--   [ ] Avoid image overwrite when `img_seq` is off
+-   [ ] Avoid image overwrite when `seq` is off
 -   [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
 -   [ ] Write settings file in images directory (to know what were used for that snap set)
 -   [ ] Allow run-time choice of browser technology `{chromium|webkit|firefox}`

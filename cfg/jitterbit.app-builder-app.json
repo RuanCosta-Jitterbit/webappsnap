@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images/jitterbit/app-builder-app",
-        "img_seq": false,
-        "img_pfx": "app-builder-app",
+        "seq": false,
+        "pfx": "app-builder-app",
         "ext": ".png",
         "sep": "-",
         "img_width": 992,

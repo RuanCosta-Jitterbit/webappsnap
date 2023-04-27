@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images/jitterbit/harmony",
-        "img_seq": false,
-        "img_pfx": "",
+        "seq": false,
+        "pfx": "",
         "ext": ".png",
         "sep": "-",
         "img_width": 1200,

@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images/percona/pmm",
-        "img_seq": true,
-        "img_pfx": "PMM",
+        "seq": true,
+        "pfx": "PMM",
         "sep": "-",
         "ext": ".jpg",
         "img_width": 1280,
@@ -35,8 +35,7 @@
         },
         {
             "name": "Disk Details",
-            "uid": "node-disk",
-            "skip_wait_for_response": true
+            "uid": "node-disk"
         },
         {
             "name": "HAProxy Instance Summary",
@@ -176,22 +175,7 @@
             "options": [
                 "var-node_name=pmm-server"
             ],
-            "operations": [
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "Wait for system summary panel to load",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "name": "",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
+            "wait": 10000
         },
         {
             "name": "Node Temperature Details",
@@ -265,7 +249,7 @@
             "uid": "proxysql-instance-summary"
         },
         {
-            "skip": "true",
+            "skip": true,
             "name": "Add Instance",
             "uid": "add-instance",
             "url": "graph/add-instance",
@@ -275,7 +259,7 @@
             }
         },
         {
-            "skip": "true",
+            "skip": true,
             "name": "Add",
             "uid": "add-instance",
             "url": "graph/add-instance",
@@ -399,19 +383,19 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "name": "Database Checks",
             "uid": "pmm-database-checks",
             "url": "graph/pmm-database-checks"
         },
         {
-            "skip": "true",
+            "skip": true,
             "name": "Inventory",
             "uid": "inventory",
             "url": "graph/inventory"
         },
         {
-            "skip": "true",
+            "skip": true,
             "name": "Inventory",
             "uid": "inventory",
             "url": "graph/inventory",
@@ -476,7 +460,7 @@
             "wait": 120000
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -544,7 +528,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -586,7 +570,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -622,7 +606,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -658,7 +642,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -694,7 +678,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -730,7 +714,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Needs fixing - something has changed in the app and selectors can't be found",
             "name": "Query Analytics",
             "uid": "pmm-qan",
@@ -770,7 +754,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings",
             "uid": "settings",
@@ -789,7 +773,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Metrics Resolution",
             "uid": "settings",
@@ -800,7 +784,7 @@
             }
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Advanced Settings",
             "uid": "settings",
@@ -811,7 +795,7 @@
             }
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings SSH Key",
             "uid": "settings",
@@ -822,7 +806,7 @@
             }
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Alertmanager Integration",
             "uid": "settings",
@@ -833,7 +817,7 @@
             }
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Percona Platform",
             "uid": "settings",
@@ -864,12 +848,11 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Advanced",
             "uid": "settings",
             "url": "graph/settings/advanced-settings",
-            "skip": true,
             "operations": [
                 {
                     "name": "Integrated Alerting",
@@ -898,12 +881,11 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Advanced",
             "uid": "settings",
             "url": "graph/settings/advanced-settings",
-            "skip": true,
             "operations": [
                 {
                     "name": "Backup Management",
@@ -932,7 +914,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Settings Communication",
             "uid": "settings",
@@ -943,16 +925,16 @@
             }
         },
         {
+            "skip": true,
             "name": "Backup Management",
             "uid": "backup",
-            "url": "graph/backup/locations",
-            "skip": true
+            "url": "graph/backup/locations"
         },
         {
+            "skip": true,
             "name": "Backup Management",
             "uid": "backup",
             "url": "graph/backup/locations",
-            "skip": true,
             "viewport": {
                 "width": 1280,
                 "height": 1000
@@ -975,9 +957,9 @@
             ]
         },
         {
+            "skip": true,
             "name": "DBaaS",
             "uid": "pmm-dbaas",
-            "skip": true,
             "operations": [
                 {
                     "name": "Kubernetes Cluster",
@@ -1032,9 +1014,9 @@
             ]
         },
         {
+            "skip": true,
             "name": "DBaaS",
             "uid": "pmm-dbaas",
-            "skip": true,
             "operations": [
                 {
                     "name": "DB Cluster",
@@ -1110,9 +1092,9 @@
             ]
         },
         {
+            "skip": true,
             "name": "DBaaS",
             "uid": "pmm-dbaas",
-            "skip": true,
             "operations": [
                 {
                     "name": "DB Cluster",
@@ -1136,9 +1118,9 @@
             ]
         },
         {
+            "skip": true,
             "name": "DBaaS",
             "uid": "pmm-dbaas",
-            "skip": true,
             "operations": [
                 {
                     "name": "DB Cluster",
@@ -1191,9 +1173,9 @@
             ]
         },
         {
+            "skip": true,
             "name": "DBaaS",
             "uid": "pmm-dbaas",
-            "skip": true,
             "operations": [
                 {
                     "name": "Kubernetes Cluster",
@@ -1238,7 +1220,6 @@
             "skip": true,
             "name": "Home Dashboard Elements",
             "uid": "pmm-home",
-            "skip_wait_for_response": true,
             "viewport": {
                 "width": 1280,
                 "height": 1120
@@ -1324,7 +1305,6 @@
         {
             "name": "Home Dashboard",
             "uid": "pmm-home",
-            "skip_wait_for_response": true,
             "operations": [
                 {
                     "name": "",
@@ -1346,6 +1326,7 @@
                         {
                             "name": "Grafana Left Side Menu",
                             "type": "snap",
+                            "locator": "css",
                             "selector": ".sidemenu",
                             "viewport": {
                                 "comment": "Viewport shrinks vertical menu to avoid ugly space",
@@ -1356,6 +1337,7 @@
                         {
                             "name": "Top Navigation Bar",
                             "type": "snap",
+                            "locator": "css",
                             "selector": ".page-toolbar",
                             "viewport": {
                                 "width": 900,
@@ -1365,6 +1347,7 @@
                         {
                             "name": "Submenu Bar",
                             "type": "snap",
+                            "locator": "css",
                             "selector": ".submenu-controls",
                             "viewport": {
                                 "width": 900,
@@ -1383,11 +1366,13 @@
                         {
                             "name": "Failed Security Checks",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#panel-1381"
                         },
                         {
                             "name": "Upgrade",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "#panel-1337"
                         }
                     ]
@@ -1464,6 +1449,7 @@
                         {
                             "name": "Annotation Toggle",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "[for='switch-1']"
                         }
                     ]
@@ -1479,6 +1465,7 @@
                         {
                             "name": "",
                             "type": "snap",
+                            "locator": "css",
                             "selector": "[aria-label='Dashboard submenu']"
                         },
                         {
@@ -1493,6 +1480,7 @@
                         {
                             "name": "Hide URL",
                             "type": "style",
+                            "locator": "css",
                             "content": ".css-1w5c5dq-input-inputWrapper { filter: blur(3px) }"
                         },
                         {
@@ -1510,7 +1498,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "name": "Swagger API",
             "uid": "swagger",
             "url": "swagger/",
@@ -1534,6 +1522,7 @@
                         {
                             "name": "Execute",
                             "type": "click",
+                            "locator": "css",
                             "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
                         },
                         {
@@ -1550,7 +1539,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Integrated Alerting",
             "uid": "integrated-alerting",
@@ -1571,6 +1560,7 @@
                         {
                             "name": "Select",
                             "type": "click",
+                            "locator": "css",
                             "selector": "[aria-label=\"Tab Alert Rules\"]"
                         },
                         {
@@ -1585,6 +1575,7 @@
                         {
                             "name": "Add",
                             "type": "click",
+                            "locator": "css",
                             "selector": "[data-qa=\"alert-rule-template-add-modal-button\"]",
                             "viewport": {
                                 "comment": "Viewport shrinks vertical menu to avoid ugly space",
@@ -1606,7 +1597,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Integrated Alerting",
             "uid": "integrated-alerting",
@@ -1618,6 +1609,7 @@
                         {
                             "name": "Select",
                             "type": "click",
+                            "locator": "css",
                             "selector": "[aria-label=\"Tab Alert Rule Templates\"]"
                         },
                         {
@@ -1632,6 +1624,7 @@
                         {
                             "name": "Add",
                             "type": "click",
+                            "locator": "css",
                             "selector": "[data-qa=\"alert-rule-template-add-modal-button\"]"
                         },
                         {
@@ -1648,7 +1641,7 @@
             ]
         },
         {
-            "skip": "true",
+            "skip": true,
             "comment": "Restricted",
             "name": "Integrated Alerting",
             "uid": "integrated-alerting",
@@ -1660,7 +1653,8 @@
                         {
                             "name": "Select",
                             "type": "click",
-                            "selector": "[aria-label=\"Tab Notification Channels\"]"
+                            "locator": "css",
+                            "selector": "[aria-label='Tab Notification Channels']"
                         },
                         {
                             "name": "wait for load",
@@ -1674,7 +1668,8 @@
                         {
                             "name": "Add",
                             "type": "click",
-                            "selector": "[data-qa=\"notification-channel-add-modal-button\"]"
+                            "locator": "css",
+                            "selector": "[data-qa='notification-channel-add-modal-button']"
                         },
                         {
                             "name": "wait for load",

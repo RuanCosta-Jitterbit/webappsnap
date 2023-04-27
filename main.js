@@ -37,10 +37,10 @@ if (!argv.instance) {
         console.log(`Hostname: ${hostname}`);
         console.log(`Image directory: ${img_dir}`)
         console.log(`Default viewport: ${default_viewport.width}x${default_viewport.height}`);
-        console.log(`Image filename sequence numbers: ${Boolean(settings.img_seq)}`);
-        console.log(`Image filename prefix: ${settings.img_pfx}`);
-        console.log(`Image filename suffix: ${settings.ext}`);
-        if (ext.match(/\.jpg$/)) { console.log(`  JPG quality: ${settings.jpg_quality}`); }
+        console.log(`Image filename sequence numbers: ${Boolean(settings.seq)}`);
+        console.log(`Image filename prefix: ${settings.pfx}`);
+        console.log(`Image filename suffix: ${settings.img_ext}`);
+        if (img_ext.match(/\.jpg$/)) { console.log(`  JPG quality: ${settings.jpg_quality}`); }
         console.log(`Default page load: ${instance.wait / 1000} seconds`);
         console.log(`Default step pause: ${instance.pause / 1000} ${Math.floor(instance.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log(`SlowMo value: ${settings.slowmo / 1000} seconds`);

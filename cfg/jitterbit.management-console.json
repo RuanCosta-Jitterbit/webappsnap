@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images",
-        "img_seq": false,
-        "img_pfx": "mc",
+        "seq": false,
+        "pfx": "mc",
         "ext": ".png",
         "sep": "-",
         "img_width": 1550,

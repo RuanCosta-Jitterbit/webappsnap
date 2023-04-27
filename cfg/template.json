@@ -1,8 +1,8 @@
 {
     "settings": {
         "img_dir": "./images",
-        "img_seq": false,
-        "img_pfx": "APPSNAP",
+        "seq": false,
+        "pfx": "APPSNAP",
         "sep": "_",
         "ext": ".png",
         "img_width": 1280,
