@@ -1,6 +1,6 @@
 # webappsnap - Automated Web App Screenshots
 
-This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser.
+This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser. The session's tasks can optionally be recorded as a `webm` video.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a *selector*).
 
@@ -11,6 +11,7 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 -   [Node.js](https://nodejs.org/en/download/)
 -   [Playwright](https://github.com/microsoft/playwright/)
 -   [Yargs](https://github.com/yargs/yargs)
+-   [Prompt-Sync](https://github.com/heapwolf/prompt-sync)
 
 Once Node.js is installed, install the remaining components with this command:
 
@@ -38,8 +39,7 @@ npm i playwright yargs prompt-sync
 
 You must create configuration files for your own application.
 
-1.  Make copy of `cfg/template.json`
-1.  Make copy of `cfg/template.json`
+1.  Make a copy of `cfg/template.json`
 
 2.  Set values for these:
 
@@ -47,25 +47,25 @@ You must create configuration files for your own application.
 
         -   `img_dir`: Where to save images.
 
-        -   `seq`: Whether to add a primary file name prefix as a zero-padded 3-digit sequence number.
+        -   `seq`: `true` or `false`. (Optional) Add a zero-padded 3-digit sequence number to each saved image filename.
 
-        -   `pfx`: The secondary file name prefix for each snap file.
+        -   `pfx`: String or empty. (Optional) Additional filename prefix for each saved image filename.
 
-        -   `sep`: Replace slash, space, or dot in final image filenames with this character.
+        -   `sep`: String or empty. (Optional) Replace slash, space, or dot in final image filenames with this character.
 
-        -   `ext`: File name extension, either `.png` or `.jpg`.
+        -   `ext`: `.png` or `.jpg`. Image type and filename extension.
 
         -   `img_width`: The image width, in pixels, for full screen snaps.
 
         -   `img_height`: The image height, in pixels, for full screen snaps.
 
-        -   `jpg_quality`: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or above produce acceptable results for web and print copy.
+        -   `jpg_quality`: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or higher produce acceptable results for web and print copy.
 
-        -   `headless`: When `true`, Playwright uses a headless (invisible) web browser. If `false`, the web browser is made visible. Useful for debugging (or simply entertainment).
+        -   `headless`: `true` or `false`. Playwright uses a headless (invisible) web browser. If `false`, the web browser is made visible. Useful for debugging (or simply entertainment).
 
-        -   `debug`: When `true`, program prints operating parameters. (`--debug`)
+        -   `debug`: `true` or `false`. When `true`, program prints operating parameters.
 
-        -   `randlen`: How many bytes of random data to replace the token `RANDOM` in text values.
+        -   `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in text values.
 
     -   `instance:` A node for every distinct instance (app) you want to snap:
 
@@ -77,41 +77,43 @@ You must create configuration files for your own application.
 
             `https://pmmdemo.percona.com/graph/d/<page UID>`
 
-            Since the configuration only needs to list the page UIDs, set `a` to `graph` and `b` to `d`.
+            Since the configuration only needs to list the page UIDs, the `cfg/percona.pmm.json` configuration file has `"a": "graph"` and `"b": "d"`.
 
-        -   `wait`: The number of milliseconds to wait for a page to load. Increase this if the app loads slowly and snaps happen before a page is fully loaded. Decrease it to spend less time waiting when snapping many pages.
+        -   `wait`: Integer. The number of milliseconds to wait for a page to load. Increase this if the app loads slowly and snaps happen before a page is fully loaded. Decrease it to spend less time waiting when snapping many pages.
 
-        -   `pause`: A shorter wait interval used when snapping mouse-over tooltips. Set between 1000-5000ms.
+        -   `pause`: Integer. A shorter wait interval used when snapping mouse-over tooltips. Set between 1000-5000ms.
 
-        -   `login_filename`: File containing a login name.
+        -   `login_filename`: String. Filename containing the app's login name.
 
-        -   `password_filename`: File containing the login's password.
+        -   `password_filename`: String. Filename containing the app's login password.
 
-    -   `pages`: This defines what to do with your app and what to snap. It is a single node consisting of an array of pages. Pages are identified by their `uid`, the last part of the URL. Snaps happen in the order listed in this file.
+    -   `pages`: This defines what to do with your app and what to snap. It is a single node consisting of an array of pages. Pages are identified by their `uid`, the last part of the URL. Snaps happen in the order listed in this node.
 
-        -   `skip`: (optional) Set to `true` to skip this page.
+        -   `skip`: `true` or `false` (Optional) Set to `true` to skip this page.
 
-        -   `name`: (optional) The name of the page. Included in image filename.
+        -   `name`: String. (Optional) The name of the page. Included in image filename.
 
-        -   `comment`: (optional) Commentary.
+        -   `comment`: String (Optional) Commentary.
 
-        -   `uid`: The page's UID.
+        -   `uid`: String. The page's UID.
 
-        -   `url` (optional): Override the default page path. Use this if the URL can't be formed from the `server`, `a`-`f`, and page UID parts.
+        -   `url`: String. (Optional) Override the default page path. Use this if the URL can't be formed from the `server`, `a`-`f`, and page UID parts.
 
-        -   `wait` (optional): Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
+        -   `wait`: Integer. (Optional) Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
 
-        -   `options` (optional): An array of URL option strings appended to the page load URL.
+        -   `options`: (Optional): An array of URL option strings appended to the page load URL.
 
-        -   `operations` (optional): A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If `operations` is present, pages and page elements must be explicitly snapped using a `"type": "snap"` element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
+        -   `operations`: (Optional) A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If `operations` is present, pages and page elements must be explicitly snapped using a `"type": "snap"` element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
 
-            -   `skip`: (optional) Set to `true` to skip this operation.
+            -   `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
 
-            -   `name`: A name for this operation (group of steps). Included in image filename.
+            -   `name`: String. A name for this operation (group of steps). Included in image filename.
 
-            -   `viewport`: A viewport for this operation.
+            -   `viewport`: A viewport for this operation. Each operation can have its own viewport, which overrides the page's or default viewport for the scope of the operation.
 
-            -   `loop` (Optional) Repeat this operation's steps `loop` times. (Default is 1.)
+                -   `width`, `height`: Width and height (in pixels) for this operations's viewport.
+
+            -   `loop`: Integer. (Optional) Repeat this operation's steps `loop` times. (Default is 1.)
 
             -   `steps`: An array of individual steps.
 
@@ -157,7 +159,7 @@ You must create configuration files for your own application.
 
                     -   `viewport`: Each step can specify its own viewport which overrides either the outer page or default viewport.
 
-                    -   `width`, `height`: Width and height (in pixels) for this step's viewport (if snapped).
+                        -   `width`, `height`: Width and height (in pixels) for this step's viewport (if snapped).
 
                     -   `options`:
 

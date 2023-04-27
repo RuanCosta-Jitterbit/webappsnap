@@ -12,12 +12,12 @@
         "slowmo": 0,
         "debug": true,
         "randlen": 6,
-        "video": true
+        "video": false
     },
     "instance": {
         "qa-green": {
             "server": "https://apps.qa-green.jitterbit.com",
-            "a": "edi",
+            "a": "",
             "b": "",
             "c": "",
             "d": "",
@@ -30,7 +30,7 @@
         },
         "na-east": {
             "server": "https://apps.na-east.jitterbit.com",
-            "a": "edi",
+            "a": "",
             "b": "",
             "c": "",
             "d": "",
@@ -138,19 +138,10 @@
                             "selector": "body > identity > div > site-header > div > div"
                         },
                         {
-                            "skip": false,
                             "name": "open org menu",
                             "type": "click",
                             "locator": "css",
                             "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
-                        },
-                        {
-                            "skip": true,
-                            "name": "change personal org name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li > span",
-                            "value": "XYZ Company"
                         },
                         {
                             "name": "change personal org name/number",

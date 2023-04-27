@@ -12,7 +12,7 @@
         "slowmo": 0,
         "debug": true,
         "randlen": 6,
-        "video": true
+        "video": false
     },
     "instance": {
         "qa-green": {
@@ -737,6 +737,7 @@
                         },
                         {
                             "skip": true,
+                            "comment": "Not yet active",
                             "name": "automation",
                             "type": "snap",
                             "locator": "css",
