@@ -86,7 +86,7 @@
             "uid": "mysql-amazonaurora"
         },
         {
-            "name": "MySQL Command/Handler Counters Compare",
+            "name": "MySQL Command Handler Counters Compare",
             "uid": "mysql-commandhandler-compare",
             "options": [
                 "var-service_name=rds-mysql57",
@@ -120,7 +120,7 @@
             "uid": "mysql-instance-overview"
         },
         {
-            "name": "MySQL MyISAM/Aria Details",
+            "name": "MySQL MyISAM Aria Details",
             "uid": "mysql-myisamaria"
         },
         {
@@ -191,18 +191,18 @@
             "uid": "node-instance-overview"
         },
         {
-            "name": "PXC/Galera Cluster Summary",
+            "name": "PXC Galera Cluster Summary",
             "uid": "pxc-cluster-summary",
             "options": [
                 "var-cluster=pxc-80-cluster"
             ]
         },
         {
-            "name": "PXC/Galera Node Summary",
+            "name": "PXC Galera Node Summary",
             "uid": "pxc-node-summary"
         },
         {
-            "name": "PXC/Galera Nodes Compare",
+            "name": "PXC Galera Nodes Compare",
             "uid": "pxc-nodes-compare"
         },
         {
