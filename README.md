@@ -1,6 +1,6 @@
 # webappsnap - Automated Web App Screenshots
 
-This program lets you automate the task of taking screenshots of web applications. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser. The session's tasks can optionally be recorded as a `webm` video.
+This program lets you automate the task of taking screenshots of web applications. It runs on Linux and macOS and uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser. The session's tasks can optionally be recorded as a `webm` video.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a *selector*).
 
@@ -18,6 +18,8 @@ Once Node.js is installed, install the remaining components with this command:
 ```shell
 npm i -g playwright yargs prompt-sync
 ```
+
+> Linux users will need to run this as root, use `sudo`, or omit the `-g` option.
 
 ## Quick Start
 
