@@ -16,7 +16,7 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 Once Node.js is installed, install the remaining components with this command:
 
 ```shell
-npm i playwright yargs prompt-sync
+npm i -g playwright yargs prompt-sync
 ```
 
 ## Quick Start
