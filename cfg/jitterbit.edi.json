@@ -1,12 +1,12 @@
 {
     "settings": {
-        "img_dir": "./images/jitterbit/edi",
+        "dir": "./images/jitterbit/edi",
         "seq": false,
         "pfx": "",
         "sep": "-",
         "ext": ".png",
-        "img_width": 1800,
-        "img_height": 945,
+        "width": 1800,
+        "height": 945,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,
@@ -15,6 +15,19 @@
         "video": false
     },
     "instance": {
+        "qa-red": {
+            "server": "https://apps.qa-red.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 25000,
+            "pause": 5000,
+            "login_filename": ".login-qar",
+            "password_filename": ".password-qar"
+        },
         "qa-green": {
             "server": "https://apps.qa-green.jitterbit.com",
             "a": "edi",

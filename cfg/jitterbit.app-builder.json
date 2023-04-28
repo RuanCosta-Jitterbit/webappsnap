@@ -1,12 +1,12 @@
 {
     "settings": {
-        "img_dir": "./images/jitterbit/app-builder",
+        "dir": "./images/jitterbit/app-builder",
         "seq": false,
         "pfx": "app-builder",
         "ext": ".png",
         "sep": "-",
-        "img_width": 1200,
-        "img_height": 900,
+        "width": 1200,
+        "height": 900,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,

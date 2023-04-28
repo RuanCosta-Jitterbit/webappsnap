@@ -45,7 +45,7 @@ You must create configuration files for your own application.
 
     -   `settings:` This section contains general settings for the snap:
 
-        -   `img_dir`: Where to save images.
+        -   `dir`: Where to save images.
 
         -   `seq`: `true` or `false`. (Optional) Add a zero-padded 3-digit sequence number to each saved image filename.
 
@@ -55,9 +55,9 @@ You must create configuration files for your own application.
 
         -   `ext`: `.png` or `.jpg`. Image type and filename extension.
 
-        -   `img_width`: The image width, in pixels, for full screen snaps.
+        -   `width`: The image width, in pixels, for full screen snaps.
 
-        -   `img_height`: The image height, in pixels, for full screen snaps.
+        -   `height`: The image height, in pixels, for full screen snaps.
 
         -   `jpg_quality`: For JPG images, the quality setting. Lower values are useful for documentation pages with many full-screen snaps. Values of 50 or higher produce acceptable results for web and print copy.
 
@@ -71,7 +71,7 @@ You must create configuration files for your own application.
 
         -   `server`: The full HTTPS server IP or hostname.
 
-        -   `a` to `f`: General-purpose prefixes. Use them for URLs such as `server/a/b/c/page`
+        -   `a` to `f`: General-purpose prefixes. Use them for URLs such as `server/a/b/c/<page UID>`
 
             For example, on [PMM Demo](https://pmmdemo.percona.com), page URLs take the form:
 
@@ -87,31 +87,56 @@ You must create configuration files for your own application.
 
         -   `password_filename`: String. Filename containing the app's login password.
 
+            > There are examples in some configuration files showing the use of this feature. For obvious reasons, the actual files are not in this repository. (This repository's `.gitignore` file contains patterns `.login*` and `.password*`. If you create your own login and password files, use the same filename form, or otherwise ensure they are not accidentally added to GitHub.)
+
     -   `pages`: This defines what to do with your app and what to snap. It is a single node consisting of an array of pages. Pages are identified by their `uid`, the last part of the URL. Snaps happen in the order listed in this node.
 
         -   `skip`: `true` or `false` (Optional) Set to `true` to skip this page.
 
-        -   `name`: String. (Optional) The name of the page. Included in image filename.
+        -   `name`: String. (Optional) The name of the page. Included in image filename. Spaces are not replaced. Can contain forward slashes (`/`) for which subdirectories are created when images are saved. If using this feature, add a final slash. Example: `"name": "level1/level2/"` saves images to `<settings.dir>/level1/level2/`. The final path and image filename depends on the values for snaps in subsequent operations and steps.
 
         -   `comment`: String (Optional) Commentary.
 
-        -   `uid`: String. The page's UID.
+        -   `uid`: String. The page's UID. Use this for apps whose pages are a simple suffix to the `instance.<instance-name>.server` value (optionally suffixed with `instance.<instance-name>.a` to `instance.<instance-name>.f`)
 
-        -   `url`: String. (Optional) Override the default page path. Use this if the URL can't be formed from the `server`, `a`-`f`, and page UID parts.
+        -   `url`: String. (Optional) Override the default page path. Use this if the URL can't be formed from the `instance.<instance-name>.server`, and `instance.<instance-name>.server.a`-`f`, and page UID parts.
 
         -   `wait`: Integer. (Optional) Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
 
-        -   `options`: (Optional): An array of URL option strings appended to the page load URL.
+        -   `options`: (Optional): An array of URL option strings appended to the page load URL. For example, to append `?opt1=val1&opt2=val2` to a URL, use:
+
+            ```json
+            "options": {
+                "opt1=val1",
+                "opt2=val2"
+                }
+            ```
+
+        -   `viewport`: A viewport for this page. Each page can have its own viewport, which overrides default viewport (`settings.width` and `settings.height`) for the scope of the page. It contains the following:
+
+            -   `width`: Width (in pixels) for this page's viewport.
+
+            -   `height`: Height (in pixels) for this pages's viewport.
+
+            Example:
+
+            ```json
+            ...
+             "viewport": {
+                "width": 1200,
+                "height": 530
+            },
+            ...
+            ```
+
 
         -   `operations`: (Optional) A list of tasks, each task being a named list of steps. Page entries without operations are snapped automatically. If `operations` is present, pages and page elements must be explicitly snapped using a `"type": "snap"` element. Operations are used where a sequence of actions is needed to show menus, perform tasks such as selecting and deleting items, showing tooltips, or snap specific GUI elements and panels.
 
             -   `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
 
-            -   `name`: String. A name for this operation (group of steps). Included in image filename.
+            -   `name`: String. A name for this operation (group of steps). Included in image filename. Can contain slashes and works the same way as `pages.name`.
 
-            -   `viewport`: A viewport for this operation. Each operation can have its own viewport, which overrides the page's or default viewport for the scope of the operation.
-
-                -   `width`, `height`: Width and height (in pixels) for this operations's viewport.
+            -   `viewport`: A viewport for this operation. Each operation can have its own viewport, which overrides the page's or default viewport for the scope of the operation. Same as `pages.viewport`.
 
             -   `loop`: Integer. (Optional) Repeat this operation's steps `loop` times. (Default is 1.)
 
@@ -157,24 +182,32 @@ You must create configuration files for your own application.
 
                     -   `selector`: The selector for the item, defined according to the locator's format.
 
-                    -   `viewport`: Each step can specify its own viewport which overrides either the outer page or default viewport.
-
-                        -   `width`, `height`: Width and height (in pixels) for this step's viewport (if snapped).
+                    -   `viewport`: Each step can specify its own viewport which overrides either the outer page or default viewport. Same as `pages.viewport` and `operations.viewport`.
 
                     -   `options`:
 
-                        -   `clip`: For full page snaps (not selectors). See <https://playwright.dev/docs/api/class-page#page-screenshot-option-clip>
+                        -   `clip`: For full page snaps (not selectors), snap only the region specified by the coordinates. See <https://playwright.dev/docs/api/class-page#page-screenshot-option-clip>
+
+                            Example, to snap a region 50x380 pixels in size, starting at coordinates 15,160 (from top left of the browser pane), use the following:
+
+                            ```json
+                            "options": {
+                                "clip": {
+                                    "x": 15,
+                                    "y": 160,
+                                    "height": 50,
+                                    "width": 380
+                                }
+                            }
+                            ```
 
 3.  Run the wrapper script:
 
     ```shell
     ./run.sh -- config ./cfg/my-config.json --instance instance-name
-    ./run.sh -- config ./cfg/my-config.json --instance instance-name
     ```
 
     Optional arguments:
-
-    -   `--debug`: Show values used.
 
     -   `--full`: Also snap the full page beyond the specified viewport.
 
@@ -185,16 +218,14 @@ You must create configuration files for your own application.
     Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
 
     If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
-    If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
 
 -   **Multiple runs**
 
     By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
-    By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
 
 -   **Commenting out pages**
 
-    JSON doesn't have a system for commenting out portions of a file. To skip snapping certain pages, add a `skip` item with value `true`.
+    JSON doesn't have a system for commenting out portions of a file. To skip specific pages, operations, or steps, add a `skip` item with value `true`.
 
 ## Problems and Troubleshooting
 
@@ -224,7 +255,7 @@ This tool was made to make it easier to repeat screenshots for an app's technica
 
 -   **Images are not the size I expected**
 
-    -   Check the values for `settings.img_width`, `settings.img_height`
+    -   Check the values for `settings.width`, `settings.height`
 
     -   Check whether the viewport is set (overriding the default) for the page or step.
 
@@ -289,7 +320,7 @@ The image file path is made up of the directory and the filename.
 
 The directory path is a hierarchy constructed in `main.js`. It is:
 
--   `img_dir`
+-   `dir`
 
 -   System path separator (e.g. =/= on Linux).
 
