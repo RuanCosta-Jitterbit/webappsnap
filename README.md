@@ -87,6 +87,8 @@ You must create configuration files for your own application.
 
         -   `password_filename`: String. Filename containing the app's login password.
 
+            > There are examples in some configuration files showing the use of this feature. For obvious reasons, the actual files are not in this repository. (This repository's `.gitignore` file contains patterns `.login*` and `.password*`. If you create your own login and password files, use the same filename form, or otherwise ensure they are not accidentally added to GitHub.)
+
     -   `pages`: This defines what to do with your app and what to snap. It is a single node consisting of an array of pages. Pages are identified by their `uid`, the last part of the URL. Snaps happen in the order listed in this node.
 
         -   `skip`: `true` or `false` (Optional) Set to `true` to skip this page.

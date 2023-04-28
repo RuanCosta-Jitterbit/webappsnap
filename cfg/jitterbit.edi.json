@@ -15,6 +15,19 @@
         "video": false
     },
     "instance": {
+        "qa-red": {
+            "server": "https://apps.qa-red.jitterbit.com",
+            "a": "edi",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 25000,
+            "pause": 5000,
+            "login_filename": ".login-qar",
+            "password_filename": ".password-qar"
+        },
         "qa-green": {
             "server": "https://apps.qa-green.jitterbit.com",
             "a": "edi",
