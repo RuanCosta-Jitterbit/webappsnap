@@ -23,7 +23,7 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
     ./run.sh --config ./cfg/percona.pmm.json --instance pmmdemo
     ```
 
-    This snaps all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmm/CCYY-MM-DDTHH:MM:SS.SSSZ/pmm`.
+    This snaps all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmm/CCYY-MM-DDTHH:MM:SS.SSSZ/pmmdemo`.
 
 ## Usage
 
