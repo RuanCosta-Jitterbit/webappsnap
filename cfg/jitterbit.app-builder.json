@@ -7,6 +7,7 @@
         "sep": "-",
         "width": 1200,
         "height": 900,
+        "scale": 2,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,

@@ -7,6 +7,7 @@
         "ext": ".jpg",
         "width": 1280,
         "height": 1280,
+        "scale": 1,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,
@@ -26,7 +27,8 @@
             "wait": 10000,
             "pause": 5000,
             "login_filename": ".login",
-            "password_filename": ".password"
+            "password_filename": ".password",
+            "container": "[class='react-grid-layout']"
         }
     },
     "pages": [

@@ -23,11 +23,12 @@ if (!argv.instance) {
     const settings = config.settings; // General snap config
     const pages = config.pages; // Page definitions
     const instance = config.instance[argv.instance];
+    if (argv.full && !instance.container) {
+        console.error('--full option but instance.<instance-name>.container not set');
+        return;
+    }
+
     const hostname = uf.parse(instance.server).hostname; // The app URL/server/IP
-    const default_viewport = {
-        width: settings.width,
-        height: settings.height
-    };
     const today = new Date().toISOString();
     const dir = path.join(settings.dir, today, argv.instance); // Images save path
     const ext = settings.ext;   // Image file extension (png/jpg)
@@ -36,11 +37,12 @@ if (!argv.instance) {
     if (settings.debug) {
         console.log(`Hostname: ${hostname}`);
         console.log(`Image directory: ${dir}`)
-        console.log(`Default viewport: ${default_viewport.width}x${default_viewport.height}`);
+        console.log(`Default viewport: ${settings.width}x${settings.height}`);
         console.log(`Image filename sequence numbers: ${Boolean(settings.seq)}`);
         console.log(`Image filename prefix: ${settings.pfx}`);
         console.log(`Image filename suffix: ${settings.ext}`);
         if (ext.match(/\.jpg$/)) { console.log(`  JPG quality: ${settings.jpg_quality}`); }
+        console.log(`Scale factor: ${settings.scale}`);
         console.log(`Default page load: ${instance.wait / 1000} seconds`);
         console.log(`Default step pause: ${instance.pause / 1000} ${Math.floor(instance.pause / 1000) == 1 ? "second" : "seconds"}`);
         console.log(`SlowMo value: ${settings.slowmo / 1000} seconds`);
@@ -56,9 +58,12 @@ if (!argv.instance) {
         slowMo: settings.slowmo
     });
 
-    var context_options = {
-        deviceScaleFactor: 2,
-        viewport: default_viewport,
+    let context_options = {
+        deviceScaleFactor: settings.scale,
+        viewport: {
+            width: settings.width,
+            height: settings.height
+        },
     };
     if (settings.video) {
         context_options = {
@@ -66,11 +71,14 @@ if (!argv.instance) {
             ...{
                 recordVideo: {
                     dir: dir,
-                    size: default_viewport
+                    size: {
+                        width: settings.width,
+                        height: settings.height
+                    }
                 },
                 screen: {
-                    width: 4112,
-                    height: 2658
+                    width: settings.width,
+                    height: settings.height
                 }
             }
         };
@@ -112,7 +120,6 @@ if (!argv.instance) {
         const wait = (pg.wait ? pg.wait : instance.wait); // Per-page waits override the default
 
         // PART 1 - Build URL
-        // TODO Need a way to configure app page URL patterns
         // Create option string if needed
         var server_url;
         var option_string = "";
@@ -155,16 +162,21 @@ if (!argv.instance) {
 
             // Snap container without cropping at viewport
             // Skip any using 'url' element
+            // Note: For many apps, simply using the 'fullPage' option isn't enough, as the app will contain
+            // a static wrapper around scrollable content. This is why there is a 'container' option
+            // for instances.
+            // https://playwright.dev/docs/api/class-page#page-screenshot-option-full-page
             if (argv.full && !pg.url) {
                 try {
                     // Get height of container
-                    // TODO container not here
-                    const elem = await page.waitForSelector(defaults.container, { visible: true });
+                    const elem = await page.waitForSelector(instance.container, { visible: true });
                     const bx = await elem.boundingBox();
-                    // Resize viewport to container height plus padding
-                    const vp = { width: settings.width, height: bx.height + 150 };
+                    const current_vp = page.viewportSize(); // save current viewport
+                    // Resize viewport to container height plus padding. Keep width the same.
+                    const vp = { width: current_vp.width, height: bx.height + 150 };
                     await viewport(page, vp, instance.wait);
-                    await snap(page, path.join(dir, pg.name + "_full"), pg.options, settings);
+                    await snap(page, path.join(dir, pg.name + "_full"), { ...pg.options, fullPage: true }, settings);                    
+                    await viewport(page, current_vp, instance.wait); // reset viewport
                 }
                 catch (e) {
                     console.log(`  ERROR ${e}`);
@@ -379,11 +391,11 @@ async function snap(loc, full_path, options = {}, settings) {
     // Replace space, dot, backslash with sep char
     // Append extension
     filename = [
-        (settings.img_seq ? pad(idx++) : null),
-        (settings.img_pfx ? settings.img_pfx : null),
+        (settings.seq ? pad(idx++) : null),
+        (settings.pfx ? settings.pfx : null),
         filename.replace(/[\. \\]/g, settings.sep)
     ].filter(function (a) { return a != null; })
-     .join(settings.sep) + settings.ext;
+        .join(settings.sep) + settings.ext;
 
     full_path = path.join(directory, filename);
 
