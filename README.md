@@ -1,37 +1,25 @@
 # webappsnap - Automated Web App Screenshots
 
+## Introduction
+
 This program lets you automate the task of taking screenshots of web applications. It runs on Linux and macOS and uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser. The session's tasks can optionally be recorded as a `webm` video.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a *selector*).
 
 To snap pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's selector. Use a browser's development tools to discover these.
 
-## Install (Pre-requirements)
-
--   [Node.js](https://nodejs.org/en/download/)
--   [Playwright](https://github.com/microsoft/playwright/)
--   [Yargs](https://github.com/yargs/yargs)
--   [Prompt-Sync](https://github.com/heapwolf/prompt-sync)
-
-Once Node.js is installed, install the remaining components with this command:
-
-```shell
-npm i -g playwright yargs prompt-sync
-```
-
-> Linux users will need to run this as root, use `sudo`, or omit the `-g` option.
-
 ## Quick Start
 
 > This section uses configuration created for Percona's [PMM](https://www.percona.com/software/database-tools/percona-monitoring-and-management) database monitoring tool to take screenshots of the [PMM Demo](https://pmmdemo.percona.com) instance.
 
 1.  Clone this repository.
-
 2.  In a terminal, change directory to where you cloned it.
-
-3.  Run the script:
-
+3.  Install dependencies:
+    -   [Node.js](https://nodejs.org/en/download/)
+    -   `npm i playwright yargs prompt-sync`
+4.  Run the script:
     ```sh
+    chmod +x ./run.sh
     ./run.sh --config ./cfg/percona.pmm.json --instance pmmdemo
     ```
 
