@@ -204,7 +204,7 @@ You must create configuration files for your own application.
 3.  Run the wrapper script:
 
     ```shell
-    ./run.sh -- config ./cfg/my-config.json --instance instance-name
+    ./run.sh --config ./cfg/my-config.json --instance instance-name
     ```
 
     Optional arguments:
@@ -344,17 +344,4 @@ The filename is constructed in `snap()` and is made of each page's entry values 
 
 -   `ext` (file extension)
 
-> **Note:** Spaces, back slashes (`\`), forward slashes > (`/`), and dots (`.`) in titles and names are replaced with underscores (in `snap()`).
-
-## TODO
-
--   [ ] Improve debug/logging facility
--   [ ] handle `net::ERR_INTERNET_DISCONNECTED` (in `load()`)
--   [ ] Find more reliable way to know when page is fully loaded, rather than using `waitFor` with fixed value for all pages (`load()`)
--   [ ] Compute additional container padding needed for `_full` images rather than using absolute value
--   [ ] Rationalize and relocate directory creation code
--   [ ] Img dir doesn't need to be arg of `snap()`
--   [ ] Avoid image overwrite when `seq` is off
--   [ ] Check 'fullpage' option in Playwright (wasn't working as expected in Puppeteer)
--   [ ] Write settings file in images directory (to know what were used for that snap set)
--   [ ] Allow run-time choice of browser technology `{chromium|webkit|firefox}`
+> **Note:** Spaces, back slashes (`\`), and dots (`.`) in titles and names are replaced with underscores (in `snap()`).
