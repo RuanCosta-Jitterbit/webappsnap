@@ -1,12 +1,12 @@
 {
     "settings": {
-        "img_dir": "./images/percona/pmm",
+        "dir": "./images/percona/pmm",
         "seq": true,
         "pfx": "PMM",
         "sep": "-",
         "ext": ".jpg",
-        "img_width": 1280,
-        "img_height": 1280,
+        "width": 1280,
+        "height": 1280,
         "jpg_quality": 75,
         "headless": true,
         "slowmo": 0,

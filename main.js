@@ -25,17 +25,17 @@ if (!argv.instance) {
     const instance = config.instance[argv.instance];
     const hostname = uf.parse(instance.server).hostname; // The app URL/server/IP
     const default_viewport = {
-        width: settings.img_width,
-        height: settings.img_height
+        width: settings.width,
+        height: settings.height
     };
     const today = new Date().toISOString();
-    const img_dir = path.join(settings.img_dir, today, argv.instance); // Images save path
+    const dir = path.join(settings.dir, today, argv.instance); // Images save path
     const ext = settings.ext;   // Image file extension (png/jpg)
-    mkdir(img_dir);    // Create image save directory TODO move to snap function
+    mkdir(dir);    // Create image save directory TODO move to snap function
 
     if (settings.debug) {
         console.log(`Hostname: ${hostname}`);
-        console.log(`Image directory: ${img_dir}`)
+        console.log(`Image directory: ${dir}`)
         console.log(`Default viewport: ${default_viewport.width}x${default_viewport.height}`);
         console.log(`Image filename sequence numbers: ${Boolean(settings.seq)}`);
         console.log(`Image filename prefix: ${settings.pfx}`);
@@ -65,7 +65,7 @@ if (!argv.instance) {
             ...context_options,
             ...{
                 recordVideo: {
-                    dir: img_dir,
+                    dir: dir,
                     size: default_viewport
                 },
                 screen: {
@@ -151,7 +151,7 @@ if (!argv.instance) {
 
         // PART 4 - Page-level snap (no operations)
         if (!pg.operations) {
-            await snap(page, path.join(img_dir, pg.name), pg.options, settings);
+            await snap(page, path.join(dir, pg.name), pg.options, settings);
 
             // Snap container without cropping at viewport
             // Skip any using 'url' element
@@ -162,9 +162,9 @@ if (!argv.instance) {
                     const elem = await page.waitForSelector(defaults.container, { visible: true });
                     const bx = await elem.boundingBox();
                     // Resize viewport to container height plus padding
-                    const vp = { width: settings.img_width, height: bx.height + 150 };
+                    const vp = { width: settings.width, height: bx.height + 150 };
                     await viewport(page, vp, instance.wait);
-                    await snap(page, path.join(img_dir, pg.name + "_full"), pg.options, settings);
+                    await snap(page, path.join(dir, pg.name + "_full"), pg.options, settings);
                 }
                 catch (e) {
                     console.log(`  ERROR ${e}`);
@@ -334,7 +334,7 @@ if (!argv.instance) {
                                 // Join non-empty names
                                 let fn = [pg.name, op.name, step.name].filter(String).join('');
                                 if (op.loop) { [fn, n].join(settings.sep); }
-                                await snap(loc, path.join(img_dir, fn), step.options, settings);
+                                await snap(loc, path.join(dir, fn), step.options, settings);
                                 break;
 
                             default:
