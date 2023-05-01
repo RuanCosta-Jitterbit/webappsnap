@@ -59,7 +59,7 @@ You must create configuration files for your own application.
 
     -   `instance:` A node for every distinct instance (app) you want to snap:
 
-        -   `server`: The full HTTPS server IP or hostname.
+        -   `server`: The full HTTPS server IP or hostname. (Omit trailing slash.)
 
         -   `a` to `f`: General-purpose prefixes. Use them for URLs such as `server/a/b/c/<page UID>`
 
@@ -164,15 +164,9 @@ You must create configuration files for your own application.
 
                     -   `text`: Enter `value` text into element `selector`. If `value` is the word `RANDOM`, a random 5-digit hex string (10 characters) is entered. If the word `LOGIN`, value is taken from the contents of a `instance.login_filename` file. If `PASSWORD`, value is taken from `instance.password_filename`.
 
+                    -   `value`: String values for `edit`, `replace`, `style`, and `text` step types, an array of string values for `press` step type, and an integer (milliseconds) for the `wait` step type.
+
                     -   `quit`: Exit immediately.
-
-                    -   `wait`: Wait for `value` milliseconds.
-
-                    These can be set for most steps.
-
-                    -   `locator`: The locator type, one of: `css`, `getbytext`, `getbyrole`
-
-                    -   `selector`: The selector for the item, defined according to the locator's format.
 
                     -   `viewport`: Each step can specify its own viewport which overrides either the outer page or default viewport. Same as `pages.viewport` and `operations.viewport`.
 
@@ -193,6 +187,15 @@ You must create configuration files for your own application.
                             }
                             ```
 
+                    -   `wait`: Wait for `value` milliseconds.
+
+                    These must be set for steps that act on a selector:
+
+                    -   `locator`: The locator type, one of: `css`, `getbytext`, `getbyrole`
+
+                    -   `selector`: The selector for the item, defined according to the locator's format.
+
+
 3.  Run the wrapper script:
 
     ```shell
@@ -201,74 +204,11 @@ You must create configuration files for your own application.
 
     Optional arguments:
 
-    -   `--full`: Also snap the full page beyond the specified viewport.
-
-## Tips
-
--   **Changing selectors (IDs of UI elements)**
-
-    Because apps are built to different standards, the program outputs a lot of messages to show what is happening and what is being snapped.
-
-    If the logs show a timeout when trying to locate a selector that doesn't exist, you should load the app in a browser, navigate to the page in question and activate your browser's development tools. These contain an option to select an element to find its selector and compare it with that defined in the `pages` section of the configuration file. Where possible, use keyboard shortcuts to interact with the UI rather than hunting for selectors (use `press` instead of `click`). Ask developers to allocate static names to frequently used elements.
-
--   **Multiple runs**
-
-    By default, image filenames don't include a sequence number prefix. When debugging or testing, set `settings.debug=true` in your configuration file. This will create images numbered by their order in the `pages` node.
-
--   **Commenting out pages**
-
-    JSON doesn't have a system for commenting out portions of a file. To skip specific pages, operations, or steps, add a `skip` item with value `true`.
-
-## Problems and Troubleshooting
-
-This tool was made to make it easier to repeat screenshots for an app's technical documentation. However, the configuration needs constant nurturing and updating. Every change to an app usually means a change to configuration files, and sometimes the code.
-
--   **Server URL**
-
-    The server URL (`server` in `settings` node) has no trailing forward slash (`https://server`, not `https://server/`).
-
--   **Changed CSS selectors**
-
-    Use your browser's developer's mode to inspect the element causing trouble. Check that the CSS selector matches that specified. This tool mainly uses CSS selectors but xpaths also work.
-
--   **Time-outs or blank snaps**
-
-    Some pages take longer to load than others. Panels in some snaps will show they are still loading, or portions will be blank. For these, extend the loading time with the per-page wait value.
-
--   **Page load wait time**
-
-    This tool strives for flexibility over speed, allowing each page snap to be resized, and allowing for partial snaps illustrating particular features or emphasising specific panels. This means the window size (viewport) has to be reset for every snap. In Playwright, that means you must reload the page and wait for it after each viewport change. Consequently, snapping all pages takes around an hour with default settings.
-
-    There are two ways to shorten the time spent using this tool.
-
-    1.  Reduce the default page wait time. This can speed things up but some pages won't finish loading before the snap is taken.
-
-    2.  Don't use the `--full` option. This works by setting the viewport to 10 times the default height, reloading the page, waiting, snapping the container element, resetting the viewport and again reloading the page and waiting.
-
--   **Images are not the size I expected**
-
-    -   Check the values for `settings.width`, `settings.height`
-
-    -   Check whether the viewport is set (overriding the default) for the page or step.
-
-    -   The height of `_full` images is determined by each page's default container size.
-
--   **Choice of browser**
-
-    In `main.js`, locate the code:
-
-    ```js
-    const browser = await chromium.launch({
-        headless: config.headless,
-        slowMo: config.slowmo
-    });
-    ```
-
-    Change `chromium` to either `firefox` or `webkit`.
+    -   `--full`: Also snap the full page beyond the specified viewport. To use this option, you must set `instance.<instance-name>.container` to the selector for the element that contains the entire content to be snapped.
 
 ## How it works
 
-`main.js` loops through `pages` entries in the defined configuration file, processing each page, its operations and steps, one by one. If an operation has a `loop` value, that operation's steps are repeated as many times as the value of `loop`.
+`main.js` loops through `pages` (URLs) entries in the configuration file, processing each page, its operations and steps, one by one. If an operation has a `loop` value, that operation's steps are repeated that number of times. If a snap happens within a loop, a loop number suffix is added to the image filename.
 
 The basic structure of a pages configuration file is:
 
@@ -280,11 +220,13 @@ One or more pages
 
 -   A page can be specified more than once. This is useful if the same page needs to be snapped with a different sized browser window, or there are individual components (e.g. menus, buttons, specific panels) to be snapped separately as well as the whole window.
 
--   You can specify one or more operations to define what should happen prior to a snap. For example, you can hover over something to reveal a tooltip, select an item in a list, enter text into a field, or go through the step-by-step process of adding, editing and deleting something. You can snap the whole window or an HTML element as specified by its CSS selector.
+-   You can specify one or more operations to define what should happen prior to a snap. For example, you can hover over something to reveal a tooltip, select an item in a list, enter text into a field, or go through the step-by-step process of adding, editing and deleting something. You can snap the whole window or an HTML element as specified by its CSS or XPath selector, or by its role or text label (the step's `locator` value determines which).
 
--   An operation is a group of steps. Except for 'wait', a selector specifies the CSS selector to operate on.
+-   An operation is a named group of steps within the same page. Operations are useful for grouping steps into a unit, and saving the images to a common directory or prefix.
 
--   If no operations are specified, a page entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements (using the `selector` field).
+-   If no operations are specified, a page entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements.
+
+Look at the supplied configuration files for ways to use these.
 
 ### Program Files
 
@@ -298,13 +240,13 @@ There is one Node.js file.
 
         -   `page` = a page or an element;
 
-        -   `title` = the filename title (before prefixing and character replacement);
+        -   `full_path` = the path and filename for the image (without sequence numbers, prefixing, or character replacements);
 
-        -   `dir` = the save directory;
+        -   `options` = additional image options;
 
-        -   `full` = whether to snap the entire page (needs prior viewport adjustment).
+        -   `settings` = the configuration's settings (containing the filename separator character, prefix, and image filename extension).
 
-    -   `load(page, url, wait)`: Loads `url` into browser's `page` and waits `wait` milliseconds.
+    -   `load(page, url, wait, force_wait)`: Loads `url` into browser's `page` and waits `wait` milliseconds. If `force_wait` is true, a forced page wait is applied.
 
 ## Image file names
 

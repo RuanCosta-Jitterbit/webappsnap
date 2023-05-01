@@ -423,6 +423,7 @@ function pad(n, w = 3, z = '0') { // number, width, padding char
 
 /*
 ** Convenience wrapper for loading pages with logging and standard load wait time
+** TODO Only called once with force_wait = True. Rationalise (unlikely to be needed)
 */
 async function load(page, url, wait = instance.wait, force_wait = false) {
     try {
