@@ -157,7 +157,7 @@ You must create configuration files for your own application.
 
                     -   `press`: Press each of the keys in the `value` array.
 
-                    -   `replace`: TODO
+                    -   `replace`: Change the HTML content of `selector`.
 
                     -   `snap`: Snap the window. If a `selector` is given, snap only it. If `viewport` is given, adjust the window to that size before snapping.
 
@@ -237,7 +237,7 @@ There is one Node.js file.
 
     The core of `main.js` loops through the pages file, processing each page entry, and looping through its operations and steps. This also contains functions for common operations, the most important of which are:
 
-    -   `snap(page, title, dir, full)`
+    -   `snap(page, full_path, options, settings)`
 
         -   `page` = a page or an element;
 
