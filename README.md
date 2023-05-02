@@ -237,7 +237,7 @@ There is one Node.js file.
 
     The core of `main.js` loops through the pages file, processing each page entry, and looping through its operations and steps. This also contains functions for common operations, the most important of which are:
 
-    -   `snap(page, title, dir, full)`
+    -   `snap(page, full_path, options, settings)`
 
         -   `page` = a page or an element;
 
