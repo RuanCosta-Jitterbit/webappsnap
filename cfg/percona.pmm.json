@@ -1,6 +1,7 @@
 {
     "settings": {
         "dir": "./images/percona/pmm",
+        "timestamp": false,
         "seq": true,
         "pfx": "PMM",
         "sep": "-",

@@ -1,6 +1,7 @@
 {
     "settings": {
         "dir": "./images/jitterbit/app-builder-app",
+        "timestamp": true,
         "seq": false,
         "pfx": "app-builder-app",
         "ext": ".png",

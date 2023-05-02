@@ -1,6 +1,7 @@
 {
     "settings": {
         "dir": "./images/jitterbit/harmony",
+        "timestamp": true,
         "seq": false,
         "pfx": "",
         "ext": ".png",

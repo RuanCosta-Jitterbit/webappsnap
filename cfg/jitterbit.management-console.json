@@ -1,6 +1,7 @@
 {
     "settings": {
         "dir": "./images",
+        "timestamp": true,
         "seq": false,
         "pfx": "mc",
         "ext": ".png",

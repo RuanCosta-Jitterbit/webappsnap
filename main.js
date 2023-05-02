@@ -30,7 +30,10 @@ if (!argv.instance) {
 
     const hostname = uf.parse(instance.server).hostname; // The app URL/server/IP
     const today = new Date().toISOString();
-    const dir = path.join(settings.dir, today, argv.instance); // Images save path. TODO Optional date part
+    const dir = path.join(
+        settings.dir, 
+        (settings.timestamp ? today : ''), 
+        argv.instance); // Images save path
     const ext = settings.ext;   // Image file extension (png/jpg)
     mkdir(dir);    // Create image save directory TODO move to snap function
 
@@ -38,6 +41,7 @@ if (!argv.instance) {
         console.log(`Hostname: ${hostname}`);
         console.log(`Image directory: ${dir}`)
         console.log(`Default viewport: ${settings.width}x${settings.height}`);
+        console.log(`Image directory timestamped: ${Boolean(settings.timestamp)}`);
         console.log(`Image filename sequence numbers: ${Boolean(settings.seq)}`);
         console.log(`Image filename prefix: ${settings.pfx}`);
         console.log(`Image filename suffix: ${settings.ext}`);
