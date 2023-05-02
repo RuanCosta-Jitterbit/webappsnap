@@ -1316,7 +1316,7 @@
                         {
                             "name": "Wait",
                             "type": "wait",
-                            "wait": 10000
+                            "value": 10000
                         },
                         {
                             "name": "",
