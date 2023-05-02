@@ -131,19 +131,16 @@ if (!argv.instance) {
 
         // Construct the page's URL or use the override value
         if (pg.url) {
-            server_url = [
-                instance.server
-                , pg.url
-            ].join(path.sep);
+            server_url = new URL([instance.server, pg.url].join('/'));
         } else {
-            server_url =
+            server_url = new URL(
                 [
-                    instance.server
-                    // filter as not all prefixes may be set
-                    , server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join(path.sep)
-                ].join(path.sep);
+                    instance.server,
+                    // filter out unset prefixes
+                    server_url_prefixes.filter(x => typeof x === 'string' && x.length > 0).join('/')
+                ].join('/'));
             if (pg.uid) {
-                server_url = [server_url, pg.uid].join(path.sep);
+                server_url = new URL([server_url, pg.uid].join('/'));
             }
         }
         server_url = `${server_url}${option_string}`
