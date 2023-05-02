@@ -30,7 +30,7 @@ if (!argv.instance) {
 
     const hostname = uf.parse(instance.server).hostname; // The app URL/server/IP
     const today = new Date().toISOString();
-    const dir = path.join(settings.dir, today, argv.instance); // Images save path
+    const dir = path.join(settings.dir, today, argv.instance); // Images save path. TODO Optional date part
     const ext = settings.ext;   // Image file extension (png/jpg)
     mkdir(dir);    // Create image save directory TODO move to snap function
 
