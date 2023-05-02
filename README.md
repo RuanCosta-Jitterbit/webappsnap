@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This program lets you automate the task of taking screenshots of web applications. It runs on Linux and macOS and uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser. The session's tasks can optionally be recorded as a `webm` video.
+This program lets you automate the task of taking screenshots of web applications. It runs on Windows, Linux and macOS and uses [Playwright](https://playwright.dev) to programmatically run a set of actions in a Chromium, Firefox, or Webkit-based web browser. The session's tasks can optionally be recorded as a `webm` video.
 
 You define the actions in a JSON file as a list of pages to load, and operations and steps to perform on each page. You can snap whole pages, parts of pages, buttons, menus, etc., so long as they can be consistently identified (via a *selector*).
 
@@ -13,14 +13,13 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 > This section uses configuration created for Percona's [PMM](https://www.percona.com/software/database-tools/percona-monitoring-and-management) database monitoring tool to take screenshots of the [PMM Demo](https://pmmdemo.percona.com) instance.
 
 1.  Clone this repository.
-2.  In a terminal, change directory to where you cloned it.
+2.  In a command prompt, powershell, or terminal, change directory to where you cloned it.
 3.  Install dependencies:
     -   [Node.js](https://nodejs.org/en/download/)
     -   `npm i playwright yargs prompt-sync`
-4.  Run the script:
+4.  Run this:
     ```sh
-    chmod +x ./run.sh
-    ./run.sh --config ./cfg/percona.pmm.json --instance pmmdemo
+    node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
     ```
 
     This snaps all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmm/CCYY-MM-DDTHH:MM:SS.SSSZ/pmmdemo`.
@@ -36,6 +35,8 @@ You must create configuration files for your own application.
     -   `settings:` This section contains general settings for the snap:
 
         -   `dir`: Where to save images.
+
+        -   `timestamp`: `true` or `false`. Whether to include the current date-time stamp in the image directory.
 
         -   `seq`: `true` or `false`. (Optional) Add a zero-padded 3-digit sequence number to each saved image filename.
 
@@ -196,10 +197,10 @@ You must create configuration files for your own application.
                     -   `selector`: The selector for the item, defined according to the locator's format.
 
 
-3.  Run the wrapper script:
+3.  Run this:
 
-    ```shell
-    ./run.sh --config ./cfg/my-config.json --instance instance-name
+    ```sh
+    node main.js --config ./cfg/my-config.json --instance instance-name
     ```
 
     Optional arguments:
