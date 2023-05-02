@@ -7,6 +7,7 @@ const path = require('path');
 const { randomBytes } = require('node:crypto');
 const fs = require('fs');
 const prompt = require('prompt-sync')(); // Get input
+const dayjs = require('dayjs');
 
 if (!argv.config) {
     console.log("Missing config file (--config <path/to/config.json>)");
@@ -29,10 +30,10 @@ if (!argv.instance) {
     }
 
     const hostname = uf.parse(instance.server).hostname; // The app URL/server/IP
-    const today = new Date().toISOString();
+    const timestamp = dayjs().format('YYYYMMDD_HHmmss');
     const dir = path.join(
         settings.dir, 
-        (settings.timestamp ? today : ''), 
+        (settings.timestamp ? timestamp : ''), 
         argv.instance); // Images save path
     const ext = settings.ext;   // Image file extension (png/jpg)
     mkdir(dir);    // Create image save directory TODO move to snap function

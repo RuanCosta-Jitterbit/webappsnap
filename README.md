@@ -16,7 +16,7 @@ To snap pages, you only need to know their URLs. To interact with buttons, menus
 2.  In a command prompt, powershell, or terminal, change directory to where you cloned it.
 3.  Install dependencies:
     -   [Node.js](https://nodejs.org/en/download/)
-    -   `npm i playwright yargs prompt-sync`
+    -   `npm i playwright yargs prompt-sync dayjs`
 4.  Run this:
     ```sh
     node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
@@ -36,7 +36,7 @@ You must create configuration files for your own application.
 
         -   `dir`: Where to save images.
 
-        -   `timestamp`: `true` or `false`. Whether to include the current date-time stamp in the image directory.
+        -   `timestamp`: `true` or `false`. Whether to include the current date-time stamp (YYYYMMDD_HHmmss) in the image directory.
 
         -   `seq`: `true` or `false`. (Optional) Add a zero-padded 3-digit sequence number to each saved image filename.
 
