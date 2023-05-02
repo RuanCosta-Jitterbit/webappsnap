@@ -157,7 +157,7 @@ You must create configuration files for your own application.
 
                     -   `press`: Press each of the keys in the `value` array.
 
-                    -   `replace`: TODO
+                    -   `replace`: Change the HTML content of `selector`.
 
                     -   `snap`: Snap the window. If a `selector` is given, snap only it. If `viewport` is given, adjust the window to that size before snapping.
 

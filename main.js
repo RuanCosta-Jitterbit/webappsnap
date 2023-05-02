@@ -335,7 +335,7 @@ if (!argv.instance) {
                                 await loc.evaluate((node, ve) => node.innerText = ve, ve);
                                 break;
 
-                            case "replace": //TODO
+                            case "replace":
                                 const vr = step.value;
                                 await loc.evaluate((node, vr) => node.innerHTML = vr, vr);
                                 break;
