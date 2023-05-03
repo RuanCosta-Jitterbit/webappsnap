@@ -28,7 +28,8 @@
             "wait": 40000,
             "pause": 6000,
             "login_filename": ".login",
-            "password_filename": ".password"
+            "password_filename": ".password",
+            "container": ""
         }
     },
     "pages": [
@@ -38,7 +39,6 @@
         },
         {
             "name": "Example",
-            "uid": "example",
             "url": "landing/login"
         }
     ]
