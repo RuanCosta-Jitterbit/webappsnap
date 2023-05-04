@@ -12,7 +12,7 @@ The program is a Node.js script. To run it, follow these steps:
 
 1. Install [Node.js](https://nodejs.org/en/download/).
 
-2. Clone or otherwise get a copy of this repository, and save it somewehere on your system.
+2. Clone or otherwise get a copy of this repository, and save it on your system.
 
 3. In a command prompt, powershell, or terminal, change directory to where you cloned or saved it. Then run this command to install the required Node.js libraries:
 
@@ -22,13 +22,13 @@ The program is a Node.js script. To run it, follow these steps:
 
 ## Quick Start
 
-When you have [installed Node.js](#install), run this command to take screenshots of the publicly-accessible pages of [PMM Demo] using a pre-defined configuration file:
+When you have [installed Node.js](#install), run this command to take screenshots of the publicly accessible pages of [PMM Demo] using a pre-defined configuration file:
 
 ```sh
 node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
 ```
 
-The program will print information messages as it runs, and the saved images will appear in `images/percona/pmm/pmmdemo`.
+The program prints information messages as it runs, and the saved images appear in `images/percona/pmm/pmmdemo`.
 
 > If there are errors or blank screenshots, see [Troubleshooting Tips](#troubleshooting-tips).
 
@@ -40,15 +40,13 @@ node main.js --config <path to configuration file> --instance <instance name> [o
 
 options:
 
-`--full`: Ignore the viewport height and snap everything contained within the `instance.<instance name>.container` property.
+`--full`: ignore the viewport height and snap everything contained within the `instance.<instance name>.container` property.
 
 ## Configuration
 
-You must create a JSON configuration file for your application. The best way to start is to make a copy of `cfg/template.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want screenshots of. Each file can define one or more 'instances' of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
+You must create a JSON configuration file for your app. The best way to start is to make a copy of `cfg/template.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want screenshots of. Each file can define one or more 'instances' of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
 
-> This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by the open source database company [Percona], whose [PMM Demo] instance is publicly-accessible and used as a working example in the [Quick Start](#quick-start) section. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
-
-
+> This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by the open source database company [Percona], whose [PMM Demo] instance is publicly accessible and used as a working example in the [Quick Start](#quick-start) section. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
 
 The configuration file is a JSON schema with three subschemas:
 
@@ -78,7 +76,7 @@ The `settings` subschema contains general settings for the snap:
 
 - `width` and `height`: The default image pixel width and height for full screen snaps. (This is used unless a page, operation, or step defines a `viewport`. See below.)
 
-- `jpg_quality`: (0-100). The JPEG image quality setting, when saving JPEG images (`"ext": ".jpg"`). Lower values produce lower quality but small filesize image files.
+- `jpg_quality`: (0-100). The JPEG image quality setting, when saving JPEG images (`"ext": ".jpg"`). Lower values produce lower quality but smaller (file size) image files.
 
 - `headless`: `true` or `false`. If `true`, the web browser runs in 'headless' mode.
 
@@ -206,7 +204,7 @@ A `step` represents the actual action to be performed. Each is a JSON schema wit
 
   - `clip`: For full page snaps (no selector specified), snap only the region specified by the coordinates. See <https://playwright.dev/docs/api/class-page#page-screenshot-option-clip>
 
-    Example: To snap a region 50x380 pixels in size, starting at coordinates 15,160 (from top left of the browser pane), use this step:
+    Example: to snap a region 50x380 pixels in size, starting at coordinates 15,160 (from top left of the browser pane), use this step:
 
     ```json
     ...
@@ -224,7 +222,6 @@ A `step` represents the actual action to be performed. Each is a JSON schema wit
     },
     ...
     ```
-
 
 #### Step Types
 
@@ -246,7 +243,7 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
 
 - `press`: Press each of the keys in the `value` array, waiting `instance.<instance name>.pause` microseconds between each press. (`page.press()`)
 
-  Example: A step to press enter (or return), followed by a step to type "None" and then press enter:
+  Example: a step to press enter (or return), followed by a step to type "None" and then press enter:
 
   ```json
   ...
@@ -279,7 +276,7 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
 
 - `style`: Insert the CSS code provided by the `value` field. Useful for blurring text, adding border highlights, or anything else you can do with CSS styles. (`page.addStyleTag()`)
 
-  Example: Blur an email address in a menu element:
+  Example: blur an email address in a menu element:
 
   ```json
   ...
@@ -307,33 +304,15 @@ One or more pages
     One or more steps
 ```
 
-- A page can be specified more than once. This is useful if the same page needs to be snapped with a different sized browser window, or there are individual components (e.g. menus, buttons, specific panels) to be snapped separately as well as the whole window.
+A page can be specified more than once. This is useful if the same page needs to be snapped with a different sized browser window, or there are individual components (such as menus, buttons, specific panels) to be snapped separately as well as the whole window.
 
-- You can specify one or more operations to define what should happen prior to a snap. For example, you can hover over something to reveal a tooltip, select an item in a list, enter text into a field, or go through the step-by-step process of adding, editing and deleting something. You can snap the whole window or an HTML element as specified by its CSS or XPath selector, or by its role or text label (the step's `locator` value determines which).
+You can specify one or more operations to define what should happen prior to a snap. For example, you can hover over something to reveal a tooltip, select an item in a list, enter text into a field, or go through the step-by-step process of adding, editing and deleting something. You can snap the whole window or an HTML element as specified by its CSS or XPath selector, or by its role or text label (the step's `locator` value determines which).
 
-- An operation is a named group of steps within the same page. Operations are useful for grouping steps into a unit, and saving the images to a common directory or prefix.
+An operation is a named group of steps within the same page. Operations are useful for grouping steps into a unit, and saving the images to a common directory or prefix.
 
-- If no operations are specified, a page entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements.
+If no operations are specified, a page entry causes a single full-window snap. If operations are specified, you must explicitly snap the window or its elements.
 
 Look at the supplied configuration files for ways to use these.
-
-### Program Files
-
-There is one Node.js file.
-
-- `main.js`: The core of `main.js` loops through the pages file, processing each page entry, and looping through its operations and steps. This also contains functions for common operations, the most important of which are:
-
-  - `snap(page, full_path, options, settings)`
-
-    - `page` = a page or an element;
-
-    - `full_path` = the path and filename for the image (without sequence numbers, prefixing, or character replacements);
-
-    - `options` = additional image options;
-
-    - `settings` = the configuration's settings (containing the filename separator character, prefix, and image filename extension).
-
-  - `load(page, url, wait, force_wait)`: Loads `url` into browser's `page` and waits `wait` milliseconds. If `force_wait` is true, a forced page wait is applied.
 
 ### Page URLs
 
@@ -352,13 +331,13 @@ If there is an `options` array, they are concatenated and appended to the URL.
 
 ### Image File Names
 
-The image file path is made up of the directory and the filename.
+The image path is made up of the directory and the filename.
 
 The directory path is a hierarchy constructed in `main.js`. It is:
 
 - `dir`
 
-- System path separator (e.g. =/= on Linux).
+- System path separator.
 
 - Server configuration file `name`.
 
