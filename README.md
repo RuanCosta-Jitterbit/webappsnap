@@ -2,13 +2,13 @@
 
 ## Introduction
 
-This Node.js command line program lets you automate the task of taking screenshots of web applications. It runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium, Firefox, or Webkit-based browser. You can optionally record a `webm` video of the entire set of actions.
+This program lets you automate the task of taking screenshots of web applications. It's a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium, Firefox, or Webkit-based browser. You can optionally record a `webm` video of the session.
 
-You define the actions in a JSON document (file). (See the examples in the `cfg` directory.) This program reads it and does what it says.
+You define the actions in a JSON document (file). (See examples in the `cfg` directory.) This program reads it and does what it says.
 
 ## Install
 
-The program is a Node.js script. To run it, follow these steps:
+The program is a Node.js script. Before you run it, follow these steps:
 
 1. Install [Node.js](https://nodejs.org/en/download/).
 
@@ -22,7 +22,7 @@ The program is a Node.js script. To run it, follow these steps:
 
 ## Quick Start
 
-When you have [installed Node.js](#install), run this command to take screenshots of the publicly accessible pages of [PMM Demo] using a pre-defined configuration file:
+After [installing](#install), run this command to take screenshots of the publicly accessible pages of [PMM Demo] using a pre-defined configuration file:
 
 ```sh
 node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
@@ -44,29 +44,31 @@ options:
 
 ## Configuration
 
-You must create a JSON configuration file for your app. The best way to start is to make a copy of `cfg/template.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want screenshots of. Each file can define one or more 'instances' of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
+You must create a JSON configuration file for your app. The best way to start is to make a copy of `cfg/template.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want to snap. Each file can define one or more versions (`instance`) of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
 
-> This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by the open source database company [Percona], whose [PMM Demo] instance is publicly accessible and used as a working example in the [Quick Start](#quick-start) section. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
+> This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by [Percona], whose [PMM Demo] instance is publicly accessible and used as a working example in the [Quick Start](#quick-start) section. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
 
 The configuration file is a JSON schema with three subschemas:
 
 - [`settings`](#settings): General settings for the screenshots: where to put them, their default size, scale, and file type, whether to number the images, and what filename prefix to use.
 
-- [`instance`](#instance): These settings define the app's base URL, login credentials, and default page load time. The subschema is the instance name and is the value for the command line option `--instance` when you run the program. (See [Usage](#usage).)
+- [`instance`](#instance): Settings thst define the app's base URL, login credentials, and default page load time. The subschema is the instance name. You'll supply this name on the command line when you run the program. (See [Usage](#usage).)
 
-- [`pages`](#pages): An array of URLs to load. Each element can optionally contain an `operations` subschema that contains a `steps` array, and each step can one one of various types. Pages, operations, and steps of different types are the building blocks for specifying how to interact with an app, and what to save as screenshots.
+- [`pages`](#pages): An array of URLs to load. Each element can optionally contain an [`operations`](#operations) subschema that contains a [`steps`](#steps) array, and each step can be one of various [types](#step-types).
 
-To snap pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's _selector_. For this, you should know how to use a browser's developer tools.
+  > Pages, operations, and steps of different types are the building blocks for specifying how to interact with an app, and what to save as screenshots.
+
+To snap whole pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's _selector_. For this, you should know how to use a browser's developer tools.
 
 ### `settings`
 
 The `settings` subschema contains general settings for the snap:
 
-- `dir`: Where to save images.
+- `dir`: Where to save images. (See [Image File Names](#image-file-names).)
 
-- `timestamp`: `true` or `false`. Whether to include the current date-time stamp (`YYYYMMDD_HHmmss`) in the image directory.
+- `timestamp`: `true` or `false`. If `true`, include the current date-time stamp (`YYYYMMDD_HHmmss`) in the image directory.
 
-- `seq`: `true` or `false`. If true, add a zero-padded 3-digit sequence number to each saved image filename.
+- `seq`: `true` or `false`. If `true`, add a zero-padded 3-digit sequence number to each saved image filename.
 
 - `pfx`: String or empty. Additional filename prefix for each saved image filename. (See [Image File Names](#image-file-names).)
 
@@ -335,35 +337,29 @@ If there is an `options` array, they are concatenated and appended to the URL.
 
 ### Image File Names
 
-The image path is made up of the directory and the filename.
+The image path is a concatenation of the following parts:
 
-The directory path is a hierarchy constructed in `main.js`. It is:
+- `settings.dir`: The base directory.
 
-- `dir`
+- (If `settings.timestamp` is `true`) The current date-time, in the format `YYYYMMDD_HHmmss`.
 
-- System path separator.
+- `instance.<instance name>`: The instance name used for the run.
 
-- Server configuration file `name`.
+- (If `settings.seq` is `true`): A zero-padded integer, incremented for each saved image, separated from the next file name element with the character in `settings.sep`.
 
-The filename is constructed in `snap()` and is made of each page's entry values (with optional prefixes). Each part is separated with a single underscore (`_`).
+- (If `settings.pfx` is non-empty): The value, separated from the next file name element with the character in `settings.sep`.
 
-- (Optional primary prefix) If `seq` is true, a zero-padded integer, incremented for each image.
+- Concatenation of non-empty values for page `name`, operation `name`, and step `name`. Page and operation names can contain and end with path separator characters to create subdirectories. (See `cfg/jitterbit.edi.json` for examples.)
 
-- (Optional secondary prefix) The value of `pfx`.
+- `settings.ext`: The file name suffix, which also determines the image file type.
 
-- `pages.name`
+After this concatenation, the full path is separated into the directory part (`dirname`) and the file name (`basename`).
 
-- (If operations)
+The dirname is left alone.
 
-  - `pages.operations.name`
+For the basename, dots, spaces, and back slashes are replaced with the character in `settings.sep`.
 
-  - `pages.operations.steps.name`
-
-- (If not operations and `--full` option is set) `_full`
-
-- `ext` (file extension)
-
-> **Note:** Spaces, back slashes (`\`), and dots (`.`) in titles and names are replaced with underscores (in `snap()`).
+If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's file name is suffixed with `_full`.
 
 ## Troubleshooting Tips
 
