@@ -32,8 +32,8 @@ if (!argv.instance) {
     const hostname = uf.parse(instance.server).hostname; // The app URL/server/IP
     const timestamp = dayjs().format('YYYYMMDD_HHmmss');
     const dir = path.join(
-        settings.dir, 
-        (settings.timestamp ? timestamp : ''), 
+        settings.dir,
+        (settings.timestamp ? timestamp : ''),
         argv.instance); // Images save path
     const ext = settings.ext;   // Image file extension (png/jpg)
     mkdir(dir);    // Create image save directory TODO move to snap function
@@ -147,7 +147,13 @@ if (!argv.instance) {
         server_url = `${server_url}${option_string}`
 
         // PART 3 - Load URL
-        await load(page, server_url, wait, true);
+        try {
+            console.log(`  Loading ${server_url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
+            await page.goto(server_url, { timeout: wait });
+            await page.waitForTimeout(wait); // Explicit additional wait for content to load
+        } catch (e) {
+            console.error(`Can't load ${server_url} - skipping (${e})`);
+        }
 
         // Per-page viewport
         const current_page_vp = page.viewportSize();
@@ -155,8 +161,6 @@ if (!argv.instance) {
             console.log(`  Viewport for page: ${pg.viewport.width}x${pg.viewport.height}`);
             await viewport(page, pg.viewport, instance.wait);
         }
-
-        // TODO Reliable way of knowing when page has completed loading
 
         // PART 4 - Page-level snap (no operations)
         if (!pg.operations) {
@@ -177,7 +181,7 @@ if (!argv.instance) {
                     // Resize viewport to container height plus padding. Keep width the same.
                     const vp = { width: current_vp.width, height: bx.height + 150 };
                     await viewport(page, vp, instance.wait);
-                    await snap(page, path.join(dir, pg.name + "_full"), { ...pg.options, fullPage: true }, settings);                    
+                    await snap(page, path.join(dir, pg.name + "_full"), { ...pg.options, fullPage: true }, settings);
                     await viewport(page, current_vp, instance.wait); // reset viewport
                 }
                 catch (e) {
@@ -421,29 +425,6 @@ async function snap(loc, full_path, options = {}, settings) {
 function pad(n, w = 3, z = '0') { // number, width, padding char
     n = String(n);
     return n.length >= w ? n : new Array(w - n.length + 1).join(z) + n;
-}
-
-/*
-** Convenience wrapper for loading pages with logging and standard load wait time
-** TODO Only called once with force_wait = True. Rationalise (unlikely to be needed)
-*/
-async function load(page, url, wait = instance.wait, force_wait = false) {
-    try {
-        console.log(`  Loading ${url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
-
-        await page.goto(url,
-            {
-                //                waitUntil: 'networkidle',
-                timeout: wait
-            }
-        );
-        if (force_wait) {
-            await page.waitForTimeout(wait); // Force Wait before snap
-        }
-    } catch (e) {
-        console.error(`Can't load ${url} - skipping (${e})`);
-    }
-    // TODO handle net::ERR_INTERNET_DISCONNECTED
 }
 
 /*
