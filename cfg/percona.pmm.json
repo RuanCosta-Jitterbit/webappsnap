@@ -1518,12 +1518,6 @@
           "name": "Panel Menu",
           "steps": [
             {
-              "name": "Open",
-              "type": "click",
-              "locator": "css",
-              "selector": "[class='panel-name']"
-            },
-            {
               "name": "",
               "type": "snap",
               "locator": "css",
