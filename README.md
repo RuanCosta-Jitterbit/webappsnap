@@ -30,7 +30,7 @@ node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
 
 The program prints information messages as it runs, and the saved images appear in `images/percona/pmm/pmmdemo`.
 
-> If there are errors or blank screenshots, see [Troubleshooting Tips](#troubleshooting-tips).
+> If there are errors or blank screenshots, see [Tips](#tips).
 
 ## Usage
 
@@ -361,9 +361,9 @@ For the basename, dots, spaces, and back slashes are replaced with the character
 
 If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's file name is suffixed with `_full`.
 
-## Troubleshooting Tips
+## Tips
 
-- If you're on a slow network, increase the value for `instance.<instance-name>.wait`. This controls how long to wait for a page load.
+- If you see blank pages, increase the value for `instance.<instance-name>.wait`. This is how long to wait after a page has loaded.
 
 - To see what's going on, set `settings.headless` to true, to turn off headless mode, or create a `webm` format video recording with `settings.video`.
 
