@@ -91,16 +91,6 @@ if (!argv.instance) {
     const context = await browser.newContext(context_options);
     var page = await context.newPage();
 
-    /*************************************************************************************
-     * A loop through all pages:
-     *
-     * Part 1: Build URL
-     * Part 2: Define viewport
-     * Part 3: Load the page
-     * Part 4: If no operations, snap the viewport and optionally (--full) unconstrained container
-     * Part 5: If operations/steps, process them sequentially
-     */
-
     // Can specify up to 6 custom page prefixes
     const server_url_prefixes = [
         instance.a ? instance.a : null,
@@ -124,8 +114,7 @@ if (!argv.instance) {
         page.setDefaultTimeout(instance.wait);
         const wait = (pg.wait ? pg.wait : instance.wait); // Per-page waits override the default
 
-        // PART 1 - Build URL
-        // Create option string if needed
+        // Build URL and add option string if provided
         var server_url;
         var option_string = "";
         if (pg.options) { option_string = "?" + pg.options.join('&'); }
@@ -146,7 +135,7 @@ if (!argv.instance) {
         }
         server_url = `${server_url}${option_string}`
 
-        // PART 3 - Load URL
+        // Load URL
         try {
             console.log(`  Loading ${server_url} (timeout ${wait / 1000} ${Math.floor(wait / 1000) == 1 ? "second" : "seconds"})`);
             await page.goto(server_url, { timeout: wait });
@@ -162,7 +151,7 @@ if (!argv.instance) {
             await viewport(page, pg.viewport, instance.wait);
         }
 
-        // PART 4 - Page-level snap (no operations)
+        // Page-level snap (no operations)
         if (!pg.operations) {
             await snap(page, path.join(dir, pg.name), pg.options, settings);
 
@@ -190,7 +179,7 @@ if (!argv.instance) {
             }
         }
 
-        // PART 5 - Operations - Any number of groups of steps
+        // Operations - Any number of groups of steps
         // With no operations, a dashboard is automatically snapped.
         // If operations are used, dedicate at least one step to a full-window snap,
         // or add another dashboard entry with no operations.
