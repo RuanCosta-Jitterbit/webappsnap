@@ -76,6 +76,8 @@ The `settings` subschema contains general settings for the snap:
 
 - `width` and `height`: The default image pixel width and height for full screen snaps. (This is used unless a page, operation, or step defines a `viewport`. See below.)
 
+- `scale`: The scaling factor for saved images.
+
 - `jpg_quality`: (0-100). The JPEG image quality setting, when saving JPEG images (`"ext": ".jpg"`). Lower values produce lower quality but smaller (file size) image files.
 
 - `headless`: `true` or `false`. If `true`, the web browser runs in 'headless' mode.
@@ -83,6 +85,8 @@ The `settings` subschema contains general settings for the snap:
 - `debug`: `true` or `false`. If `true`, the program prints the settings.
 
 - `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in text values.
+
+- `video`: `true` or `false`. If `true`, everything the browser does is captured as a `webm` video and saved in the same directory as the images.
 
 ### `instance`
 
