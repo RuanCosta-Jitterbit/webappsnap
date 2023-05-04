@@ -238,7 +238,7 @@
                             "name": "ask ai",
                             "type": "click",
                             "locator": "getbytext",
-                            "selector": "Ask AI",
+                            "selector": "Ask AI ",
                             "options": {
                                 "exact": false
                             }
