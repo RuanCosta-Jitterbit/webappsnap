@@ -112,7 +112,7 @@ if (!argv.instance) {
         console.log(`Page ${d}: ${pg.name} (${pg.comment})`);
 
         page.setDefaultTimeout(instance.wait);
-        const wait = (pg.wait ? pg.wait : instance.wait); // Per-page waits override the default
+        const wait = Number((pg.wait ? pg.wait : instance.wait)); // Per-page waits override the default
 
         // Build URL and add option string if provided
         var server_url;
@@ -290,7 +290,7 @@ if (!argv.instance) {
                                     var key = String(step.value[k]);
                                     //                                    console.log(`      Pressing: ${key}`);
                                     await page.press('body', key);
-                                    await page.waitForTimeout(instance.pause);
+                                    await page.waitForTimeout(500);
                                 }
                                 break;
 
@@ -318,7 +318,7 @@ if (!argv.instance) {
                                 if (step.selector) {
                                     await loc.isVisible();
                                 } else {
-                                    await page.waitForTimeout(step.value);
+                                    await page.waitForTimeout(Number(step.value));
                                 }
                                 break;
 
