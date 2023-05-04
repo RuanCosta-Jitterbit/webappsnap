@@ -28,9 +28,7 @@ When you have [installed Node.js](#install), run this command to take screenshot
 node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
 ```
 
-The program prints information messages as it runs, and the saved images appear in `images/percona/pmm/pmmdemo`.
-
-> If there are errors or blank screenshots, see [Troubleshooting Tips](#troubleshooting-tips).
+    This snaps all the pages on [PMM Demo](https://pmmdemo.percona.com). It takes around 45 minutes. The images are saved in `images/percona/pmm/pmmdemo`.
 
 ## Usage
 
