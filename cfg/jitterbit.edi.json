@@ -348,13 +348,13 @@
                             "name": "search",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c195-0 > div:nth-child(1) > div"
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c250-1 > div:nth-child(1) > div"
                         },
                         {
                             "name": "actions",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c195-0 > div.transactions-table-container-header.ng-tns-c195-0"
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c250-0 > div.transactions-table-container-header.ng-tns-c250-0"
                         }
                     ]
                 },
@@ -365,7 +365,7 @@
                             "name": "reveal document information",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td.mat-cell.cdk-cell.cdk-column-expand.mat-column-expand.ng-tns-c195-0.ng-star-inserted > span"
+                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1)"
                         },
                         {
                             "name": "document information",
@@ -388,12 +388,6 @@
                             "type": "snap",
                             "locator": "css",
                             "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2)"
-                        },
-                        {
-                            "name": "close transaction detail",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr.mat-row.cdk-row.expanded-element-row.ng-tns-c195-0.ng-star-inserted.element-expanded-row > td.mat-cell.cdk-cell.cdk-column-expand.mat-column-expand.ng-tns-c195-0.ng-star-inserted > span"
                         }
                     ]
                 }
