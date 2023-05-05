@@ -51,7 +51,7 @@
                     "name": "test operation",
                     "steps": [
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "search text",
                             "comment": "Enter search text",
                             "type": "text",
@@ -60,7 +60,7 @@
                             "value": "beethoven"
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "Enter",
                             "comment": "Submit the search",
                             "type": "press",
@@ -69,21 +69,16 @@
                             ]
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "wait",
                             "comment": "Wait 3 seconds for results",
                             "type": "wait",
                             "value": 3000
                         },
                         {
-                            "skip": true,
+                            "skip": false,
                             "name": "page screenshot",
                             "type": "snap"
-                        },
-                        {
-                            "name": "replacement test",
-                            "type": "text",
-                            "value": "RANDOM USER LOGIN PASSWORD"
                         }
                     ]
                 }

@@ -27,9 +27,7 @@
             "f": "",
             "wait": 25000,
             "pause": 5000,
-            "user_filename": ".user-qar",
-            "login_filename": ".login-qar",
-            "password_filename": ".password-qar"
+            "secret": "./.secret-qar.json"
         },
         "qa-green": {
             "server": "https://apps.qa-green.jitterbit.com",
@@ -41,9 +39,7 @@
             "f": "",
             "wait": 25000,
             "pause": 5000,
-            "user_filename": ".user-qag",
-            "login_filename": ".login-qag",
-            "password_filename": ".password-qag"
+            "secret": "./.secret-qag.json"
         },
         "na-east": {
             "server": "https://apps.na-east.jitterbit.com",
@@ -55,9 +51,7 @@
             "f": "",
             "wait": 20000,
             "pause": 500,
-            "user_filename": ".user-nae",
-            "login_filename": ".login-nae",
-            "password_filename": ".password-nae"
+            "secret": "./.secret-nae.json"
         }
     },
     "pages": [

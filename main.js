@@ -278,7 +278,6 @@ if (!argv.instance) {
 
                                 if (fs.existsSync(instance.secret)) {
                                     const secret = require(instance.secret);
-                                    console.log(secret);
                                     value = value.replace("USER", secret.user);
                                     value = value.replace("LOGIN", secret.login);
                                     value = value.replace("PASSWORD", secret.password);

@@ -27,9 +27,7 @@
       "f": "",
       "wait": 20000,
       "pause": 5000,
-      "user_filename": ".user",
-      "login_filename": ".login",
-      "password_filename": ".password",
+      "secret": "",
       "container": "[class='react-grid-layout']"
     }
   },

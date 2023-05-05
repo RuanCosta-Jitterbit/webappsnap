@@ -110,7 +110,7 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
 
 - `container`: If using the `--full` option, you must specify the element that contains the full scrollable content.
 
-- `secret`: String. Filename containing the following:
+- `secret`: String. Path (with leading `./`) to a file containing the following:
 
   ```json
   {
@@ -120,7 +120,7 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
   }
   ```
 
- (Used by the `text` [step type](#step-types).)
+  The values should be replaced with whatever you use to log into the web app. (Used by the `text` [step type](#step-types).)
 
 - `pause`: Integer. The number of milliseconds between steps.
 
@@ -138,12 +138,14 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 - `options`: (Optional): An array of URL option strings appended to the page load URL. For example, to append `?opt1=val1&opt2=val2` to the page's URL, use:
 
-    ```json
-    "options": {
-        "opt1=val1",
-        "opt2=val2"
-        }
-    ```
+  ```json
+  ...
+  "options": [
+      "opt1=val1",
+      "opt2=val2"
+  ],
+  ...
+  ```
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip processing this page.
 
@@ -303,7 +305,7 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
   {
       "name": "blur email",
       "type": "style",
-      "value": "#menu > div > div.account > button > span { ); }"
+      "value": "#menu > div > div.account > button > span { filter: blur(5px); }"
   },
   ...
   ```
