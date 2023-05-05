@@ -54,7 +54,7 @@ options:
 
 You must create a JSON configuration file for your app. The best way to start is to make a copy of `cfg/test.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want to snap. Each file can define one or more versions (`instance`) of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
 
-> This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by [Percona], whose [PMM Demo] instance is publicly accessible and used as a working example in the [Quick Start](#quick-start) section. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
+> This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by [Percona], whose [PMM Demo] instance is publicly accessible and useful for testing. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
 
 The configuration file is a JSON schema with three subschemas:
 
