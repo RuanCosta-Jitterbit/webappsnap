@@ -757,7 +757,7 @@
                             "name": "edit app name - banner",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-name > h2 > span",
+                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > h2 > span",
                             "value": "My App X"
                         },
                         {
