@@ -76,25 +76,25 @@ The `settings` subschema contains general settings for the snap:
 
 - `timestamp`: `true` or `false`. If `true`, include the current date-time stamp (`YYYYMMDD_HHmmss`) in the image directory.
 
-- `seq`: `true` or `false`. If `true`, add a zero-padded 3-digit sequence number to each saved image filename.
+- `seq`: `true` or `false`. If `true`, add a zero-padded 3-digit sequence number image filenames.
 
-- `pfx`: String or empty. Additional filename prefix for each saved image filename. (See [Image File Names](#image-file-names).)
+- `pfx`: String or empty. Additional prefix for image filenames. (See [Image File Names](#image-file-names).)
 
 - `sep`: String or empty. Replace slash, space, or dot in final image filenames with this character.
 
 - `ext`: `.png` or `.jpg`. Image filename extension (and type).
 
-- `width` and `height`: The default image pixel width and height for full screen snaps. (This is used unless a page, operation, or step defines a `viewport`. See below.)
+- `width` and `height`: The default image pixel width and height for full screen snaps. (This is used unless a page, operation, or step defines a `viewport`.)
 
 - `scale`: The scaling factor for saved images.
 
 - `jpg_quality`: (0-100). The JPEG image quality setting, when saving JPEG images (`"ext": ".jpg"`). Lower values produce lower quality but smaller (file size) image files.
 
-- `headless`: `true` or `false`. If `true`, the web browser runs in 'headless' mode.
+- `headless`: `true` or `false`. If `true`, the web browser runs in headless mode.
 
 - `debug`: `true` or `false`. If `true`, the program prints the settings.
 
-- `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in text values.
+- `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in `text` step values.
 
 - `video`: `true` or `false`. If `true`, everything the browser does is captured as a `webm` video and saved in the same directory as the images.
 
@@ -120,7 +120,7 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
 
 - `server`: The full HTTPS server IP or hostname. (Omit trailing slash.)
 
-- `wait`: Integer. The number of milliseconds to wait for a page to load. Increase this if the app loads slowly and snaps happen before a page is fully loaded. Decrease it to spend less time waiting when snapping many pages.
+- `wait`: Integer. The number of milliseconds to wait for a page to load. Increase this if the app loads slowly and snaps happen before a page is fully loaded.
 
 ### `pages`
 
@@ -130,7 +130,7 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 - `name`: String. (Optional) The name of the page. Included in image filename. Spaces are not replaced. Can contain forward slashes (`/`) for which subdirectories are created when images are saved. If using this feature, add a final slash. Example: `"name": "level1/level2/"` saves images to `<settings.dir>/level1/level2/`. The final path and image filename depends on the values for snaps in subsequent operations and steps.
 
-- `options`: (Optional): An array of URL option strings appended to the page load URL. For example, to append `?opt1=val1&opt2=val2` to a URL, use:
+- `options`: (Optional): An array of URL option strings appended to the page load URL. For example, to append `?opt1=val1&opt2=val2` to the page's URL, use:
 
     ```json
     "options": {
@@ -141,9 +141,9 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip processing this page.
 
-- `uid`: String. The page's UID. Use this for apps whose pages are a simple suffix to the `instance.<instance name>.server` value (optionally suffixed with `instance.<instance-name>.a` to `instance.<instance name>.f`).
+- `uid`: String. The page's UID. Use this for apps whose pages are a simple suffix to the `instance.<instance name>.server` value (optionally suffixed with `instance.<instance name>.a` to `instance.<instance name>.f`).
 
-- `url`: String. (Optional) Override the default page path. Use this if the URL can't be formed from the `instance.<instance-name>.server`, and `instance.<instance-name>.server.a`-`f`, and page UID parts.
+- `url`: String. (Optional) Override the default page path. Use this if the URL can't be formed from the `instance.<instance name>.server`, and `instance.<instance name>.server.a`-`f`, and page UID parts.
 
 - `viewport`: A viewport for this page. Each page can have its own viewport for the scope of the page, which overrides the default page viewport (`settings.width` and `settings.height`). It contains the following:
 
@@ -162,7 +162,7 @@ The `pages` subschema is an array where each element defines a page of the web a
 
     > When a page, operation, or step sets a viewport, the current viewport is restored at the end of the page, operation, or step.
 
-- `wait`: Integer. (Optional) Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
+- `wait`: Integer. (Optional) Override the default page load wait time (`instance.<instance name>.wait`). The value is in milliseconds.
 
 - `operations`: An array of steps. (See [Operations](#operations)). Page entries without operations (only `uid`) are snapped automatically. Use operations when you need to perform a sequence of actions (click a menu, enter text, etc) before taking a screenshot snap. In operations and steps, you must add an explicit `snap` step type.
 
@@ -241,7 +241,7 @@ A `step` represents the actual action to be performed. Each is a JSON schema wit
 
 Steps are where the browser acts via a Playwright function. (The Playwright calls are given after each description.)
 
-- `ask`: Prompts you (with `> `) for a value to be inserted into the text field specified by `selector`. (`page.fill()`)
+- `ask`: Prompts you (with `>`) for a value to be inserted into the text field specified by `selector`. (`page.fill()`)
 
 - `back`: Return to the previous page. (`page.goBack()`)
 
@@ -306,13 +306,13 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
 
   If `value` contains the text `RANDOM`, the word is replaced with a random hexadecimal string. The length of the string is the value for `settings.randlen`.
 
-  If `value` contains the text `USER`, the text is replaced with the contents of the file specified by `instance.<instance-name>.user_filename`.
+  If `value` contains the text `USER`, the text is replaced with the contents of the file specified by `instance.<instance name>.user_filename`.
 
-  If `value` contains the text `LOGIN`, the text is replaced with the contents of the file specified by `instance.<instance-name>.login_filename`.
+  If `value` contains the text `LOGIN`, the text is replaced with the contents of the file specified by `instance.<instance name>.login_filename`.
 
-  If `value` contains the text `PASSWORD`, the text is replaced with the contents of the file specified by `instance.<instance-name>.password_filename`. (`page.fill()`)
+  If `value` contains the text `PASSWORD`, the text is replaced with the contents of the file specified by `instance.<instance name>.password_filename`. (`page.fill()`)
 
-- `wait`: If `selector` is specified, wait for it to become visible. Otherwise, wait for the step's `value` in milliseconds. This is in addition to the default `instance.<instance-name>.wait` and `instance.<instance-name>.pause` values. Useful when some page contents take time to load fully, even if the browser has finished loading the page. (`page.inVisible()` or `page.waitForTimeout()`)
+- `wait`: If `selector` is specified, wait for it to become visible. Otherwise, wait for the step's `value` in milliseconds. This is in addition to the default `instance.<instance name>.wait` and `instance.<instance name>.pause` values. Useful when some page contents take time to load fully, even if the browser has finished loading the page. (`page.inVisible()` or `page.waitForTimeout()`)
 
 ## How it works
 
@@ -379,7 +379,7 @@ If `--full` option is given, any `snap` type steps occur twice, once as specifie
 
 ## Tips
 
-- If you see blank pages, increase the value for `instance.<instance-name>.wait`. This is how long to wait after a page has loaded.
+- If you see blank pages, increase the value for `instance.<instance name>.wait`. This is how long to wait after a page has loaded.
 
 - To see what's going on, set `settings.headless` to true, to turn off headless mode, or create a `webm` format video recording with `settings.video`.
 
