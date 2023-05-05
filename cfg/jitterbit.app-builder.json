@@ -2186,43 +2186,43 @@
                             "name": "show tooltip 1",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '1'"
+                            "selector": "[data-title='Public Page'] >> span >> '1'"
                         },
                         {
                             "name": "show tooltip 2",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '2'"
+                            "selector": "[data-title='Public Page'] >> span >> '2'"
                         },
                         {
                             "name": "show tooltip 3",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '3'"
+                            "selector": "[data-title='Public Page'] >> span >> '3'"
                         },
                         {
                             "name": "show tooltip 4",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '4'"
+                            "selector": "[data-title='Public Page'] >> span >> '4'"
                         },
                         {
                             "name": "show tooltip 5",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '5'"
+                            "selector": "[data-title='Public Page'] >> span >> '5'"
                         },
                         {
                             "name": "show tooltip 6",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '6'"
+                            "selector": "[data-title='Public Page'] >> span >> '6'"
                         },
                         {
                             "name": "show tooltip 7",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Public Page'] >> span >> '7'"
+                            "selector": "[data-title='Public Page'] >> span >> '7'"
                         },
                         {
                             "name": "show tooltip 8",
@@ -2262,25 +2262,25 @@
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='App Page'] >> span >> '1'"
+                            "selector": "[data-title='App Page'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='App Page'] >> span >> '2'"
+                            "selector": "[data-title='App Page'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='App Page'] >> span >> '3'"
+                            "selector": "[data-title='App Page'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='App Page'] >> span >> '4'"
+                            "selector": "[data-title='App Page'] >> span >> '4'"
                         },
                         {
                             "name": "app page labeled pane",
@@ -2304,25 +2304,25 @@
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Mobile'] >> span >> '1'"
+                            "selector": "[data-title='Mobile'] >> span >> '1'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Mobile'] >> span >> '2'"
+                            "selector": "[data-title='Mobile'] >> span >> '2'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Mobile'] >> span >> '3'"
+                            "selector": "[data-title='Mobile'] >> span >> '3'"
                         },
                         {
                             "name": "",
                             "type": "move",
                             "locator": "css",
-                            "selector": "[data-name='Mobile'] >> span >> '4'"
+                            "selector": "[data-title='Mobile'] >> span >> '4'"
                         },
                         {
                             "name": "mobile labeled pane",
