@@ -43,19 +43,6 @@
             "login_filename": ".login-qag",
             "password_filename": ".password-qag"
         },
-        "qa-green-alice": {
-            "server": "https://apps.qa-green.jitterbit.com",
-            "a": "edi",
-            "b": "",
-            "c": "",
-            "d": "",
-            "e": "",
-            "f": "",
-            "wait": 20000,
-            "pause": 5000,
-            "login_filename": ".login-alice-qag",
-            "password_filename": ".password-alice-qag"
-        },
         "na-east": {
             "server": "https://apps.na-east.jitterbit.com",
             "a": "edi",

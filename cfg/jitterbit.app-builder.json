@@ -14,7 +14,7 @@
         "slowmo": 0,
         "debug": false,
         "randlen": 6,
-        "video": true
+        "video": false
     },
     "instance": {
         "qa-green": {
@@ -92,51 +92,6 @@
                             "name": "for login",
                             "type": "wait",
                             "value": 10000
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "comment": "Jitterbit Harmony landing page, hover on App Builder to show tile label - No longer needed",
-            "name": "develop",
-            "uid": "",
-            "url": "identity/landing",
-            "viewport": {
-                "width": 1200,
-                "height": 530
-            },
-            "operations": [
-                {
-                    "comment": "Snap with and without Jitterbit menu",
-                    "name": "harmony tile",
-                    "steps": [
-                        {
-                            "name": "Close pendo",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[aria-label='Close']"
-                        },
-                        {
-                            "name": "Hover",
-                            "type": "move",
-                            "locator": "getbytext",
-                            "selector": "App Builder"
-                        },
-                        {
-                            "name": "Wait",
-                            "type": "wait",
-                            "value": 500
-                        },
-                        {
-                            "name": "",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "Wait",
-                            "type": "wait",
-                            "value": 500
                         }
                     ]
                 }
