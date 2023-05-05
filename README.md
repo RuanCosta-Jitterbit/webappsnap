@@ -128,7 +128,7 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 - `comment`: String. (Optional) Commentary.
 
-- `name`: String. (Optional) The name of the page. Included in image filename. Spaces are not replaced. Can contain forward slashes (`/`) for which subdirectories are created when images are saved. If using this feature, add a final slash. Example: `"name": "level1/level2/"` saves images to `<settings.dir>/level1/level2/`. The final path and image filename depends on the values for snaps in subsequent operations and steps.
+- `name`: String. (Optional) The name of the page. Included in image filename. Spaces are not replaced. Can contain or end with forward slashes (`/`) for which subdirectories are created when images are saved. Example: `"name": "level1/level2/"` saves images to `<settings.dir>/level1/level2/`. The final path and image filename depends on the values for snaps in subsequent operations and steps.
 
 - `options`: (Optional): An array of URL option strings appended to the page load URL. For example, to append `?opt1=val1&opt2=val2` to the page's URL, use:
 
@@ -174,7 +174,7 @@ Each array item is a JSON schema with the following properties:
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
 
-- `name`: String. (Optional) A name for this operation. Included in the image path or filename. Can contain slashes and works the same way as `pages.name`.
+- `name`: String. (Optional) A name for this operation. Included in the image path or filename. Can contain or end with slashes and works the same way as `pages.name`.
 
 - `viewport`: A viewport for this operation. Each operation can have its own viewport, which overrides the page's or default viewport for the scope of the operation. Same as `pages.viewport`.
 
@@ -365,15 +365,15 @@ The image path is a concatenation of the following parts:
 
 - (If `settings.pfx` is non-empty): The value, separated from the next file name element with the character in `settings.sep`.
 
-- Concatenation of non-empty values for page `name`, operation `name`, and step `name`. Page and operation names can contain and end with path separator characters to create subdirectories. (See `cfg/jitterbit.edi.json` for examples.)
+- Concatenation of non-empty values for page `name`, operation `name`, and step `name`. Page and operation names can contain and end with path separator characters to create subdirectories.
 
 - `settings.ext`: The file name suffix, which also determines the image file type.
 
 After this concatenation, the full path is separated into the directory part (`dirname`) and the file name (`basename`).
 
-The dirname is left alone.
+Dots, spaces, and back slashes in the basename are replaced with the character in `settings.sep`.
 
-For the basename, dots, spaces, and back slashes are replaced with the character in `settings.sep`.
+The dirname is left untouched.
 
 If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's file name is suffixed with `_full`.
 
