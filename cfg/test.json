@@ -27,14 +27,13 @@
             "f": "",
             "wait": 10000,
             "pause": 2000,
-            "user_filename": ".user",
-            "login_filename": ".login",
-            "password_filename": ".password",
+            "secret": "./.secret.json",
             "container": ""
         }
     },
     "pages": [
         {
+            "skip": true,
             "name": "search",
             "comment": "Open browser with a keyword search (and take screenshot)",
             "uid": "",
@@ -52,6 +51,7 @@
                     "name": "test operation",
                     "steps": [
                         {
+                            "skip": true,
                             "name": "search text",
                             "comment": "Enter search text",
                             "type": "text",
@@ -60,6 +60,7 @@
                             "value": "beethoven"
                         },
                         {
+                            "skip": true,
                             "name": "Enter",
                             "comment": "Submit the search",
                             "type": "press",
@@ -68,14 +69,21 @@
                             ]
                         },
                         {
+                            "skip": true,
                             "name": "wait",
                             "comment": "Wait 3 seconds for results",
                             "type": "wait",
                             "value": 3000
                         },
                         {
+                            "skip": true,
                             "name": "page screenshot",
                             "type": "snap"
+                        },
+                        {
+                            "name": "replacement test",
+                            "type": "text",
+                            "value": "RANDOM USER LOGIN PASSWORD"
                         }
                     ]
                 }

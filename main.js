@@ -42,7 +42,7 @@ if (!argv.instance) {
         console.log(`Hostname: ${hostname}`);
         console.log(`Image directory: ${dir}`)
         console.log(`Default viewport: ${settings.width}x${settings.height}`);
-        console.log(`Image directory timestamped: ${Boolean(settings.timestamp)}`);
+        console.log(`Image directory timestamp: ${Boolean(settings.timestamp)}`);
         console.log(`Image filename sequence numbers: ${Boolean(settings.seq)}`);
         console.log(`Image filename prefix: ${settings.pfx}`);
         console.log(`Image filename suffix: ${settings.ext}`);
@@ -276,16 +276,15 @@ if (!argv.instance) {
                                 // Process special tokens
                                 value = value.replace("RANDOM", randomBytes(settings.randlen).toString('hex'));
 
-                                if (fs.existsSync(instance.login_filename)) {
-                                    value = value.replace("LOGIN", fs.readFileSync(instance.login_filename, 'utf8'));
+                                if (fs.existsSync(instance.secret)) {
+                                    const secret = require(instance.secret);
+                                    console.log(secret);
+                                    value = value.replace("USER", secret.user);
+                                    value = value.replace("LOGIN", secret.login);
+                                    value = value.replace("PASSWORD", secret.password);
                                 }
-                                if (fs.existsSync(instance.password_filename)) {
-                                    value = value.replace("PASSWORD", fs.readFileSync(instance.password_filename, 'utf8'));
-                                }
-                                if (fs.existsSync(instance.user_filename)) {
-                                    value = value.replace("USER", fs.readFileSync(instance.user_filename, 'utf8'));
-                                }
-                                await loc.fill(String(value));
+                                console.log(`        Actual value: ${value}`);
+                                await loc.fill(value);
                                 break;
 
                             case "press":

@@ -110,11 +110,17 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
 
 - `container`: If using the `--full` option, you must specify the element that contains the full scrollable content.
 
-- `user_filename`: String. Filename containing a username. (Used by the `text` [step type](#step-types).)
+- `secret`: String. Filename containing the following:
 
-- `login_filename`: String. Filename containing the app's login name. (Used by the `text` [step type](#step-types).)
+  ```json
+  {
+    "user": "firstname.lastname",
+    "login": "firstname.lastname@example.com",
+    "password": "mypassword"
+  }
+  ```
 
-- `password_filename`: String. Filename containing the app's login password. (Used by the `text` [step type](#step-types).)
+ (Used by the `text` [step type](#step-types).)
 
 - `pause`: Integer. The number of milliseconds between steps.
 
@@ -306,11 +312,11 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
 
   If `value` contains the text `RANDOM`, the word is replaced with a random hexadecimal string. The length of the string is the value for `settings.randlen`.
 
-  If `value` contains the text `USER`, the text is replaced with the contents of the file specified by `instance.<instance name>.user_filename`.
+  If `value` contains the text `USER`, the text is replaced by the value for `user` in the file specified by `instance.<instance name>.secret`.
 
-  If `value` contains the text `LOGIN`, the text is replaced with the contents of the file specified by `instance.<instance name>.login_filename`.
+  If `value` contains the text `LOGIN`, the text is replaced by the value for `login` in the file specified by `instance.<instance name>.secret`.
 
-  If `value` contains the text `PASSWORD`, the text is replaced with the contents of the file specified by `instance.<instance name>.password_filename`. (`page.fill()`)
+  If `value` contains the text `PASSWORD`, the text is replaced by the value for `password` in the file specified by `instance.<instance name>.secret`. (`page.fill()`)
 
 - `wait`: If `selector` is specified, wait for it to become visible. Otherwise, wait for the step's `value` in milliseconds. This is in addition to the default `instance.<instance name>.wait` and `instance.<instance name>.pause` values. Useful when some page contents take time to load fully, even if the browser has finished loading the page. (`page.inVisible()` or `page.waitForTimeout()`)
 
