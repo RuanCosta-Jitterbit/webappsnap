@@ -505,7 +505,7 @@
                 },
                 {
                     "skip": false,
-                    "comment": "###### PUBLISH (FIRST TIME - EXISTING ADMIN)",
+                    "comment": "PUBLISH (FIRST TIME - EXISTING ADMIN)",
                     "name": "publish",
                     "steps": [
                         {
@@ -649,7 +649,7 @@
                 },
                 {
                     "skip": false,
-                    "comment": "##### PUBLISH (SECOND TIME - KNOWN ADMIN)",
+                    "comment": "PUBLISH (SECOND TIME - KNOWN ADMIN)",
                     "name": "publish",
                     "steps": [
                         {
@@ -2242,7 +2242,7 @@
                             "value": 2000
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > Branding > App Page",
+                            "comment": "CONFIGURATION > Branding > App Page",
                             "name": "select app page tab",
                             "type": "click",
                             "locator": "css",
@@ -2289,7 +2289,7 @@
                             "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.content-in2"
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > Branding > Mobile",
+                            "comment": "CONFIGURATION > Branding > Mobile",
                             "name": "mobile tab",
                             "type": "click",
                             "locator": "css",
@@ -2340,7 +2340,7 @@
                             "value": ".am-fade {-webkit-animation-duration: 0.1s; animation-duration: 0.1s; }"
                         },
                         {
-                            "comment": "################################################### CONFIGURATION > Branding > Custom Domain",
+                            "comment": "CONFIGURATION > Branding > Custom Domain",
                             "name": "Open app page tab",
                             "type": "click",
                             "locator": "css",
@@ -2400,7 +2400,7 @@
                     ]
                 },
                 {
-                    "comment": "################################################### CONFIGURATION > Email Templates",
+                    "comment": "CONFIGURATION > Email Templates",
                     "name": "configuration email templates",
                     "steps": [
                         {
