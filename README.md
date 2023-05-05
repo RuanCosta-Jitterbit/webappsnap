@@ -198,7 +198,24 @@ A `step` represents the actual action to be performed. Each is a JSON schema wit
 
   - `css`: `selector` is a CSS string.
 
-  - `getbytext`: `selector` is a string.
+  - `getbytext`: `selector` is a string. For this step, you can specify an `options` property which is passed to the locator Playwright function (`page.getByText()`). For example, in this step, the locator doesn't have to match exactly:
+
+    ```json
+    ...
+    {
+      "comment": "Click the first thing found with 'Save' in it",
+      "name": "Click first save",
+      "type": "click",
+      "locator": "getbytext",
+      "selector": "Save",
+      "options": {
+          "exact": false
+      }
+    },
+    ...
+    ```
+
+    > If not specified, the default options for this step are `{ "exact": true }`.
 
   - `getbyrole`: `selector` is an element's role name string.
 

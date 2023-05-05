@@ -235,11 +235,10 @@ if (!argv.instance) {
                             break;
 
                         case "getbytext":
-                            let opts = {};
-                            if (step.options) {
+                            let opts = { "exact": true }; // Default option
+                            if (step.options) { // Override default
                                 opts = step.options;
                             }
-                            opts.exact = true;
                             loc = page.getByText(step.selector, opts).first(); // Usually
                             break;
 
