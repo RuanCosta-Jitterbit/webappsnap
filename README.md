@@ -304,13 +304,13 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
 
 - `text`: Enter `value` text into element `selector`.
 
-  If `value` is the word `RANDOM`, a random 5-digit hexadecimal string is entered. The length of the string is the value for `settings.randlen`.
+  If `value` contains the text `RANDOM`, the word is replaced with a random hexadecimal string. The length of the string is the value for `settings.randlen`.
 
-  If the value is the word `USER`, the value is taken from the contents of the file specified by `instance.<instance-name>.user_filename`.
+  If `value` contains the text `USER`, the text is replaced with the contents of the file specified by `instance.<instance-name>.user_filename`.
 
-  If the value is the word `LOGIN`, the value is taken from the contents of the file specified by `instance.<instance-name>.login_filename`.
+  If `value` contains the text `LOGIN`, the text is replaced with the contents of the file specified by `instance.<instance-name>.login_filename`.
 
-  If `PASSWORD`, the value is taken from the contents of the file specified by `instance.<instance-name>.password_filename`. (`page.fill()`)
+  If `value` contains the text `PASSWORD`, the text is replaced with the contents of the file specified by `instance.<instance-name>.password_filename`. (`page.fill()`)
 
 - `wait`: If `selector` is specified, wait for it to become visible. Otherwise, wait for the step's `value` in milliseconds. This is in addition to the default `instance.<instance-name>.wait` and `instance.<instance-name>.pause` values. Useful when some page contents take time to load fully, even if the browser has finished loading the page. (`page.inVisible()` or `page.waitForTimeout()`)
 
