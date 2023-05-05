@@ -285,14 +285,12 @@ if (!argv.instance) {
                                 if (fs.existsSync(instance.user_filename)) {
                                     value = value.replace("USER", fs.readFileSync(instance.user_filename, 'utf8'));
                                 }
-                                console.log(`      Value: ${value}`);
                                 await loc.fill(String(value));
                                 break;
 
                             case "press":
                                 for (var k in step.value) {
                                     var key = String(step.value[k]);
-                                    //                                    console.log(`      Pressing: ${key}`);
                                     await page.press('body', key);
                                     await page.waitForTimeout(500);
                                 }
@@ -342,9 +340,18 @@ if (!argv.instance) {
                                 break;
 
                             case "snap":
-                                // Join non-empty names
-                                let fn = [pg.name, op.name, step.name].filter(String).join('');
+                                // Join page, operation, and step names.
+                                // Page and operation names may have trailing slash (to create image sub directory).
+                                // These are concatenated as-is. Otherwise, add a space, which is replaced later by the separator char.
+                                // Any may be empty.
+                                let fn =
+                                    (pg.name   ? (pg.name.slice(-1) == '/' ? pg.name : pg.name + ' ') : '') +
+                                    (op.name   ? (op.name.slice(-1) == '/' ? op.name : op.name + ' ') : '') +
+                                    (step.name ? step.name : '');
+
+                                // If loop present, add number suffix.
                                 if (op.loop) { [fn, n].join(settings.sep); }
+
                                 await snap(loc, path.join(dir, fn), step.options, settings);
                                 break;
 

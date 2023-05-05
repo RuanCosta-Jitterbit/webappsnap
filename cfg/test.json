@@ -4,7 +4,7 @@
         "timestamp": false,
         "seq": true,
         "pfx": "TEST",
-        "sep": "_",
+        "sep": "-",
         "ext": ".png",
         "width": 1280,
         "height": 800,
@@ -35,7 +35,7 @@
     },
     "pages": [
         {
-            "name": "Search",
+            "name": "search",
             "comment": "Open browser with a keyword search (and take screenshot)",
             "uid": "",
             "url": "search",
@@ -44,12 +44,12 @@
             ]
         },
         {
-            "name": "",
+            "name": "search doodles",
             "uid": "",
             "url": "doodles",
             "operations": [
                 {
-                    "name": "Test operation ",
+                    "name": "test operation",
                     "steps": [
                         {
                             "name": "search text",
@@ -74,7 +74,7 @@
                             "value": 3000
                         },
                         {
-                            "name": "Take screenshot",
+                            "name": "page screenshot",
                             "type": "snap"
                         }
                     ]
