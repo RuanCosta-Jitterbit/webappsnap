@@ -275,13 +275,17 @@ if (!argv.instance) {
                                 var value = step.value;
                                 // Process special tokens
                                 value = value.replace("RANDOM", randomBytes(settings.randlen).toString('hex'));
-                                if (value == "LOGIN") {
-                                    value = fs.readFileSync(instance.login_filename, 'utf8');
+
+                                if (fs.existsSync(instance.login_filename)) {
+                                    value = value.replace("LOGIN", fs.readFileSync(instance.login_filename, 'utf8'));
                                 }
-                                if (value == "PASSWORD") {
-                                    value = fs.readFileSync(instance.password_filename, 'utf8');
+                                if (fs.existsSync(instance.password_filename)) {
+                                    value = value.replace("PASSWORD", fs.readFileSync(instance.password_filename, 'utf8'));
                                 }
-                                //                                console.log(`      Value: ${value}`);
+                                if (fs.existsSync(instance.user_filename)) {
+                                    value = value.replace("USER", fs.readFileSync(instance.user_filename, 'utf8'));
+                                }
+                                console.log(`      Value: ${value}`);
                                 await loc.fill(String(value));
                                 break;
 

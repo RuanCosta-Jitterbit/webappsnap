@@ -27,6 +27,7 @@
             "f": "",
             "wait": 5000,
             "pause": 1500,
+            "user_filename": ".user-qag",
             "login_filename": ".login-qag",
             "password_filename": ".password-qag"
         }

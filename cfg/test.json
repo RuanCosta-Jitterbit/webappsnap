@@ -1,0 +1,85 @@
+{
+    "settings": {
+        "dir": "./images",
+        "timestamp": false,
+        "seq": true,
+        "pfx": "TEST",
+        "sep": "_",
+        "ext": ".png",
+        "width": 1280,
+        "height": 800,
+        "scale": 1,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": false,
+        "randlen": 6,
+        "video": false
+    },
+    "instance": {
+        "google": {
+            "server": "https://www.google.com",
+            "a": "",
+            "b": "",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 10000,
+            "pause": 2000,
+            "user_filename": ".user",
+            "login_filename": ".login",
+            "password_filename": ".password",
+            "container": ""
+        }
+    },
+    "pages": [
+        {
+            "name": "Search",
+            "comment": "Open browser with a keyword search (and take screenshot)",
+            "uid": "",
+            "url": "search",
+            "options": [
+                "q=webappsnap"
+            ]
+        },
+        {
+            "name": "",
+            "uid": "",
+            "url": "doodles",
+            "operations": [
+                {
+                    "name": "Test operation ",
+                    "steps": [
+                        {
+                            "name": "search text",
+                            "comment": "Enter search text",
+                            "type": "text",
+                            "locator": "css",
+                            "selector": "[id='searchinput']",
+                            "value": "beethoven"
+                        },
+                        {
+                            "name": "Enter",
+                            "comment": "Submit the search",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
+                        },
+                        {
+                            "name": "wait",
+                            "comment": "Wait 3 seconds for results",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "Take screenshot",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

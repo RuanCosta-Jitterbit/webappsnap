@@ -27,6 +27,7 @@
             "f": "",
             "wait": 25000,
             "pause": 5000,
+            "user_filename": ".user-qar",
             "login_filename": ".login-qar",
             "password_filename": ".password-qar"
         },
@@ -40,6 +41,7 @@
             "f": "",
             "wait": 25000,
             "pause": 5000,
+            "user_filename": ".user-qag",
             "login_filename": ".login-qag",
             "password_filename": ".password-qag"
         },
@@ -53,6 +55,7 @@
             "f": "",
             "wait": 20000,
             "pause": 500,
+            "user_filename": ".user-nae",
             "login_filename": ".login-nae",
             "password_filename": ".password-nae"
         }

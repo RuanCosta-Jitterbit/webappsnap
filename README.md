@@ -2,9 +2,7 @@
 
 ## Introduction
 
-This program lets you automate the task of taking screenshots of web applications. It's a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium, Firefox, or Webkit-based browser. You can optionally record a `webm` video of the session.
-
-You define the actions in a JSON document (file). (See examples in the `cfg` directory.) This program reads it and does what it says.
+This program lets you automate the task of taking screenshots of web applications. It is a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium browser. (You can optionally record a `webm` video of the session.) You define the actions in a JSON file. (See examples in the `cfg` directory.)
 
 ## Install
 
@@ -22,13 +20,23 @@ The program is a Node.js script. Before you run it, follow these steps:
 
 ## Quick Start
 
-After [installing](#install), run this command to take screenshots of the publicly accessible pages of [PMM Demo] using a pre-defined configuration file:
+After [installing](#install), run this command to take screenshots using a pre-defined configuration file:
 
 ```sh
-node main.js --config ./cfg/percona.pmm.json --instance pmmdemo
+node main.js --config ./cfg/test.json --instance google
 ```
 
-The program prints information messages as it runs, and the saved images appear in `images/percona/pmm/pmmdemo`.
+This does the following:
+
+1. Runs a Chromium browser and opens `https://www.google.com/search` with options `q=webappsnap`, then takes a screenshot of the results page.
+
+2. In the same browser, opens `https://www.google.com/doodles`, enters the text `beethoven` in the search bar and presses the Enter key.
+
+3. Waits 3 seconds and takes a screenshot.
+
+4. Closes the browser.
+
+The program prints information messages as it runs, and saves the screenshot images in `images/google`. It runs in headless mode, so you won't see the browser as it runs. If you want to, edit `cfg/test.json`, change the value for `headless` to `true` (in `settings`), save it and run again.
 
 > If there are errors or blank screenshots, see [Tips](#tips).
 
@@ -44,7 +52,7 @@ options:
 
 ## Configuration
 
-You must create a JSON configuration file for your app. The best way to start is to make a copy of `cfg/template.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want to snap. Each file can define one or more versions (`instance`) of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
+You must create a JSON configuration file for your app. The best way to start is to make a copy of `cfg/test.json` or any of the other examples in the `cfg` directory. You'll need one for each distinct app that you want to snap. Each file can define one or more versions (`instance`) of the app (for example, test and QA versions of the same app but with different base URLs). But the pages and element names must be the same across the versions. If they are different, you'll need a different configuration file.
 
 > This program was tested on two company's systems. One is [Percona Monitoring and Management] (PMM), a free database monitoring tool built by [Percona], whose [PMM Demo] instance is publicly accessible and used as a working example in the [Quick Start](#quick-start) section. The other company is [Jitterbit], a low-code data automation and integration company. Although you can only access their [Harmony] platform via a full or trial subscription, the configuration files for parts of the platform provide a useful insight into how to build up configurations for your own web apps.
 
@@ -102,11 +110,11 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
 
 - `container`: If using the `--full` option, you must specify the element that contains the full scrollable content.
 
-- `login_filename`: String. Filename containing the app's login name.
+- `user_filename`: String. Filename containing a username. (Used by the `text` [step type](#step-types).)
 
-- `password_filename`: String. Filename containing the app's login password.
+- `login_filename`: String. Filename containing the app's login name. (Used by the `text` [step type](#step-types).)
 
-    > There are examples in some configuration files showing the use of this feature. For obvious reasons, the actual files are not in this repository. This repository's `.gitignore` file contains patterns `.login*` and `.password*`. If you create your own login and password files, use the same filename form, or otherwise ensure they are not accidentally added to GitHub.
+- `password_filename`: String. Filename containing the app's login password. (Used by the `text` [step type](#step-types).)
 
 - `pause`: Integer. The number of milliseconds between steps.
 
@@ -156,7 +164,7 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 - `wait`: Integer. (Optional) Override the default page load wait time (`instance.<instance-name>.wait`). The value is in milliseconds.
 
-- `operations`: An array of steps. (See [Operations](#operations)). Page entries without operations (only `uid`) are snapped automatically. (See `cfg/percona.pmm.json` for many examples.) Use operations when you need to perform a sequence of actions (click a menu, enter text, etc) before taking a screenshot snap. In operations and steps, you must add an explicit `snap` step type.
+- `operations`: An array of steps. (See [Operations](#operations)). Page entries without operations (only `uid`) are snapped automatically. Use operations when you need to perform a sequence of actions (click a menu, enter text, etc) before taking a screenshot snap. In operations and steps, you must add an explicit `snap` step type.
 
 ### `operations`
 
@@ -294,7 +302,15 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
   ...
   ```
 
-- `text`: Enter `value` text into element `selector`. If `value` is the word `RANDOM`, a random 5-digit hexadecimal string is entered. The length of the string is the value for `settings.randlen`. If the value is the word `LOGIN`, the value is taken from the contents of the file specified by `instance.<instance-name>.login_filename`. If `PASSWORD`, the value is taken from the contents of the file specified by `instance.<instance-name>.password_filename`. (`page.fill()`)
+- `text`: Enter `value` text into element `selector`.
+
+  If `value` is the word `RANDOM`, a random 5-digit hexadecimal string is entered. The length of the string is the value for `settings.randlen`.
+
+  If the value is the word `USER`, the value is taken from the contents of the file specified by `instance.<instance-name>.user_filename`.
+
+  If the value is the word `LOGIN`, the value is taken from the contents of the file specified by `instance.<instance-name>.login_filename`.
+
+  If `PASSWORD`, the value is taken from the contents of the file specified by `instance.<instance-name>.password_filename`. (`page.fill()`)
 
 - `wait`: If `selector` is specified, wait for it to become visible. Otherwise, wait for the step's `value` in milliseconds. This is in addition to the default `instance.<instance-name>.wait` and `instance.<instance-name>.pause` values. Useful when some page contents take time to load fully, even if the browser has finished loading the page. (`page.inVisible()` or `page.waitForTimeout()`)
 
