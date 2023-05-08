@@ -113,6 +113,11 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "123 Company"
+                        },
+                        {
+                            "name": "for login",
+                            "type": "wait",
+                            "value": 5000
                         }
                     ]
                 }
@@ -132,21 +137,21 @@
                             "name": "change username",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "selector": "body > console >> span.menu-name",
                             "value": "Jan"
                         },
                         {
                             "name": "change org name",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span.org-name",
+                            "selector": "body > console >> span.org-name",
                             "value": "ABC Company"
                         },
                         {
                             "name": "change org number",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "selector": "body > console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
                             "value": " (12345)"
                         }
                     ]
@@ -220,7 +225,7 @@
                             "name": "add partner",
                             "type": "dblclick",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(3)"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(3) > div.trading-partner-grid-square"
                         },
                         {
                             "name": "for partner add",
@@ -245,7 +250,7 @@
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare"
                         },
                         {
                             "name": "added",
@@ -268,21 +273,21 @@
                             "name": "change username",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "selector": "body > console >> span.menu-name",
                             "value": "Jan"
                         },
                         {
                             "name": "change org name",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span.org-name",
+                            "selector": "body > console >> span.org-name",
                             "value": "ABC Company"
                         },
                         {
                             "name": "change org number",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "selector": "body > console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
                             "value": " (12345)"
                         }
                     ]
@@ -326,19 +331,19 @@
                             "name": "page controls",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='mat-paginator-container']"
+                            "selector": ".mat-paginator-container"
                         },
                         {
                             "name": "search",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c250-1 > div:nth-child(1) > div"
+                            "selector": ".transactions-table-container-search"
                         },
                         {
                             "name": "actions",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div.transactions-table-container-filters.ng-tns-c250-0 > div.transactions-table-container-header.ng-tns-c250-0"
+                            "selector": ".transactions-table-container-header"
                         }
                     ]
                 },
@@ -349,16 +354,17 @@
                             "name": "reveal document information",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1)"
+                            "selector": "body > console >> div.transactions >> div.transactions-table-container >> transactions-table >> div.transactions-table-container-table > table > tbody > tr:nth-child(1)",
+                            "comment": "first item in table"
                         },
                         {
                             "name": "document information",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2)",
+                            "selector": "body > console >> div.transactions >> div.transactions-table-container >> transactions-table >> div.transactions-table-container-table > table > tbody > tr:nth-child(2)",
                             "viewport": {
                                 "width": 1800,
-                                "height": 1100
+                                "height": 2000
                             }
                         },
                         {
@@ -371,7 +377,7 @@
                             "name": "messages",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2)"
+                            "selector": "body > console >> div.transactions >> div.transactions-table-container >> transactions-table >> div.transactions-table-container-table > table > tbody > tr:nth-child(2)"
                         }
                     ]
                 }
@@ -390,21 +396,21 @@
                             "name": "change username",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "selector": "body > console >> span.menu-name",
                             "value": "Jan"
                         },
                         {
                             "name": "change org name",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span.org-name",
+                            "selector": "body > console >> span.org-name",
                             "value": "ABC Company"
                         },
                         {
                             "name": "change org number",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "selector": "body > console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
                             "value": " (12345)"
                         }
                     ]
@@ -417,7 +423,7 @@
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare"
                         },
                         {
                             "name": "add new workflow",
@@ -449,7 +455,7 @@
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare"
                         },
                         {
                             "name": "add new workflow",
