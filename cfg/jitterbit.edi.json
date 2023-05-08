@@ -124,7 +124,7 @@
             ]
         },
         {
-            "skip": true,
+            "skip": false,
             "comment": "Add partner",
             "name": "admin/",
             "uid": "",
