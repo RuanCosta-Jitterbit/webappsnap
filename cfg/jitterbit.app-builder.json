@@ -39,7 +39,7 @@
             "f": "",
             "wait": 20000,
             "pause": 500,
-            "secret": "./.secret-nae,json"
+            "secret": "./.secret-nae.json"
         }
     },
     "pages": [
