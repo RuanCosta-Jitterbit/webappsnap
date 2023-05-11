@@ -250,7 +250,7 @@
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
                         },
                         {
                             "name": "added",
@@ -423,7 +423,7 @@
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
                         },
                         {
                             "name": "add new workflow",
@@ -455,7 +455,7 @@
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare"
+                            "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
                         },
                         {
                             "name": "add new workflow",
@@ -738,6 +738,71 @@
                             "skip": true,
                             "comment": "Not yet active",
                             "name": "automation",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        }
+                    ]
+                },
+                {
+                    "name": "communication-settings/create-new-as2/",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Create new AS2"
+                        },
+                        {
+                            "name": "connection information tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Proxy"
+                        },
+                        {
+                            "name": "proxy tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "HTTP authentication"
+                        },
+                        {
+                            "name": "http authentication tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Encryption"
+                        },
+                        {
+                            "name": "encryption tab",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[class='tradingPartnerDetails']"
+                        },
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Certificate"
+                        },
+                        {
+                            "name": "certificate tab",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='tradingPartnerDetails']"
