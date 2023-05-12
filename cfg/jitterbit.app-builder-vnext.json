@@ -10,7 +10,7 @@
         "height": 1050,
         "scale": 2,
         "jpg_quality": 75,
-        "headless": true,
+        "headless": false,
         "slowmo": 0,
         "debug": false,
         "randlen": 6,
@@ -20,13 +20,14 @@
         "qa-green": {
             "server": "https://apps.qa-green.jitterbit.com",
             "a": "app-builder-vnext",
-            "b": "",
-            "c": "",
+            "b": "app",
+            "comment": "easier to use (pre-made) app ID but must be set here",
+            "c": "2152",
             "d": "",
             "e": "",
             "f": "",
             "wait": 20000,
-            "pause": 1500,
+            "pause": 3000,
             "secret": "./.secret-qag.json"
         },
         "na-east": {
@@ -99,20 +100,14 @@
             "skip": false,
             "comment": "Apps page - Empty, common menu",
             "name": "general/",
+            "url": "app-builder-vnext/apps",
             "uid": "",
             "operations": [
                 {
-                    "name": "apps-page/",
+                    "name": "apps/",
                     "steps": [
                         {
-                            "skip": true,
-                            "name": "harmony portal header",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='am_site-header']"
-                        },
-                        {
-                            "name": "empty",
+                            "name": "page",
                             "type": "snap"
                         }
                     ]
@@ -121,13 +116,12 @@
         },
         {
             "skip": false,
-            "comment": "Apps page - Create New",
             "name": "create/",
+            "url": "app-builder-vnext/apps",
             "uid": "",
             "operations": [
                 {
-                    "comment": "create app from template",
-                    "name": "",
+                    "name": "template/",
                     "steps": [
                         {
                             "name": "create new app",
@@ -141,11 +135,16 @@
                             "value": 5000
                         },
                         {
-                            "name": "template dialog",
+                            "name": "dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[id='dialog_867385644_0']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "file/",
+                    "steps": [
                         {
                             "name": "from file",
                             "type": "click",
@@ -153,11 +152,16 @@
                             "selector": "From File"
                         },
                         {
-                            "name": "file dialog",
+                            "name": "dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[id='dialog_867385644_0']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "scratch/",
+                    "steps": [
                         {
                             "name": "from scratch",
                             "type": "click",
@@ -165,27 +169,25 @@
                             "selector": "From Scratch"
                         },
                         {
-                            "skip": true,
-                            "name": "blur subdomain",
-                            "type": "style",
-                            "value": "#subdomaintwo > span { filter: blur(5px); }"
-                        },
-                        {
-                            "skip": true,
+                            "skip": false,
                             "name": "edit subdomain",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "#subdomaintwo > span",
-                            "value": ".apps.jbexample.com"
+                            "selector": "#e-content-tab_orientation_2 > div > lcap-app-create-form > form > div:nth-child(2) > div > div > div > div > span"
                         },
                         {
-                            "name": "scratch dialog",
+                            "name": "dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[id='dialog_867385644_0']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": true,
+                    "name": "ask-ai/",
+                    "steps": [
                         {
-                            "skip": true,
                             "name": "ask ai",
                             "type": "click",
                             "locator": "getbytext",
@@ -195,12 +197,16 @@
                             }
                         },
                         {
-                            "skip": true,
                             "name": "create new ask ai dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[id='dialog_867385644_0']"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "close dialog",
+                    "steps": [
                         {
                             "name": "Close dialog",
                             "type": "click",
@@ -212,551 +218,19 @@
             ]
         },
         {
-            "skip": true,
-            "comment": "Apps page - Create new from scratch (Loop)",
-            "name": "develop",
-            "uid": "",
-            "operations": [
-                {
-                    "name": "apps page",
-                    "loop": 1,
-                    "steps": [
-                        {
-                            "name": "create new app",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create New App"
-                        },
-                        {
-                            "name": "from scratch",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "From Scratch"
-                        },
-                        {
-                            "name": "app name",
-                            "comment": "CANNOT BE REUSED",
-                            "type": "text",
-                            "locator": "css",
-                            "selector": "[name='label']",
-                            "value": "App-RANDOM"
-                        },
-                        {
-                            "name": "app description",
-                            "type": "text",
-                            "locator": "css",
-                            "selector": "[name='description']",
-                            "value": "Long description for this app"
-                        },
-                        {
-                            "name": "open environment menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[ng-model='appModel.environment']"
-                        },
-                        {
-                            "name": "select default env",
-                            "type": "press",
-                            "value": [
-                                "d"
-                            ]
-                        },
-                        {
-                            "skip": false,
-                            "comment": "use default icon",
-                            "name": "open icons",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "div.icon-search-list"
-                        },
-                        {
-                            "skip": false,
-                            "name": "find icon",
-                            "type": "press",
-                            "value": [
-                                "b",
-                                "o",
-                                "o",
-                                "k",
-                                "m",
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "name": "pick first color",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": ".appcolor >> span >> nth=0"
-                        },
-                        {
-                            "name": "create",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create "
-                        },
-                        {
-                            "name": "for app creation",
-                            "type": "wait",
-                            "value": 20000
-                        },
-                        {
-                            "name": "return to app list",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "h5 >> 'App Builder'"
-                        },
-                        {
-                            "TODO": "how to know apps page is done loading",
-                            "name": "for app list",
-                            "type": "wait",
-                            "value": 20000
-                        },
-                        {
-                            "name": "edit app name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div:nth-child(1) > div > div > div.apptext.text-center > div > h3",
-                            "value": "My App X"
-                        },
-                        {
-                            "name": "create saved",
-                            "type": "snap",
-                            "viewport": {
-                                "width": 992,
-                                "height": 530
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "comment": "Apps page - App management menu",
-            "name": "develop",
-            "uid": "",
-            "operations": [
-                {
-                    "name": "apps page",
-                    "steps": [
-                        {
-                            "name": "edit first app's name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div:nth-child(1) > div > div > div.apptext.text-center > div > h3",
-                            "value": "My App X"
-                        },
-                        {
-                            "name": "hover to open app controls",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "[class='app-studio'] >> nth=0"
-                        },
-                        {
-                            "name": "hover settle",
-                            "type": "wait",
-                            "value": 500
-                        },
-                        {
-                            "name": "app tools tile",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='app-studio'] >> nth=0"
-                        },
-                        {
-                            "name": "toolbar",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='filter-area']",
-                            "viewport": {
-                                "width": 900,
-                                "height": 800
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "comment": "App edit - Publish (First time - Unknown admin)",
-            "name": "develop",
-            "uid": "",
-            "operations": [
-                {
-                    "name": "publish",
-                    "steps": [
-                        {
-                            "comment": "assumes at least one app listed",
-                            "name": "edit first app",
-                            "locator": "getbytext",
-                            "type": "click",
-                            "selector": "View / Edit"
-                        },
-                        {
-                            "name": "button - publish",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Publish"
-                        },
-                        {
-                            "name": "for dialog",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "environment choose dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "on environment menu",
-                            "type": "focus",
-                            "locator": "css",
-                            "selector": "#region"
-                        },
-                        {
-                            "name": "for environment menu focus",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "to select default environment",
-                            "type": "press",
-                            "value": [
-                                "D"
-                            ]
-                        },
-                        {
-                            "name": "environment chosen dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "Next button",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Next"
-                        },
-                        {
-                            "name": "create admin account dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "Enter previously UNUSED admin email",
-                            "type": "text",
-                            "locator": "css",
-                            "selector": "#email",
-                            "value": "USER+RANDOM@jitterbit.com"
-                        },
-                        {
-                            "name": "next (not a button)",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "#field-form-body > div > ng-include:nth-child(2) > div.btn.btn-radius.btn-blue.btn-with-icon.ng-scope.ladda-button > span.ladda-label > span"
-                        },
-                        {
-                            "name": "for verification code",
-                            "type": "wait",
-                            "locator": "css",
-                            "selector": "#verificationCode"
-                        },
-                        {
-                            "name": "verify email address dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "Enter verification code (check email)",
-                            "type": "ask",
-                            "locator": "css",
-                            "selector": "#verificationCode"
-                        },
-                        {
-                            "name": "verify",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Verify"
-                        },
-                        {
-                            "name": "for verification",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "new account dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "cancel - don't create new admin account",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Cancel"
-                        }
-                    ]
-                },
-                {
-                    "skip": false,
-                    "comment": "PUBLISH (FIRST TIME - EXISTING ADMIN)",
-                    "name": "publish",
-                    "steps": [
-                        {
-                            "name": "publish button",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Publish"
-                        },
-                        {
-                            "name": "on environment menu",
-                            "type": "focus",
-                            "locator": "css",
-                            "selector": "#region"
-                        },
-                        {
-                            "name": "for environment menu focus",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "to select default environment",
-                            "type": "press",
-                            "value": [
-                                "D"
-                            ]
-                        },
-                        {
-                            "name": "next button",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Next"
-                        },
-                        {
-                            "name": "Enter previously USED admin email",
-                            "type": "text",
-                            "locator": "css",
-                            "selector": "#email",
-                            "value": "LOGIN"
-                        },
-                        {
-                            "name": "next (not a button)",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "#field-form-body > div > ng-include:nth-child(2) > div.btn.btn-radius.btn-blue.btn-with-icon.ng-scope.ladda-button > span.ladda-label > span"
-                        },
-                        {
-                            "name": "Enter verification code sent by email",
-                            "type": "ask",
-                            "locator": "css",
-                            "selector": "#verificationCode"
-                        },
-                        {
-                            "name": "verify",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Verify"
-                        },
-                        {
-                            "name": "for verification",
-                            "type": "wait",
-                            "value": 3000
-                        },
-                        {
-                            "name": "existing account dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "I know the password",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "I know the password"
-                        },
-                        {
-                            "skip": true,
-                            "name": "blur admin email address",
-                            "type": "style",
-                            "value": "#field-form-body > div > ng-include:nth-child(5) > div.form-group.ng-scope > p > b:nth-child(2) { filter: blur(5px); }"
-                        },
-                        {
-                            "name": "anonymize admin email address",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "#field-form-body > div > ng-include:nth-child(5) > div.form-group.ng-scope > p > b:nth-child(2)",
-                            "value": "user@jbexample.com"
-                        },
-                        {
-                            "name": "all set dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "publish",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "#field-form-body > div > ng-include:nth-child(5) > div.justify-space-between.ng-scope > button > span >> text='Publish'"
-                        },
-                        {
-                            "name": "for progress bar to travel",
-                            "type": "wait",
-                            "value": 3000
-                        },
-                        {
-                            "name": "progress dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "Press return when Account Activation email received",
-                            "type": "ask"
-                        },
-                        {
-                            "skip": true,
-                            "name": "hide app url",
-                            "type": "style",
-                            "value": "#field-form-body > div > ng-include:nth-child(7) > div.overview-boxes.releases-box.ng-scope > div > div > div { filter: blur(5px); }"
-                        },
-                        {
-                            "name": "edit app url",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "#field-form-body > div > ng-include:nth-child(7) > div.overview-boxes.releases-box.ng-scope > div > div > div",
-                            "value": "https://myappx.apps.lcap.jitterbit.com"
-                        },
-                        {
-                            "name": "your app is live dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "close",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Close"
-                        }
-                    ]
-                },
-                {
-                    "skip": false,
-                    "comment": "PUBLISH (SECOND TIME - KNOWN ADMIN)",
-                    "name": "publish",
-                    "steps": [
-                        {
-                            "name": "Publish button",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "button >> 'Publish'"
-                        },
-                        {
-                            "name": "environment menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "#region"
-                        },
-                        {
-                            "name": "select environment",
-                            "type": "press",
-                            "value": [
-                                "D",
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "name": "for 'Publish' button",
-                            "type": "wait",
-                            "value": 1000
-                        },
-                        {
-                            "name": "previously published dialog",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "div.modal-content.padding-0"
-                        },
-                        {
-                            "name": "close (don't publish again)",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "button >> 'Close'"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "comment": "Apps page - Show only released apps",
-            "name": "develop",
-            "uid": "",
-            "operations": [
-                {
-                    "name": "apps page",
-                    "steps": [
-                        {
-                            "name": "edit first app's name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "#wrapper > div > div > div > div > div > div > div.row > div:nth-child(1) > div > div > div.apptext.text-center > div > h3",
-                            "value": "My App X"
-                        },
-                        {
-                            "name": "show only released off",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "turn on",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Show only released apps"
-                        },
-                        {
-                            "name": "show only released on",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "turn off",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Show only released apps"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "skip": false,
             "name": "design/",
-            "uid": "",
+            "uid": "pages/design",
             "operations": [
                 {
                     "name": "pages/",
                     "steps": [
                         {
-                            "name": "open first app",
-                            "locator": "getbytext",
-                            "type": "click",
-                            "selector": "View / Edit"
-                        },
-                        {
-                            "name": "for app load",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
                             "skip": true,
-                            "name": "edit app name - banner",
+                            "name": "edit app name",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "#wrapper > div > div > div > div.row.clearfix.ng-scope > div.menu.app-menu2 > div.sidemenu.setup-title > h2 > span",
+                            "selector": "body > lcap-root > lcap-design > lcap-objects > section > section.left-area.d-flex.flex-column > div > header > div.col.text-truncate-fix > h5",
                             "value": "My App X"
                         },
                         {
@@ -772,39 +246,96 @@
                             "type": "snap"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "name": "design/preview",
+            "uid": "pages/preview/1"
+        },
+        {
+            "name": "design/objects/",
+            "uid": "objects",
+            "viewport": {
+                "height": 1820,
+                "width": 1680
+            }
+        },
+        {
+            "name": "design/flows/",
+            "uid": "flows"
+        },
+        {
+            "name": "design/settings/",
+            "uid": "settings",
+            "operations": [
                 {
-                    "name": "objects/",
-                    "viewport": {
-                        "height": 1820,
-                        "width": 1680
-                    },
+                    "name": "general/",
                     "steps": [
                         {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "#listSidebarList_3"
-                        },
-                        {
-                            "comment": "move away from tooltip",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "body",
-                            "options": {
-                                "position": {
-                                    "x": 0,
-                                    "y": 0
-                                }
-                            }
-                        },
-                        {
-                            "name": "",
+                            "name": "page",
                             "type": "snap"
+                        },
+                        {
+                            "name": "pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "lcap-general-settings"
+                        },
+                        {
+                            "name": "smtp",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "lcap-smtp-settings"
+                        },
+                        {
+                            "name": "identity",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "lcap-identity-settings"
+                        },
+                        {
+                            "name": "google maps api key",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "lcap-google-api-key-settings"
+                        },
+                        {
+                            "name": "domain mapping",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "body > lcap-root > lcap-design > lcap-settings > section > section.center-area.flex-fill.d-flex.flex-column > div.canvas-section > lcap-general-settings > div:nth-child(2) > div > div"
                         }
                     ]
                 }
             ]
+        },
+        {
+            "name": "design/settings/translations/",
+            "uid": "settings/translation",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "page",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "lcap-translation"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "design/settings/app-parameters/",
+            "uid": "settings/parameters"
         }
     ]
 }
