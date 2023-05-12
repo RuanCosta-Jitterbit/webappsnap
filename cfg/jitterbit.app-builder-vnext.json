@@ -3,14 +3,14 @@
         "dir": "./images/jitterbit/app-builder-vnext",
         "timestamp": true,
         "seq": false,
-        "pfx": "app2/",
+        "pfx": "",
         "ext": ".png",
         "sep": "-",
         "width": 1680,
         "height": 1050,
         "scale": 2,
         "jpg_quality": 75,
-        "headless": false,
+        "headless": true,
         "slowmo": 0,
         "debug": false,
         "randlen": 6,
@@ -738,7 +738,7 @@
             "uid": "",
             "operations": [
                 {
-                    "name": "",
+                    "name": "pages/",
                     "steps": [
                         {
                             "name": "open first app",
@@ -770,9 +770,37 @@
                         {
                             "name": "",
                             "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "objects/",
+                    "viewport": {
+                        "height": 1820,
+                        "width": 1680
+                    },
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#listSidebarList_3"
                         },
                         {
-                            "type": "quit"
+                            "comment": "move away from tooltip",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "body",
+                            "options": {
+                                "position": {
+                                    "x": 0,
+                                    "y": 0
+                                }
+                            }
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
                         }
                     ]
                 }

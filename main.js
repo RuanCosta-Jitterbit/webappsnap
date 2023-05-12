@@ -253,6 +253,9 @@ if (!argv.instance) {
 
                     try {
                         await page.waitForTimeout(instance.pause);
+                        let options = {
+                            ...step.options
+                        };
 
                         switch (step.type) {
                             // Flow control
@@ -295,7 +298,7 @@ if (!argv.instance) {
 
                             //  Movement
                             case "move":
-                                await loc.hover();
+                                await loc.hover(options);
                                 break;
 
                             case "focus":
