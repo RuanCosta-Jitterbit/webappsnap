@@ -124,7 +124,7 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "comment": "Add partner",
             "name": "admin/",
             "uid": "",
@@ -261,12 +261,13 @@
             ]
         },
         {
-            "skip": false,
+            "skip": true,
             "name": "transactions/",
             "uid": "",
             "url": "console/edi/transactions",
             "operations": [
                 {
+                    "skip": true,
                     "name": "change visible login details",
                     "steps": [
                         {
@@ -293,6 +294,7 @@
                     ]
                 },
                 {
+                    "skip": true,
                     "name": "general/",
                     "steps": [
                         {
@@ -342,6 +344,7 @@
                     ]
                 },
                 {
+                    "skip": true,
                     "name": "detail/",
                     "steps": [
                         {
@@ -384,6 +387,7 @@
             "url": "console/edi/admin",
             "operations": [
                 {
+                    "skip": true,
                     "name": "change visible login details",
                     "steps": [
                         {
@@ -410,15 +414,21 @@
                     ]
                 },
                 {
-                    "name": "workflow/",
-                    "comment": "don't save workflow",
+                    "name": "select partner",
                     "steps": [
                         {
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
                             "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": true,
+                    "name": "workflow/",
+                    "comment": "create but don't save workflow",
+                    "steps": [
                         {
                             "name": "add new workflow",
                             "type": "click",
@@ -442,8 +452,9 @@
                     ]
                 },
                 {
+                    "skip": true,
                     "name": "workflow/",
-                    "comment": "save workflow",
+                    "comment": "create and save workflow",
                     "steps": [
                         {
                             "name": "select first partner",
@@ -538,6 +549,7 @@
                     ]
                 },
                 {
+                    "skip": true,
                     "name": "manage-pii/",
                     "steps": [
                         {
@@ -563,6 +575,7 @@
                     ]
                 },
                 {
+                    "skip": true,
                     "name": "edi-settings/",
                     "steps": [
                         {
@@ -578,6 +591,7 @@
                     ]
                 },
                 {
+                    "skip": true,
                     "name": "edi-settings/",
                     "steps": [
                         {
@@ -667,14 +681,20 @@
                     ]
                 },
                 {
-                    "name": "communication-settings/",
+                    "comment": "Admin > Communication Settings",
                     "steps": [
                         {
                             "name": "select tab",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Communication settings"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": true,
+                    "name": "communication-settings/",
+                    "steps": [
                         {
                             "name": "page",
                             "type": "snap"
@@ -688,14 +708,21 @@
                     ]
                 },
                 {
-                    "name": "communication-settings/create-new-ftp/",
+                    "skip": true,
+                    "comment": "Admin > Communication Settings > Create New FTP",
                     "steps": [
                         {
-                            "name": "select tab",
+                            "name": "select sub tab",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Create new FTP"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": true,
+                    "name": "communication-settings/create-new-ftp/",
+                    "steps": [
                         {
                             "name": "connection information",
                             "type": "snap",
@@ -745,14 +772,20 @@
                     ]
                 },
                 {
-                    "name": "communication-settings/create-new-as2/",
+                    "comment": "Admin > Communications Settings > Create New AS2",
                     "steps": [
                         {
-                            "name": "select tab",
+                            "name": "select sub tab",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Create new AS2"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": true,
+                    "name": "communication-settings/create-new-as2/",
+                    "steps": [
                         {
                             "name": "connection information",
                             "type": "snap",
@@ -801,7 +834,7 @@
                     "name": "communication-settings/create-new-as2/certificate/",
                     "steps": [
                         {
-                            "name": "select tab",
+                            "name": "select sub sub tab",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Certificate"
@@ -811,7 +844,12 @@
                             "type": "snap",
                             "locator": "css",
                             "selector": "Partner"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "communication-settings/create-new-as2/certificate/manage-my/",
+                    "steps": [
                         {
                             "name": "show manage my certificate",
                             "type": "click",
@@ -819,17 +857,40 @@
                             "selector": "[title='Refresh'] >> nth=0"
                         },
                         {
-                            "name": "manage my",
+                            "name": "pane",
                             "type": "snap",
                             "locator": "css",
                             "selector": "Partner"
+                        },
+                        {
+                            "name": "upload",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": ".certificate-container-my >> button.grey-button:has-text('Upload') >> nth=0"
+                        },
+                        {
+                            "name": "upload",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "Partner"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": ".certificate-container-my >> button.grey-button:has-text('Close') >> nth=0"
                         },
                         {
                             "name": "hide manage my certificate",
                             "type": "click",
                             "locator": "css",
                             "selector": "[title='Refresh'] >> nth=0"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "communication-settings/create-new-as2/certificate/manage-partner/",
+                    "steps": [
                         {
                             "name": "show manage partner certificate",
                             "type": "click",
@@ -837,7 +898,7 @@
                             "selector": "[title='Refresh'] >> nth=1"
                         },
                         {
-                            "name": "manage partner",
+                            "name": "pane",
                             "type": "snap",
                             "locator": "css",
                             "selector": "Partner"
