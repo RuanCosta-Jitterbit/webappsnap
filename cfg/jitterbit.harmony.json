@@ -25,8 +25,8 @@
             "d": "",
             "e": "",
             "f": "",
-            "wait": 20000,
-            "pause": 5000,
+            "wait": 6000,
+            "pause": 2000,
             "secret": "./.secret-qag.json"
         },
         "na-east": {
@@ -37,7 +37,7 @@
             "d": "",
             "e": "",
             "f": "",
-            "wait": 20000,
+            "wait": 10000,
             "pause": 500,
             "secret": "./.secret-nae.json"
         }
@@ -45,10 +45,12 @@
     "pages": [
         {
             "name": "login",
+            "comment": "Log into Harmony",
             "uid": "",
             "url": "",
             "operations": [
                 {
+                    "comment": "input login name and password",
                     "name": "",
                     "steps": [
                         {
@@ -85,6 +87,11 @@
                             "value": [
                                 "Enter"
                             ]
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 6000
                         }
                     ]
                 }
@@ -114,40 +121,40 @@
                             "name": "change username",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(1) > account-menu > span > span > span.menu-name",
+                            "selector": "identity >> span.menu-name",
                             "value": "Jan"
                         },
                         {
                             "name": "change org name",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "[class='org-name']",
+                            "selector": "identity >> span.org-name",
                             "value": "ABC Company"
                         },
                         {
                             "name": "change org number",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > span:nth-child(1) > span:nth-child(2)",
+                            "selector": "identity >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
                             "value": " (12345)"
                         },
                         {
                             "name": "organization",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div"
+                            "selector": "identity > div > site-header > div > div"
                         },
                         {
                             "name": "open org menu",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
+                            "selector": "identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
                         },
                         {
                             "name": "change personal org name/number",
                             "type": "replace",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li:nth-child(1)",
+                            "selector": "identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu > span > ul > perfect-scrollbar > div > div.ps-content > div > li:nth-child(1)",
                             "value": "<span class=\"cs_site-header_app-menu_list_nav_dropdown_org-menu_scrollbar_li_span\">XYZ Company</span>&nbsp;<span style=\"align: right;\">(54321)</span>"
                         },
                         {
@@ -166,7 +173,7 @@
                             "name": "close org menu",
                             "type": "click",
                             "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
+                            "selector": "identity > div > site-header > div > div > div.cs_site-header_app-menu > nav > ul > li:nth-child(2) > organization-menu"
                         }
                     ]
                 },
@@ -185,7 +192,7 @@
                             "name": "Hover",
                             "type": "move",
                             "locator": "css",
-                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(1)"
+                            "selector": "identity >> landing >> platform-menu >> .platform-menu_item-section >>'Cloud Studio'"
                         },
                         {
                             "name": "tiles cloud studio",
@@ -195,7 +202,7 @@
                             "name": "Hover",
                             "type": "move",
                             "locator": "css",
-                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(2)"
+                            "selector": "identity >> landing >> platform-menu >> .platform-menu_item-section >> 'API Manager'"
                         },
                         {
                             "name": "tiles api manager",
@@ -205,7 +212,7 @@
                             "name": "Hover",
                             "type": "move",
                             "locator": "css",
-                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(3)"
+                            "selector": "identity >> landing >> platform-menu >> .platform-menu_item-section >> 'App Builder'"
                         },
                         {
                             "name": "tiles app builder",
@@ -215,7 +222,7 @@
                             "name": "Hover",
                             "type": "move",
                             "locator": "css",
-                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(4)"
+                            "selector": "identity >> landing >> platform-menu >> .platform-menu_item-section >> 'Marketplace'"
                         },
                         {
                             "name": "tiles marketplace",
@@ -225,7 +232,7 @@
                             "name": "Hover",
                             "type": "move",
                             "locator": "css",
-                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(5)"
+                            "selector": "identity >> landing >> platform-menu >> .platform-menu_item-section >> 'Management Console'"
                         },
                         {
                             "name": "tiles management console",
@@ -235,7 +242,7 @@
                             "name": "Hover",
                             "type": "move",
                             "locator": "css",
-                            "selector": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section > div:nth-child(6)"
+                            "selector": "identity >> landing >> platform-menu >> .platform-menu_item-section >> 'EDI'"
                         },
                         {
                             "name": "tiles edi",
@@ -252,26 +259,32 @@
             "url": "identity/landing",
             "operations": [
                 {
-                    "comment": "all menu items with submenus (in menu order)",
-                    "name": "menu/",
+                    "comment": "hide background",
+                    "steps": [
+                        {
+                            "name": "hide background",
+                            "comment": "for large menus that show background",
+                            "type": "style",
+                            "value": "landing { visibility: hidden; }"
+                        }
+                    ]
+                },
+                {
+                    "comment": "open menu",
                     "steps": [
                         {
                             "name": "open portal menu",
                             "type": "click",
                             "locator": "css",
                             "selector": "[class='cs_site-navigation']"
-                        },
-                        {
-                            "name": "hide tiles",
-                            "comment": "for large menus that show background",
-                            "type": "style",
-                            "value": "body > identity > div > div:nth-child(3) > landing > div > platform-menu > div > div.platform-menu_item-section { visibility: hidden; }"
-                        },
-                        {
-                            "name": "hide pane",
-                            "type": "style",
-                            "value": "body > identity > div > div:nth-child(3) > landing > div > div { visibility: hidden; }"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": false,
+                    "comment": "home",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
@@ -289,12 +302,19 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": false,
+                    "comment": "cloud studio + submenu items",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Cloud Studio"
+                            "locator": "css",
+                            "selector": "site-navigator >> span:text('Cloud Studio')"
                         },
                         {
                             "name": "cloud studio",
@@ -310,9 +330,13 @@
                         },
                         {
                             "name": "hover on",
+                            "comment": "getbyrole because of other menu items with same name",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Projects"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Projects"
+                            }
                         },
                         {
                             "name": "cloud studio projects",
@@ -361,12 +385,19 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": false,
+                    "comment": "api manager + submenu items",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "API Manager"
+                            "locator": "css",
+                            "selector": "site-navigator >> span:text('API Manager')"
                         },
                         {
                             "name": "api manager",
@@ -505,12 +536,22 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": false,
+                    "comment": "app builder",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "App Builder"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "App Builder"
+                            }
                         },
                         {
                             "name": "app builder",
@@ -523,12 +564,22 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": false,
+                    "comment": "marketplace",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Marketplace"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Marketplace"
+                            }
                         },
                         {
                             "name": "marketplace",
@@ -541,12 +592,19 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "skip": false,
+                    "comment": "management console + submenu items",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Management Console"
+                            "locator": "css",
+                            "selector": "site-navigator >> span:text('Management Console')"
                         },
                         {
                             "name": "management console",
@@ -563,8 +621,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Dashboard"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Dashboard"
+                            }
                         },
                         {
                             "name": "management console dashboard",
@@ -581,8 +642,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Access Tokens"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Access Tokens"
+                            }
                         },
                         {
                             "name": "management console access tokens",
@@ -599,8 +663,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "User Management"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "User Management"
+                            }
                         },
                         {
                             "name": "management console user management",
@@ -617,9 +684,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "comment": "unknown problem using getbytext = 'Projects'",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(4)"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Projects"
+                            }
                         },
                         {
                             "name": "management console projects",
@@ -636,8 +705,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Activities"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Activities"
+                            }
                         },
                         {
                             "name": "management console activities",
@@ -654,8 +726,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Audit Logging"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Audit Logging"
+                            }
                         },
                         {
                             "name": "management console audit logging",
@@ -672,8 +747,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Notifications"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Notifications"
+                            }
                         },
                         {
                             "name": "management console notifications",
@@ -690,8 +768,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Organizations"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Organizations"
+                            }
                         },
                         {
                             "name": "management console organizations",
@@ -708,8 +789,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Environments"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Environments"
+                            }
                         },
                         {
                             "name": "management console environments",
@@ -726,8 +810,8 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Agents"
+                            "locator": "css",
+                            "selector": "site-navigator >> .cs_site-navigation_submenu >> span:text('Agents')"
                         },
                         {
                             "name": "management console agents",
@@ -744,8 +828,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(1)"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Agent Groups"
+                            }
                         },
                         {
                             "name": "management console agents agent groups",
@@ -762,8 +849,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "css",
-                            "selector": "body > identity > div > site-header > div > div > div.cs_site-header_site-menu > div:nth-child(1) > site-navigator > div > span:nth-child(2) > ul > li:nth-child(6) > ul > li:nth-child(10) > ul > li:nth-child(2)"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Agents"
+                            }
                         },
                         {
                             "name": "management console agents agents",
@@ -798,8 +888,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Plug-ins"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Plug-ins"
+                            }
                         },
                         {
                             "name": "management console customizations plugins",
@@ -816,8 +909,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Client Certificates"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Client Certificates"
+                            }
                         },
                         {
                             "name": "management console customizations client certificates",
@@ -834,8 +930,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Message Queues"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Message Queues"
+                            }
                         },
                         {
                             "name": "management console message queues",
@@ -848,12 +947,18 @@
                                     "height": 600
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "edi + submenu items",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "EDI"
+                            "locator": "css",
+                            "selector": "site-navigator >> span:text('EDI')"
                         },
                         {
                             "name": "edi",
@@ -870,8 +975,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Transactions"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Transactions"
+                            }
                         },
                         {
                             "name": "edi transactions",
@@ -888,8 +996,11 @@
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Admin"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Admin"
+                            }
                         },
                         {
                             "name": "edi admin",
@@ -902,12 +1013,21 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "citizen integrator",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Citizen Integrator"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Citizen Integrator"
+                            }
                         },
                         {
                             "name": "citizen integrator",
@@ -920,12 +1040,21 @@
                                     "height": 463
                                 }
                             }
-                        },
+                        }
+                    ]
+                },
+                {
+                    "comment": "downloads",
+                    "name": "menu/",
+                    "steps": [
                         {
                             "name": "hover on",
                             "type": "move",
-                            "locator": "getbytext",
-                            "selector": "Downloads"
+                            "locator": "getbyrole",
+                            "selector": "link",
+                            "options": {
+                                "name": "Downloads"
+                            }
                         },
                         {
                             "name": "downloads",
@@ -961,7 +1090,7 @@
                             "name": "change company",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > organization-list-card > div > div.organization-list-card__header > div > h2",
+                            "selector": "console > div > div.app-content > dashboard > div > div > div:nth-child(2) > organization-list-card > div > div.organization-list-card__header > div > h2",
                             "value": "ABC Company"
                         },
                         {
@@ -975,21 +1104,21 @@
                             "name": "change organizations list",
                             "type": "replace",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > organization-list-card > div > div.organization-list-card__content",
+                            "selector": "console > div > div.app-content > dashboard > div > div > div:nth-child(2) > organization-list-card > div > div.organization-list-card__content",
                             "value": "<p>Your organizations</p><p>ABC Company</p><p>XYZ Company</p>"
                         },
                         {
                             "name": "change login",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > recent-logins-card > div > div.recent-logins-card__content > div > span:nth-child(1)",
+                            "selector": "console > div > div.app-content > dashboard > div > div > div:nth-child(2) > recent-logins-card > div > div.recent-logins-card__content > div > span:nth-child(1)",
                             "value": "jan@example.com"
                         },
                         {
                             "name": "change last login time",
                             "type": "edit",
                             "locator": "css",
-                            "selector": "body > console > div > div.app-content > dashboard > div > div > div:nth-child(2) > recent-logins-card > div > div.recent-logins-card__content > div > span:nth-child(2)",
+                            "selector": "console > div > div.app-content > dashboard > div > div > div:nth-child(2) > recent-logins-card > div > div.recent-logins-card__content > div > span:nth-child(2)",
                             "value": "3/23/23, 23:23 PM"
                         },
                         {
