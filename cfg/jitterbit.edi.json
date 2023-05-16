@@ -124,7 +124,7 @@
             ]
         },
         {
-            "skip": true,
+            "skip": false,
             "comment": "Add partner",
             "name": "admin/",
             "uid": "",
@@ -261,13 +261,13 @@
             ]
         },
         {
-            "skip": true,
+            "skip": false,
+            "comment": "Transactions page",
             "name": "transactions/",
             "uid": "",
             "url": "console/edi/transactions",
             "operations": [
                 {
-                    "skip": true,
                     "name": "change visible login details",
                     "steps": [
                         {
@@ -294,7 +294,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "general/",
                     "steps": [
                         {
@@ -344,7 +343,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "detail/",
                     "steps": [
                         {
@@ -387,7 +385,6 @@
             "url": "console/edi/admin",
             "operations": [
                 {
-                    "skip": true,
                     "name": "change visible login details",
                     "steps": [
                         {
@@ -425,7 +422,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "workflow/",
                     "comment": "create but don't save workflow",
                     "steps": [
@@ -452,7 +448,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "workflow/",
                     "comment": "create and save workflow",
                     "steps": [
@@ -527,7 +522,7 @@
                             "name": "saved pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
@@ -549,7 +544,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "manage-pii/",
                     "steps": [
                         {
@@ -575,7 +569,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "edi-settings/",
                     "steps": [
                         {
@@ -591,20 +584,13 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "edi-settings/",
                     "steps": [
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "EDI settings"
-                        },
                         {
                             "name": "preferred id",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -616,7 +602,7 @@
                             "name": "address",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -628,7 +614,7 @@
                             "name": "terms",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -640,7 +626,7 @@
                             "name": "references",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -652,7 +638,7 @@
                             "name": "control number",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -664,7 +650,7 @@
                             "name": "envelope",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -676,7 +662,7 @@
                             "name": "advanced",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
@@ -692,7 +678,6 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "communication-settings/",
                     "steps": [
                         {
@@ -703,12 +688,11 @@
                             "name": "my connections",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
                 {
-                    "skip": true,
                     "comment": "Admin > Communication Settings > Create New FTP",
                     "steps": [
                         {
@@ -720,14 +704,13 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "communication-settings/create-new-ftp/",
                     "steps": [
                         {
                             "name": "connection information",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -739,7 +722,7 @@
                             "name": "ftp details",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -751,7 +734,7 @@
                             "name": "remote details",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "skip": true,
@@ -767,7 +750,7 @@
                             "name": "automation",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
@@ -783,14 +766,13 @@
                     ]
                 },
                 {
-                    "skip": true,
                     "name": "communication-settings/create-new-as2/",
                     "steps": [
                         {
                             "name": "connection information",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -802,7 +784,7 @@
                             "name": "proxy",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -814,7 +796,7 @@
                             "name": "http authentication",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -826,7 +808,7 @@
                             "name": "encryption",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
@@ -843,7 +825,7 @@
                             "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
@@ -860,25 +842,55 @@
                             "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "upload",
                             "type": "click",
-                            "locator": "css",
-                            "selector": ".certificate-container-my >> button.grey-button:has-text('Upload') >> nth=0"
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Upload"
+                            }
                         },
                         {
                             "name": "upload",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "close",
                             "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Close"
+                            }
+                        },
+                        {
+                            "name": "generate",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Generate"
+                            }
+                        },
+                        {
+                            "name": "generate",
+                            "type": "snap",
                             "locator": "css",
-                            "selector": ".certificate-container-my >> button.grey-button:has-text('Close') >> nth=0"
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Close"
+                            }
                         },
                         {
                             "name": "hide manage my certificate",
@@ -901,7 +913,31 @@
                             "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "Partner"
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "upload",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Upload"
+                            }
+                        },
+                        {
+                            "name": "upload",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Close"
+                            }
                         },
                         {
                             "name": "hide manage partner certificate",
