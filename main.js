@@ -220,30 +220,34 @@ if (!argv.instance) {
                         await viewport(page, step.viewport, instance.wait);
                     }
 
+                    let options = {
+                        ...step.options
+                    };
+
                     var loc;
                     switch (step.locator) {
                         case "css":
-                            loc = page.locator(step.selector);
+                            loc = page.locator(step.selector, options);
                             break;
 
                         case "label":
-                            loc = page.getByLabel(step.selector);
+                            loc = page.getByLabel(step.selector, options);
                             break;
 
                         case "placeholder":
-                            loc = page.getByPlaceholder(step.selector);
+                            loc = page.getByPlaceholder(step.selector, options);
                             break;
 
                         case "getbytext":
-                            let opts = { "exact": true }; // Default option
-                            if (step.options) { // Override default
-                                opts = step.options;
-                            }
-                            loc = page.getByText(step.selector, opts).first(); // Usually
+                            options = {
+                                "exact": true, // Default option
+                                ...step.options
+                            };
+                            loc = page.getByText(step.selector, options);
                             break;
 
                         case "getbyrole":
-                            loc = page.getByRole(step.selector);
+                            loc = page.getByRole(step.selector, options);
                             break;
 
                         default:
@@ -253,9 +257,6 @@ if (!argv.instance) {
 
                     try {
                         await page.waitForTimeout(instance.pause);
-                        let options = {
-                            ...step.options
-                        };
 
                         switch (step.type) {
                             // Flow control

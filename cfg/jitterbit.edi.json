@@ -262,6 +262,7 @@
         },
         {
             "skip": false,
+            "comment": "Transactions page",
             "name": "transactions/",
             "uid": "",
             "url": "console/edi/transactions",
@@ -322,16 +323,10 @@
                             }
                         },
                         {
-                            "name": "pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "body > console > div > div.app-content > transactions > div > div.layout-horizontal > div.transactions-table-container > transactions-table > div > div:nth-child(2) > div"
-                        },
-                        {
                             "name": "page controls",
                             "type": "snap",
                             "locator": "css",
-                            "selector": ".mat-paginator-container"
+                            "selector": ".transactions-table-container-paginator"
                         },
                         {
                             "name": "search",
@@ -416,15 +411,20 @@
                     ]
                 },
                 {
-                    "name": "workflow/",
-                    "comment": "don't save workflow",
+                    "name": "select partner",
                     "steps": [
                         {
                             "name": "select first partner",
                             "type": "click",
                             "locator": "css",
                             "selector": "body > console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "name": "workflow/",
+                    "comment": "create but don't save workflow",
+                    "steps": [
                         {
                             "name": "add new workflow",
                             "type": "click",
@@ -449,7 +449,7 @@
                 },
                 {
                     "name": "workflow/",
-                    "comment": "save workflow",
+                    "comment": "create and save workflow",
                     "steps": [
                         {
                             "name": "select first partner",
@@ -517,6 +517,12 @@
                         {
                             "name": "saved",
                             "type": "snap"
+                        },
+                        {
+                            "name": "saved pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
                         }
                     ]
                 },
@@ -581,16 +587,10 @@
                     "name": "edi-settings/",
                     "steps": [
                         {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "EDI settings"
-                        },
-                        {
-                            "name": "preferred id tab",
+                            "name": "preferred id",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -599,10 +599,10 @@
                             "selector": "Address"
                         },
                         {
-                            "name": "address tab",
+                            "name": "address",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -611,10 +611,10 @@
                             "selector": "Terms"
                         },
                         {
-                            "name": "terms tab",
+                            "name": "terms",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -623,10 +623,10 @@
                             "selector": "References"
                         },
                         {
-                            "name": "references tab",
+                            "name": "references",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -635,10 +635,10 @@
                             "selector": "Control number"
                         },
                         {
-                            "name": "control number tab",
+                            "name": "control number",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -647,10 +647,10 @@
                             "selector": "Envelope"
                         },
                         {
-                            "name": "envelope tab",
+                            "name": "envelope",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -659,10 +659,21 @@
                             "selector": "Advanced"
                         },
                         {
-                            "name": "advanced tab",
+                            "name": "advanced",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
+                        }
+                    ]
+                },
+                {
+                    "comment": "Admin > Communication Settings",
+                    "steps": [
+                        {
+                            "name": "select tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Communication settings"
                         }
                     ]
                 },
@@ -670,20 +681,25 @@
                     "name": "communication-settings/",
                     "steps": [
                         {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Communication settings"
-                        },
-                        {
                             "name": "page",
                             "type": "snap"
                         },
                         {
-                            "name": "my connections tab",
+                            "name": "my connections",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
+                        }
+                    ]
+                },
+                {
+                    "comment": "Admin > Communication Settings > Create New FTP",
+                    "steps": [
+                        {
+                            "name": "select sub tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Create new FTP"
                         }
                     ]
                 },
@@ -691,16 +707,10 @@
                     "name": "communication-settings/create-new-ftp/",
                     "steps": [
                         {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create new FTP"
-                        },
-                        {
-                            "name": "connection information tab",
+                            "name": "connection information",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -709,10 +719,10 @@
                             "selector": "FTP details"
                         },
                         {
-                            "name": "ftp details tab",
+                            "name": "ftp details",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -721,10 +731,10 @@
                             "selector": "Remote details"
                         },
                         {
-                            "name": "remote details tab",
+                            "name": "remote details",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "skip": true,
@@ -740,7 +750,18 @@
                             "name": "automation",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
+                        }
+                    ]
+                },
+                {
+                    "comment": "Admin > Communications Settings > Create New AS2",
+                    "steps": [
+                        {
+                            "name": "select sub tab",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Create new AS2"
                         }
                     ]
                 },
@@ -748,16 +769,10 @@
                     "name": "communication-settings/create-new-as2/",
                     "steps": [
                         {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create new AS2"
-                        },
-                        {
-                            "name": "connection information tab",
+                            "name": "connection information",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -766,10 +781,10 @@
                             "selector": "Proxy"
                         },
                         {
-                            "name": "proxy tab",
+                            "name": "proxy",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -778,10 +793,10 @@
                             "selector": "HTTP authentication"
                         },
                         {
-                            "name": "http authentication tab",
+                            "name": "http authentication",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
                         },
                         {
                             "name": "select tab",
@@ -790,22 +805,145 @@
                             "selector": "Encryption"
                         },
                         {
-                            "name": "encryption tab",
+                            "name": "encryption",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
-                        },
+                            "selector": ".tradingPartnerDetails"
+                        }
+                    ]
+                },
+                {
+                    "name": "communication-settings/create-new-as2/certificate/",
+                    "steps": [
                         {
-                            "name": "select tab",
+                            "name": "select sub sub tab",
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Certificate"
                         },
                         {
-                            "name": "certificate tab",
+                            "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": "[class='tradingPartnerDetails']"
+                            "selector": ".tradingPartnerDetails"
+                        }
+                    ]
+                },
+                {
+                    "name": "communication-settings/create-new-as2/certificate/manage-my/",
+                    "steps": [
+                        {
+                            "name": "show manage my certificate",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[title='Refresh'] >> nth=0"
+                        },
+                        {
+                            "name": "pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "upload",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Upload"
+                            }
+                        },
+                        {
+                            "name": "upload",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Close"
+                            }
+                        },
+                        {
+                            "name": "generate",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Generate"
+                            }
+                        },
+                        {
+                            "name": "generate",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Close"
+                            }
+                        },
+                        {
+                            "name": "hide manage my certificate",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[title='Refresh'] >> nth=0"
+                        }
+                    ]
+                },
+                {
+                    "name": "communication-settings/create-new-as2/certificate/manage-partner/",
+                    "steps": [
+                        {
+                            "name": "show manage partner certificate",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[title='Refresh'] >> nth=1"
+                        },
+                        {
+                            "name": "pane",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "upload",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Upload"
+                            }
+                        },
+                        {
+                            "name": "upload",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "close",
+                            "type": "click",
+                            "locator": "getbyrole",
+                            "selector": "button",
+                            "options": {
+                                "name": "Close"
+                            }
+                        },
+                        {
+                            "name": "hide manage partner certificate",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[title='Refresh'] >> nth=1"
                         }
                     ]
                 }
@@ -876,7 +1014,7 @@
                             "value": 2000
                         },
                         {
-                            "name": "delete dialog",
+                            "name": "delete",
                             "type": "snap",
                             "locator": "css",
                             "selector": "[class='modal modal_content']"
