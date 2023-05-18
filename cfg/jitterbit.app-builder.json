@@ -38,7 +38,7 @@
             "e": "",
             "f": "",
             "wait": 20000,
-            "pause": 500,
+            "pause": 1500,
             "secret": "./.secret-nae.json"
         }
     },

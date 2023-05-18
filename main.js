@@ -8,6 +8,7 @@ const { randomBytes } = require('node:crypto');
 const fs = require('fs');
 const prompt = require('prompt-sync')(); // Get input
 const dayjs = require('dayjs');
+const sharp = require('sharp');
 
 if (!argv.config) {
     console.log("Missing config file (--config <path/to/config.json>)");
@@ -346,14 +347,14 @@ if (!argv.instance) {
                                 // These are concatenated as-is. Otherwise, add a space, which is replaced later by the separator char.
                                 // Any may be empty.
                                 let fn =
-                                    (pg.name   ? (pg.name.slice(-1) == '/' ? pg.name : pg.name + ' ') : '') +
-                                    (op.name   ? (op.name.slice(-1) == '/' ? op.name : op.name + ' ') : '') +
+                                    (pg.name ? (pg.name.slice(-1) == '/' ? pg.name : pg.name + ' ') : '') +
+                                    (op.name ? (op.name.slice(-1) == '/' ? op.name : op.name + ' ') : '') +
                                     (step.name ? step.name : '');
 
                                 // If loop present, add number suffix.
                                 if (op.loop) { [fn, n].join(settings.sep); }
 
-                                await snap(loc, path.join(dir, fn), step.options, settings);
+                                await snap(loc, path.join(dir, fn), options, settings);
                                 break;
 
                             default:
@@ -389,34 +390,57 @@ if (!argv.instance) {
 */
 // Increment screenshot file names
 var idx = 1;
-async function snap(loc, full_path, options = {}, settings) {
-
+async function snap(loc, full_path, options, settings) {
     const directory = path.dirname(full_path);
     let filename = path.basename(full_path);
 
     // Attach sequence number and prefix to filename
     // Replace space, dot, backslash with sep char
-    // Append extension
+    // (Extension added later)
     filename = [
         (settings.seq ? pad(idx++) : null),
         (settings.pfx ? settings.pfx : null),
         filename.replace(/[\. \\]/g, settings.sep)
     ].filter(function (a) { return a != null; })
-        .join(settings.sep) + settings.ext;
+        .join(settings.sep);
 
-    full_path = path.join(directory, filename);
-
-    //    options.omitBackground = true;
-    options.path = full_path;
+    // JPG options
     if (settings.ext == '.jpg') {
-        options.type = 'jpeg';
-        options.quality = settings.jpg_quality;
+        options = {
+            ...options,
+            ...{
+                type: 'jpeg',
+                quality: settings.jpg_quality
+            }
+        }
+    }
+
+    const screenshot_file = path.join(directory, filename);
+    // Screenshot filename and extension
+    options = {
+        ...options,
+        ...{
+            path: screenshot_file + settings.ext
+        }
     }
 
     try {
+        console.log(options);
         await loc.screenshot(options);
     } catch (err) {
         console.error(`Failed to save image ${err}`);
+    }
+
+    if (options.crop) {
+        console.log(`Cropping with options ${options.crop}`);
+        sharp(options.path)
+        .extract({
+            left: options.crop.left,
+            top: options.crop.top,
+            height: options.crop.height,
+            width: options.crop.width
+    })
+        .toFile(screenshot_file + '_CROP' + settings.ext);
     }
 }
 

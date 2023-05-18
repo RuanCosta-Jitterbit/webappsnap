@@ -131,6 +131,7 @@
             "url": "console/edi/admin",
             "operations": [
                 {
+                    "skip": false,
                     "name": "change visible login details",
                     "steps": [
                         {
@@ -157,6 +158,7 @@
                     ]
                 },
                 {
+                    "skip": false,
                     "name": "general/",
                     "loop": 1,
                     "steps": [
@@ -204,7 +206,15 @@
                             "name": "pane",
                             "type": "snap",
                             "locator": "css",
-                            "selector": ".tradingPartnersLeftPanel"
+                            "selector": ".tradingPartnersLeftPanel",
+                            "options": {
+                                "crop": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "height": 700,
+                                        "width": 806
+                                }
+                            }
                         },
                         {
                             "name": "add new",
@@ -475,9 +485,11 @@
                         },
                         {
                             "name": "set direction",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Inbound"
+                            "comment": "choose first item",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
                         },
                         {
                             "name": "open document type menu",
@@ -487,9 +499,11 @@
                         },
                         {
                             "name": "set document type",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Acknowledgement"
+                            "comment": "choose first item",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
                         },
                         {
                             "name": "open map menu",
@@ -499,16 +513,17 @@
                         },
                         {
                             "name": "set map",
-                            "comment": "first in list",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "console > options-ui:nth-child(5) > ul > li:nth-child(1)"
+                            "comment": "choose first item",
+                            "type": "press",
+                            "value": [
+                                "Enter"
+                            ]
                         },
                         {
                             "name": "save workflow",
                             "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Save"
+                            "locator": "css",
+                            "selector": ".save-button"
                         },
                         {
                             "type": "wait",
@@ -689,6 +704,23 @@
                             "type": "snap",
                             "locator": "css",
                             "selector": ".tradingPartnerDetails"
+                        },
+                        {
+                            "name": "my connections",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".tradingPartnerDetails",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 100,
+                                    "height": 100
+                                }
+                            }
+                        },
+                        {
+                            "type": "quit"
                         }
                     ]
                 },
