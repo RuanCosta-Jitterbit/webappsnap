@@ -352,7 +352,9 @@ if (!argv.instance) {
                                     (step.name ? step.name : '');
 
                                 // If loop present, add number suffix.
-                                if (op.loop) { [fn, n].join(settings.sep); }
+                                if (op.loop) {
+                                    fn = [fn, n].join(settings.sep);
+                                }
 
                                 await snap(loc, path.join(dir, fn), options, settings);
                                 break;
