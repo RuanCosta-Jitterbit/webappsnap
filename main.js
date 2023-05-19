@@ -425,7 +425,6 @@ async function snap(loc, full_path, options, settings) {
     }
 
     try {
-        console.log(options);
         await loc.screenshot(options);
     } catch (err) {
         console.error(`Failed to save image ${err}`);
