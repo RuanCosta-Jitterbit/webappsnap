@@ -1,9 +1,10 @@
 {
     "settings": {
-        "dir": "./images/jitterbit/app",
+        "comment": "original filenames",
+        "dir": "./images/jitterbit/app/-",
         "timestamp": true,
-        "seq": true,
-        "pfx": "",
+        "seq": false,
+        "pfx": "app-builder",
         "ext": ".png",
         "sep": "-",
         "width": 1200,
@@ -97,7 +98,8 @@
         },
         {
             "skip": false,
-            "name": "",
+            "comment": "Apps page - Empty, common menu",
+            "name": "develop",
             "uid": "",
             "operations": [
                 {
@@ -112,16 +114,25 @@
                             "value": "Jan"
                         },
                         {
+                            "skip": true,
                             "name": "change org name",
-                            "type": "replace",
+                            "type": "edit",
                             "locator": "css",
-                            "selector": "#navigationOrgMenu",
-                            "value": " ABC Company (12345) <i class=\"fas fa-chevron-down\"></i>"
+                            "selector": "console >> span.org-name",
+                            "value": "ABC Company"
+                        },
+                        {
+                            "skip": true,
+                            "name": "change org number",
+                            "type": "edit",
+                            "locator": "css",
+                            "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
+                            "value": " (12345)"
                         }
                     ]
                 },
                 {
-                    "name": "general/",
+                    "name": "apps page",
                     "viewport": {
                         "comment": "min width before toggle to responsive mode",
                         "width": 992,
@@ -129,7 +140,6 @@
                     },
                     "steps": [
                         {
-                            "skip": true,
                             "name": "harmony portal header",
                             "type": "snap",
                             "locator": "css",
@@ -140,9 +150,18 @@
                             "type": "snap"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "skip": false,
+            "comment": "Apps page - Create New",
+            "name": "develop",
+            "uid": "",
+            "operations": [
                 {
-                    "name": "create/",
+                    "comment": "create app from template",
+                    "name": "apps page",
                     "steps": [
                         {
                             "name": "create new app",
@@ -156,7 +175,7 @@
                             "value": 5000
                         },
                         {
-                            "name": "template",
+                            "name": "create new from template dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -168,7 +187,7 @@
                             "selector": "From File"
                         },
                         {
-                            "name": "file",
+                            "name": "create new from file dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -180,6 +199,12 @@
                             "selector": "From Scratch"
                         },
                         {
+                            "skip": true,
+                            "name": "blur subdomain",
+                            "type": "style",
+                            "value": "#subdomaintwo > span { filter: blur(5px); }"
+                        },
+                        {
                             "name": "edit subdomain",
                             "type": "edit",
                             "locator": "css",
@@ -187,7 +212,7 @@
                             "value": ".apps.jbexample.com"
                         },
                         {
-                            "name": "scratch",
+                            "name": "create new from scratch dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -202,7 +227,7 @@
                             }
                         },
                         {
-                            "name": "ask ai",
+                            "name": "create new ask ai dialog",
                             "type": "snap",
                             "locator": "css",
                             "selector": "div.modal-content.padding-0"
@@ -212,14 +237,6 @@
                             "type": "click",
                             "locator": "getbytext",
                             "selector": "Cancel"
-                        }
-                    ]
-                },
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "type": "quit"
                         }
                     ]
                 }
