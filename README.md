@@ -15,7 +15,7 @@ The program is a Node.js script. Before you run it, follow these steps:
 3. In a command prompt, powershell, or terminal, change directory to where you cloned or saved it. Then run this command to install the required Node.js libraries:
 
    ```sh
-   npm i playwright yargs prompt-sync dayjs
+   npm i playwright yargs prompt-sync dayjs sharp
    ```
 
 ## Quick Start
