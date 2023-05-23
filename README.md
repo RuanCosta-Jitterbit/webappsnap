@@ -2,16 +2,14 @@
 
 ## Introduction
 
-This program lets you automate the task of taking screenshots of web applications. It is a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium browser. (You can optionally record a `webm` video of the session.) You define the actions in a JSON file. (See examples in the `cfg` directory.)
+This program automates the task of taking screenshots of web applications. It is a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium browser. (You can optionally record a `webm` video of the session.) You define the actions in a JSON file. (See examples in the `cfg` directory.)
 
 ## Install
 
 The program is a Node.js script. Before you run it, follow these steps:
 
 1. Install [Node.js](https://nodejs.org/en/download/).
-
 2. Clone or otherwise get a copy of this repository, and save it on your system.
-
 3. In a command prompt, powershell, or terminal, change directory to where you cloned or saved it. Then run this command to install the required Node.js libraries:
 
    ```sh
@@ -29,14 +27,13 @@ node main.js --config ./cfg/test.json --instance google
 This does the following:
 
 1. Runs a Chromium browser and opens `https://www.google.com/search` with options `q=webappsnap`, then takes a screenshot of the results page.
-
 2. In the same browser, opens `https://www.google.com/doodles`, enters the text `beethoven` in the search bar and presses the Enter key.
-
 3. Waits 3 seconds and takes a screenshot.
-
 4. Closes the browser.
 
-The program prints information messages as it runs, and saves the screenshot images in `images/google`. It runs in headless mode, so you won't see the browser as it runs. If you want to, edit `cfg/test.json`, change the value for `headless` to `true` (in `settings`), save it and run again.
+The program prints information messages as it runs, and saves the screenshot images in `images/google`.
+
+To run in headless mode and not see the browser as it runs, edit `cfg/test.json`, change the value for `headless` to `false` (in `settings`), save, and run again.
 
 > If there are errors or blank screenshots, see [Tips](#tips).
 
@@ -59,9 +56,7 @@ You must create a JSON configuration file for your app. The best way to start is
 The configuration file is a JSON schema with three subschemas:
 
 - [`settings`](#settings): General settings for the screenshots: where to put them, their default size, scale, and file type, whether to number the images, and what filename prefix to use.
-
 - [`instance`](#instance): Settings thst define the app's base URL, login credentials, and default page load time. The subschema is the instance name. You'll supply this name on the command line when you run the program. (See [Usage](#usage).)
-
 - [`pages`](#pages): An array of URLs to load. Each element can optionally contain an [`operations`](#operations) subschema that contains a [`steps`](#steps) array, and each step can be one of various [types](#step-types).
 
   > Pages, operations, and steps of different types are the building blocks for specifying how to interact with an app, and what to save as screenshots.
@@ -114,10 +109,10 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
 
   ```json
   {
-    "user": "firstname.lastname",
-    "login": "firstname.lastname@example.com",
-    "password": "mypassword"
-  }
+      "user": "firstname.lastname",
+      "login": "firstname.lastname@example.com",
+      "password": "mypassword"
+  },
   ```
 
   The values should be replaced with whatever you use to log into the web app. (Used by the `text` [step type](#step-types).)
@@ -139,12 +134,10 @@ The `pages` subschema is an array where each element defines a page of the web a
 - `options`: (Optional): An array of URL option strings appended to the page load URL. For example, to append `?opt1=val1&opt2=val2` to the page's URL, use:
 
   ```json
-  ...
   "options": [
       "opt1=val1",
       "opt2=val2"
   ],
-  ...
   ```
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip processing this page.
@@ -159,16 +152,14 @@ The `pages` subschema is an array where each element defines a page of the web a
 
     Example:
 
-    ```json
-    ...
-     "viewport": {
-        "width": 1200,
-        "height": 530
-    },
-    ...
-    ```
+   ```json
+   "viewport": {
+     "width": 1200,
+     "height": 530
+   },
+   ```
 
-    > When a page, operation, or step sets a viewport, the current viewport is restored at the end of the page, operation, or step.
+  > When a page, operation, or step sets a viewport, the current viewport is restored at the end of the page, operation, or step.
 
 - `wait`: Integer. (Optional) Override the default page load wait time (`instance.<instance name>.wait`). The value is in milliseconds.
 
@@ -176,18 +167,12 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 ### `operations`
 
-The `operations` property is an array, each item containing one or more steps.
-You can have as many operations as you need for naming snaps or grouping steps.
-Each array item is a JSON schema with the following properties:
+The `operations` property is an array, each item containing one or more steps.  You can have as many operations as you need for naming snaps or grouping steps.  Each array item is a JSON schema with the following properties:
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
-
 - `name`: String. (Optional) A name for this operation. Included in the image path or filename. Can contain or end with slashes and works the same way as `pages.name`.
-
 - `viewport`: A viewport for this operation. Each operation can have its own viewport, which overrides the page's or default viewport for the scope of the operation. Same as `pages.viewport`.
-
 - `loop`: Integer. (Optional) Repeat this operation's steps `loop` times. (Default is 1.) If `loop` is greater than 1, the loop number (with 0 as the first loop) is appended to any saved images.
-
 - `steps`: An array of individual steps. See [`steps`](#steps).
 
 ### `steps`
@@ -197,95 +182,56 @@ A `step` represents the actual action to be performed. Each is a JSON schema wit
 - `locator`: The selector locator type, one of the following:
 
   - `css`: `selector` is a CSS string.
-
   - `getbytext`: `selector` is a string. For this step, you can specify an `options` property which is passed to the locator Playwright function (`page.getByText()`). For example, in this step, the locator doesn't have to match exactly:
 
-    ```json
-    ...
-    {
-      "comment": "Click the first thing found with 'Save' in it",
-      "name": "Click first save",
-      "type": "click",
-      "locator": "getbytext",
-      "selector": "Save",
-      "options": {
-          "exact": false
-      }
-    },
-    ...
-    ```
+   ```json
+   {
+     "comment": "Click the first thing found with 'Save' in it",
+     "name": "Click first save",
+     "type": "click",
+     "locator": "getbytext",
+     "selector": "Save",
+     "options": {
+         "exact": false
+     }
+   },
+   ```
 
-    > If not specified, the default options for this step are `{ "exact": true }`.
+   > If not specified, the default options for this step are `{ "exact": true }`.
 
   - `getbyrole`: `selector` is an element's role name string.
-
   - `placeholder`: `selector` is an element's placeholder string.
-
   - `label`: `selector` is an element's label.
 
   If no locator is set, `selector` is ignored and defaults to the whole page.
 
 - `name`: String or empty. A name for this step. Included in image filename.
-
 - `selector`: A selector in the style of `locator`.
 
     > Selectors and Locators are an important topic, and key to working with Playwright and this program. Read more at [Playwright locators](https://playwright.dev/docs/locators).
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip this step.
-
 - `type`: Type of step. See [Step Types](#step-types).
-
 - `value`: String values for `edit`, `replace`, `style`, and `text` step types, an array of string values for `press` step type, and an integer for the `wait` step type (the wait time in milliseconds).
-
 - `viewport`: Each step can specify its own viewport which overrides the current one (the default, the operation, or page level viewport). (See also `pages.viewport` and `operations.viewport`.)
-
-- `options`: Options for the `snap` step. (These are passed directly to Playwright's [screenshot](https://playwright.dev/docs/api/class-page#page-screenshot) call, which `snap` wraps around. In theory, you could use any options, not just the `clip` as described here.)
-
-  - `clip`: For full page snaps (no selector specified), snap only the region specified by the coordinates. See <https://playwright.dev/docs/api/class-page#page-screenshot-option-clip>
-
-    Example: to snap a region 50x380 pixels in size, starting at coordinates 15,160 (from top left of the browser pane), use this step:
-
-    ```json
-    ...
-    {
-        "name": "Cropped Snap",
-        "type": "snap",
-        "options": {
-            "clip": {
-                "x": 15,
-                "y": 160,
-                "height": 50,
-                "width": 380
-            }
-        }
-    },
-    ...
-    ```
+- `options`: Options for the step. They can be any options accepted by the Playwright functions `locator()`, `getByLabel()`, `getByPlaceholder()`, `getByText()`, `getByRole()`, `hover()`, or `screenshot()`. If `options` contains a schema `crop`, they are used for the `sharp.extract()` cropping function.
 
 #### Step Types
 
 Steps are where the browser acts via a Playwright function. (The Playwright calls are given after each description.)
 
 - `ask`: Prompts you (with `>`) for a value to be inserted into the text field specified by `selector`. (`page.fill()`)
-
 - `back`: Return to the previous page. (`page.goBack()`)
-
 - `click`: Click the element specified by `selector`. (`page.click()`)
-
 - `dblclick`: Double-click the element specified by `selector`. (`page.dblclick()`)
-
 - `edit`: Change the text content of the element specified by `selector`. (See also `replace`.) (`page.evaluate()` on `node.innerText`)
-
 - `focus`: Focus on the element specified by `selector`. (`page.focus()`)
-
 - `move`: Move to (hover over) the first match for the element specified by `selector` and positions the mouse in the center of it. (`page.hover()`)
-
 - `press`: Press each of the keys in the `value` array, waiting `instance.<instance name>.pause` microseconds between each press. (`page.press()`)
 
   Example: a step to press enter (or return), followed by a step to type "None" and then press enter:
 
   ```json
-  ...
   {
     "name": "Press Enter",
     "type": "press",
@@ -304,27 +250,75 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
         "Enter"
     ]
   },
-  ...
   ```
 
 - `quit`: Immediately stop running the program. The browser is closed and the process is exited.
-
 - `replace`: Change the HTML content of `selector`. (See also `edit`.) (`page.evaluate()` on `node.innerHTML`)
+- `snap`: Make a screenshot of the window or element. If `selector` is set, only snap the element specified by it. If `options` is set, give these to the `page.screenshot()` function. If `options` contains `crop`, pass them instead to `sharp` for cropping. A cropped image is a copy of the original saved with a `_CROP` filename suffix.
 
-- `snap`: Make a screenshot of the window or element. If `selector` is set, only snap the element specified by it. (`page.screenshot()`)
+  Examples:
+
+  Step to click on text containing `thing`:
+
+  ```json
+  {
+      "name": "click on something",
+      "type": "click",
+      "locator": "getbytext",
+      "selector": "thing",
+        "options": {
+            "exact": false
+        }
+  },
+  ```
+
+  Step to snap and crop an image:
+
+  ```json
+  {
+      "name": "crop me",
+      "type": "snap",
+      "locator": "css",
+      "selector": "[class='big-pane'",
+      "options": {
+        "crop": {
+            "left": 0,
+            "top": 0,
+            "height": 400,
+            "width":  800
+          }
+      }
+  },
+  ```
+
+  Step to snap and clip a page image (only for full page snaps):
+
+
+  ```json
+  {
+      "name": "Cropped Snap",
+      "type": "snap",
+      "options": {
+          "clip": {
+              "x": 15,
+              "y": 160,
+              "height": 50,
+              "width": 380
+          }
+      }
+  },
+  ```
 
 - `style`: Insert the CSS code provided by the `value` field. Useful for blurring text, adding border highlights, or anything else you can do with CSS styles. (`page.addStyleTag()`)
 
   Example: blur an email address in a menu element:
 
   ```json
-  ...
   {
       "name": "blur email",
       "type": "style",
       "value": "#menu > div > div.account > button > span { filter: blur(5px); }"
   },
-  ...
   ```
 
 - `text`: Enter `value` text into element `selector`.
@@ -381,17 +375,11 @@ If there is an `options` array, they are concatenated and appended to the URL.
 The image path is a concatenation of the following parts:
 
 - `settings.dir`: The base directory.
-
 - (If `settings.timestamp` is `true`) The current date-time, in the format `YYYYMMDD_HHmmss`.
-
 - `instance.<instance name>`: The instance name used for the run.
-
 - (If `settings.seq` is `true`): A zero-padded integer, incremented for each saved image, separated from the next file name element with the character in `settings.sep`.
-
 - (If `settings.pfx` is non-empty): The value, separated from the next file name element with the character in `settings.sep`.
-
 - Concatenation of non-empty values for page `name`, operation `name`, and step `name`. Page and operation names can contain and end with path separator characters to create subdirectories.
-
 - `settings.ext`: The file name suffix, which also determines the image file type.
 
 After this concatenation, the full path is separated into the directory part (`dirname`) and the file name (`basename`).
@@ -405,10 +393,9 @@ If `--full` option is given, any `snap` type steps occur twice, once as specifie
 ## Tips
 
 - If you see blank pages, increase the value for `instance.<instance name>.wait`. This is how long to wait after a page has loaded.
-
-- To see what's going on, set `settings.headless` to true, to turn off headless mode, or create a `webm` format video recording with `settings.video`.
-
-- While developing a long sequence of snaps, use `"skip": true` and `"type": "quit"` to skip pages, operations, and steps, or exit immediately. You can also turn on image sequence numbers with `settings.seq` and add run datetime stamps to the image directory with `settings.timestamp`.
+- To see the browser as it works, set `settings.headless` to true.
+- To make a `webm` recording of what happens, set `settings.video` to true.
+- While developing a long sequence of snaps, use `"skip": true` (at page, operation, or step levels) to skip each unit, and use the special step `"type": "quit"` to exit immediately. You can also turn on image sequence numbers with `settings.seq` and add run datetime stamps to the image directory with `settings.timestamp` set to true.
 
 [Percona]: https://www.percona.com/
 [Percona Monitoring and Management]: https://www.percona.com/software/database-tools/percona-monitoring-and-management

@@ -10,7 +10,7 @@
         "height": 800,
         "scale": 1,
         "jpg_quality": 75,
-        "headless": true,
+        "headless": false,
         "slowmo": 0,
         "debug": false,
         "randlen": 6,
