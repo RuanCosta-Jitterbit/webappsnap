@@ -878,8 +878,8 @@
                                 "crop": {
                                     "left": 0,
                                     "top": 0,
-                                    "height": 800,
-                                    "width": 1400
+                                    "height": 400,
+                                    "width": 700
                                 }
                             }
                         },
@@ -931,7 +931,6 @@
                             "value": 8000
                         },
                         {
-                            "skip": false,
                             "name": "blur",
                             "type": "style",
                             "value": "#generalController > div > div > div > div.modal-body.view-form > div:nth-child(2) > div > div { filter: blur(3px); }"
@@ -1753,7 +1752,6 @@
                             "selector": "UI Flows"
                         },
                         {
-                            "skip": false,
                             "name": "page",
                             "type": "snap",
                             "viewport": {
@@ -1776,17 +1774,14 @@
                         {
                             "name": "for UI settings",
                             "type": "wait",
-                            "locator": "getbyrole",
-                            "selector": "dialog"
+                            "locator": "css",
+                            "selector": "#UIflowEditorController"
                         },
                         {
                             "name": "settings",
                             "type": "snap",
-                            "locator": "getbyrole",
-                            "selector": "dialog",
-                            "options": {
-                                "id": "#UIflowEditorController"
-                            },
+                            "locator": "css",
+                            "selector": "#UIflowEditorController",
                             "viewport": {
                                 "width": 1200,
                                 "height": 650
@@ -1902,15 +1897,17 @@
                             "locator": "getbytext",
                             "selector": "Flow Parameters"
                         },
-
+                        {
+                            "name": "wait for flow parameters",
+                            "type": "wait",
+                            "locator": "css",
+                            "selector": "#UIflowEditorController"
+                        },
                         {
                             "name": "flow parameters",
                             "type": "snap",
-                            "locator": "getbyrole",
-                            "selector": "dialog",
-                            "options": {
-                                "id": "#UIflowEditorController"
-                            },
+                            "locator": "css",
+                            "selector": "#UIflowEditorController",
                             "viewport": {
                                 "width": 1200,
                                 "height": 300
@@ -2243,6 +2240,12 @@
                                 "width": 1200,
                                 "height": 250
                             }
+                        },
+                        {
+                            "name": "Cancel new language",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "button >> 'Cancel'"
                         }
                     ]
                 },

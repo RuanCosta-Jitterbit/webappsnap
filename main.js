@@ -221,34 +221,30 @@ if (!argv.instance) {
                         await viewport(page, step.viewport, instance.wait);
                     }
 
-                    let options = {
-                        ...step.options
-                    };
-
                     var loc;
                     switch (step.locator) {
                         case "css":
-                            loc = page.locator(step.selector, options);
+                            loc = page.locator(step.selector, step.options);
                             break;
 
                         case "label":
-                            loc = page.getByLabel(step.selector, options);
+                            loc = page.getByLabel(step.selector, step.options);
                             break;
 
                         case "placeholder":
-                            loc = page.getByPlaceholder(step.selector, options);
+                            loc = page.getByPlaceholder(step.selector, step.options);
                             break;
 
                         case "getbytext":
-                            options = {
-                                "exact": true, // Default option
+                            loc = page.getByText(step.selector,
+                                {
+                                    "exact": true, // Default option
                                 ...step.options
-                            };
-                            loc = page.getByText(step.selector, options);
+                                });
                             break;
 
                         case "getbyrole":
-                            loc = page.getByRole(step.selector, options);
+                            loc = page.getByRole(step.selector, step.options);
                             break;
 
                         default:
@@ -300,7 +296,7 @@ if (!argv.instance) {
 
                             //  Movement
                             case "move":
-                                await loc.hover(options);
+                                await loc.hover(step.options);
                                 break;
 
                             case "focus":
@@ -356,7 +352,7 @@ if (!argv.instance) {
                                     fn = [fn, n].join(settings.sep);
                                 }
 
-                                await snap(loc, path.join(dir, fn), options, settings);
+                                await snap(loc, path.join(dir, fn), step.options, settings);
                                 break;
 
                             default:
@@ -430,16 +426,17 @@ async function snap(loc, full_path, options, settings) {
         await loc.screenshot(options);
     } catch (err) {
         console.error(`Failed to save image ${err}`);
+        return;
     }
 
     if (options.crop) {
         console.log(`Cropping with options ${options.crop}`);
         sharp(options.path)
         .extract({
-            left: options.crop.left,
-            top: options.crop.top,
-            height: options.crop.height,
-            width: options.crop.width
+            left: options.crop.left * settings.scale,
+            top: options.crop.top * settings.scale,
+            height: options.crop.height * settings.scale,
+            width: options.crop.width * settings.scale
     })
         .toFile(screenshot_file + '_CROP' + settings.ext);
     }
