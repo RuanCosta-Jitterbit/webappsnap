@@ -160,7 +160,6 @@
                 {
                     "skip": false,
                     "name": "general/",
-                    "loop": 1,
                     "steps": [
                         {
                             "name": "page",
@@ -200,7 +199,6 @@
                 },
                 {
                     "name": "partner/",
-                    "loop": 1,
                     "steps": [
                         {
                             "name": "pane",
@@ -211,8 +209,8 @@
                                 "crop": {
                                         "left": 0,
                                         "top": 0,
-                                        "height": 700,
-                                        "width": 806
+                                        "height": 350,
+                                        "width": 403
                                 }
                             }
                         },
@@ -1026,7 +1024,6 @@
             "operations": [
                 {
                     "name": "partner/",
-                    "loop": 1,
                     "steps": [
                         {
                             "name": "hover on first partner",
