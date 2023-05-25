@@ -172,7 +172,7 @@ The `operations` property is an array, each item containing one or more steps.  
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
 - `name`: String. (Optional) A name for this operation. Included in the image path or filename. Can contain or end with slashes and works the same way as `pages.name`.
 - `viewport`: A viewport for this operation. Each operation can have its own viewport, which overrides the page's or default viewport for the scope of the operation. Same as `pages.viewport`.
-- `loop`: Integer. (Optional) Repeat this operation's steps `loop` times. (Default is 1.) If `loop` is greater than 1, the loop number (with 0 as the first loop) is appended to any saved images.
+- `loop`: Integer. (Optional) Repeat this operation's steps `loop` times. (Default is 1.) If defined, the loop number (with 0 as the first loop) is appended to any saved images.
 - `steps`: An array of individual steps. See [`steps`](#steps).
 
 ### `steps`
