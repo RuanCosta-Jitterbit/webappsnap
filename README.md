@@ -117,6 +117,8 @@ The `instance` subschema contains a subschema for every distinct instance (app) 
 
   The values should be replaced with whatever you use to log into the web app. (Used by the `text` [step type](#step-types).)
 
+  > If your password uses any of the characters \$ (dollar), \& (ampersand), \` (back-tick), or \' (single apostrophe), you must prefix each with a \$. For example, if your password is `My'P4$$w0rd`, use `My$'P4$$$$w0rd`. (Read more [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#specifying_a_string_as_the_replacement).)
+
 - `pause`: Integer. The number of milliseconds between steps.
 
 - `server`: The full HTTPS server IP or hostname. (Omit trailing slash.)
