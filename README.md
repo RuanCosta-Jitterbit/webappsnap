@@ -92,7 +92,7 @@ The `settings` subschema contains general settings for the snap:
 - `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in `text` step values.
 
 - `video`: `true` or `false`. If `true`, everything the browser does is captured as a `webm` video and saved in the same directory as the images.
-- `trace`: `true` or `false`. If `true`, everything the browser does is traced and saved in a `trace.zip` file in the same directory as the images. This file can be analyzed using the [Playwright Trace Viewer](https://playwright.dev/docs/trace-viewer) with this command:
+- `trace`: `true` or `false`. If `true`, everything the browser does is traced and saved in a `trace.zip` file in the same directory as the images. This file can be analyzed using the [Playwright Trace Viewer], run with this command:
 
   ```sh
   npx playwright show-trace <path/to>/trace.zip
@@ -174,7 +174,7 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 ### `operations`
 
-The `operations` property is an array, each item containing one or more steps.  You can have as many operations as you need for naming snaps or grouping steps.  Each array item is a JSON schema with the following properties:
+The `operations` property is an array, each item containing one or more steps. You can have as many operations as you need for naming snaps or grouping steps. Each array item is a JSON schema with the following properties:
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
 - `name`: String. (Optional) A name for this operation. Included in the image path or filename. Can contain or end with slashes and works the same way as `pages.name`.
@@ -384,24 +384,25 @@ The image path is a concatenation of the following parts:
 - `settings.dir`: The base directory.
 - (If `settings.timestamp` is `true`) The current date-time, in the format `YYYYMMDD_HHmmss`.
 - `instance.<instance name>`: The instance name used for the run.
-- (If `settings.seq` is `true`): A zero-padded integer, incremented for each saved image, separated from the next file name element with the character in `settings.sep`.
-- (If `settings.pfx` is non-empty): The value, separated from the next file name element with the character in `settings.sep`.
+- (If `settings.seq` is `true`): A zero-padded integer, incremented for each saved image, separated from the next filename element with the character in `settings.sep`.
+- (If `settings.pfx` is non-empty): The value, separated from the next filename element with the character in `settings.sep`.
 - Concatenation of non-empty values for page `name`, operation `name`, and step `name`. Page and operation names can contain and end with path separator characters to create subdirectories.
-- `settings.ext`: The file name suffix, which also determines the image file type.
+- `settings.ext`: The filename suffix, which also determines the image file type.
 
-After this concatenation, the full path is separated into the directory part (`dirname`) and the file name (`basename`).
+After this concatenation, the full path is separated into the directory part (`dirname`) and the filename (`basename`).
 
 Dots, spaces, and back slashes in the basename are replaced with the character in `settings.sep`.
 
 The dirname is left untouched.
 
-If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's file name is suffixed with `_full`.
+If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's filename is suffixed with `_full`.
 
 ## Tips
 
 - If you see blank pages, increase the value for `instance.<instance name>.wait`. This is how long to wait after a page has loaded.
 - To see the browser as it works, set `settings.headless` to true.
 - To make a `webm` recording of what happens, set `settings.video` to true.
+- To see what Playwright calls are made at what time, set 'settings.trace` to true and use the [Playwright Trace Viewer].
 - While developing a long sequence of snaps, use `"skip": true` (at page, operation, or step levels) to skip each unit, and use the special step `"type": "quit"` to exit immediately. You can also turn on image sequence numbers with `settings.seq` and add run datetime stamps to the image directory with `settings.timestamp` set to true.
 
 [Percona]: https://www.percona.com/
@@ -409,3 +410,4 @@ If `--full` option is given, any `snap` type steps occur twice, once as specifie
 [PMM Demo]: https://pmmdemo.percona.com
 [Jitterbit]: https://www.jitterbit.com/
 [Harmony]: https://www.jitterbit.com/harmony/
+[Playwright Trace Viewer]: https://playwright.dev/docs/trace-viewer
