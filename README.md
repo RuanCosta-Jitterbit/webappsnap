@@ -92,6 +92,11 @@ The `settings` subschema contains general settings for the snap:
 - `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in `text` step values.
 
 - `video`: `true` or `false`. If `true`, everything the browser does is captured as a `webm` video and saved in the same directory as the images.
+- `trace`: `true` or `false`. If `true`, everything the browser does is traced and saved in a `trace.zip` file in the same directory as the images. This file can be analyzed using the [Playwright Trace Viewer](https://playwright.dev/docs/trace-viewer) with this command:
+
+  ```sh
+  npx playwright show-trace <path/to>/trace.zip
+  ```
 
 ### `instance`
 
