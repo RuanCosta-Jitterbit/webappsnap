@@ -111,7 +111,6 @@
                     },
                     "steps": [
                         {
-                            "skip": true,
                             "name": "Close pendo",
                             "type": "click",
                             "locator": "css",
