@@ -12,10 +12,10 @@
         "jpg_quality": 75,
         "headless": false,
         "slowmo": 0,
-        "debug": false,
+        "debug": true,
         "randlen": 6,
         "video": false,
-        "trace": false
+        "trace": true
     },
     "instance": {
         "google": {

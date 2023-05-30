@@ -1,1742 +1,1742 @@
 {
-  "settings": {
-    "dir": "./images/percona/pmm",
-    "timestamp": false,
-    "seq": true,
-    "pfx": "PMM",
-    "sep": "-",
-    "ext": ".jpg",
-    "width": 1280,
-    "height": 1280,
-    "scale": 1,
-    "jpg_quality": 75,
-    "headless": true,
-    "slowmo": 0,
-    "debug": true,
-    "randlen": 6,
-    "video": false,
-    "trace": false
-  },
-  "instance": {
-    "pmmdemo": {
-      "server": "https://pmmdemo.percona.com",
-      "a": "graph",
-      "b": "d",
-      "c": "",
-      "d": "",
-      "e": "",
-      "f": "",
-      "wait": 20000,
-      "pause": 5000,
-      "secret": "",
-      "container": "[class='react-grid-layout']"
-    }
-  },
-  "pages": [
-    {
-      "name": "CPU Utilization Details",
-      "uid": "node-cpu"
-    },
-    {
-      "name": "Disk Details",
-      "uid": "node-disk"
-    },
-    {
-      "name": "HAProxy Instance Summary",
-      "uid": "haproxy-instance-summary"
-    },
-    {
-      "name": "Memory Details",
-      "uid": "node-memory",
-      "options": [
-        "var-node_name=pmm-server"
-      ]
-    },
-    {
-      "name": "MongoDB Cluster Summary",
-      "uid": "mongodb-cluster-summary"
-    },
-    {
-      "name": "MongoDB InMemory Details",
-      "uid": "mongodb-inmemory"
-    },
-    {
-      "name": "MongoDB Instance Summary",
-      "uid": "mongodb-instance-summary"
-    },
-    {
-      "name": "MongoDB Instances Compare",
-      "uid": "mongodb-instance-compare"
-    },
-    {
-      "name": "MongoDB Instances Overview",
-      "uid": "mongodb-instance-overview"
-    },
-    {
-      "name": "MongoDB MMAPv1 Details",
-      "uid": "mongodb-mmapv1"
-    },
-    {
-      "name": "MongoDB ReplSet Summary",
-      "uid": "mongodb-replicaset-summary"
-    },
-    {
-      "name": "MongoDB WiredTiger Details",
-      "uid": "mongodb-wiredtiger"
-    },
-    {
-      "name": "MySQL Amazon Aurora Details",
-      "uid": "mysql-amazonaurora"
-    },
-    {
-      "name": "MySQL Command Handler Counters Compare",
-      "uid": "mysql-commandhandler-compare",
-      "options": [
-        "var-service_name=rds-mysql57",
-        "var-service_name=mariadb-105-mysql"
-      ]
-    },
-    {
-      "name": "MySQL InnoDB Compression Details",
-      "uid": "mysql-innodb-compression"
-    },
-    {
-      "name": "MySQL InnoDB Details",
-      "uid": "mysql-innodb"
-    },
-    {
-      "name": "MySQL Instance Summary",
-      "uid": "mysql-instance-summary",
-      "wait": 60000
-    },
-    {
-      "name": "MySQL Instances Compare",
-      "uid": "mysql-instance-compare",
-      "options": [
-        "var-service_name=ps-80-gr-1-mysql",
-        "var-service_name=rds-aurora57-instance-1",
-        "var-service_name=rds-mysql57"
-      ]
-    },
-    {
-      "name": "MySQL Instances Overview",
-      "uid": "mysql-instance-overview"
-    },
-    {
-      "name": "MySQL MyISAM Aria Details",
-      "uid": "mysql-myisamaria"
-    },
-    {
-      "name": "MySQL MyRocks Details",
-      "uid": "mysql-myrocks"
-    },
-    {
-      "name": "MySQL Performance Schema Details",
-      "uid": "mysql-performance-schema"
-    },
-    {
-      "name": "MySQL Query Response Time Details",
-      "uid": "mysql-queryresponsetime"
-    },
-    {
-      "name": "MySQL Replication Summary",
-      "uid": "mysql-replicaset-summary"
-    },
-    {
-      "name": "MySQL Table Details",
-      "uid": "mysql-table"
-    },
-    {
-      "name": "MySQL TokuDB Details",
-      "uid": "mysql-tokudb"
-    },
-    {
-      "name": "MySQL User Details",
-      "uid": "mysql-user"
-    },
-    {
-      "name": "MySQL Wait Event Analyses Details",
-      "uid": "mysql-waitevents-analysis"
-    },
-    {
-      "name": "MySQL Group Replication Summary",
-      "uid": "mysql-group-replicaset-summary"
-    },
-    {
-      "name": "NUMA Details",
-      "uid": "node-memory-numa"
-    },
-    {
-      "name": "Network Details",
-      "uid": "node-network",
-      "options": [
-        "var-node_name=load-gen-sysbench"
-      ]
-    },
-    {
-      "name": "Node Summary",
-      "uid": "node-instance-summary",
-      "options": [
-        "var-node_name=pmm-server"
-      ],
-      "wait": 10000
-    },
-    {
-      "name": "Node Temperature Details",
-      "uid": "node-temp"
-    },
-    {
-      "name": "Nodes Compare",
-      "uid": "node-instance-compare"
-    },
-    {
-      "name": "Nodes Overview",
-      "uid": "node-instance-overview"
-    },
-    {
-      "name": "PXC Galera Cluster Summary",
-      "uid": "pxc-cluster-summary",
-      "options": [
-        "var-cluster=pxc-80-cluster"
-      ]
-    },
-    {
-      "name": "PXC Galera Node Summary",
-      "uid": "pxc-node-summary"
-    },
-    {
-      "name": "PXC Galera Nodes Compare",
-      "uid": "pxc-nodes-compare"
-    },
-    {
-      "name": "PostgreSQL Instance Summary",
-      "uid": "postgresql-instance-summary"
-    },
-    {
-      "name": "PostgreSQL Instances Compare",
-      "uid": "postgresql-instance-compare"
-    },
-    {
-      "name": "PostgreSQL Instances Overview",
-      "uid": "postgresql-instance-overview"
-    },
-    {
-      "name": "Processes Details",
-      "uid": "node-cpu-process"
-    },
-    {
-      "name": "Prometheus Exporter Status",
-      "uid": "prometheus-status"
-    },
-    {
-      "name": "Prometheus Exporters Overview",
-      "uid": "prometheus-overview"
-    },
-    {
-      "name": "Advanced Data Exploration",
-      "uid": "prometheus-advanced"
-    },
-    {
-      "name": "VictoriaMetrics",
-      "uid": "victoriametrics",
-      "viewport": {
+    "settings": {
+        "dir": "./images/percona/pmm",
+        "timestamp": false,
+        "seq": true,
+        "pfx": "PMM",
+        "sep": "-",
+        "ext": ".jpg",
         "width": 1280,
-        "height": 720
-      }
+        "height": 1280,
+        "scale": 1,
+        "jpg_quality": 75,
+        "headless": true,
+        "slowmo": 0,
+        "debug": true,
+        "randlen": 6,
+        "video": false,
+        "trace": false
     },
-    {
-      "name": "VictoriaMetrics Agents Overview",
-      "uid": "vmagent/victoriametrics-agents-overview"
+    "instance": {
+        "pmmdemo": {
+            "server": "https://pmmdemo.percona.com",
+            "a": "graph",
+            "b": "d",
+            "c": "",
+            "d": "",
+            "e": "",
+            "f": "",
+            "wait": 20000,
+            "pause": 5000,
+            "secret": "",
+            "container": "[class='react-grid-layout']"
+        }
     },
-    {
-      "name": "ProxySQL Instance Summary",
-      "uid": "proxysql-instance-summary"
-    },
-    {
-      "skip": true,
-      "name": "Add Instance",
-      "uid": "add-instance",
-      "url": "graph/add-instance",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      }
-    },
-    {
-      "skip": true,
-      "name": "Add",
-      "uid": "add-instance",
-      "url": "graph/add-instance",
-      "operations": [
+    "pages": [
         {
-          "name": "Instance",
-          "viewport": {
-            "width": 1280,
-            "height": 720
-          },
-          "steps": [
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='rds-instance']"
-            },
-            {
-              "name": "AWS RDS",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            }
-          ]
+            "name": "CPU Utilization Details",
+            "uid": "node-cpu"
         },
         {
-          "name": "Instance",
-          "viewport": {
-            "width": 1280,
-            "height": 1850
-          },
-          "steps": [
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='postgresql-instance']"
-            },
-            {
-              "name": "PostgreSQL",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            },
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='mysql-instance']"
-            },
-            {
-              "name": "MySQL",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            },
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='mongodb-instance']"
-            },
-            {
-              "name": "MongoDB",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            },
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='proxysql-instance']"
-            },
-            {
-              "name": "ProxySQL",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            },
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='external-instance']"
-            },
-            {
-              "name": "External",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            },
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='haproxy-instance']"
-            },
-            {
-              "name": "HAProxy",
-              "type": "snap"
-            },
-            {
-              "name": "Return",
-              "type": "click",
-              "locator": "getbytext",
-              "selector": "Return to menu"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "Database Checks",
-      "uid": "pmm-database-checks",
-      "url": "graph/pmm-database-checks"
-    },
-    {
-      "skip": true,
-      "name": "Inventory",
-      "uid": "inventory",
-      "url": "graph/inventory"
-    },
-    {
-      "skip": true,
-      "name": "Inventory",
-      "uid": "inventory",
-      "url": "graph/inventory",
-      "operations": [
-        {
-          "name": "Delete",
-          "steps": [
-            {
-              "name": "Select Item",
-              "type": "click",
-              "comment": "Select first in row",
-              "locator": "css",
-              "selector": "[data-qa='select-row']"
-            },
-            {
-              "name": "Select Item",
-              "type": "snap"
-            },
-            {
-              "name": "Delete Item",
-              "type": "click",
-              "comment": "selector subject to change",
-              "locator": "css",
-              "selector": "[class='css-lhgpbu-button']"
-            },
-            {
-              "name": "Delete Item",
-              "type": "snap"
-            },
-            {
-              "name": "Cancel Delete Item",
-              "type": "click",
-              "locator": "css",
-              "selector": "[class='css-nso2ro-button']"
-            },
-            {
-              "name": "Cancel Delete Item",
-              "type": "snap"
-            },
-            {
-              "name": "Unselect Item",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='select-row']"
-            },
-            {
-              "name": "Unselect Item",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "from=now-3h",
-        "to=now"
-      ],
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "wait": 120000
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "from=now-3h",
-        "to=now"
-      ],
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "operations": [
-        {
-          "name": "Tooltips",
-          "steps": [
-            {
-              "name": "Main Metric Sparkline",
-              "type": "move",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
-            },
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 500
-            },
-            {
-              "name": "Main Metric Sparkline",
-              "type": "snap"
-            },
-            {
-              "name": "Main Metric Meter",
-              "type": "move",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > span:nth-child(2)"
-            },
-            {
-              "name": "Main Metric Meter",
-              "type": "snap"
-            },
-            {
-              "name": "Metric Tooltip",
-              "type": "move",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(4)"
-            },
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Metric Tooltip",
-              "type": "snap"
-            },
-            {
-              "comment": "Do last because large panes need big mouse movements to hide",
-              "name": "Examples Quick View",
-              "type": "move",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(2) > div:nth-child(1) > svg:nth-child(2)"
-            },
-            {
-              "name": "Examples Quick View",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "from=now-3h",
-        "to=now"
-      ],
-      "operations": [
-        {
-          "name": "Panels",
-          "steps": [
-            {
-              "name": "Filters",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[data-qa='pmm-overlay-wrapper']"
-            }
-          ]
+            "name": "Disk Details",
+            "uid": "node-disk"
         },
         {
-          "name": "Devices",
-          "steps": [
-            {
-              "name": "Pagination",
-              "type": "snap",
-              "locator": "css",
-              "selector": ".ant-pagination"
-            },
-            {
-              "name": "Add Columns",
-              "type": "snap",
-              "locator": "css",
-              "selector": ".add-columns-selector"
-            },
-            {
-              "name": "Group By",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[data-qa='group-by']"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "details_tab=details",
-        "from=now-3h",
-        "to=now"
-      ],
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "operations": [
-        {
-          "name": "Tabs",
-          "steps": [
-            {
-              "name": "Select First Item",
-              "type": "click",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
-            },
-            {
-              "name": "Wait for panel load",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Details",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "details_tab=examples",
-        "from=now-3h",
-        "to=now"
-      ],
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "operations": [
-        {
-          "name": "Tabs",
-          "steps": [
-            {
-              "name": "Select First Item",
-              "type": "click",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
-            },
-            {
-              "name": "Wait for panel load",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Examples",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "details_tab=explain",
-        "from=now-3h",
-        "to=now"
-      ],
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "operations": [
-        {
-          "name": "Tabs",
-          "steps": [
-            {
-              "name": "Select First Item",
-              "type": "click",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
-            },
-            {
-              "name": "Wait for panel load",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Explain",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "options": [
-        "details_tab=tables",
-        "from=now-3h",
-        "to=now"
-      ],
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "operations": [
-        {
-          "name": "Tabs",
-          "steps": [
-            {
-              "name": "Select First Item",
-              "type": "click",
-              "locator": "css",
-              "selector": "div.tr:nth-child(3) > div:nth-child(2)"
-            },
-            {
-              "name": "Wait for panel load",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Tables",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Needs fixing - something has changed in the app and selectors can't be found",
-      "name": "Query Analytics",
-      "uid": "pmm-qan",
-      "viewport": {
-        "width": 1920,
-        "height": 1080
-      },
-      "operations": [
-        {
-          "name": "Menus",
-          "steps": [
-            {
-              "name": "Dimension Selector",
-              "type": "click",
-              "locator": "css",
-              "selector": ".group-by-selector"
-            },
-            {
-              "name": "Dimension Selector",
-              "type": "snap"
-            },
-            {
-              "name": "Time Range",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='TimePicker Open Button']"
-            },
-            {
-              "name": "Wait for Dimension selector to disappear",
-              "type": "wait",
-              "value": 2000
-            },
-            {
-              "name": "Time Range",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings",
-      "uid": "settings",
-      "url": "graph/settings/",
-      "operations": [
-        {
-          "name": "",
-          "steps": [
-            {
-              "name": "Menu",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[data-qa='settings-tabs']"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Metrics Resolution",
-      "uid": "settings",
-      "url": "graph/settings/metrics-resolution",
-      "viewport": {
-        "width": 1280,
-        "height": 600
-      }
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Advanced Settings",
-      "uid": "settings",
-      "url": "graph/settings/advanced-settings",
-      "viewport": {
-        "width": 1420,
-        "height": 1020
-      }
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings SSH Key",
-      "uid": "settings",
-      "url": "graph/settings/ssh-key",
-      "viewport": {
-        "width": 1280,
-        "height": 600
-      }
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Alertmanager Integration",
-      "uid": "settings",
-      "url": "graph/settings/am-integration",
-      "viewport": {
-        "width": 1280,
-        "height": 600
-      }
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Percona Platform",
-      "uid": "settings",
-      "url": "graph/settings/percona-platform",
-      "operations": [
-        {
-          "name": "",
-          "viewport": {
-            "width": 1280,
-            "height": 600
-          },
-          "steps": [
-            {
-              "name": "Login",
-              "type": "snap"
-            },
-            {
-              "name": "Sign up",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='sign-in-to-sign-up-button']"
-            },
-            {
-              "name": "Sign Up",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Advanced",
-      "uid": "settings",
-      "url": "graph/settings/advanced-settings",
-      "operations": [
-        {
-          "name": "Integrated Alerting",
-          "steps": [
-            {
-              "name": "Activate",
-              "type": "click",
-              "locator": "css",
-              "selector": "[for='switch-20']"
-            },
-            {
-              "name": "Apply",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='advanced-button']"
-            },
-            {
-              "name": "wait",
-              "type": "wait",
-              "value": 6000
-            },
-            {
-              "name": "Active",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Advanced",
-      "uid": "settings",
-      "url": "graph/settings/advanced-settings",
-      "operations": [
-        {
-          "name": "Backup Management",
-          "steps": [
-            {
-              "name": "Activate",
-              "type": "click",
-              "locator": "css",
-              "selector": "body > grafana-app > div > div > react-container > div > div.css-1lefdfv > div.css-zahccf > div > form > div:nth-child(7) > div:nth-child(2) > div > label"
-            },
-            {
-              "name": "Apply",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='advanced-button']"
-            },
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Active",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Settings Communication",
-      "uid": "settings",
-      "url": "graph/settings/communication",
-      "viewport": {
-        "width": 1280,
-        "height": 800
-      }
-    },
-    {
-      "skip": true,
-      "name": "Backup Management",
-      "uid": "backup",
-      "url": "graph/backup/locations"
-    },
-    {
-      "skip": true,
-      "name": "Backup Management",
-      "uid": "backup",
-      "url": "graph/backup/locations",
-      "viewport": {
-        "width": 1280,
-        "height": 1000
-      },
-      "operations": [
-        {
-          "name": "Locations",
-          "steps": [
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='storage-location-add-modal-button']"
-            },
-            {
-              "name": "Add Storage Location",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "DBaaS",
-      "uid": "pmm-dbaas",
-      "operations": [
-        {
-          "name": "Kubernetes Cluster",
-          "steps": [
-            {
-              "name": "Panel",
-              "type": "snap"
-            },
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='kubernetes-new-cluster-button']"
-            },
-            {
-              "name": "Name",
-              "type": "text",
-              "locator": "css",
-              "selector": "[data-qa='name-text-input']",
-              "value": "MyKubernetesCluster"
-            },
-            {
-              "name": "Kubeconfig file",
-              "type": "text",
-              "locator": "css",
-              "selector": "[data-qa=\"kubeConfig-textarea-input\"]",
-              "value": "apiVersion: v1\nkind: Config\nusers:\n- name: percona-xtradb-cluster-operator\n  user:\n    token: XX\nclusters:\n- cluster:\n    insecure-skip-tls-verify: true\n    server: https://192.168.65.2:55000\n  name: self-hosted-cluster\ncontexts:\n- context:\n    cluster: self-hosted-cluster\n    user: percona-xtradb-cluster-operator\n  name: percona-xtradb-cluster-context\ncurrent-context: percona-xtradb-cluster-context"
-            },
-            {
-              "name": "Details",
-              "type": "snap"
-            },
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='kubernetes-add-cluster-button']"
-            },
-            {
-              "name": "Added",
-              "comment": "Immediate snap to capture transient (green) message",
-              "type": "snap"
-            },
-            {
-              "name": "Wait for Kubernetes cluster creation",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Added2",
-              "comment": "Post-transient snap",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "DBaaS",
-      "uid": "pmm-dbaas",
-      "operations": [
-        {
-          "name": "DB Cluster",
-          "steps": [
-            {
-              "name": "Select Tab",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab DB Cluster']"
-            },
-            {
-              "name": "Wait for load",
-              "type": "wait",
-              "value": 5000
-            },
-            {
-              "name": "Panel",
-              "type": "snap"
-            },
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='dbcluster-add-cluster-button']"
-            },
-            {
-              "name": "Basic Options Empty",
-              "type": "snap"
-            },
-            {
-              "name": "Cluster Name",
-              "type": "text",
-              "locator": "css",
-              "selector": "[data-qa=\"name-text-input\"]",
-              "value": "mydbcluster"
-            },
-            {
-              "name": "Kubernetes Cluster",
-              "type": "text",
-              "locator": "css",
-              "selector": "#react-select-2-input",
-              "value": "MyKubernetesCluster\n"
-            },
-            {
-              "name": "Database Type",
-              "type": "text",
-              "locator": "css",
-              "selector": "#react-select-3-input",
-              "value": "MySQL\n"
-            },
-            {
-              "name": "Basic Options Filled",
-              "type": "snap"
-            },
-            {
-              "name": "Show Advanced Options",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='dbcluster-advanced-options-step']"
-            },
-            {
-              "name": "Advanced Options",
-              "type": "snap"
-            },
-            {
-              "name": "Create Cluster Button",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='dbcluster-create-cluster-button']"
-            },
-            {
-              "name": "Wait",
-              "comment": "Wait for creation (Snap in next section after page refresh)",
-              "type": "wait",
-              "value": 900000
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "DBaaS",
-      "uid": "pmm-dbaas",
-      "operations": [
-        {
-          "name": "DB Cluster",
-          "steps": [
-            {
-              "name": "Select Tab",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab DB Cluster']"
-            },
-            {
-              "name": "Wait for load",
-              "type": "wait",
-              "value": 5000
-            },
-            {
-              "name": "Created",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "DBaaS",
-      "uid": "pmm-dbaas",
-      "operations": [
-        {
-          "name": "DB Cluster",
-          "steps": [
-            {
-              "name": "Select Tab",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab DB Cluster']"
-            },
-            {
-              "name": "Wait for load",
-              "type": "wait",
-              "value": 5000
-            },
-            {
-              "name": "Delete",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='open-delete-modal-button']"
-            },
-            {
-              "name": "Delete",
-              "type": "snap"
-            },
-            {
-              "name": "Proceed",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='delete-dbcluster-button']"
-            },
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 3000
-            },
-            {
-              "name": "Deleting",
-              "comment": "Wait while deleting",
-              "type": "snap"
-            },
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 60000
-            },
-            {
-              "name": "Deleted",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "DBaaS",
-      "uid": "pmm-dbaas",
-      "operations": [
-        {
-          "name": "Kubernetes Cluster",
-          "steps": [
-            {
-              "name": "Select Tab",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab Kubernetes Cluster']"
-            },
-            {
-              "name": "Menu",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='dropdown-menu-toggle']"
-            },
-            {
-              "name": "Menu",
-              "type": "snap"
-            },
-            {
-              "name": "Unregister",
-              "type": "click",
-              "locator": "css",
-              "selector": "#panel-1 > div > div:nth-child(1) > div > div.panel-content > div > div.css-18m13of > div > div.css-1kajsh6 > div > table > tbody > tr > td:nth-child(4) > div > div > div > span:nth-child(1)"
-            },
-            {
-              "name": "Unregister",
-              "type": "snap"
-            },
-            {
-              "name": "Proceed",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='delete-kubernetes-button']"
-            },
-            {
-              "name": "Unregistered",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "Home Dashboard Elements",
-      "uid": "pmm-home",
-      "viewport": {
-        "width": 1280,
-        "height": 1120
-      },
-      "operations": [
-        {
-          "name": "Highlight",
-          "steps": [
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": ".navbar { border: 2px dashed yellow; }"
-            },
-            {
-              "name": "Navbar",
-              "type": "snap"
-            },
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": ".navbar { border: none; }"
-            },
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls { border: 2px dashed yellow; }"
-            },
-            {
-              "name": "Submenu",
-              "type": "snap"
-            },
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls { border: none; }"
-            },
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": ".sidemenu { border: 2px dashed yellow; }"
-            },
-            {
-              "name": "Sidemenu",
-              "type": "snap"
-            },
-            {
-              "name": "Unhighlight",
-              "type": "style",
-              "value": ".sidemenu { border: none; }"
-            },
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": "#panel-1381 { border: 2px dashed yellow; }"
-            },
-            {
-              "name": "Failed Security Checks",
-              "type": "snap"
-            },
-            {
-              "name": "Unhighlight",
-              "type": "style",
-              "value": "#panel-1381 { border: none; }"
-            },
-            {
-              "name": "Highlight",
-              "type": "style",
-              "value": "#panel-1337 { border: 2px dashed yellow; }"
-            },
-            {
-              "name": "Upgrade",
-              "type": "snap"
-            },
-            {
-              "name": "Unhighlight",
-              "type": "style",
-              "value": "#panel-1337 { border: none; }"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Home Dashboard",
-      "uid": "pmm-home",
-      "operations": [
-        {
-          "name": "",
-          "steps": [
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "",
-              "type": "snap"
-            }
-          ]
+            "name": "HAProxy Instance Summary",
+            "uid": "haproxy-instance-summary"
         },
         {
-          "name": "Menus",
-          "steps": [
-            {
-              "name": "Grafana Left Side Menu",
-              "type": "snap",
-              "locator": "css",
-              "selector": ".sidemenu",
-              "viewport": {
-                "comment": "Viewport shrinks vertical menu to avoid ugly space",
-                "width": 900,
+            "name": "Memory Details",
+            "uid": "node-memory",
+            "options": [
+                "var-node_name=pmm-server"
+            ]
+        },
+        {
+            "name": "MongoDB Cluster Summary",
+            "uid": "mongodb-cluster-summary"
+        },
+        {
+            "name": "MongoDB InMemory Details",
+            "uid": "mongodb-inmemory"
+        },
+        {
+            "name": "MongoDB Instance Summary",
+            "uid": "mongodb-instance-summary"
+        },
+        {
+            "name": "MongoDB Instances Compare",
+            "uid": "mongodb-instance-compare"
+        },
+        {
+            "name": "MongoDB Instances Overview",
+            "uid": "mongodb-instance-overview"
+        },
+        {
+            "name": "MongoDB MMAPv1 Details",
+            "uid": "mongodb-mmapv1"
+        },
+        {
+            "name": "MongoDB ReplSet Summary",
+            "uid": "mongodb-replicaset-summary"
+        },
+        {
+            "name": "MongoDB WiredTiger Details",
+            "uid": "mongodb-wiredtiger"
+        },
+        {
+            "name": "MySQL Amazon Aurora Details",
+            "uid": "mysql-amazonaurora"
+        },
+        {
+            "name": "MySQL Command Handler Counters Compare",
+            "uid": "mysql-commandhandler-compare",
+            "options": [
+                "var-service_name=rds-mysql57",
+                "var-service_name=mariadb-105-mysql"
+            ]
+        },
+        {
+            "name": "MySQL InnoDB Compression Details",
+            "uid": "mysql-innodb-compression"
+        },
+        {
+            "name": "MySQL InnoDB Details",
+            "uid": "mysql-innodb"
+        },
+        {
+            "name": "MySQL Instance Summary",
+            "uid": "mysql-instance-summary",
+            "wait": 60000
+        },
+        {
+            "name": "MySQL Instances Compare",
+            "uid": "mysql-instance-compare",
+            "options": [
+                "var-service_name=ps-80-gr-1-mysql",
+                "var-service_name=rds-aurora57-instance-1",
+                "var-service_name=rds-mysql57"
+            ]
+        },
+        {
+            "name": "MySQL Instances Overview",
+            "uid": "mysql-instance-overview"
+        },
+        {
+            "name": "MySQL MyISAM Aria Details",
+            "uid": "mysql-myisamaria"
+        },
+        {
+            "name": "MySQL MyRocks Details",
+            "uid": "mysql-myrocks"
+        },
+        {
+            "name": "MySQL Performance Schema Details",
+            "uid": "mysql-performance-schema"
+        },
+        {
+            "name": "MySQL Query Response Time Details",
+            "uid": "mysql-queryresponsetime"
+        },
+        {
+            "name": "MySQL Replication Summary",
+            "uid": "mysql-replicaset-summary"
+        },
+        {
+            "name": "MySQL Table Details",
+            "uid": "mysql-table"
+        },
+        {
+            "name": "MySQL TokuDB Details",
+            "uid": "mysql-tokudb"
+        },
+        {
+            "name": "MySQL User Details",
+            "uid": "mysql-user"
+        },
+        {
+            "name": "MySQL Wait Event Analyses Details",
+            "uid": "mysql-waitevents-analysis"
+        },
+        {
+            "name": "MySQL Group Replication Summary",
+            "uid": "mysql-group-replicaset-summary"
+        },
+        {
+            "name": "NUMA Details",
+            "uid": "node-memory-numa"
+        },
+        {
+            "name": "Network Details",
+            "uid": "node-network",
+            "options": [
+                "var-node_name=load-gen-sysbench"
+            ]
+        },
+        {
+            "name": "Node Summary",
+            "uid": "node-instance-summary",
+            "options": [
+                "var-node_name=pmm-server"
+            ],
+            "wait": 10000
+        },
+        {
+            "name": "Node Temperature Details",
+            "uid": "node-temp"
+        },
+        {
+            "name": "Nodes Compare",
+            "uid": "node-instance-compare"
+        },
+        {
+            "name": "Nodes Overview",
+            "uid": "node-instance-overview"
+        },
+        {
+            "name": "PXC Galera Cluster Summary",
+            "uid": "pxc-cluster-summary",
+            "options": [
+                "var-cluster=pxc-80-cluster"
+            ]
+        },
+        {
+            "name": "PXC Galera Node Summary",
+            "uid": "pxc-node-summary"
+        },
+        {
+            "name": "PXC Galera Nodes Compare",
+            "uid": "pxc-nodes-compare"
+        },
+        {
+            "name": "PostgreSQL Instance Summary",
+            "uid": "postgresql-instance-summary"
+        },
+        {
+            "name": "PostgreSQL Instances Compare",
+            "uid": "postgresql-instance-compare"
+        },
+        {
+            "name": "PostgreSQL Instances Overview",
+            "uid": "postgresql-instance-overview"
+        },
+        {
+            "name": "Processes Details",
+            "uid": "node-cpu-process"
+        },
+        {
+            "name": "Prometheus Exporter Status",
+            "uid": "prometheus-status"
+        },
+        {
+            "name": "Prometheus Exporters Overview",
+            "uid": "prometheus-overview"
+        },
+        {
+            "name": "Advanced Data Exploration",
+            "uid": "prometheus-advanced"
+        },
+        {
+            "name": "VictoriaMetrics",
+            "uid": "victoriametrics",
+            "viewport": {
+                "width": 1280,
                 "height": 720
-              }
-            },
-            {
-              "name": "Top Navigation Bar",
-              "type": "snap",
-              "locator": "css",
-              "selector": ".page-toolbar",
-              "viewport": {
-                "width": 900,
+            }
+        },
+        {
+            "name": "VictoriaMetrics Agents Overview",
+            "uid": "vmagent/victoriametrics-agents-overview"
+        },
+        {
+            "name": "ProxySQL Instance Summary",
+            "uid": "proxysql-instance-summary"
+        },
+        {
+            "skip": true,
+            "name": "Add Instance",
+            "uid": "add-instance",
+            "url": "graph/add-instance",
+            "viewport": {
+                "width": 1280,
+                "height": 720
+            }
+        },
+        {
+            "skip": true,
+            "name": "Add",
+            "uid": "add-instance",
+            "url": "graph/add-instance",
+            "operations": [
+                {
+                    "name": "Instance",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 720
+                    },
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='rds-instance']"
+                        },
+                        {
+                            "name": "AWS RDS",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        }
+                    ]
+                },
+                {
+                    "name": "Instance",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 1850
+                    },
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='postgresql-instance']"
+                        },
+                        {
+                            "name": "PostgreSQL",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='mysql-instance']"
+                        },
+                        {
+                            "name": "MySQL",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='mongodb-instance']"
+                        },
+                        {
+                            "name": "MongoDB",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='proxysql-instance']"
+                        },
+                        {
+                            "name": "ProxySQL",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='external-instance']"
+                        },
+                        {
+                            "name": "External",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        },
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='haproxy-instance']"
+                        },
+                        {
+                            "name": "HAProxy",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Return",
+                            "type": "click",
+                            "locator": "getbytext",
+                            "selector": "Return to menu"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "Database Checks",
+            "uid": "pmm-database-checks",
+            "url": "graph/pmm-database-checks"
+        },
+        {
+            "skip": true,
+            "name": "Inventory",
+            "uid": "inventory",
+            "url": "graph/inventory"
+        },
+        {
+            "skip": true,
+            "name": "Inventory",
+            "uid": "inventory",
+            "url": "graph/inventory",
+            "operations": [
+                {
+                    "name": "Delete",
+                    "steps": [
+                        {
+                            "name": "Select Item",
+                            "type": "click",
+                            "comment": "Select first in row",
+                            "locator": "css",
+                            "selector": "[data-qa='select-row']"
+                        },
+                        {
+                            "name": "Select Item",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Delete Item",
+                            "type": "click",
+                            "comment": "selector subject to change",
+                            "locator": "css",
+                            "selector": "[class='css-lhgpbu-button']"
+                        },
+                        {
+                            "name": "Delete Item",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Cancel Delete Item",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[class='css-nso2ro-button']"
+                        },
+                        {
+                            "name": "Cancel Delete Item",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Unselect Item",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='select-row']"
+                        },
+                        {
+                            "name": "Unselect Item",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "from=now-3h",
+                "to=now"
+            ],
+            "viewport": {
+                "width": 1920,
                 "height": 1080
-              }
             },
-            {
-              "name": "Submenu Bar",
-              "type": "snap",
-              "locator": "css",
-              "selector": ".submenu-controls",
-              "viewport": {
-                "width": 900,
+            "wait": 120000
+        },
+        {
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "from=now-3h",
+                "to=now"
+            ],
+            "viewport": {
+                "width": 1920,
                 "height": 1080
-              }
-            }
-          ]
+            },
+            "operations": [
+                {
+                    "name": "Tooltips",
+                    "steps": [
+                        {
+                            "name": "Main Metric Sparkline",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > canvas:nth-child(1)"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 500
+                        },
+                        {
+                            "name": "Main Metric Sparkline",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Main Metric Meter",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(3) > div:nth-child(1) > span:nth-child(2)"
+                        },
+                        {
+                            "name": "Main Metric Meter",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Metric Tooltip",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(4)"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Metric Tooltip",
+                            "type": "snap"
+                        },
+                        {
+                            "comment": "Do last because large panes need big mouse movements to hide",
+                            "name": "Examples Quick View",
+                            "type": "move",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(2) > div:nth-child(1) > svg:nth-child(2)"
+                        },
+                        {
+                            "name": "Examples Quick View",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
         },
         {
-          "name": "Panels",
-          "viewport": {
-            "width": 1280,
-            "height": 1280
-          },
-          "steps": [
-            {
-              "name": "Failed Advisors",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[aria-label='Failed Advisors panel']"
-            },
-            {
-              "name": "Upgrade",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[aria-label='PMM Upgrade panel']"
-            }
-          ]
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "from=now-3h",
+                "to=now"
+            ],
+            "operations": [
+                {
+                    "name": "Panels",
+                    "steps": [
+                        {
+                            "name": "Filters",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[data-qa='pmm-overlay-wrapper']"
+                        }
+                    ]
+                },
+                {
+                    "name": "Devices",
+                    "steps": [
+                        {
+                            "name": "Pagination",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".ant-pagination"
+                        },
+                        {
+                            "name": "Add Columns",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".add-columns-selector"
+                        },
+                        {
+                            "name": "Group By",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[data-qa='group-by']"
+                        }
+                    ]
+                }
+            ]
         },
         {
-          "name": "Search",
-          "steps": [
-            {
-              "name": "",
-              "type": "press",
-              "value": [
-                "s",
-                "o"
-              ]
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "details_tab=details",
+                "from=now-3h",
+                "to=now"
+            ],
+            "viewport": {
+                "width": 1920,
+                "height": 1080
             },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 5000
-            },
-            {
-              "name": "",
-              "type": "snap"
-            },
-            {
-              "name": "String",
-              "type": "press",
-              "comment": "Type search string ('instances'). Assumes focus remains on just-opened search.",
-              "value": [
-                "i",
-                "n",
-                "s",
-                "t",
-                "a",
-                "n",
-                "c",
-                "e",
-                "s"
-              ]
-            },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 5000
-            },
-            {
-              "name": "String",
-              "type": "snap"
-            },
-            {
-              "name": "close",
-              "type": "press",
-              "comment": "Close search dialogue without clicking X button",
-              "value": [
-                "Escape"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Common",
-      "uid": "node-cpu-process",
-      "comment": "Any valid UID will do, just for snapping common devices",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "operations": [
-        {
-          "name": "Controls",
-          "steps": [
-            {
-              "name": "Annotation Toggle",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[for='switch-1']"
-            }
-          ]
+            "operations": [
+                {
+                    "name": "Tabs",
+                    "steps": [
+                        {
+                            "name": "Select First Item",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+                        },
+                        {
+                            "name": "Wait for panel load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Details",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
         },
         {
-          "name": "Panel Menu",
-          "steps": [
-            {
-              "name": "",
-              "type": "snap",
-              "locator": "css",
-              "selector": "[aria-label='Dashboard submenu']"
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "details_tab=examples",
+                "from=now-3h",
+                "to=now"
+            ],
+            "viewport": {
+                "width": 1920,
+                "height": 1080
             },
-            {
-              "name": "Share",
-              "type": "press",
-              "comment": "Open share menu using keyboard shortcut",
-              "value": [
-                "p",
-                "s"
-              ]
-            },
-            {
-              "name": "Hide URL",
-              "type": "style",
-              "value": ".css-1w5c5dq-input-inputWrapper { filter: blur(3px) }"
-            },
-            {
-              "name": "Share",
-              "type": "snap",
-              "comment": "Image filename for when plugin is installed"
-            },
-            {
-              "name": "Share Link Missing Plugins",
-              "type": "snap",
-              "comment": "If plugin not installed"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "name": "Swagger API",
-      "uid": "swagger",
-      "url": "swagger/",
-      "viewport": {
-        "width": 1280,
-        "height": 950
-      },
-      "operations": [
-        {
-          "name": "Get Logs",
-          "steps": [
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "View",
-              "type": "snap"
-            },
-            {
-              "name": "Execute",
-              "type": "click",
-              "locator": "css",
-              "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
-            },
-            {
-              "name": "Wait",
-              "type": "wait",
-              "value": 10000
-            },
-            {
-              "name": "Execute",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Integrated Alerting",
-      "uid": "integrated-alerting",
-      "url": "graph/integrated-alerting",
-      "operations": [
-        {
-          "name": "Alerts",
-          "steps": [
-            {
-              "name": "",
-              "type": "snap"
-            }
-          ]
+            "operations": [
+                {
+                    "name": "Tabs",
+                    "steps": [
+                        {
+                            "name": "Select First Item",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+                        },
+                        {
+                            "name": "Wait for panel load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Examples",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
         },
         {
-          "name": "Alert Rules",
-          "steps": [
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab Alert Rules']"
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "details_tab=explain",
+                "from=now-3h",
+                "to=now"
+            ],
+            "viewport": {
+                "width": 1920,
+                "height": 1080
             },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 3000
+            "operations": [
+                {
+                    "name": "Tabs",
+                    "steps": [
+                        {
+                            "name": "Select First Item",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+                        },
+                        {
+                            "name": "Wait for panel load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Explain",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "options": [
+                "details_tab=tables",
+                "from=now-3h",
+                "to=now"
+            ],
+            "viewport": {
+                "width": 1920,
+                "height": 1080
             },
-            {
-              "name": "",
-              "type": "snap"
+            "operations": [
+                {
+                    "name": "Tabs",
+                    "steps": [
+                        {
+                            "name": "Select First Item",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "div.tr:nth-child(3) > div:nth-child(2)"
+                        },
+                        {
+                            "name": "Wait for panel load",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Tables",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Needs fixing - something has changed in the app and selectors can't be found",
+            "name": "Query Analytics",
+            "uid": "pmm-qan",
+            "viewport": {
+                "width": 1920,
+                "height": 1080
             },
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='alert-rule-template-add-modal-button']",
-              "viewport": {
-                "comment": "Viewport shrinks vertical menu to avoid ugly space",
+            "operations": [
+                {
+                    "name": "Menus",
+                    "steps": [
+                        {
+                            "name": "Dimension Selector",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": ".group-by-selector"
+                        },
+                        {
+                            "name": "Dimension Selector",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Time Range",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='TimePicker Open Button']"
+                        },
+                        {
+                            "name": "Wait for Dimension selector to disappear",
+                            "type": "wait",
+                            "value": 2000
+                        },
+                        {
+                            "name": "Time Range",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings",
+            "uid": "settings",
+            "url": "graph/settings/",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Menu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[data-qa='settings-tabs']"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Metrics Resolution",
+            "uid": "settings",
+            "url": "graph/settings/metrics-resolution",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            }
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Advanced Settings",
+            "uid": "settings",
+            "url": "graph/settings/advanced-settings",
+            "viewport": {
+                "width": 1420,
+                "height": 1020
+            }
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings SSH Key",
+            "uid": "settings",
+            "url": "graph/settings/ssh-key",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            }
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Alertmanager Integration",
+            "uid": "settings",
+            "url": "graph/settings/am-integration",
+            "viewport": {
+                "width": 1280,
+                "height": 600
+            }
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Percona Platform",
+            "uid": "settings",
+            "url": "graph/settings/percona-platform",
+            "operations": [
+                {
+                    "name": "",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 600
+                    },
+                    "steps": [
+                        {
+                            "name": "Login",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Sign up",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='sign-in-to-sign-up-button']"
+                        },
+                        {
+                            "name": "Sign Up",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Advanced",
+            "uid": "settings",
+            "url": "graph/settings/advanced-settings",
+            "operations": [
+                {
+                    "name": "Integrated Alerting",
+                    "steps": [
+                        {
+                            "name": "Activate",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[for='switch-20']"
+                        },
+                        {
+                            "name": "Apply",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='advanced-button']"
+                        },
+                        {
+                            "name": "wait",
+                            "type": "wait",
+                            "value": 6000
+                        },
+                        {
+                            "name": "Active",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Advanced",
+            "uid": "settings",
+            "url": "graph/settings/advanced-settings",
+            "operations": [
+                {
+                    "name": "Backup Management",
+                    "steps": [
+                        {
+                            "name": "Activate",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "body > grafana-app > div > div > react-container > div > div.css-1lefdfv > div.css-zahccf > div > form > div:nth-child(7) > div:nth-child(2) > div > label"
+                        },
+                        {
+                            "name": "Apply",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='advanced-button']"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Active",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Settings Communication",
+            "uid": "settings",
+            "url": "graph/settings/communication",
+            "viewport": {
+                "width": 1280,
+                "height": 800
+            }
+        },
+        {
+            "skip": true,
+            "name": "Backup Management",
+            "uid": "backup",
+            "url": "graph/backup/locations"
+        },
+        {
+            "skip": true,
+            "name": "Backup Management",
+            "uid": "backup",
+            "url": "graph/backup/locations",
+            "viewport": {
                 "width": 1280,
                 "height": 1000
-              }
             },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 1000
-            },
-            {
-              "name": "Add Form",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Integrated Alerting",
-      "uid": "integrated-alerting",
-      "url": "graph/integrated-alerting",
-      "operations": [
+            "operations": [
+                {
+                    "name": "Locations",
+                    "steps": [
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='storage-location-add-modal-button']"
+                        },
+                        {
+                            "name": "Add Storage Location",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
         {
-          "name": "Alert Rule Templates",
-          "steps": [
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab Alert Rule Templates']"
-            },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 3000
-            },
-            {
-              "name": "",
-              "type": "snap"
-            },
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='alert-rule-template-add-modal-button']"
-            },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 1000
-            },
-            {
-              "name": "Add Form",
-              "type": "snap"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "skip": true,
-      "comment": "Restricted",
-      "name": "Integrated Alerting",
-      "uid": "integrated-alerting",
-      "url": "graph/integrated-alerting",
-      "operations": [
+            "skip": true,
+            "name": "DBaaS",
+            "uid": "pmm-dbaas",
+            "operations": [
+                {
+                    "name": "Kubernetes Cluster",
+                    "steps": [
+                        {
+                            "name": "Panel",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='kubernetes-new-cluster-button']"
+                        },
+                        {
+                            "name": "Name",
+                            "type": "text",
+                            "locator": "css",
+                            "selector": "[data-qa='name-text-input']",
+                            "value": "MyKubernetesCluster"
+                        },
+                        {
+                            "name": "Kubeconfig file",
+                            "type": "text",
+                            "locator": "css",
+                            "selector": "[data-qa=\"kubeConfig-textarea-input\"]",
+                            "value": "apiVersion: v1\nkind: Config\nusers:\n- name: percona-xtradb-cluster-operator\n  user:\n    token: XX\nclusters:\n- cluster:\n    insecure-skip-tls-verify: true\n    server: https://192.168.65.2:55000\n  name: self-hosted-cluster\ncontexts:\n- context:\n    cluster: self-hosted-cluster\n    user: percona-xtradb-cluster-operator\n  name: percona-xtradb-cluster-context\ncurrent-context: percona-xtradb-cluster-context"
+                        },
+                        {
+                            "name": "Details",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='kubernetes-add-cluster-button']"
+                        },
+                        {
+                            "name": "Added",
+                            "comment": "Immediate snap to capture transient (green) message",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Wait for Kubernetes cluster creation",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Added2",
+                            "comment": "Post-transient snap",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
         {
-          "name": "Notification Channels",
-          "steps": [
-            {
-              "name": "Select",
-              "type": "click",
-              "locator": "css",
-              "selector": "[aria-label='Tab Notification Channels']"
+            "skip": true,
+            "name": "DBaaS",
+            "uid": "pmm-dbaas",
+            "operations": [
+                {
+                    "name": "DB Cluster",
+                    "steps": [
+                        {
+                            "name": "Select Tab",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab DB Cluster']"
+                        },
+                        {
+                            "name": "Wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "Panel",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='dbcluster-add-cluster-button']"
+                        },
+                        {
+                            "name": "Basic Options Empty",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Cluster Name",
+                            "type": "text",
+                            "locator": "css",
+                            "selector": "[data-qa=\"name-text-input\"]",
+                            "value": "mydbcluster"
+                        },
+                        {
+                            "name": "Kubernetes Cluster",
+                            "type": "text",
+                            "locator": "css",
+                            "selector": "#react-select-2-input",
+                            "value": "MyKubernetesCluster\n"
+                        },
+                        {
+                            "name": "Database Type",
+                            "type": "text",
+                            "locator": "css",
+                            "selector": "#react-select-3-input",
+                            "value": "MySQL\n"
+                        },
+                        {
+                            "name": "Basic Options Filled",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Show Advanced Options",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='dbcluster-advanced-options-step']"
+                        },
+                        {
+                            "name": "Advanced Options",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Create Cluster Button",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='dbcluster-create-cluster-button']"
+                        },
+                        {
+                            "name": "Wait",
+                            "comment": "Wait for creation (Snap in next section after page refresh)",
+                            "type": "wait",
+                            "value": 900000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "DBaaS",
+            "uid": "pmm-dbaas",
+            "operations": [
+                {
+                    "name": "DB Cluster",
+                    "steps": [
+                        {
+                            "name": "Select Tab",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab DB Cluster']"
+                        },
+                        {
+                            "name": "Wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "Created",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "DBaaS",
+            "uid": "pmm-dbaas",
+            "operations": [
+                {
+                    "name": "DB Cluster",
+                    "steps": [
+                        {
+                            "name": "Select Tab",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab DB Cluster']"
+                        },
+                        {
+                            "name": "Wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "Delete",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='open-delete-modal-button']"
+                        },
+                        {
+                            "name": "Delete",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Proceed",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='delete-dbcluster-button']"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "Deleting",
+                            "comment": "Wait while deleting",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 60000
+                        },
+                        {
+                            "name": "Deleted",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "DBaaS",
+            "uid": "pmm-dbaas",
+            "operations": [
+                {
+                    "name": "Kubernetes Cluster",
+                    "steps": [
+                        {
+                            "name": "Select Tab",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab Kubernetes Cluster']"
+                        },
+                        {
+                            "name": "Menu",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='dropdown-menu-toggle']"
+                        },
+                        {
+                            "name": "Menu",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Unregister",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "#panel-1 > div > div:nth-child(1) > div > div.panel-content > div > div.css-18m13of > div > div.css-1kajsh6 > div > table > tbody > tr > td:nth-child(4) > div > div > div > span:nth-child(1)"
+                        },
+                        {
+                            "name": "Unregister",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Proceed",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='delete-kubernetes-button']"
+                        },
+                        {
+                            "name": "Unregistered",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "Home Dashboard Elements",
+            "uid": "pmm-home",
+            "viewport": {
+                "width": 1280,
+                "height": 1120
             },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 3000
+            "operations": [
+                {
+                    "name": "Highlight",
+                    "steps": [
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": ".navbar { border: 2px dashed yellow; }"
+                        },
+                        {
+                            "name": "Navbar",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": ".navbar { border: none; }"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls { border: 2px dashed yellow; }"
+                        },
+                        {
+                            "name": "Submenu",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": "body > grafana-app > div > div > react-container > div > div.dashboard-scroll > div > div.view > div > div.submenu-controls { border: none; }"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": ".sidemenu { border: 2px dashed yellow; }"
+                        },
+                        {
+                            "name": "Sidemenu",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Unhighlight",
+                            "type": "style",
+                            "value": ".sidemenu { border: none; }"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": "#panel-1381 { border: 2px dashed yellow; }"
+                        },
+                        {
+                            "name": "Failed Security Checks",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Unhighlight",
+                            "type": "style",
+                            "value": "#panel-1381 { border: none; }"
+                        },
+                        {
+                            "name": "Highlight",
+                            "type": "style",
+                            "value": "#panel-1337 { border: 2px dashed yellow; }"
+                        },
+                        {
+                            "name": "Upgrade",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Unhighlight",
+                            "type": "style",
+                            "value": "#panel-1337 { border: none; }"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Home Dashboard",
+            "uid": "pmm-home",
+            "operations": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "Menus",
+                    "steps": [
+                        {
+                            "name": "Grafana Left Side Menu",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".sidemenu",
+                            "viewport": {
+                                "comment": "Viewport shrinks vertical menu to avoid ugly space",
+                                "width": 900,
+                                "height": 720
+                            }
+                        },
+                        {
+                            "name": "Top Navigation Bar",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".page-toolbar",
+                            "viewport": {
+                                "width": 900,
+                                "height": 1080
+                            }
+                        },
+                        {
+                            "name": "Submenu Bar",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": ".submenu-controls",
+                            "viewport": {
+                                "width": 900,
+                                "height": 1080
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Panels",
+                    "viewport": {
+                        "width": 1280,
+                        "height": 1280
+                    },
+                    "steps": [
+                        {
+                            "name": "Failed Advisors",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[aria-label='Failed Advisors panel']"
+                        },
+                        {
+                            "name": "Upgrade",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[aria-label='PMM Upgrade panel']"
+                        }
+                    ]
+                },
+                {
+                    "name": "Search",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "press",
+                            "value": [
+                                "s",
+                                "o"
+                            ]
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "String",
+                            "type": "press",
+                            "comment": "Type search string ('instances'). Assumes focus remains on just-opened search.",
+                            "value": [
+                                "i",
+                                "n",
+                                "s",
+                                "t",
+                                "a",
+                                "n",
+                                "c",
+                                "e",
+                                "s"
+                            ]
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 5000
+                        },
+                        {
+                            "name": "String",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "close",
+                            "type": "press",
+                            "comment": "Close search dialogue without clicking X button",
+                            "value": [
+                                "Escape"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Common",
+            "uid": "node-cpu-process",
+            "comment": "Any valid UID will do, just for snapping common devices",
+            "viewport": {
+                "width": 1280,
+                "height": 720
             },
-            {
-              "name": "",
-              "type": "snap"
+            "operations": [
+                {
+                    "name": "Controls",
+                    "steps": [
+                        {
+                            "name": "Annotation Toggle",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[for='switch-1']"
+                        }
+                    ]
+                },
+                {
+                    "name": "Panel Menu",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "snap",
+                            "locator": "css",
+                            "selector": "[aria-label='Dashboard submenu']"
+                        },
+                        {
+                            "name": "Share",
+                            "type": "press",
+                            "comment": "Open share menu using keyboard shortcut",
+                            "value": [
+                                "p",
+                                "s"
+                            ]
+                        },
+                        {
+                            "name": "Hide URL",
+                            "type": "style",
+                            "value": ".css-1w5c5dq-input-inputWrapper { filter: blur(3px) }"
+                        },
+                        {
+                            "name": "Share",
+                            "type": "snap",
+                            "comment": "Image filename for when plugin is installed"
+                        },
+                        {
+                            "name": "Share Link Missing Plugins",
+                            "type": "snap",
+                            "comment": "If plugin not installed"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "name": "Swagger API",
+            "uid": "swagger",
+            "url": "swagger/",
+            "viewport": {
+                "width": 1280,
+                "height": 950
             },
-            {
-              "name": "Add",
-              "type": "click",
-              "locator": "css",
-              "selector": "[data-qa='notification-channel-add-modal-button']"
-            },
-            {
-              "name": "wait for load",
-              "type": "wait",
-              "value": 1000
-            },
-            {
-              "name": "Add Form",
-              "type": "snap"
-            }
-          ]
+            "operations": [
+                {
+                    "name": "Get Logs",
+                    "steps": [
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "View",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Execute",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "div.wrapper:nth-child(4) > section:nth-child(1) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
+                        },
+                        {
+                            "name": "Wait",
+                            "type": "wait",
+                            "value": 10000
+                        },
+                        {
+                            "name": "Execute",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Integrated Alerting",
+            "uid": "integrated-alerting",
+            "url": "graph/integrated-alerting",
+            "operations": [
+                {
+                    "name": "Alerts",
+                    "steps": [
+                        {
+                            "name": "",
+                            "type": "snap"
+                        }
+                    ]
+                },
+                {
+                    "name": "Alert Rules",
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab Alert Rules']"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='alert-rule-template-add-modal-button']",
+                            "viewport": {
+                                "comment": "Viewport shrinks vertical menu to avoid ugly space",
+                                "width": 1280,
+                                "height": 1000
+                            }
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "Add Form",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Integrated Alerting",
+            "uid": "integrated-alerting",
+            "url": "graph/integrated-alerting",
+            "operations": [
+                {
+                    "name": "Alert Rule Templates",
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab Alert Rule Templates']"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='alert-rule-template-add-modal-button']"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "Add Form",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "skip": true,
+            "comment": "Restricted",
+            "name": "Integrated Alerting",
+            "uid": "integrated-alerting",
+            "url": "graph/integrated-alerting",
+            "operations": [
+                {
+                    "name": "Notification Channels",
+                    "steps": [
+                        {
+                            "name": "Select",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[aria-label='Tab Notification Channels']"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 3000
+                        },
+                        {
+                            "name": "",
+                            "type": "snap"
+                        },
+                        {
+                            "name": "Add",
+                            "type": "click",
+                            "locator": "css",
+                            "selector": "[data-qa='notification-channel-add-modal-button']"
+                        },
+                        {
+                            "name": "wait for load",
+                            "type": "wait",
+                            "value": 1000
+                        },
+                        {
+                            "name": "Add Form",
+                            "type": "snap"
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

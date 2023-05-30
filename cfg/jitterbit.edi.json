@@ -15,7 +15,7 @@
         "debug": true,
         "randlen": 6,
         "video": false,
-        "trace": false
+        "trace": true
     },
     "instance": {
         "qa-red": {

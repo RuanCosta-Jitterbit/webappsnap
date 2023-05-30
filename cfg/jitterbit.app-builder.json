@@ -15,7 +15,7 @@
         "debug": false,
         "randlen": 6,
         "video": false,
-        "trace": false
+        "trace": true
     },
     "instance": {
         "qa-green": {
@@ -2613,14 +2613,6 @@
                             "name": "wait",
                             "type": "wait",
                             "value": 2000
-                        }
-                    ]
-                },
-                {
-                    "name": "quit now",
-                    "steps": [
-                        {
-                            "type": "quit"
                         }
                     ]
                 }
