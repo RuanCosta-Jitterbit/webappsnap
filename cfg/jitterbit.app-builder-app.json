@@ -13,7 +13,9 @@
         "headless": true,
         "slowmo": 0,
         "debug": false,
-        "randlen": 6
+        "randlen": 6,
+        "video": false,
+        "trace": false
     },
     "instance": {
         "blankapp": {

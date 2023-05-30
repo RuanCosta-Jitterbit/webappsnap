@@ -14,7 +14,8 @@
         "slowmo": 0,
         "debug": true,
         "randlen": 6,
-        "video": false
+        "video": false,
+        "trace": false
     },
     "instance": {
         "qa-red": {
