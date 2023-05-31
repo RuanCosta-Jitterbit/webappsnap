@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This program automates the task of taking screenshots of web applications. It is a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium browser. (You can optionally record a `webm` video of the session.) You define the actions in a JSON file. (See examples in the `cfg` directory.)
+This program uses [Playwright](https://playwright.dev) to take screenshots of web applications. It runs on Windows, Linux, and macOS.
+
+Instead of writing Playwright code, you create a JSON file containing a sequence of actions to run in a browser. (For examples, see the `cfg` directory.)
 
 ## Install
 
