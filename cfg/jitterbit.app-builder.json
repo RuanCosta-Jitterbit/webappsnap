@@ -14,7 +14,8 @@
         "slowmo": 0,
         "debug": false,
         "randlen": 6,
-        "video": false
+        "video": false,
+        "trace": true
     },
     "instance": {
         "qa-green": {
@@ -2612,14 +2613,6 @@
                             "name": "wait",
                             "type": "wait",
                             "value": 2000
-                        }
-                    ]
-                },
-                {
-                    "name": "quit now",
-                    "steps": [
-                        {
-                            "type": "quit"
                         }
                     ]
                 }

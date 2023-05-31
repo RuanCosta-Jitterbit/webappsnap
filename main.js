@@ -37,6 +37,7 @@ if (!argv.instance) {
         (settings.timestamp ? timestamp : ''),
         argv.instance); // Images save path
     const ext = settings.ext;   // Image file extension (png/jpg)
+    const trace_file = path.join(dir, "trace.zip");
     mkdir(dir);    // Create image save directory TODO move to snap function
 
     if (settings.debug) {
@@ -54,6 +55,7 @@ if (!argv.instance) {
         console.log(`SlowMo value: ${settings.slowmo / 1000} seconds`);
         console.log(`Headless mode: ${Boolean(settings.headless)}`);
         console.log(`Record video: ${Boolean(settings.video)}`);
+        console.log(`Trace: ${Boolean(settings.trace)}${settings.trace ? ' (' + trace_file + ')' : ''}`);
         console.log(`Snap container panels beyond viewport (--full): ${Boolean(argv.full)}`);
     }
 
@@ -90,6 +92,9 @@ if (!argv.instance) {
         };
     }
     const context = await browser.newContext(context_options);
+    if (settings.trace) {
+        await context.tracing.start({ screenshots: true, snapshots: true });
+    }
     var page = await context.newPage();
 
     // Can specify up to 6 custom page prefixes
@@ -258,6 +263,9 @@ if (!argv.instance) {
                         switch (step.type) {
                             // Flow control
                             case "quit":
+                                if (settings.trace) {
+                                    await context.tracing.stop({ path: trace_file });
+                                }
                                 browser.close();
                                 process.exit(0);
                                 break; // fwiw
@@ -378,6 +386,9 @@ if (!argv.instance) {
             await viewport(page, current_page_vp, instance.wait);
         }
     } // for pages
+    if (settings.trace) {
+        await context.tracing.stop({ path: trace_file });
+    }
     await context.close();
     await browser.close();
 })();

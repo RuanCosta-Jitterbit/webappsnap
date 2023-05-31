@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This program automates the task of taking screenshots of web applications. It is a Node.js command line program that runs on Windows, Linux, and macOS. It uses [Playwright](https://playwright.dev) to programmatically run a set of actions on an app running in a Chromium browser. (You can optionally record a `webm` video of the session.) You define the actions in a JSON file. (See examples in the `cfg` directory.)
+This program uses [Playwright](https://playwright.dev) to take screenshots of web applications. It runs on Windows, Linux, and macOS.
+
+Instead of writing Playwright code, you create a JSON file containing a sequence of actions to run in a browser. (For examples, see the `cfg` directory.)
 
 ## Install
 
@@ -61,7 +63,7 @@ The configuration file is a JSON schema with three subschemas:
 
   > Pages, operations, and steps of different types are the building blocks for specifying how to interact with an app, and what to save as screenshots.
 
-To snap whole pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's _selector_. For this, you should know how to use a browser's developer tools.
+To snap whole pages, you only need to know their URLs. To interact with buttons, menus, or text fields, or any elements of a web page, you also need to know the element's _selector_ (see [Selectors](#selectors)).
 
 ### `settings`
 
@@ -92,6 +94,11 @@ The `settings` subschema contains general settings for the snap:
 - `randlen`: Integer. How many bytes of random data to replace the token `RANDOM` in `text` step values.
 
 - `video`: `true` or `false`. If `true`, everything the browser does is captured as a `webm` video and saved in the same directory as the images.
+- `trace`: `true` or `false`. If `true`, everything the browser does is traced and saved in a `trace.zip` file in the same directory as the images. This file can be analyzed using the [Playwright Trace Viewer], run with this command:
+
+  ```sh
+  npx playwright show-trace <path/to>/trace.zip
+  ```
 
 ### `instance`
 
@@ -169,7 +176,7 @@ The `pages` subschema is an array where each element defines a page of the web a
 
 ### `operations`
 
-The `operations` property is an array, each item containing one or more steps.  You can have as many operations as you need for naming snaps or grouping steps.  Each array item is a JSON schema with the following properties:
+The `operations` property is an array, each item containing one or more steps. You can have as many operations as you need for naming snaps or grouping steps. Each array item is a JSON schema with the following properties:
 
 - `skip`: `true` or `false`. (Optional) Set to `true` to skip this operation.
 - `name`: String. (Optional) A name for this operation. Included in the image path or filename. Can contain or end with slashes and works the same way as `pages.name`.
@@ -379,24 +386,46 @@ The image path is a concatenation of the following parts:
 - `settings.dir`: The base directory.
 - (If `settings.timestamp` is `true`) The current date-time, in the format `YYYYMMDD_HHmmss`.
 - `instance.<instance name>`: The instance name used for the run.
-- (If `settings.seq` is `true`): A zero-padded integer, incremented for each saved image, separated from the next file name element with the character in `settings.sep`.
-- (If `settings.pfx` is non-empty): The value, separated from the next file name element with the character in `settings.sep`.
+- (If `settings.seq` is `true`): A zero-padded integer, incremented for each saved image, separated from the next filename element with the character in `settings.sep`.
+- (If `settings.pfx` is non-empty): The value, separated from the next filename element with the character in `settings.sep`.
 - Concatenation of non-empty values for page `name`, operation `name`, and step `name`. Page and operation names can contain and end with path separator characters to create subdirectories.
-- `settings.ext`: The file name suffix, which also determines the image file type.
+- `settings.ext`: The filename suffix, which also determines the image file type.
 
-After this concatenation, the full path is separated into the directory part (`dirname`) and the file name (`basename`).
+After this concatenation, the full path is separated into the directory part (`dirname`) and the filename (`basename`).
 
 Dots, spaces, and back slashes in the basename are replaced with the character in `settings.sep`.
 
 The dirname is left untouched.
 
-If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's file name is suffixed with `_full`.
+If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's filename is suffixed with `_full`.
+
+## Selectors
+
+A selector identifies elements of a web app. In Playwright, a _locator_ is a combination of a selector, and the method for finding that selector.
+
+The hardest part of configuration is finding the selectors for what you want to interact with and snap. Defining reliable selectors is a process of trial and error. Playwright can fail to find a selector for various reasons:
+
+- The design of the app's layout has changed, or elements have been renamed.
+- One selector may point to more than one element.
+- Elements can be obscured, or take time to become visible.
+
+There are two ways to find selectors:
+
+1. Use the browser's inspection tool (known as **Developer Tools** on Google Chrome, **Web Developer Tools** on Firefox, or **Show Web Inspector** on Safari, after enabling in Advanced settings). In the web app, right click an element and choose **Inspect** (Chrome, Firefox), or **Inspect Element**. The tools open with the selected element highlighted. Right-click on the element in the tools pane and select **Copy > Copy Selector** (Chrome), **Copy > Copy CSS Selector** (Firefox), or **Copy > Copy Selector Path** (Safari). Paste the copied value into the step's `selector` value, and set `locator` to `css`.
+2. Use the [Playwright Test Generator]. This lets you interact with an app while the tool writes Playwright code for each action. To run it, use this command:
+
+   ```sh
+   npx playwright codegen
+   ```
+
+   When the browser opens, enter your app's URL and interact with it. The browser shows the Playwright locator for the currently focused element. Use this to find the best selector and locator type (`css`, `getbytext`, `getbyrole`, `placeholder`, or `label`) to reliably pick the desired element. The adjacent **Playwright Inspector** window records the Playwright code to reproduce your actions. The code can be saved and tested [on the command line](https://playwright.dev/docs/running-tests) or using a [VS Code extension](https://playwright.dev/docs/getting-started-vscode).
 
 ## Tips
 
 - If you see blank pages, increase the value for `instance.<instance name>.wait`. This is how long to wait after a page has loaded.
 - To see the browser as it works, set `settings.headless` to true.
 - To make a `webm` recording of what happens, set `settings.video` to true.
+- To see what Playwright calls are made at what time, set 'settings.trace` to true and use the [Playwright Trace Viewer].
 - While developing a long sequence of snaps, use `"skip": true` (at page, operation, or step levels) to skip each unit, and use the special step `"type": "quit"` to exit immediately. You can also turn on image sequence numbers with `settings.seq` and add run datetime stamps to the image directory with `settings.timestamp` set to true.
 
 [Percona]: https://www.percona.com/
@@ -404,3 +433,5 @@ If `--full` option is given, any `snap` type steps occur twice, once as specifie
 [PMM Demo]: https://pmmdemo.percona.com
 [Jitterbit]: https://www.jitterbit.com/
 [Harmony]: https://www.jitterbit.com/harmony/
+[Playwright Trace Viewer]: https://playwright.dev/docs/trace-viewer
+[Playwright Test Generator]: https://playwright.dev/docs/codegen-intro
