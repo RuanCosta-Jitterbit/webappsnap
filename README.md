@@ -399,6 +399,31 @@ The dirname is left untouched.
 
 If `--full` option is given, any `snap` type steps occur twice, once as specified, and once using the `instance.<instance name>.container` element. This snap's filename is suffixed with `_full`.
 
+## Selectors
+
+The hardest part of configuration is finding the selectors for what you want to interact with and snap.
+
+A selector identifies elements of a web app. In Playwright, a _locator_ is a combination of a selector, and the method for finding that selector.
+
+Playwright can fail to find a selector for many reasons:
+
+- The design of the app's layout has changed, or elements have been renamed.
+- One selector may point to more than one element.
+- Elements can be obscured, or take time to become visible.
+
+Defining reliable selectors is a process of trial and error.
+
+There are two ways to find selectors:
+
+1. Use the browser's inspection tool (known as **Developer Tools** on Google Chrome, **Web Developer Tools** on Firefox, or **Show Web Inspector** on Safari, after enabling in Advanced settings). In the web app, right click an element and choose **Inspect** (Chrome, Firefox), or **Inspect Element**. The tools open with the selected element highlighted. Right-click on the element in the tools pane and select **Copy > Copy Selector** (Chrome), **Copy > Copy CSS Selector** (Firefox), or **Copy > Copy Selector Path** (Safari). Paste the copied value into the step's `selector` value, and set `locator` to `css`.
+2. Use the [Playwright Test Generator]. This lets you interact with an app while the tool writes Playwright code for each action. To run it, use this command:
+
+  ```sh
+  npx playwright codegen
+  ```
+
+  When the browser opens, enter your app's URL and interact with it. The browser shows the Playwright locator for the currently focused element. Use this to find the best selector and locator type (`css`, `getbytext`, `getbyrole`, `placeholder`, or `label`) to reliably pick the desired element. The adjacent **Playwright Inspector** window records the Playwright code to reproduce your actions. The code can be saved and tested [on the command line](https://playwright.dev/docs/running-tests) or using a [VS Code extension](https://playwright.dev/docs/getting-started-vscode).
+
 ## Tips
 
 - If you see blank pages, increase the value for `instance.<instance name>.wait`. This is how long to wait after a page has loaded.
@@ -413,3 +438,4 @@ If `--full` option is given, any `snap` type steps occur twice, once as specifie
 [Jitterbit]: https://www.jitterbit.com/
 [Harmony]: https://www.jitterbit.com/harmony/
 [Playwright Trace Viewer]: https://playwright.dev/docs/trace-viewer
+[Playwright Test Generator]: https://playwright.dev/docs/codegen-intro
