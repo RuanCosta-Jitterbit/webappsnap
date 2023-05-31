@@ -401,17 +401,13 @@ If `--full` option is given, any `snap` type steps occur twice, once as specifie
 
 ## Selectors
 
-The hardest part of configuration is finding the selectors for what you want to interact with and snap.
-
 A selector identifies elements of a web app. In Playwright, a _locator_ is a combination of a selector, and the method for finding that selector.
 
-Playwright can fail to find a selector for many reasons:
+The hardest part of configuration is finding the selectors for what you want to interact with and snap. Defining reliable selectors is a process of trial and error. Playwright can fail to find a selector for various reasons:
 
 - The design of the app's layout has changed, or elements have been renamed.
 - One selector may point to more than one element.
 - Elements can be obscured, or take time to become visible.
-
-Defining reliable selectors is a process of trial and error.
 
 There are two ways to find selectors:
 
