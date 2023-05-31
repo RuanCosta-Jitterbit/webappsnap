@@ -2,13 +2,27 @@
 
 ## Introduction
 
-This program uses [Playwright](https://playwright.dev) to take screenshots of web applications. It runs on Windows, Linux, and macOS.
+This program takes screenshots of web applications.
 
-Instead of writing Playwright code, you create a JSON file containing a sequence of actions to run in a browser. (For examples, see the `cfg` directory.)
+It reads a JSON [configuration](#configuration) file (see the `cfg` directory for examples) that defines a list of [pages](#pages) (URLs) to load, and what [operations](#operations) and [steps](#steps) to perform in each. The available steps are a subset of [Playwright](https://playwright.dev) calls.
+
+## Contents
+
+- [Install](#install): What to install before you can start.
+- [Quick Start](#quick-start): Run the program with a sample configuration file that runs a browser query and takes a screenshot.
+- [Usage](#usage): The program's options.
+- [Configuration](#configuration): The structure of a configuration file.
+- [How it works](#how-it-works): A simple explanation of how the program works.
+- [Selectors](#selectors): How to find the names of the elements of an app.
+- [Tips](#tips): Guidance for common problems.
 
 ## Install
 
-The program is a Node.js script. Before you run it, follow these steps:
+The program is a Node.js script.
+
+It runs on Windows, Linux, and macOS.
+
+Before you run it, follow these steps:
 
 1. Install [Node.js](https://nodejs.org/en/download/).
 2. Clone or otherwise get a copy of this repository, and save it on your system.
@@ -344,6 +358,11 @@ Steps are where the browser acts via a Playwright function. (The Playwright call
 
 ## How it works
 
+Pages, operations, and steps are processed by a loop in the program,
+
+A switch statement matches the step to the Playwright calls.
+
+
 `main.js` loops through `pages` (URLs) entries in the configuration file, processing each page, its operations and steps, one by one. If an operation has a `loop` value, that operation's steps are repeated that number of times. If a snap happens within a loop, a loop number suffix is added to the image filename.
 
 The basic structure of a pages configuration file is:
@@ -379,7 +398,7 @@ If `url` is set, `uid` is ignored and the URL is made by concatenating the follo
 
 If there is an `options` array, they are concatenated and appended to the URL.
 
-### Image File Names
+### Image Filenames
 
 The image path is a concatenation of the following parts:
 
@@ -425,7 +444,7 @@ There are two ways to find selectors:
 - If you see blank pages, increase the value for `instance.<instance name>.wait`. This is how long to wait after a page has loaded.
 - To see the browser as it works, set `settings.headless` to true.
 - To make a `webm` recording of what happens, set `settings.video` to true.
-- To see what Playwright calls are made at what time, set 'settings.trace` to true and use the [Playwright Trace Viewer].
+- To see what Playwright calls are made at what time, set `settings.trace` to true and use the [Playwright Trace Viewer].
 - While developing a long sequence of snaps, use `"skip": true` (at page, operation, or step levels) to skip each unit, and use the special step `"type": "quit"` to exit immediately. You can also turn on image sequence numbers with `settings.seq` and add run datetime stamps to the image directory with `settings.timestamp` set to true.
 
 [Percona]: https://www.percona.com/
