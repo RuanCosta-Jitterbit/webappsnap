@@ -1,1074 +1,1241 @@
 {
-    "settings": {
-        "dir": "./images/jitterbit/edi",
-        "timestamp": true,
-        "seq": false,
-        "pfx": "",
-        "sep": "-",
-        "ext": ".png",
-        "width": 1800,
-        "height": 945,
-        "scale": 2,
-        "jpg_quality": 75,
-        "headless": true,
-        "slowmo": 0,
-        "debug": true,
-        "randlen": 6,
-        "video": false,
-        "trace": true
+  "settings": {
+    "dir": "./images/jitterbit/edi",
+    "timestamp": true,
+    "seq": false,
+    "pfx": "",
+    "sep": "-",
+    "ext": ".png",
+    "width": 1800,
+    "height": 945,
+    "scale": 2,
+    "jpg_quality": 75,
+    "headless": true,
+    "slowmo": 0,
+    "debug": true,
+    "randlen": 6,
+    "video": false,
+    "trace": true
+  },
+  "instance": {
+    "qa-red": {
+      "server": "https://apps.qa-red.jitterbit.com",
+      "a": "edi",
+      "b": "",
+      "c": "",
+      "d": "",
+      "e": "",
+      "f": "",
+      "wait": 25000,
+      "pause": 5000,
+      "secret": "./.secret-qar.json"
     },
-    "instance": {
-        "qa-red": {
-            "server": "https://apps.qa-red.jitterbit.com",
-            "a": "edi",
-            "b": "",
-            "c": "",
-            "d": "",
-            "e": "",
-            "f": "",
-            "wait": 25000,
-            "pause": 5000,
-            "secret": "./.secret-qar.json"
-        },
-        "qa-green": {
-            "server": "https://apps.qa-green.jitterbit.com",
-            "a": "edi",
-            "b": "",
-            "c": "",
-            "d": "",
-            "e": "",
-            "f": "",
-            "wait": 10000,
-            "pause": 5000,
-            "secret": "./.secret-qag.json"
-        },
-        "na-east": {
-            "server": "https://apps.na-east.jitterbit.com",
-            "a": "edi",
-            "b": "",
-            "c": "",
-            "d": "",
-            "e": "",
-            "f": "",
-            "wait": 20000,
-            "pause": 500,
-            "secret": "./.secret-nae.json"
-        }
+    "qa-green": {
+      "server": "https://apps.qa-green.jitterbit.com",
+      "a": "edi",
+      "b": "",
+      "c": "",
+      "d": "",
+      "e": "",
+      "f": "",
+      "wait": 10000,
+      "pause": 5000,
+      "secret": "./.secret-qag.json"
     },
-    "pages": [
+    "na-east": {
+      "server": "https://apps.na-east.jitterbit.com",
+      "a": "edi",
+      "b": "",
+      "c": "",
+      "d": "",
+      "e": "",
+      "f": "",
+      "wait": 20000,
+      "pause": 500,
+      "secret": "./.secret-nae.json"
+    }
+  },
+  "pages": [
+    {
+      "comment": "Login via Harmony portal",
+      "name": "login",
+      "uid": "",
+      "url": "",
+      "operations": [
         {
-            "comment": "Login via Harmony portal",
-            "name": "login",
-            "uid": "",
-            "url": "",
-            "operations": [
-                {
-                    "name": "harmony",
-                    "steps": [
-                        {
-                            "skip": true,
-                            "name": "Close cookie consent",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Do not show this message again"
-                        },
-                        {
-                            "name": "Username",
-                            "type": "text",
-                            "locator": "placeholder",
-                            "selector": "Email address",
-                            "value": "LOGIN"
-                        },
-                        {
-                            "name": "Enter",
-                            "type": "press",
-                            "value": [
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "name": "Password",
-                            "type": "text",
-                            "locator": "placeholder",
-                            "selector": "Password",
-                            "value": "PASSWORD"
-                        },
-                        {
-                            "name": "Enter",
-                            "type": "press",
-                            "value": [
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "skip": true,
-                            "comment": "change org for Alice",
-                            "name": "to set org",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "organization-menu"
-                        },
-                        {
-                            "skip": true,
-                            "name": "desired org",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "123 Company"
-                        },
-                        {
-                            "name": "for login",
-                            "type": "wait",
-                            "value": 5000
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": false,
-            "comment": "Add partner",
-            "name": "admin/",
-            "uid": "",
-            "url": "console/edi/admin",
-            "operations": [
-                {
-                    "skip": false,
-                    "name": "change visible login details",
-                    "steps": [
-                        {
-                            "name": "change username",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> span.menu-name",
-                            "value": "Jan"
-                        },
-                        {
-                            "name": "change org name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> span.org-name",
-                            "value": "ABC Company"
-                        },
-                        {
-                            "name": "change org number",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
-                            "value": " (12345)"
-                        }
-                    ]
-                },
-                {
-                    "skip": false,
-                    "name": "general/",
-                    "steps": [
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "environment",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".environment-selector"
-                        },
-                        {
-                            "name": "search and add",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 15,
-                                    "y": 160,
-                                    "height": 50,
-                                    "width": 380
-                                }
-                            }
-                        },
-                        {
-                            "name": "top name view controls",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 15,
-                                    "y": 105,
-                                    "height": 55,
-                                    "width": 380
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "partner/",
-                    "steps": [
-                        {
-                            "name": "pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnersLeftPanel",
-                            "options": {
-                                "crop": {
-                                        "left": 0,
-                                        "top": 0,
-                                        "height": 350,
-                                        "width": 403
-                                }
-                            }
-                        },
-                        {
-                            "name": "add new",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Add Trading Partner"
-                        },
-                        {
-                            "name": "for partners load",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "name": "add",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "add partner",
-                            "type": "dblclick",
-                            "locator": "css",
-                            "selector": "console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(3) > div.trading-partner-grid-square"
-                        },
-                        {
-                            "name": "for partner add",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "skip": true,
-                            "comment": "Use with alice account first time only for ISA ID Generation",
-                            "name": "isa id generation",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='isa-modal show']"
-                        },
-                        {
-                            "name": "close partner panel",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[class='icon-close']"
-                        },
-                        {
-                            "name": "select first partner",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
-                        },
-                        {
-                            "name": "added",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": false,
-            "comment": "Transactions page",
-            "name": "transactions/",
-            "uid": "",
-            "url": "console/edi/transactions",
-            "operations": [
-                {
-                    "name": "change visible login details",
-                    "steps": [
-                        {
-                            "name": "change username",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> span.menu-name",
-                            "value": "Jan"
-                        },
-                        {
-                            "name": "change org name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> span.org-name",
-                            "value": "ABC Company"
-                        },
-                        {
-                            "name": "change org number",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
-                            "value": " (12345)"
-                        }
-                    ]
-                },
-                {
-                    "name": "general/",
-                    "steps": [
-                        {
-                            "skip": true,
-                            "comment": "not normally enabled",
-                            "name": "clear filters",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Clear All"
-                        },
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        },
-                        {
-                            "comment": "filters collapse button not part of an element",
-                            "name": "filter pane",
-                            "type": "snap",
-                            "options": {
-                                "clip": {
-                                    "x": 20,
-                                    "y": 140,
-                                    "width": 285,
-                                    "height": 550,
-                                    "comment": "height caters for at least one partner"
-                                }
-                            }
-                        },
-                        {
-                            "name": "page controls",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".transactions-table-container-paginator"
-                        },
-                        {
-                            "name": "search",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".transactions-table-container-search"
-                        },
-                        {
-                            "name": "actions",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".transactions-table-container-header"
-                        }
-                    ]
-                },
-                {
-                    "name": "detail/",
-                    "steps": [
-                        {
-                            "name": "reveal document information",
-                            "comment": "first transaction item is second row of table",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "transactions >> transactions-table >> .transactions-table-container-table > table > tbody > tr:nth-child(1)"
-                        },
-                        {
-                            "name": "document information",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "transactions-table-expanded-panel",
-                            "viewport": {
-                                "width": 1800,
-                                "height": 2000
-                            }
-                        },
-                        {
-                            "name": "reveal messages",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Messages"
-                        },
-                        {
-                            "name": "messages",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "transactions-table-expanded-panel"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": false,
-            "name": "admin/",
-            "uid": "",
-            "url": "console/edi/admin",
-            "operations": [
-                {
-                    "name": "change visible login details",
-                    "steps": [
-                        {
-                            "name": "change username",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> span.menu-name",
-                            "value": "Jan"
-                        },
-                        {
-                            "name": "change org name",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> span.org-name",
-                            "value": "ABC Company"
-                        },
-                        {
-                            "name": "change org number",
-                            "type": "edit",
-                            "locator": "css",
-                            "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
-                            "value": " (12345)"
-                        }
-                    ]
-                },
-                {
-                    "name": "select partner",
-                    "steps": [
-                        {
-                            "name": "select first partner",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
-                        }
-                    ]
-                },
-                {
-                    "name": "workflow/",
-                    "comment": "create but don't save workflow",
-                    "steps": [
-                        {
-                            "name": "add new workflow",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Add New Workflow"
-                        },
-                        {
-                            "type": "wait",
-                            "value": 3000
-                        },
-                        {
-                            "name": "add",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "close",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Cancel"
-                        }
-                    ]
-                },
-                {
-                    "name": "workflow/",
-                    "comment": "create and save workflow",
-                    "steps": [
-                        {
-                            "name": "select first partner",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
-                        },
-                        {
-                            "name": "add new workflow",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Add New Workflow"
-                        },
-                        {
-                            "type": "wait",
-                            "value": 3000
-                        },
-                        {
-                            "name": "open direction menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[name='direction']"
-                        },
-                        {
-                            "name": "set direction",
-                            "comment": "choose first item",
-                            "type": "press",
-                            "value": [
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "name": "open document type menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[name='document type']"
-                        },
-                        {
-                            "name": "set document type",
-                            "comment": "choose first item",
-                            "type": "press",
-                            "value": [
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "name": "open map menu",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[name='select map']"
-                        },
-                        {
-                            "name": "set map",
-                            "comment": "choose first item",
-                            "type": "press",
-                            "value": [
-                                "Enter"
-                            ]
-                        },
-                        {
-                            "name": "save workflow",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": ".save-button"
-                        },
-                        {
-                            "type": "wait",
-                            "value": 3000
-                        },
-                        {
-                            "name": "saved",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "saved pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        }
-                    ]
-                },
-                {
-                    "skip": true,
-                    "comment": "removed since 2023-04-24",
-                    "name": "archive settings",
-                    "steps": [
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Archive settings"
-                        },
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        }
-                    ]
-                },
-                {
-                    "name": "manage-pii/",
-                    "steps": [
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Manage PII"
-                        },
-                        {
-                            "name": "delete documents",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Purge documents"
-                        },
-                        {
-                            "name": "purge documents",
-                            "type": "snap"
-                        }
-                    ]
-                },
-                {
-                    "name": "edi-settings/",
-                    "steps": [
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "EDI settings"
-                        },
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        }
-                    ]
-                },
-                {
-                    "name": "edi-settings/",
-                    "steps": [
-                        {
-                            "name": "preferred id",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Address"
-                        },
-                        {
-                            "name": "address",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Terms"
-                        },
-                        {
-                            "name": "terms",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "References"
-                        },
-                        {
-                            "name": "references",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Control number"
-                        },
-                        {
-                            "name": "control number",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Envelope"
-                        },
-                        {
-                            "name": "envelope",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Advanced"
-                        },
-                        {
-                            "name": "advanced",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        }
-                    ]
-                },
-                {
-                    "comment": "Admin > Communication Settings",
-                    "steps": [
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Communication settings"
-                        }
-                    ]
-                },
-                {
-                    "name": "communication-settings/",
-                    "steps": [
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        },
-                        {
-                            "name": "my connections",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "my connections",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails",
-                            "options": {
-                                "clip": {
-                                    "x": 0,
-                                    "y": 0,
-                                    "width": 100,
-                                    "height": 100
-                                }
-                            }
-                        },
-                        {
-                            "type": "quit"
-                        }
-                    ]
-                },
-                {
-                    "comment": "Admin > Communication Settings > Create New FTP",
-                    "steps": [
-                        {
-                            "name": "select sub tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create new FTP"
-                        }
-                    ]
-                },
-                {
-                    "name": "communication-settings/create-new-ftp/",
-                    "steps": [
-                        {
-                            "name": "connection information",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "FTP details"
-                        },
-                        {
-                            "name": "ftp details",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Remote details"
-                        },
-                        {
-                            "name": "remote details",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "skip": true,
-                            "comment": "inactive",
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Automation"
-                        },
-                        {
-                            "skip": true,
-                            "comment": "Not yet active",
-                            "name": "automation",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        }
-                    ]
-                },
-                {
-                    "comment": "Admin > Communications Settings > Create New AS2",
-                    "steps": [
-                        {
-                            "name": "select sub tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Create new AS2"
-                        }
-                    ]
-                },
-                {
-                    "name": "communication-settings/create-new-as2/",
-                    "steps": [
-                        {
-                            "name": "connection information",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Proxy"
-                        },
-                        {
-                            "name": "proxy",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "HTTP authentication"
-                        },
-                        {
-                            "name": "http authentication",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "select tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Encryption"
-                        },
-                        {
-                            "name": "encryption",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        }
-                    ]
-                },
-                {
-                    "name": "communication-settings/create-new-as2/certificate/",
-                    "steps": [
-                        {
-                            "name": "select sub sub tab",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Certificate"
-                        },
-                        {
-                            "name": "pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        }
-                    ]
-                },
-                {
-                    "name": "communication-settings/create-new-as2/certificate/manage-my/",
-                    "steps": [
-                        {
-                            "name": "show manage my certificate",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[title='Refresh'] >> nth=0"
-                        },
-                        {
-                            "name": "pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "upload",
-                            "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "button",
-                            "options": {
-                                "name": "Upload"
-                            }
-                        },
-                        {
-                            "name": "upload",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "close",
-                            "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "button",
-                            "options": {
-                                "name": "Close"
-                            }
-                        },
-                        {
-                            "name": "generate",
-                            "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "button",
-                            "options": {
-                                "name": "Generate"
-                            }
-                        },
-                        {
-                            "name": "generate",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "close",
-                            "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "button",
-                            "options": {
-                                "name": "Close"
-                            }
-                        },
-                        {
-                            "name": "hide manage my certificate",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[title='Refresh'] >> nth=0"
-                        }
-                    ]
-                },
-                {
-                    "name": "communication-settings/create-new-as2/certificate/manage-partner/",
-                    "steps": [
-                        {
-                            "name": "show manage partner certificate",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[title='Refresh'] >> nth=1"
-                        },
-                        {
-                            "name": "pane",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "upload",
-                            "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "button",
-                            "options": {
-                                "name": "Upload"
-                            }
-                        },
-                        {
-                            "name": "upload",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": ".tradingPartnerDetails"
-                        },
-                        {
-                            "name": "close",
-                            "type": "click",
-                            "locator": "getbyrole",
-                            "selector": "button",
-                            "options": {
-                                "name": "Close"
-                            }
-                        },
-                        {
-                            "name": "hide manage partner certificate",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "[title='Refresh'] >> nth=1"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "comment": "Not yet implemented",
-            "name": "messaging",
-            "uid": "",
-            "url": "console/edi/messaging",
-            "operations": [
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": true,
-            "comment": "Not yet implemented",
-            "name": "archive",
-            "uid": "",
-            "url": "console/edi/archive",
-            "operations": [
-                {
-                    "name": "",
-                    "steps": [
-                        {
-                            "name": "page",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "skip": false,
-            "comment": "Delete partner(s)",
-            "name": "admin/",
-            "uid": "",
-            "url": "console/edi/admin",
-            "operations": [
-                {
-                    "name": "partner/",
-                    "steps": [
-                        {
-                            "name": "hover on first partner",
-                            "type": "move",
-                            "locator": "css",
-                            "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
-                        },
-                        {
-                            "name": "to delete",
-                            "type": "click",
-                            "locator": "css",
-                            "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1) > div.tradingPartnerGridSquare > div"
-                        },
-                        {
-                            "name": "for dialog",
-                            "type": "wait",
-                            "value": 2000
-                        },
-                        {
-                            "name": "delete",
-                            "type": "snap",
-                            "locator": "css",
-                            "selector": "[class='modal modal_content']"
-                        },
-                        {
-                            "comment": "delete",
-                            "name": "confirm delete",
-                            "type": "click",
-                            "locator": "getbytext",
-                            "selector": "Continue"
-                        },
-                        {
-                            "name": "for delete",
-                            "type": "wait",
-                            "value": 5000
-                        },
-                        {
-                            "skip": true,
-                            "name": "deleted",
-                            "type": "snap"
-                        }
-                    ]
-                }
-            ]
+          "name": "harmony",
+          "steps": [
+            {
+              "skip": true,
+              "name": "Close cookie consent",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Do not show this message again"
+            },
+            {
+              "name": "Username",
+              "type": "text",
+              "locator": "placeholder",
+              "selector": "Email address",
+              "value": "LOGIN"
+            },
+            {
+              "name": "Enter",
+              "type": "press",
+              "value": [
+                "Enter"
+              ]
+            },
+            {
+              "name": "Password",
+              "type": "text",
+              "locator": "placeholder",
+              "selector": "Password",
+              "value": "PASSWORD"
+            },
+            {
+              "name": "Enter",
+              "type": "press",
+              "value": [
+                "Enter"
+              ]
+            },
+            {
+              "skip": true,
+              "comment": "change org for Alice",
+              "name": "to set org",
+              "type": "click",
+              "locator": "css",
+              "selector": "organization-menu"
+            },
+            {
+              "skip": true,
+              "name": "desired org",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "123 Company"
+            },
+            {
+              "name": "for login",
+              "type": "wait",
+              "value": 5000
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "skip": false,
+      "comment": "Add partner",
+      "name": "admin/",
+      "uid": "",
+      "url": "console/edi/admin",
+      "operations": [
+        {
+          "skip": false,
+          "name": "change visible login details",
+          "steps": [
+            {
+              "name": "change username",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> span.menu-name",
+              "value": "Jan"
+            },
+            {
+              "name": "change org name",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> span.org-name",
+              "value": "ABC Company"
+            },
+            {
+              "name": "change org number",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
+              "value": " (12345)"
+            }
+          ]
+        },
+        {
+          "skip": false,
+          "name": "general/",
+          "steps": [
+            {
+              "name": "page",
+              "type": "snap"
+            },
+            {
+              "name": "environment",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".environment-selector"
+            },
+            {
+              "name": "search and add",
+              "type": "snap",
+              "options": {
+                "clip": {
+                  "x": 15,
+                  "y": 160,
+                  "height": 50,
+                  "width": 380
+                }
+              }
+            },
+            {
+              "name": "top name view controls",
+              "type": "snap",
+              "options": {
+                "clip": {
+                  "x": 15,
+                  "y": 105,
+                  "height": 55,
+                  "width": 380
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "partner/",
+          "steps": [
+            {
+              "name": "pane",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnersLeftPanel",
+              "options": {
+                "crop": {
+                  "left": 0,
+                  "top": 0,
+                  "height": 350,
+                  "width": 403
+                }
+              }
+            },
+            {
+              "name": "add new",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Add Trading Partner"
+            },
+            {
+              "name": "for partners load",
+              "type": "wait",
+              "value": 5000
+            },
+            {
+              "name": "add",
+              "type": "snap"
+            },
+            {
+              "name": "add partner",
+              "type": "dblclick",
+              "locator": "css",
+              "selector": "console > div > div.app-content > partners > div > div.tradingPartnersRightPanel > add-partner > div > div > div.all-trading-partners-grid > div:nth-child(3) > div.trading-partner-grid-square"
+            },
+            {
+              "name": "for partner add",
+              "type": "wait",
+              "value": 5000
+            },
+            {
+              "skip": true,
+              "comment": "Use with alice account first time only for ISA ID Generation",
+              "name": "isa id generation",
+              "type": "snap",
+              "locator": "css",
+              "selector": "[class='isa-modal show']"
+            },
+            {
+              "name": "close partner panel",
+              "type": "click",
+              "locator": "css",
+              "selector": "[class='icon-close']"
+            },
+            {
+              "name": "select first partner",
+              "type": "click",
+              "locator": "css",
+              "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
+            },
+            {
+              "name": "added",
+              "type": "snap"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skip": false,
+      "comment": "Transactions page",
+      "name": "transactions/",
+      "uid": "",
+      "url": "console/edi/transactions",
+      "operations": [
+        {
+          "name": "change visible login details",
+          "steps": [
+            {
+              "name": "change username",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> span.menu-name",
+              "value": "Jan"
+            },
+            {
+              "name": "change org name",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> span.org-name",
+              "value": "ABC Company"
+            },
+            {
+              "name": "change org number",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
+              "value": " (12345)"
+            }
+          ]
+        },
+        {
+          "name": "general/",
+          "steps": [
+            {
+              "skip": true,
+              "comment": "not normally enabled",
+              "name": "clear filters",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Clear All"
+            },
+            {
+              "name": "page",
+              "type": "snap"
+            },
+            {
+              "comment": "filters collapse button not part of an element",
+              "name": "filter pane",
+              "type": "snap",
+              "options": {
+                "clip": {
+                  "x": 20,
+                  "y": 140,
+                  "width": 285,
+                  "height": 550,
+                  "comment": "height caters for at least one partner"
+                }
+              }
+            },
+            {
+              "name": "page controls",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".transactions-table-container-paginator"
+            },
+            {
+              "name": "search",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".transactions-table-container-search"
+            },
+            {
+              "name": "actions",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".transactions-table-container-header"
+            }
+          ]
+        },
+        {
+          "name": "detail/",
+          "steps": [
+            {
+              "name": "reveal document information",
+              "comment": "first transaction item is second row of table",
+              "type": "click",
+              "locator": "css",
+              "selector": "transactions >> transactions-table >> .transactions-table-container-table > table > tbody > tr:nth-child(1)"
+            },
+            {
+              "name": "document information",
+              "type": "snap",
+              "locator": "css",
+              "selector": "transactions-table-expanded-panel",
+              "viewport": {
+                "width": 1800,
+                "height": 2000
+              }
+            },
+            {
+              "name": "reveal messages",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Messages"
+            },
+            {
+              "name": "messages",
+              "type": "snap",
+              "locator": "css",
+              "selector": "transactions-table-expanded-panel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skip": false,
+      "name": "admin/",
+      "uid": "",
+      "url": "console/edi/admin",
+      "operations": [
+        {
+          "name": "change visible login details",
+          "steps": [
+            {
+              "name": "change username",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> span.menu-name",
+              "value": "Jan"
+            },
+            {
+              "name": "change org name",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> span.org-name",
+              "value": "ABC Company"
+            },
+            {
+              "name": "change org number",
+              "type": "edit",
+              "locator": "css",
+              "selector": "console >> site-header >> organization-menu >> span > span:nth-child(1) > span:nth-child(2)",
+              "value": " (12345)"
+            }
+          ]
+        },
+        {
+          "name": "select partner",
+          "steps": [
+            {
+              "name": "select first partner",
+              "type": "click",
+              "locator": "css",
+              "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
+            }
+          ]
+        },
+        {
+          "name": "workflow/",
+          "comment": "create but don't save workflow",
+          "steps": [
+            {
+              "name": "add new workflow",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Add New Workflow"
+            },
+            {
+              "type": "wait",
+              "value": 3000
+            },
+            {
+              "name": "add",
+              "type": "snap"
+            },
+            {
+              "name": "close",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Cancel"
+            }
+          ]
+        },
+        {
+          "name": "workflow/",
+          "comment": "create and save workflow",
+          "steps": [
+            {
+              "name": "select first partner",
+              "type": "click",
+              "locator": "css",
+              "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div > div.tradingPartnerGridSquare >> nth=0"
+            },
+            {
+              "name": "add new workflow",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Add New Workflow"
+            },
+            {
+              "type": "wait",
+              "value": 3000
+            },
+            {
+              "name": "open direction menu",
+              "type": "click",
+              "locator": "css",
+              "selector": "[name='direction']"
+            },
+            {
+              "name": "set direction",
+              "comment": "choose first item",
+              "type": "press",
+              "value": [
+                "Enter"
+              ]
+            },
+            {
+              "name": "open document type menu",
+              "type": "click",
+              "locator": "css",
+              "selector": "[name='document type']"
+            },
+            {
+              "name": "set document type",
+              "comment": "choose first item",
+              "type": "press",
+              "value": [
+                "Enter"
+              ]
+            },
+            {
+              "name": "open map menu",
+              "type": "click",
+              "locator": "css",
+              "selector": "[name='select map']"
+            },
+            {
+              "name": "set map",
+              "comment": "choose first item",
+              "type": "press",
+              "value": [
+                "Enter"
+              ]
+            },
+            {
+              "name": "save workflow",
+              "type": "click",
+              "locator": "css",
+              "selector": ".save-button"
+            },
+            {
+              "type": "wait",
+              "value": 3000
+            },
+            {
+              "name": "saved",
+              "type": "snap"
+            },
+            {
+              "name": "saved pane",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            }
+          ]
+        },
+        {
+          "skip": true,
+          "comment": "removed since 2023-04-24",
+          "name": "archive settings",
+          "steps": [
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Archive settings"
+            },
+            {
+              "name": "page",
+              "type": "snap"
+            }
+          ]
+        },
+        {
+          "name": "manage-pii/",
+          "steps": [
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Manage PII"
+            },
+            {
+              "name": "delete documents",
+              "type": "snap"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Purge documents"
+            },
+            {
+              "name": "purge documents",
+              "type": "snap"
+            }
+          ]
+        },
+        {
+          "name": "edi-settings/",
+          "steps": [
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "EDI settings"
+            },
+            {
+              "name": "page",
+              "type": "snap"
+            }
+          ]
+        },
+        {
+          "name": "edi-settings/",
+          "steps": [
+            {
+              "name": "preferred id",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Address"
+            },
+            {
+              "name": "address",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Terms"
+            },
+            {
+              "name": "terms",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "References"
+            },
+            {
+              "name": "references",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Control number"
+            },
+            {
+              "name": "control number",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Envelope"
+            },
+            {
+              "name": "envelope",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Advanced"
+            },
+            {
+              "name": "advanced",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            }
+          ]
+        },
+        {
+          "comment": "Admin > Communication Settings",
+          "steps": [
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Communication settings"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/",
+          "steps": [
+            {
+              "name": "page",
+              "type": "snap"
+            },
+            {
+              "name": "my connections",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "skip": true,
+              "name": "my connections",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails",
+              "options": {
+                "crop": {
+                  "left": 0,
+                  "top": 0,
+                  "width": 100,
+                  "height": 100
+                }
+              }
+            }
+          ]
+        },
+        {
+          "comment": "Admin > Communication Settings > Create New FTP",
+          "steps": [
+            {
+              "name": "select sub tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Create new FTP"
+            }
+          ]
+        },
+        {
+          "comment": "Add details to Connection Information tab",
+          "steps": [
+            {
+              "comment": "Connection Information tab is open by default",
+              "name": "Name",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.input-container:nth-child(2) > div.input-wrapper > input",
+              "value": "My FTP Connection"
+            },
+            {
+              "name": "Login 1",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.input-container:nth-child(3) > div.input-wrapper > input",
+              "value": "myusername"
+            },
+            {
+              "name": "Password 1",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.input-container:nth-child(4) > div.input-wrapper > input",
+              "value": "RANDOM"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "FTP details"
+            },
+            {
+              "name": "Address",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.input-container.address > div.input-wrapper > input",
+              "value": "ftp.example.com"
+            },
+            {
+              "name": "Port",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.input-container.port > div.input-wrapper > input",
+              "value": "21"
+            },
+            {
+              "name": "Open Protocol menu",
+              "type": "click",
+              "locator": "css",
+              "selector": ".ftp-details-container > :nth-child(3) > dropdown"
+            },
+            {
+              "name": "Choose protocol",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='FTP']"
+            },
+            {
+              "name": "Open Security menu",
+              "type": "click",
+              "locator": "css",
+              "selector": ".ftp-details-container > :nth-child(4) > dropdown"
+            },
+            {
+              "name": "Choose security",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='None']"
+            },
+            {
+              "name": "Open Mode menu",
+              "type": "click",
+              "locator": "css",
+              "selector": ".ftp-details-container > :nth-child(5) > dropdown"
+            },
+            {
+              "name": "Choose Mode",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='Passive']"
+            }
+          ]
+        },
+        {
+          "comment": "Add details to Remote Details tab",
+          "steps": [
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Remote details"
+            },
+            {
+              "name": "Remote download folder",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.remote-details-container.top .input-container.remote-download-folder .input-wrapper input",
+              "value": "/tmp/download"
+            },
+            {
+              "name": "Remote upload folder",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.remote-details-container.top .input-container.remote-upload-folder .input-wrapper input",
+              "value": "/tmp/upload"
+            },
+            {
+              "name": "Remote upload file name",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.remote-details-container.bottom .input-container.remote-upload-file-name input",
+              "value": "upload-file"
+            },
+            {
+              "name": "Remote upload file extension",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.remote-details-container.bottom .input-container.remote-upload-file-extension input",
+              "value": ".txt"
+            },
+            {
+              "name": "Remote download file name start index",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.remote-details-container.bottom .input-container.remote-download-file-name-start-index input",
+              "value": "001"
+            },
+            {
+              "name": "Remote download file name end index",
+              "type": "text",
+              "locator": "css",
+              "selector": "div.remote-details-container.bottom .input-container.remote-download-file-name-end-index input",
+              "value": "999"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/create-new-ftp/",
+          "comment": "Snap tabs with fields now populated as above",
+          "steps": [
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Connection information"
+            },
+            {
+              "name": "connection information",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "FTP details"
+            },
+            {
+              "name": "ftp details",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Remote details"
+            },
+            {
+              "name": "remote details",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "skip": true,
+              "comment": "inactive",
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Automation"
+            },
+            {
+              "skip": true,
+              "comment": "Not yet active",
+              "name": "automation",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            }
+          ]
+        },
+        {
+          "comment": "Save the example FTP connection",
+          "steps": [
+            {
+              "name": "Save",
+              "type": "click",
+              "locator": "css",
+              "selector": "button.save-button"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/",
+          "steps": [
+            {
+              "name": "page new ftp",
+              "type": "snap"
+            },
+            {
+              "name": "my connections new ftp",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            }
+          ]
+        },
+        {
+          "comment": "Admin > Communication Settings > Create New AS2",
+          "steps": [
+            {
+              "name": "select sub tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Create new AS2"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/create-new-as2/",
+          "steps": [
+            {
+              "name": "connection information",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Proxy"
+            },
+            {
+              "name": "proxy",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "HTTP authentication"
+            },
+            {
+              "name": "http authentication",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "select tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Encryption"
+            },
+            {
+              "name": "encryption",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/create-new-as2/certificate/",
+          "steps": [
+            {
+              "name": "select sub sub tab",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Certificate"
+            },
+            {
+              "name": "pane",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/create-new-as2/certificate/manage-my/",
+          "steps": [
+            {
+              "name": "show manage my certificate",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='Refresh'] >> nth=0"
+            },
+            {
+              "name": "pane",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "upload",
+              "type": "click",
+              "locator": "getbyrole",
+              "selector": "button",
+              "options": {
+                "name": "Upload"
+              }
+            },
+            {
+              "name": "upload",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "close",
+              "type": "click",
+              "locator": "getbyrole",
+              "selector": "button",
+              "options": {
+                "name": "Close"
+              }
+            },
+            {
+              "name": "generate",
+              "type": "click",
+              "locator": "getbyrole",
+              "selector": "button",
+              "options": {
+                "name": "Generate"
+              }
+            },
+            {
+              "name": "generate",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "close",
+              "type": "click",
+              "locator": "getbyrole",
+              "selector": "button",
+              "options": {
+                "name": "Close"
+              }
+            },
+            {
+              "name": "hide manage my certificate",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='Refresh'] >> nth=0"
+            }
+          ]
+        },
+        {
+          "name": "communication-settings/create-new-as2/certificate/manage-partner/",
+          "steps": [
+            {
+              "name": "show manage partner certificate",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='Refresh'] >> nth=1"
+            },
+            {
+              "name": "pane",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "upload",
+              "type": "click",
+              "locator": "getbyrole",
+              "selector": "button",
+              "options": {
+                "name": "Upload"
+              }
+            },
+            {
+              "name": "upload",
+              "type": "snap",
+              "locator": "css",
+              "selector": ".tradingPartnerDetails"
+            },
+            {
+              "name": "close",
+              "type": "click",
+              "locator": "getbyrole",
+              "selector": "button",
+              "options": {
+                "name": "Close"
+              }
+            },
+            {
+              "name": "hide manage partner certificate",
+              "type": "click",
+              "locator": "css",
+              "selector": "[title='Refresh'] >> nth=1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skip": true,
+      "comment": "Not yet implemented",
+      "name": "messaging",
+      "uid": "",
+      "url": "console/edi/messaging",
+      "operations": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "name": "page",
+              "type": "snap"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skip": true,
+      "comment": "Not yet implemented",
+      "name": "archive",
+      "uid": "",
+      "url": "console/edi/archive",
+      "operations": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "name": "page",
+              "type": "snap"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skip": false,
+      "comment": "Delete partner(s)",
+      "name": "admin/",
+      "uid": "",
+      "url": "console/edi/admin",
+      "operations": [
+        {
+          "name": "partner/",
+          "steps": [
+            {
+              "name": "hover on first partner",
+              "type": "move",
+              "locator": "css",
+              "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1)"
+            },
+            {
+              "name": "to delete",
+              "type": "click",
+              "locator": "css",
+              "selector": "console > div > div.app-content > partners > div > div.tradingPartnersLeftPanel > div.trading-partner-grid-list-container > div > div:nth-child(1) > div.tradingPartnerGridSquare > div"
+            },
+            {
+              "name": "for dialog",
+              "type": "wait",
+              "value": 2000
+            },
+            {
+              "name": "delete",
+              "type": "snap",
+              "locator": "css",
+              "selector": "[class='modal modal_content']"
+            },
+            {
+              "comment": "delete",
+              "name": "confirm delete",
+              "type": "click",
+              "locator": "getbytext",
+              "selector": "Continue"
+            },
+            {
+              "name": "for delete",
+              "type": "wait",
+              "value": 5000
+            },
+            {
+              "skip": true,
+              "name": "deleted",
+              "type": "snap"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
