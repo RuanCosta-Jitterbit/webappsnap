@@ -433,6 +433,24 @@
                             "name": "hover on",
                             "type": "move",
                             "locator": "getbytext",
+                            "selector": "API Groups"
+                        },
+                        {
+                            "name": "api manager api groups",
+                            "type": "snap",
+                            "options": {
+                                "clip": {
+                                    "x": 0,
+                                    "y": 0,
+                                    "width": 500,
+                                    "height": 463
+                                }
+                            }
+                        },
+                        {
+                            "name": "hover on",
+                            "type": "move",
+                            "locator": "getbytext",
                             "selector": "Portal Manager"
                         },
                         {
